@@ -17,10 +17,15 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
     //TurnManager
     private TurnManager m_TurnManager;
 
+    private void Awake()
+    {
+        m_TurnAnnouncementText = GetComponent<TextMeshProUGUI>();
+        m_TurnManager = FindObjectOfType<TurnManager>();
+    }
+
     private void Start()
     {
-        m_TurnAnnouncementText = GetComponent<TextMeshProUGUI>();   
-        m_TurnManager = FindObjectOfType<TurnManager>();
+        
     }
 
 

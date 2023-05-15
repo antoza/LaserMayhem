@@ -19,6 +19,10 @@ public class TurnManager : MonoBehaviour
     private float m_CurrentCooldown = 0;
     private bool m_CanSkipTurn = true;
 
+    [Header("Test Data")]
+    [SerializeField]
+    private PiecesData m_PiecesData;
+
     //Turn annoucement UI
     private UIPlayerTurnAnnouncement m_Announcement;
 
@@ -46,6 +50,7 @@ public class TurnManager : MonoBehaviour
         }
         StartCoroutine(SkipTurnCooldown());
         StartCoroutine(m_Announcement.TurnAnnouncementFade(m_SkipTurnCooldown));
+        Debug.Log(m_PiecesData.GetRandomPiece().name);
         
         m_CanSkipTurn = false;
     }
