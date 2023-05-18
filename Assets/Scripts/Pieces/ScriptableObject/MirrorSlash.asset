@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2978335838e06ca488b8a900151db580, type: 3}
   m_Name: MirrorSlash
   m_EditorClassIdentifier: 
+  m_Sprite: {fileID: 21300000, guid: ded58bb0396af814b8d1007936a8a248, type: 3}
