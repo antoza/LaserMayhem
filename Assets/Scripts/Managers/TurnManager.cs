@@ -26,10 +26,14 @@ public class TurnManager : MonoBehaviour
     //Turn annoucement UI
     private UIPlayerTurnAnnouncement m_Announcement;
 
+    //Piece Update UI
+    private UIPieceUpdate m_UIPieceUpdate;
+
 
     private void Start()
     {
        m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
+        m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
        SkipTurn(true);
 
     }
@@ -50,7 +54,7 @@ public class TurnManager : MonoBehaviour
         }
         StartCoroutine(SkipTurnCooldown());
         StartCoroutine(m_Announcement.TurnAnnouncementFade(m_SkipTurnCooldown));
-        Debug.Log(m_PiecesData.GetRandomPiece().name);
+        m_UIPieceUpdate.UpdatePieces();
         
         m_CanSkipTurn = false;
     }

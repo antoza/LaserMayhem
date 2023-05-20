@@ -123,6 +123,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &210655915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2170225997968122320, guid: af4af966949eb624a8891393484fe90a, type: 3}
+  m_PrefabInstance: {fileID: 2995213973074643576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &706169878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3376587784891277630, guid: af4af966949eb624a8891393484fe90a, type: 3}
+  m_PrefabInstance: {fileID: 2995213973074643576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &706169880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706169878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad0db101a9d8284785ba3e440818a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PiecesSelection:
+  - {fileID: 1412566841}
+  - {fileID: 1393249195}
+  - {fileID: 1268377570}
+  - {fileID: 210655915}
+  m_PiecesData: {fileID: 11400000, guid: 8dc7968a57fae8145b878994636aa9c7, type: 2}
 --- !u!1 &1063784247
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +235,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1268377570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7911521003814809268, guid: af4af966949eb624a8891393484fe90a, type: 3}
+  m_PrefabInstance: {fileID: 2995213973074643576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1393249195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 102996903281165989, guid: af4af966949eb624a8891393484fe90a, type: 3}
+  m_PrefabInstance: {fileID: 2995213973074643576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1412566841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4549177222949630583, guid: af4af966949eb624a8891393484fe90a, type: 3}
+  m_PrefabInstance: {fileID: 2995213973074643576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &91436704399363176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,6 +325,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 102996903281165989, guid: af4af966949eb624a8891393484fe90a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170225997968122320, guid: af4af966949eb624a8891393484fe90a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2995213973580693768, guid: af4af966949eb624a8891393484fe90a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -369,6 +420,14 @@ PrefabInstance:
     - target: {fileID: 2995213973580693780, guid: af4af966949eb624a8891393484fe90a, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549177222949630583, guid: af4af966949eb624a8891393484fe90a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911521003814809268, guid: af4af966949eb624a8891393484fe90a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

@@ -9,4 +9,9 @@ public abstract class Piece : ScriptableObject
     protected Sprite m_Sprite;
 
     public abstract (int, int)[] computeNewDirections((int, int) sourceDirection);
+
+    public Sprite GetSprite()
+    {
+        return m_Sprite;
+    }
 }
