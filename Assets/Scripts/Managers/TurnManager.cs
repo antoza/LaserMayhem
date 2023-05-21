@@ -6,18 +6,15 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-
-    [Header("Player Number")]
-    [SerializeField, Tooltip("Id of the current player, < m_PlayerNumber")]
-    private int m_CurrentIDPlayer = 0;
-    [SerializeField] 
-    private int m_PlayerNumber = 2;
+    private int m_TurnNumber = 0;
+    private DataManager m_DataManager;
+    private PlayersManager m_PlayersManager;
 
     [Header("Time Management")]
     [SerializeField]
     private float m_SkipTurnCooldown = 5;
     private float m_CurrentCooldown = 0;
-    private bool m_CanSkipTurn = true;
+    public bool m_CanSkipTurn { get; private set; } = true;
 
     [Header("Test Data")]
     [SerializeField]
@@ -32,26 +29,28 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-       m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
+        m_DataManager = FindObjectOfType<DataManager>();
+        m_PlayersManager = m_DataManager.PlayersManager;
+        m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
-       SkipTurn(true);
-
+        SkipTurn();
     }
-    public void TrySkipTurn()
+
+    public bool TrySkipTurn()
     {
         if (m_CanSkipTurn)
         {
-            SkipTurn(false);
+            SkipTurn();
+            return true;
         }
+        return false;
     }
 
 
-    private void SkipTurn(bool firstTurn)
+    private void SkipTurn()
     {
-        if (!firstTurn)
-        {
-            m_CurrentIDPlayer = (m_CurrentIDPlayer + 1) % m_PlayerNumber;
-        }
+        m_PlayersManager.CallNextPlayer(++m_TurnNumber);
+
         StartCoroutine(SkipTurnCooldown());
         StartCoroutine(m_Announcement.TurnAnnouncementFade(m_SkipTurnCooldown));
         m_UIPieceUpdate.UpdatePieces();
@@ -71,19 +70,4 @@ public class TurnManager : MonoBehaviour
 
         m_CanSkipTurn = true;
     }
-
-
-    //Getters && Setters
-
-    public int GetCurrentIDPlayer()
-    {
-        return m_CurrentIDPlayer;
-    }
-
-    public bool GetCanSkipTurn()
-    {
-        return m_CanSkipTurn;
-    }
-
-    
 }

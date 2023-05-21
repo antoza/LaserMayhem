@@ -3,38 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #nullable enable
-public class Board : MonoBehaviour
+[CreateAssetMenu]
+public class BoardManager : ScriptableObject
 {
-    [SerializeField] private int width = 7;
-    [SerializeField] private int height = 7;
-    [SerializeField] private Piece?[,] boardArray;
+    [SerializeField] public int width { get; private set; } = 7;
+    [SerializeField] public int height { get; private set; } = 7;
+    private Piece?[,] boardArray;
 
     void Start()
     {
         boardArray = new Piece?[width, height];
     }
 
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
-
-    public Piece? getPiece((int, int) tile)
+    public Piece? GetPiece((int, int) tile)
     {
         return boardArray[tile.Item1, tile.Item2];
     }
 
-    public bool isTileEmpty((int, int) tile)
+    public bool IsTileEmpty((int, int) tile)
     {
         return boardArray[tile.Item1, tile.Item2];
     }
 
-    public bool isOnBoard((int, int) tile)
+    public bool IsOnBoard((int, int) tile)
     {
         return tile.Item1 >= 0 && tile.Item1 <= width && tile.Item2 >= 0 && tile.Item2 <= height;
     }
 
-    public bool placeOnTile(Piece piece, (int, int) tile)
+    public bool PlaceOnTile(Piece piece, (int, int) tile)
     {
-        if (isTileEmpty(tile))
+        if (IsTileEmpty(tile))
         {
             boardArray[tile.Item1, tile.Item2] = piece;
             return true;
@@ -42,7 +40,7 @@ public class Board : MonoBehaviour
         return false;
     }
 
-    public Piece? emptyTile((int, int) tile)
+    public Piece? EmptyTile((int, int) tile)
     {
         Piece? placedPiece = boardArray[tile.Item1, tile.Item2];
         boardArray[tile.Item1, tile.Item2] = null;
