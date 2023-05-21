@@ -12,7 +12,7 @@ public class TurnManager : MonoBehaviour
 
     [Header("Time Management")]
     [SerializeField]
-    private float m_SkipTurnCooldown = 5;
+    private float m_SkipTurnCooldown;
     private float m_CurrentCooldown = 0;
     public bool m_CanSkipTurn { get; private set; } = true;
 
@@ -26,13 +26,17 @@ public class TurnManager : MonoBehaviour
     //Piece Update UI
     private UIPieceUpdate m_UIPieceUpdate;
 
-
-    private void Start()
+    void Awake()
     {
         m_DataManager = FindObjectOfType<DataManager>();
         m_PlayersManager = m_DataManager.PlayersManager;
+        m_SkipTurnCooldown = m_DataManager.Rules.SkipTurnCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
+    }
+
+    void Start()
+    {
         SkipTurn();
     }
 

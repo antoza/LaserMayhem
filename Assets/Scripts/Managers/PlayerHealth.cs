@@ -7,7 +7,7 @@ public class PlayerHealth : ScriptableObject
     private DataManager m_DataManager;
     public int m_health { get; private set; }
 
-    void Start()
+    void Awake()
     {
         m_DataManager = FindObjectOfType<DataManager>();
         m_health = m_DataManager.Rules.InitialHealth;

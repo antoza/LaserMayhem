@@ -7,7 +7,7 @@ public class PlayerData : MonoBehaviour
     public PlayerEconomy PlayerEconomy { get; private set; }
     public PlayerActions PlayerActions { get; private set; }
 
-    void Start()
+    void Awake()
     {
         DataManager = FindObjectOfType<DataManager>();
         PlayerHealth = new PlayerHealth();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #nullable enable
-[CreateAssetMenu]
 public class BoardManager : ScriptableObject
 {
     [SerializeField] public int width { get; private set; } = 7;

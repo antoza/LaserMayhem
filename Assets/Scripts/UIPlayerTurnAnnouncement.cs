@@ -20,13 +20,13 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
 
     private void Awake()
     {
+        m_DataManager = FindObjectOfType<DataManager>();
+        m_TurnManager = m_DataManager.TurnManager;
         m_TurnAnnouncementText = GetComponent<TextMeshProUGUI>();
-        m_TurnManager = FindObjectOfType<TurnManager>();
     }
 
     private void Start()
     {
-        m_DataManager = FindObjectOfType<DataManager>();
     }
 
 

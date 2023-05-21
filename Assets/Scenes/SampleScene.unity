@@ -272,6 +272,10 @@ PrefabInstance:
       propertyPath: m_PiecesData
       value: 
       objectReference: {fileID: 11400000, guid: 8dc7968a57fae8145b878994636aa9c7, type: 2}
+    - target: {fileID: 91436704723876718, guid: f94ed89cdacc6a54cad116f413114bda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 91436704402767011, guid: f94ed89cdacc6a54cad116f413114bda, type: 3}
@@ -421,4 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3af17b2ca981654aa8382e75222375a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <board>k__BackingField: {fileID: 11400000, guid: 28a45774022faad418662f91f684e57b, type: 2}
+  <Rules>k__BackingField: {fileID: 11400000, guid: f0ecb17931f85c544ab2292466dfb18f, type: 2}
+  <BoardManager>k__BackingField: {fileID: 0}
+  <LaserManager>k__BackingField: {fileID: 0}
+  <PlayersManager>k__BackingField: {fileID: 0}
+  <TurnManager>k__BackingField: {fileID: 0}

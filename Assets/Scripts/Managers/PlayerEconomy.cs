@@ -6,7 +6,7 @@ public class PlayerEconomy : ScriptableObject
     public int m_deletionCost { get; private set; }
     public int m_movingCost { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         m_mana = 0;
         m_deletionCost = 1;

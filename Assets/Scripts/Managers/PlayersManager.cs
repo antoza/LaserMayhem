@@ -9,7 +9,7 @@ public class PlayersManager : ScriptableObject
     public int m_CurrentPlayerID { get; private set; }
     private PlayerData[] m_PlayerList;
 
-    void Start()
+    void Awake()
     {
         m_DataManager = FindObjectOfType<DataManager>();
         m_NumberOfPlayers = m_DataManager.Rules.NumberOfPlayers;
