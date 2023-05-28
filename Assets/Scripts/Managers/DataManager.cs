@@ -20,6 +20,6 @@ public class DataManager : MonoBehaviour
         BoardManager = new BoardManager();
         LaserManager = new LaserManager();
         PlayersManager = new PlayersManager();
-        TurnManager = new TurnManager();
+        TurnManager = FindObjectOfType<TurnManager>();
     }
 }

@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerActions : MonoBehaviour
+public class PlayerActions : ScriptableObject
 {
     private PlayerData PlayerData;
     private bool m_CanPlay = false;
+
+    public PlayerActions(PlayerData playerData)
+    {
+        PlayerData = playerData;
+    }
 
     public void CallPlayer(int turnNumber)
     {

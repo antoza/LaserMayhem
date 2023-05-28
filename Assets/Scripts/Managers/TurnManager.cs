@@ -17,7 +17,6 @@ public class TurnManager : MonoBehaviour
     public bool m_CanSkipTurn { get; private set; } = true;
 
     [Header("Test Data")]
-    [SerializeField]
     private PiecesData m_PiecesData;
 
     //Turn annoucement UI
@@ -33,6 +32,7 @@ public class TurnManager : MonoBehaviour
         m_SkipTurnCooldown = m_DataManager.Rules.SkipTurnCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
+        m_PiecesData = FindObjectOfType<PiecesData>();
     }
 
     void Start()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+public class PlayerData : ScriptableObject
 {
     public DataManager DataManager { get; private set; }
     public PlayerHealth PlayerHealth { get; private set; }
@@ -12,6 +12,6 @@ public class PlayerData : MonoBehaviour
         DataManager = FindObjectOfType<DataManager>();
         PlayerHealth = new PlayerHealth();
         PlayerEconomy = new PlayerEconomy();
-        PlayerActions = new PlayerActions();
+        PlayerActions = new PlayerActions(this);
     }
 }
