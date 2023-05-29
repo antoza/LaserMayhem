@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 #nullable enable
 
@@ -12,6 +13,13 @@ public class LaserManager : ScriptableObject
     private (int, int) m_StartingSpot = (-1, 3);
     private (int, int) m_StartingDirection = (1, 0);
 
+    //Laser Objects
+    private GameObject m_LaserContainer;
+    private GameObject m_LaserShotTemplate;
+    private GameObject m_LaserPredictionTemplate;
+    private GameObject[] m_LaserShots = new GameObject[] { };
+    private GameObject[] m_LaserPredictions = new GameObject[] { };
+
     private bool[,,] m_LaserGrid;
 
     private void Start()
@@ -20,6 +28,74 @@ public class LaserManager : ScriptableObject
         m_Board = m_DataManager.BoardManager;
         m_LaserGrid = new bool[m_Board.width, m_Board.height, 4];
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SetLaserPositions();
+            DisplayLaserBeam();
+        }
+    }
+
+
+    private void SetLaserPositions()
+    {
+        (int, int)[][] lasersPositions = new (int, int)[][] { new (int, int)[] { m_StartingSpot } };
+        (int, int)[] lasersLastDirection = new (int, int)[] { m_StartingDirection };
+
+        int laserIndex = 0;
+
+        while(laserIndex < lasersPositions.Length)
+        {
+            (int, int) currentPosition = lasersPositions[laserIndex][0];
+            (int, int) currentDirection = lasersLastDirection[laserIndex];
+
+            while(currentPosition == m_StartingDirection || m_Board.IsOnBoard(currentPosition))
+            {
+                currentPosition.Item1 += currentDirection.Item1;
+                currentPosition.Item2 += currentDirection.Item2;
+
+                if (!m_Board.IsOnBoard(currentPosition))
+                {
+                    lasersPositions[laserIndex].Append(currentPosition); //Out of the board, end of this laser
+                    laserIndex++;
+                    break;
+                }
+
+                Piece? currentPiece = m_Board.GetPiece(currentPosition);
+                if (currentPiece != null)
+                {
+                    (int, int)[] newDirections = currentPiece.computeNewDirections(currentDirection);
+                    currentDirection = newDirections[0];
+                    lasersLastDirection[laserIndex] = currentDirection; //Useless, for correctness of the laserslastdirection array
+                    lasersPositions[laserIndex].Append(currentPosition);
+                    for (int i = 1; i < newDirections.Length; i++) 
+                    {
+                        lasersLastDirection.Append(newDirections[i]);
+                        lasersPositions.Append(new (int, int)[] { currentPosition });
+                    }
+                }
+
+            }
+        }
+        //m_LaserShotLineRenderer.SetPositions(positions);    
+    }
+
+    private void DisplayLaserBeam()
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     public IEnumerable<((int, int), (int, int))> CrossBoard()
     {
@@ -134,5 +210,10 @@ public class LaserManager : ScriptableObject
             default:
                 return (0, 0);
         }
+    }
+
+    private Vector3 TileCoordinateToVector3((int, int) tilePosition)
+    {
+        return new Vector3(tilePosition.Item1, tilePosition.Item2);
     }
 }
