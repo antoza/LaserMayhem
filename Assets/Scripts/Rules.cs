@@ -9,4 +9,14 @@ public class Rules : ScriptableObject
     public int InitialHealth { get; private set; } = 30;
     [field: SerializeField]
     public int SkipTurnCooldown { get; private set; } = 3;
+    [field: SerializeField]
+    public int BoardWidth { get; private set; } = 7;
+    [field: SerializeField]
+    public int BoardHeight { get; private set; } = 7;
+    [field: SerializeField]
+    public float BoardScaleWidth { get; private set; } = 3.5f;
+    [field: SerializeField]
+    public float BoardScaleHeight { get; private set; } = 3.5f;
+    [field: SerializeField]
+    public GameObject TilePrefab;
 }

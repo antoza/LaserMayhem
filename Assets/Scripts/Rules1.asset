@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: Rules1
   m_EditorClassIdentifier: 
   <NumberOfPlayers>k__BackingField: 2
+  <InitialHealth>k__BackingField: 30
+  <SkipTurnCooldown>k__BackingField: 3
+  <BoardWidth>k__BackingField: 7
+  <BoardHeight>k__BackingField: 7
+  <BoardScaleWidth>k__BackingField: 7
+  <BoardScaleHeight>k__BackingField: 7
+  TilePrefab: {fileID: 6825184554867001766, guid: 0842210d6d6e31942a168722fb31b183, type: 3}
