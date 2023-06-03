@@ -19,4 +19,4 @@ MonoBehaviour:
   <BoardHeight>k__BackingField: 7
   <BoardScaleWidth>k__BackingField: 7
   <BoardScaleHeight>k__BackingField: 7
-  TilePrefab: {fileID: 6825184554867001766, guid: 0842210d6d6e31942a168722fb31b183, type: 3}
+  TilePrefab: {fileID: 2229818402295595464, guid: 556276e8d96d65d499070d8c35617d08, type: 3}
