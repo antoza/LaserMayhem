@@ -90,4 +90,9 @@ public class BoardManager : ScriptableObject
 
         return boardTile;
     }
+
+    public (int, int) ConvertBoardCoordinateToWorldCoordinates((int, int) coord)
+    {
+        return (coord.Item1 - (width-1)/2, coord.Item2 - (height-1) / 2);
+    }
 }
