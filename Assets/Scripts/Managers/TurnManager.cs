@@ -27,16 +27,16 @@ public class TurnManager : MonoBehaviour
 
     void Awake()
     {
+    }
+
+    void Start()
+    {
         m_DataManager = FindObjectOfType<DataManager>();
         m_PlayersManager = m_DataManager.PlayersManager;
         m_SkipTurnCooldown = m_DataManager.Rules.SkipTurnCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
         m_PiecesData = FindObjectOfType<PiecesData>();
-    }
-
-    void Start()
-    {
         SkipTurn();
     }
 

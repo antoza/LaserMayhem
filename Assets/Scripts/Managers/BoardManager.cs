@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 #nullable enable
@@ -44,9 +45,11 @@ public class BoardManager : ScriptableObject
     {
         if (IsTileEmpty(tile))
         {
+            Debug.Log("oui");
             piecesArray[tile.Item1, tile.Item2] = piece;
             return true;
         }
+        Debug.Log("non");
         return false;
     }
 

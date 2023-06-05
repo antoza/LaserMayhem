@@ -7,7 +7,9 @@ public class DataManager : MonoBehaviour
     [field: SerializeField]
     public BoardManager BoardManager { get; private set; }
     public LaserManager LaserManager { get; private set; }
+    [field: SerializeField]
     public PlayersManager PlayersManager { get; private set; }
+    [field: SerializeField]
     public TurnManager TurnManager { get; private set; }
     public GameObject Board { get; private set; }
 

@@ -26,4 +26,9 @@ public class PlayersManager : ScriptableObject
         m_CurrentPlayerID = (m_CurrentPlayerID + 1) % m_NumberOfPlayers;
         m_PlayerList[m_CurrentPlayerID].PlayerActions.CallPlayer(turnNumber);
     }
+
+    public PlayerData GetCurrentPlayer()
+    {
+        return m_PlayerList[m_CurrentPlayerID];
+    }
 }

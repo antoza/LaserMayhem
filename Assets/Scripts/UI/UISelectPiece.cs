@@ -5,20 +5,25 @@ using UnityEngine.UI;
 
 public class UISelectPiece : MonoBehaviour
 {
+    private DataManager m_DataManager;
+
     [SerializeField]
     private int m_PieceID;
 
+    [SerializeField]
     private Piece m_Piece = null;
     private Image m_PieceImage;
 
 
     private void Awake()
     {
-        m_PieceImage = this.GetComponent<Image>();
+        m_DataManager = FindObjectOfType<DataManager>();
+        m_PieceImage = GetComponent<Image>();
     }
 
     public void OnClick()
     {
+        m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.m_SelectedPiece = m_Piece;
         this.gameObject.SetActive(false);
     }
 

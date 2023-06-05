@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BoardTile : MonoBehaviour
 {
-    public float x, y;
+    private DataManager m_DataManager;
+    public int x, y;
     public float positionX, positionY;
     public float scaleWidth, scaleHeight;
     // Start is called before the first frame update
     void Start()
     {
+        m_DataManager = FindObjectOfType<DataManager>();
         this.transform.position = Vector2.right * positionX + Vector2.up * positionY;
         this.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
         if ((x + y) % 2 == 0)
@@ -23,8 +25,11 @@ public class BoardTile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void OnMouseOver()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.ProcessTileClicked(x, y);
+        };
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class PlayerActions : ScriptableObject
 {
     private PlayerData PlayerData;
     private bool m_CanPlay = false;
+    public Piece m_SelectedPiece;
 
     public PlayerActions(PlayerData playerData)
     {
@@ -16,6 +18,7 @@ public class PlayerActions : ScriptableObject
     {
         PlayerData.PlayerEconomy.AddNewTurnMana(turnNumber);
         m_CanPlay = true;
+        m_SelectedPiece = null;
     }
 
     public bool EndTurn()
@@ -65,5 +68,15 @@ public class PlayerActions : ScriptableObject
             //}
         }
         return false;
+    }
+
+    internal void ProcessTileClicked(int x, int y)
+    {
+        Debug.Log(FindObjectOfType<DataManager>().BoardManager.GetPiece((x, y)));
+        if (m_SelectedPiece != null)
+        {
+            return;
+        }
+        PlacePiece(1, (x, y));
     }
 }
