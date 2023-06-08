@@ -18,7 +18,7 @@ public class laserPartTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            m_DataManager.LaserManager.PrintLaserPart();
+            m_DataManager.LaserManager.PrintLaserPart(false);
         }
     }
 }

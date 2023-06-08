@@ -267,9 +267,13 @@ PrefabInstance:
       propertyPath: m_PiecesData
       value: 
       objectReference: {fileID: 11400000, guid: 8dc7968a57fae8145b878994636aa9c7, type: 2}
+    - target: {fileID: 91436704723876704, guid: f94ed89cdacc6a54cad116f413114bda, type: 3}
+      propertyPath: m_LaserCooldown
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 91436704723876718, guid: f94ed89cdacc6a54cad116f413114bda, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

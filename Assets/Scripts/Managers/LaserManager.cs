@@ -11,8 +11,9 @@ public class LaserManager : ScriptableObject
 	private BoardManager m_BoardManager;
 
 	private GameObject m_LaserVisualTemplate;
+	private GameObject m_LaserVisualPredictionTemplate;
 	private GameObject m_LaserContainer;
-	private GameObject[] m_LaserVisualHolder = new GameObject[] { };
+	private List<GameObject> m_LaserVisualHolder = new List<GameObject>() { };
 
 	private (int, int) m_StartingSpot = (3, -1);
 	private (int, int) m_StartingDirection = (0, 1);
@@ -27,7 +28,8 @@ public class LaserManager : ScriptableObject
     public LaserManager()
 	{
 		m_LaserVisualTemplate = GameObject.FindGameObjectWithTag("LaserVisual");
-		m_DataManager = FindObjectOfType<DataManager>();
+		m_LaserVisualPredictionTemplate = GameObject.FindGameObjectWithTag("LaserPredictionVisual");
+        m_DataManager = FindObjectOfType<DataManager>();
 		m_BoardManager = m_DataManager.BoardManager;
 		m_LaserContainer = GameObject.FindGameObjectWithTag("LaserContainer");
 	}
@@ -44,14 +46,23 @@ public class LaserManager : ScriptableObject
 		m_LaserGrid = new bool[m_BoardManager.width, m_BoardManager.height, 4];
 	}
 
-	public void PrintLaserPart()
+	public void PrintLaserPart(bool prediction)
 	{
 		CrossBoard();
 
-        //Set the laser initial part
-        GameObject laserPart = Instantiate(m_LaserVisualTemplate);
+		//Set the laser initial part
+		GameObject laserPart;
+		if (prediction)
+		{
+            laserPart = Instantiate(m_LaserVisualPredictionTemplate);
+		}
+		else
+		{
+            laserPart = Instantiate(m_LaserVisualTemplate);
+        }
+        
         TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
-        m_LaserVisualHolder.Append(laserPart);
+		m_LaserVisualHolder.Add(laserPart);
         laserPart.transform.SetParent(m_LaserContainer.transform);
         (int, int) worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
         laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord.Item2 + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
@@ -65,9 +76,16 @@ public class LaserManager : ScriptableObject
 				{
 					if (m_LaserGrid[x, y, dir])
 					{
-						laserPart = Instantiate(m_LaserVisualTemplate);
+                        if (prediction)
+                        {
+                            laserPart = Instantiate(m_LaserVisualPredictionTemplate);
+                        }
+                        else
+                        {
+                            laserPart = Instantiate(m_LaserVisualTemplate);
+                        }
                         TurnLaser(IntToDirection(dir), (x, y), laserPart);
-                        m_LaserVisualHolder.Append(laserPart);
+                        m_LaserVisualHolder.Add(laserPart);
                         laserPart.transform.SetParent(m_LaserContainer.transform);
 						worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates((x, y));
                         laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[dir,0], worldCoord.Item2 + m_Offset[dir, 1], 0);
@@ -76,6 +94,14 @@ public class LaserManager : ScriptableObject
                     }
                 }
 			}
+		}
+	}
+
+	public void DestroyLaserPart()
+	{
+		foreach(GameObject laserPart in m_LaserVisualHolder)
+		{
+			Destroy(laserPart);
 		}
 	}
 

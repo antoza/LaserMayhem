@@ -14,6 +14,6 @@ public class UISkipTurnButton : MonoBehaviour
 
     public void OnClick()
     {
-        TurnManager.TrySkipTurn();
+        TurnManager.TrySkipTurn(false);
     }
 }

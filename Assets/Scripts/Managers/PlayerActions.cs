@@ -23,7 +23,7 @@ public class PlayerActions : ScriptableObject
 
     public bool EndTurn()
     {
-        if (PlayerData.DataManager.TurnManager.TrySkipTurn())
+        if (PlayerData.DataManager.TurnManager.TrySkipTurn(false))
         {
             m_CanPlay = false;
             return true;
