@@ -10,6 +10,8 @@ public class Rules : ScriptableObject
     [field: SerializeField]
     public int SkipTurnCooldown { get; private set; } = 3;
     [field: SerializeField]
+    public int LaserCooldown { get; private set; } = 3;
+    [field: SerializeField]
     public int BoardWidth { get; private set; } = 7;
     [field: SerializeField]
     public int BoardHeight { get; private set; } = 7;
