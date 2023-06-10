@@ -12,7 +12,7 @@ public class BoardManager : ScriptableObject
     public float scaleWidth { get; private set; }
     public float scaleHeight { get; private set; }
     private Piece?[,] piecesArray;
-    private BoardTile?[,] tilesArray;
+    private BoardTile[,] tilesArray;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class BoardManager : ScriptableObject
         scaleWidth = m_DataManager.Rules.BoardScaleWidth;
         scaleHeight = m_DataManager.Rules.BoardScaleHeight;
         piecesArray = new Piece?[width, height];
-        tilesArray = new BoardTile?[width, height];
+        tilesArray = new BoardTile[width, height];
         GenerateAllTiles();
     }
 
@@ -33,7 +33,7 @@ public class BoardManager : ScriptableObject
 
     public bool IsTileEmpty((int, int) tile)
     {
-        return piecesArray[tile.Item1, tile.Item2];
+        return !piecesArray[tile.Item1, tile.Item2];
     }
 
     public bool IsOnBoard((int, int) tile)
@@ -43,13 +43,14 @@ public class BoardManager : ScriptableObject
 
     public bool PlaceOnTile(Piece piece, (int, int) tile)
     {
+        Debug.Log("a1");
         if (IsTileEmpty(tile))
         {
-            Debug.Log("oui");
+            Debug.Log("a2");
             piecesArray[tile.Item1, tile.Item2] = piece;
+            tilesArray[tile.Item1, tile.Item2].UpdatePiece(piece.m_Prefab);
             return true;
         }
-        Debug.Log("non");
         return false;
     }
 

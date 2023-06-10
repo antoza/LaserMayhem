@@ -35,9 +35,11 @@ public class PlayerActions : ScriptableObject
     {
         if (!m_CanPlay) return false;
         Piece selectedPiece = new MirrorSlash(); // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_piece
-        int pieceCost = 1; // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
+        int pieceCost = -1; // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
+        Debug.Log("b1");
         if (PlayerData.PlayerEconomy.PayForPlacement(pieceCost))
         {
+            Debug.Log("b2");
             PlayerData.DataManager.BoardManager.PlaceOnTile(selectedPiece, selectedSpot);
             return true;
         }
@@ -73,10 +75,11 @@ public class PlayerActions : ScriptableObject
     internal void ProcessTileClicked(int x, int y)
     {
         Debug.Log(FindObjectOfType<DataManager>().BoardManager.GetPiece((x, y)));
-        if (m_SelectedPiece != null)
+        if (m_SelectedPiece == null)
         {
             return;
         }
+        Debug.Log("c1");
         PlacePiece(1, (x, y));
     }
 }
