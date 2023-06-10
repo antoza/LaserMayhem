@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private float m_LaserCooldown;
     private float m_CurrentCooldown = 0;
-    public bool m_CanSkipTurn { get; private set; } = true;
+    public bool m_CanSkipTurn { get; set; } = true;
 
 
     [Header("Test Data")]
@@ -27,6 +27,7 @@ public class TurnManager : MonoBehaviour
 
     //Piece Update UI
     private UIPieceUpdate m_UIPieceUpdate;
+    private UISkipTurnButton m_TurnButton;
 
     void Awake()
     {
@@ -40,6 +41,7 @@ public class TurnManager : MonoBehaviour
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
         m_PiecesData = FindObjectOfType<PiecesData>();
+        m_TurnButton = FindObjectOfType<UISkipTurnButton>();
         SkipTurn(true);
     }
 
@@ -59,31 +61,11 @@ public class TurnManager : MonoBehaviour
         EndOfTurn(firstTurn);
     }
 
-
-    private IEnumerator Cooldown(float cooldown, bool laser)
-    {
-        m_CurrentCooldown = cooldown;
-        while (m_CurrentCooldown > 0)
-        {
-            m_CurrentCooldown -= Time.deltaTime;
-            yield return null;
-        }
-        if (laser)
-        {
-            EndOfLaser(false);
-        }
-        else
-        {
-            m_CanSkipTurn = true;
-        }
-        
-    }
-
-    private void EndOfTurn(bool firstTurn)
+    public void EndOfTurn(bool firstTurn)
     {
         if (!firstTurn)
         {
-            StartCoroutine(Cooldown(m_LaserCooldown, true));
+            StartCoroutine(m_TurnButton.Cooldown(m_LaserCooldown, true));
             m_DataManager.LaserManager.DestroyLaserPart();
             m_DataManager.LaserManager.PrintLaserPart(false);
         }
@@ -94,14 +76,14 @@ public class TurnManager : MonoBehaviour
         
 
     }
-    private void EndOfLaser(bool firstTurn)
+    public void EndOfLaser(bool firstTurn)
     {
         
         if (!firstTurn)
         {
             m_PlayersManager.CallNextPlayer(++m_TurnNumber);
         }
-        StartCoroutine(Cooldown(m_SkipTurnCooldown, false));
+        StartCoroutine(m_TurnButton.Cooldown(m_SkipTurnCooldown, false));
 
         StartCoroutine(m_Announcement.TurnAnnouncementFade(m_SkipTurnCooldown));
         m_UIPieceUpdate.UpdatePieces();
