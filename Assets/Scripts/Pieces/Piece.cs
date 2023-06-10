@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public abstract class Piece : ScriptableObject
+public abstract class Piece : MonoBehaviour
 {
-    [field : SerializeField]
+    [field: SerializeField]
     protected Sprite m_Sprite;
-    [field : SerializeField]
-    public GameObject m_Prefab { get; private set; }
+    private DataManager m_DataManager;
+
+    void Start()
+    {
+        m_DataManager = FindObjectOfType<DataManager>();
+    }
 
     public abstract (int, int)[] ComputeNewDirections((int, int) sourceDirection);
+
+    void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.m_SelectedPiece = this;
+        }
+    }
 
     public Sprite GetSprite()
     {

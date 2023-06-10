@@ -11,7 +11,6 @@ public class BoardManager : ScriptableObject
     public int height { get; private set; }
     public float scaleWidth { get; private set; }
     public float scaleHeight { get; private set; }
-    private Piece?[,] piecesArray;
     private BoardTile[,] tilesArray;
 
     private void Awake()
@@ -21,19 +20,13 @@ public class BoardManager : ScriptableObject
         height = m_DataManager.Rules.BoardHeight;
         scaleWidth = m_DataManager.Rules.BoardScaleWidth;
         scaleHeight = m_DataManager.Rules.BoardScaleHeight;
-        piecesArray = new Piece?[width, height];
         tilesArray = new BoardTile[width, height];
         GenerateAllTiles();
     }
 
     public Piece? GetPiece((int, int) tile)
     {
-        return piecesArray[tile.Item1, tile.Item2];
-    }
-
-    public bool IsTileEmpty((int, int) tile)
-    {
-        return !piecesArray[tile.Item1, tile.Item2];
+        return tilesArray[tile.Item1, tile.Item2].m_Piece;
     }
 
     public bool IsOnBoard((int, int) tile)
@@ -43,12 +36,9 @@ public class BoardManager : ScriptableObject
 
     public bool PlaceOnTile(Piece piece, (int, int) tile)
     {
-        Debug.Log("a1");
-        if (IsTileEmpty(tile))
+        if (!GetPiece(tile))
         {
-            Debug.Log("a2");
-            piecesArray[tile.Item1, tile.Item2] = piece;
-            tilesArray[tile.Item1, tile.Item2].UpdatePiece(piece.m_Prefab);
+            tilesArray[tile.Item1, tile.Item2].UpdatePiece(piece);
             return true;
         }
         return false;
@@ -56,8 +46,8 @@ public class BoardManager : ScriptableObject
 
     public Piece? EmptyTile((int, int) tile)
     {
-        Piece? placedPiece = piecesArray[tile.Item1, tile.Item2];
-        piecesArray[tile.Item1, tile.Item2] = null;
+        Piece? placedPiece = tilesArray[tile.Item1, tile.Item2].m_Piece;
+        tilesArray[tile.Item1, tile.Item2].UpdatePiece(null);
         return placedPiece;
     }
 

@@ -9,7 +9,7 @@ public class BoardTile : MonoBehaviour
     public int x, y;
     public float positionX, positionY;
     public float scaleWidth, scaleHeight;
-    public GameObject? piecePrefab { get; private set; }
+    public Piece? m_Piece { get; private set; }
 
     void Start()
     {
@@ -30,25 +30,25 @@ public class BoardTile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.ProcessTileClicked(x, y);
+            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.ProcessTileClicked((x, y));
         };
     }
 
-    public void UpdatePiece(GameObject? prefab)
+    public void UpdatePiece(Piece? piece)
     {
-        Debug.Log("tozr");
-        if (prefab)
+        Destroy(m_Piece);
+        if (piece)
         {
-            Debug.Log("tozr2");
-            piecePrefab = Instantiate(prefab!);
-            piecePrefab.transform.SetParent(this.transform);
+            GameObject newPieceGameObject = Instantiate(piece!.gameObject);
+            m_Piece = newPieceGameObject.GetComponent<Piece>();
+            m_Piece.transform.SetParent(this.transform);
             //piecePrefab.name = "Piece_" + x + "_" + y;
-            piecePrefab.transform.position = Vector2.right * positionX + Vector2.up * positionY;
-            piecePrefab.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
+            m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
+            m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
         }
         else
         {
-            piecePrefab = null;
+            m_Piece = null;
         }
     }
 }
