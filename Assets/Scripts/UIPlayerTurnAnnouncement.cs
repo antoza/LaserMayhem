@@ -25,10 +25,6 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
         m_TurnAnnouncementText = GetComponent<TextMeshProUGUI>();
     }
 
-    private void Start()
-    {
-    }
-
 
     public IEnumerator TurnAnnouncementFade(float duration)
     {
@@ -45,5 +41,10 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
             m_TurnAnnouncementText.color = c;
             yield return null;
         }
+    }
+
+    public void StartCoRoutineTurnAnnouncementFadeFromScritpable(float duration)
+    {
+        StartCoroutine(TurnAnnouncementFade(duration));
     }
 }

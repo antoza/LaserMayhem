@@ -5,23 +5,15 @@ using UnityEngine.UI;
 
 public class UISkipTurnButton : MonoBehaviour
 {
-    private TurnManager TurnManager;
-    private DataManager DataManager;
+    public TurnManager TurnManager;
 
     private float m_CurrentCooldown;
     Button m_TurnButton;
 
     private void Awake()
     {
-        DataManager = FindObjectOfType<DataManager>();
         m_TurnButton = GetComponent<Button>();
     }
-
-    private void Start()
-    {
-        TurnManager = DataManager.TurnManager;
-    }
-
 
     public void OnClick()
     {
@@ -48,5 +40,10 @@ public class UISkipTurnButton : MonoBehaviour
         }
 
         
+    }
+
+    public void StartCoRoutineCooldownFromScriptable(float cooldown, bool laser)
+    {
+        StartCoroutine(Cooldown(cooldown, laser));
     }
 }

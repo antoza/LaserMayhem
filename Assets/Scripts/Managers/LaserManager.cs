@@ -25,19 +25,12 @@ public class LaserManager : ScriptableObject
 
     private float[,] m_Offset = { { 0.5f, 0f, 0f }, { -0.5f, 0f, 180f }, {0f, 0.5f, 90f }, { 0f, -0.5f, 270f } };
 
-    public LaserManager()
-	{
-		m_LaserVisualTemplate = GameObject.FindGameObjectWithTag("LaserVisual");
-		m_LaserVisualPredictionTemplate = GameObject.FindGameObjectWithTag("LaserPredictionVisual");
-        m_DataManager = FindObjectOfType<DataManager>();
-		m_BoardManager = m_DataManager.BoardManager;
-		m_LaserContainer = GameObject.FindGameObjectWithTag("LaserContainer");
-	}
-	public LaserManager(DataManager dataManager, BoardManager boardManager, GameObject laserVisualTemplate, GameObject laserContainer)
+	public LaserManager(DataManager dataManager, BoardManager boardManager, GameObject laserVisualTemplate, GameObject laserPredictionVisualTemplate, GameObject laserContainer)
 	{
 		m_DataManager = dataManager;
 		m_BoardManager = boardManager;
 		m_LaserVisualTemplate = laserVisualTemplate;
+		m_LaserVisualPredictionTemplate = laserPredictionVisualTemplate;
 		m_LaserContainer = laserContainer;
     }
 

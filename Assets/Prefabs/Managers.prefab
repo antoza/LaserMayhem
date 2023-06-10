@@ -46,9 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Rules>k__BackingField: {fileID: 11400000, guid: f0ecb17931f85c544ab2292466dfb18f, type: 2}
   <BoardManager>k__BackingField: {fileID: 0}
-  <LaserManager>k__BackingField: {fileID: 0}
   <PlayersManager>k__BackingField: {fileID: 0}
   <TurnManager>k__BackingField: {fileID: 0}
+  <LaserTemplate>k__BackingField: {fileID: 8791000958007595982, guid: 28a29e24118479347b0a86855e3e5563, type: 3}
+  <LaserPredictionTemplate>k__BackingField: {fileID: 1587343247428712523, guid: 422a323afadeac844b6350373e165999, type: 3}
+  <LaserContainer>k__BackingField: {fileID: 0}
+  <LaserCooldown>k__BackingField: 3
+  <skipTurnCooldown>k__BackingField: 3
 --- !u!1 &91436704402767010
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,52 +82,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1926399450}
-  - {fileID: 91436704723876719}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &91436704723876718
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 91436704723876719}
-  - component: {fileID: 91436704723876704}
-  m_Layer: 0
-  m_Name: TurnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &91436704723876719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91436704723876718}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 91436704402767011}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &91436704723876704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91436704723876718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a398c28aff1e0c9449e064a646b4a142, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SkipTurnCooldown: 3
