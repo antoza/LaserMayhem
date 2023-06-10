@@ -136,7 +136,7 @@ public class LaserManager : ScriptableObject
             Piece? pieceCrossed = m_BoardManager.GetPiece(newSpot);
             if (pieceCrossed)
             {
-                foreach ((int, int) newDirection in pieceCrossed!.computeNewDirections(direction))
+                foreach ((int, int) newDirection in pieceCrossed!.ComputeNewDirections(direction))
                 {
                     if (!IsBeamDisplayed(spot, direction))
                     {

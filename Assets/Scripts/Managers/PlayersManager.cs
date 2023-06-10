@@ -13,7 +13,7 @@ public class PlayersManager : ScriptableObject
     {
         m_DataManager = FindObjectOfType<DataManager>();
         m_NumberOfPlayers = m_DataManager.Rules.NumberOfPlayers;
-        m_CurrentPlayerID = m_NumberOfPlayers;
+        m_CurrentPlayerID = m_NumberOfPlayers - 1;
         m_PlayerList = new PlayerData[m_NumberOfPlayers];
         for (int i = 0; i < m_NumberOfPlayers; i++)
         {
