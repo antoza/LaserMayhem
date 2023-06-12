@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#nullable enable
 public abstract class Piece : MonoBehaviour
 {
     [field: SerializeField]
     protected Sprite m_Sprite;
     private DataManager m_DataManager;
+    public BoardTile? parentTile;
 
     void Start()
     {

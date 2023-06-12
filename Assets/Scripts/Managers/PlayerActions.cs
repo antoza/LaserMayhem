@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#nullable enable
 public class PlayerActions : ScriptableObject
 {
     private PlayerData PlayerData;
     private bool m_CanPlay = false;
-    public Piece m_SelectedPiece;
+    public Piece? m_SelectedPiece;
 
     public PlayerActions(PlayerData playerData)
     {
         PlayerData = playerData;
     }
 
-    public void CallPlayer(int turnNumber)
+    public void StartTurn(int turnNumber)
     {
         PlayerData.PlayerEconomy.AddNewTurnMana(turnNumber);
         m_CanPlay = true;
@@ -60,9 +61,14 @@ public class PlayerActions : ScriptableObject
         {
             //if (DataManager.Rules.IsMovementAllowed())
             //{
-                Piece movedPiece = PlayerData.DataManager.BoardManager.EmptyTile(sourceSpot);
-                PlayerData.DataManager.BoardManager.PlaceOnTile(movedPiece, sourceSpot);
-                return true;
+                Piece? movedPiece = PlayerData.DataManager.BoardManager.GetPiece(sourceSpot);
+                bool isDestinationOccupied = PlayerData.DataManager.BoardManager.GetPiece(destinationSpot);
+                if (movedPiece && !isDestinationOccupied)
+                {
+                    PlayerData.DataManager.BoardManager.PlaceOnTile(movedPiece!, destinationSpot);
+                    PlayerData.DataManager.BoardManager.EmptyTile(sourceSpot);
+                    return true;
+                }
             //}
         }
         return false;
@@ -70,14 +76,29 @@ public class PlayerActions : ScriptableObject
 
     public void ProcessTileClicked((int, int) spot)
     {
-        Debug.Log(FindObjectOfType<DataManager>().BoardManager.GetPiece(spot));
         if (m_SelectedPiece == null)
         {
             return;
         }
-        if (PlacePiece(1, spot))
-        {
-            m_SelectedPiece = null;
+        else {
+
+            Debug.Log(m_SelectedPiece!.name);
         }
+        if (m_SelectedPiece!.parentTile == null)
+        {
+            if (PlacePiece(1, spot))
+            {
+                m_SelectedPiece = null;
+            }
+        }
+        else
+        {
+            if (MovePiece((m_SelectedPiece.parentTile.x, m_SelectedPiece.parentTile.y), spot))
+            { // CHANGER : faire en sorte que Piece ne soit plus cliquable, mais seulement les BoardTile le sont. Ajouter des tiles à gauche du board pour les pièces hors jeu
+                Debug.Log("oui");
+                m_SelectedPiece = null;
+            }
+        }
+
     }
 }

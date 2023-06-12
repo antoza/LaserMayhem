@@ -73,21 +73,17 @@ public class TurnManager : ScriptableObject
         }
         else
         {
-            EndOfLaser(firstTurn);
+            EndOfLaser();
         }
         
 
     }
-    public void EndOfLaser(bool firstTurn)
+    public void EndOfLaser()
     {
-        
-        if (!firstTurn)
-        {
-            m_PlayersManager.CallNextPlayer(++m_TurnNumber);
-        }
+        m_PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
         m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, false);
 
-        m_Announcement.StartCoRoutineTurnAnnouncementFadeFromScritpable(m_SkipTurnCooldown);
+        m_Announcement.StartCoRoutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
         m_UIPieceUpdate.UpdatePieces();
         m_DataManager.LaserManager.DestroyLaserPart();
         m_DataManager.LaserManager.PrintLaserPart(true);

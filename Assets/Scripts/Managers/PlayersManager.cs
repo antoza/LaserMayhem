@@ -21,10 +21,15 @@ public class PlayersManager : ScriptableObject
         }
     }
 
-    public void CallNextPlayer(int turnNumber)
+    public void StartNextPlayerTurn(int turnNumber)
     {
         m_CurrentPlayerID = (m_CurrentPlayerID + 1) % m_NumberOfPlayers;
-        m_PlayerList[m_CurrentPlayerID].PlayerActions.CallPlayer(turnNumber);
+        m_PlayerList[m_CurrentPlayerID].PlayerActions.StartTurn(turnNumber);
+    }
+
+    public void EndCurrentPlayerTurn()
+    {
+        m_PlayerList[m_CurrentPlayerID].PlayerActions.EndTurn();
     }
 
     public PlayerData GetCurrentPlayer()

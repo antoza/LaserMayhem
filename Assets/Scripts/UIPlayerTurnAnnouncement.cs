@@ -43,7 +43,7 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
         }
     }
 
-    public void StartCoRoutineTurnAnnouncementFadeFromScritpable(float duration)
+    public void StartCoRoutineTurnAnnouncementFadeFromScriptable(float duration)
     {
         StartCoroutine(TurnAnnouncementFade(duration));
     }

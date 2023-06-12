@@ -36,15 +36,19 @@ public class BoardTile : MonoBehaviour
 
     public void UpdatePiece(Piece? piece)
     {
-        Destroy(m_Piece);
+        if (m_Piece)
+        {
+            Destroy(m_Piece!.gameObject);
+        }
         if (piece)
         {
             GameObject newPieceGameObject = Instantiate(piece!.gameObject);
             m_Piece = newPieceGameObject.GetComponent<Piece>();
             m_Piece.transform.SetParent(this.transform);
-            //piecePrefab.name = "Piece_" + x + "_" + y;
+            m_Piece.name = "Piece_" + x + "_" + y;
             m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
             m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
+            m_Piece.parentTile = this;
         }
         else
         {
