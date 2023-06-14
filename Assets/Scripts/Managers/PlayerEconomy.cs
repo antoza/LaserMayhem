@@ -9,8 +9,8 @@ public class PlayerEconomy : ScriptableObject
     private void Awake()
     {
         m_mana = 0;
-        m_deletionCost = 1;
-        m_movingCost = 1;
+        m_deletionCost = 0;
+        m_movingCost = 0;
     }
 
     public void AddNewTurnMana(int turnNumber)

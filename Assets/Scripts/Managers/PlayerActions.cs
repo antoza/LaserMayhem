@@ -80,10 +80,6 @@ public class PlayerActions : ScriptableObject
         {
             return;
         }
-        else {
-
-            Debug.Log(m_SelectedPiece!.name);
-        }
         if (m_SelectedPiece!.parentTile == null)
         {
             if (PlacePiece(1, spot))
@@ -95,7 +91,6 @@ public class PlayerActions : ScriptableObject
         {
             if (MovePiece((m_SelectedPiece.parentTile.x, m_SelectedPiece.parentTile.y), spot))
             { // CHANGER : faire en sorte que Piece ne soit plus cliquable, mais seulement les BoardTile le sont. Ajouter des tiles à gauche du board pour les pièces hors jeu
-                Debug.Log("oui");
                 m_SelectedPiece = null;
             }
         }
