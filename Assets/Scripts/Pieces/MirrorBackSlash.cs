@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class MirrorBackSlash : Piece
 {
     public override (int, int)[] ComputeNewDirections((int, int) sourceDirection)

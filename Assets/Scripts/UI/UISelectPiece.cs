@@ -21,11 +21,11 @@ public class UISelectPiece : MonoBehaviour
         m_PieceImage = GetComponent<Image>();
     }
 
-    public void OnClick()
+    /*public void OnClick()
     {
-        m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.m_SelectedPiece = m_Piece;
+        m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.m_SourceTile = m_Piece;
         this.gameObject.SetActive(false);
-    }
+    }*/
 
     public void UpdatePiece(Piece newPiece)
     {

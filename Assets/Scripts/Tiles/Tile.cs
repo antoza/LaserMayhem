@@ -3,34 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #nullable enable
-public class BoardTile : MonoBehaviour
+public abstract class Tile : MonoBehaviour
 {
-    private DataManager m_DataManager;
-    public int x, y;
+    protected DataManager m_DataManager;
     public float positionX, positionY;
     public float scaleWidth, scaleHeight;
+    [field: SerializeField]
+    private Piece? m_startingPiece;
     public Piece? m_Piece { get; private set; }
 
     void Start()
     {
         m_DataManager = FindObjectOfType<DataManager>();
-        this.transform.position = Vector2.right * positionX + Vector2.up * positionY;
-        this.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
-        if ((x + y) % 2 == 0)
-        {
-            this.GetComponent<SpriteRenderer>().color = Color.black;
-        }
-        else
-        {
-            this.GetComponent<SpriteRenderer>().color = Color.grey;
-        }
+        transform.position = Vector2.right * positionX + Vector2.up * positionY;
+        transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
+        setColor();
+        UpdatePiece(m_startingPiece);
     }
+
+    public abstract void setColor();
 
     void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.ProcessTileClicked((x, y));
+            if (m_Piece) m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.SetSourceTile(this);
+        };
+        if (Input.GetMouseButtonUp(0))
+        {
+            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.MoveToDestinationTile(this);
         };
     }
 
@@ -44,8 +45,8 @@ public class BoardTile : MonoBehaviour
         {
             GameObject newPieceGameObject = Instantiate(piece!.gameObject);
             m_Piece = newPieceGameObject.GetComponent<Piece>();
-            m_Piece.transform.SetParent(this.transform);
-            m_Piece.name = "Piece_" + x + "_" + y;
+            m_Piece.transform.SetParent(transform);
+            m_Piece.name = transform.name + "'s_Piece";
             m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
             m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
             m_Piece.parentTile = this;

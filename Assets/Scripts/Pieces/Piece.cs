@@ -8,7 +8,7 @@ public abstract class Piece : MonoBehaviour
     [field: SerializeField]
     protected Sprite m_Sprite;
     private DataManager m_DataManager;
-    public BoardTile? parentTile;
+    public Tile? parentTile;
 
     void Start()
     {
@@ -16,14 +16,6 @@ public abstract class Piece : MonoBehaviour
     }
 
     public abstract (int, int)[] ComputeNewDirections((int, int) sourceDirection);
-
-    void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.m_SelectedPiece = this;
-        }
-    }
 
     public Sprite GetSprite()
     {

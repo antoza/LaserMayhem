@@ -28,12 +28,12 @@ public class BoardManager : ScriptableObject
     {
         return tilesArray[tile.Item1, tile.Item2].m_Piece;
     }
-
+    
     public bool IsOnBoard((int, int) tile)
     {
         return tile.Item1 >= 0 && tile.Item1 < width && tile.Item2 >= 0 && tile.Item2 < height;
     }
-
+    /*
     public bool PlaceOnTile(Piece piece, (int, int) tile)
     {
         if (!GetPiece(tile))
@@ -49,7 +49,7 @@ public class BoardManager : ScriptableObject
         Piece? placedPiece = tilesArray[tile.Item1, tile.Item2].m_Piece;
         tilesArray[tile.Item1, tile.Item2].UpdatePiece(null);
         return placedPiece;
-    }
+    }*/
 
 
     private void GenerateAllTiles()

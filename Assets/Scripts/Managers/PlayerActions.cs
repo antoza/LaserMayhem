@@ -1,3 +1,4 @@
+using Mono.CompilerServices.SymbolWriter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ public class PlayerActions : ScriptableObject
 {
     private PlayerData PlayerData;
     private bool m_CanPlay = false;
-    public Piece? m_SelectedPiece;
+    public Tile? m_SourceTile;
 
     public PlayerActions(PlayerData playerData)
     {
@@ -19,7 +20,7 @@ public class PlayerActions : ScriptableObject
     {
         PlayerData.PlayerEconomy.AddNewTurnMana(turnNumber);
         m_CanPlay = true;
-        m_SelectedPiece = null;
+        m_SourceTile = null;
     }
 
     public bool EndTurn()
@@ -32,67 +33,81 @@ public class PlayerActions : ScriptableObject
         return false;
     }
 
-    public bool PlacePiece(int pieceNumber, (int, int) selectedSpot)
+    public bool PlacePiece(Tile sourceTile, BoardTile destinationTile)
     {
         if (!m_CanPlay) return false;
         int pieceCost = -1; // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
+        Piece? copiedPiece = sourceTile.m_Piece;
+        if (!copiedPiece) return false;
+        if (destinationTile.m_Piece) return false;
         if (PlayerData.PlayerEconomy.PayForPlacement(pieceCost))
         {
-            return PlayerData.DataManager.BoardManager.PlaceOnTile(m_SelectedPiece, selectedSpot);
-        }
-        return false;
-    }
-
-    public bool DeletePiece((int, int) selectedSpot)
-    {
-        if (!m_CanPlay) return false;
-        if (PlayerData.PlayerEconomy.PayForDeletion())
-        {
-            PlayerData.DataManager.BoardManager.EmptyTile(selectedSpot);
+            destinationTile.UpdatePiece(copiedPiece!);
             return true;
         }
         return false;
     }
 
-    public bool MovePiece((int, int) sourceSpot, (int, int) destinationSpot)
+    public bool DeletePiece(BoardTile tile)
     {
         if (!m_CanPlay) return false;
-        if (PlayerData.PlayerEconomy.PayForMovement())
+        if (!tile.m_Piece) return false;
+        if (PlayerData.PlayerEconomy.PayForDeletion())
         {
-            //if (DataManager.Rules.IsMovementAllowed())
-            //{
-                Piece? movedPiece = PlayerData.DataManager.BoardManager.GetPiece(sourceSpot);
-                bool isDestinationOccupied = PlayerData.DataManager.BoardManager.GetPiece(destinationSpot);
-                if (movedPiece && !isDestinationOccupied)
-                {
-                    PlayerData.DataManager.BoardManager.PlaceOnTile(movedPiece!, destinationSpot);
-                    PlayerData.DataManager.BoardManager.EmptyTile(sourceSpot);
-                    return true;
-                }
-            //}
+            tile.UpdatePiece(null);
+            return true;
         }
         return false;
     }
 
-    public void ProcessTileClicked((int, int) spot)
+    public bool MovePiece(BoardTile sourceTile, BoardTile destinationTile)
     {
-        if (m_SelectedPiece == null)
+        if (!m_CanPlay) return false;
+        //if (DataManager.Rules.IsMovementAllowed())
+        //{
+        Piece? movedPiece = sourceTile.m_Piece;
+        if (!movedPiece) return false;
+        if (destinationTile.m_Piece) return false;
+        if (PlayerData.PlayerEconomy.PayForMovement())
+        {
+            destinationTile.UpdatePiece(movedPiece);
+            sourceTile.UpdatePiece(null);
+            return true;
+        }
+        //}
+        return false;
+    }
+
+    public void SetSourceTile(Tile sourceTile)
+    {
+        if (sourceTile is BoardTile or InfiniteTile)
+        m_SourceTile = sourceTile;
+        Debug.Log(sourceTile.m_Piece);
+    }
+
+    public void MoveToDestinationTile(Tile destinationTile)
+    {
+        if (m_SourceTile == null)
         {
             return;
         }
-        if (m_SelectedPiece!.parentTile == null)
+        if (destinationTile is BoardTile)
         {
-            if (PlacePiece(1, spot))
+            if (m_SourceTile is BoardTile)
             {
-                m_SelectedPiece = null;
+                MovePiece((BoardTile)m_SourceTile!, (BoardTile)destinationTile);
+            }
+            else if (m_SourceTile is InfiniteTile)
+            {
+                PlacePiece(m_SourceTile, (BoardTile)destinationTile);
             }
         }
-        else
+        // if destinationTile is TrashTile ... on delete la pièce
         {
-            if (MovePiece((m_SelectedPiece.parentTile.x, m_SelectedPiece.parentTile.y), spot))
+            /*if (MovePiece((m_SelectedPiece.parentTile.x, m_SelectedPiece.parentTile.y), spot))
             { // CHANGER : faire en sorte que Piece ne soit plus cliquable, mais seulement les BoardTile le sont. Ajouter des tiles à gauche du board pour les pièces hors jeu
                 m_SelectedPiece = null;
-            }
+            }*/
         }
 
     }

@@ -20,8 +20,8 @@ public class LaserManager : ScriptableObject
 
 	private bool[,,] m_LaserGrid;
 
-	private float m_OffsetX = 0.25f;
-	private float m_OffsetY = 0.5f;
+	//private float m_OffsetX = 0.25f;
+	//private float m_OffsetY = 0.5f;
 
     private float[,] m_Offset = { { 0.5f, 0f, 0f }, { -0.5f, 0f, 180f }, {0f, 0.5f, 90f }, { 0f, -0.5f, 270f } };
 
