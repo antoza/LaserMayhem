@@ -5,6 +5,6 @@ public class InfiniteTile : Tile
 {
     public override void setColor()
     {
-        GetComponent<SpriteRenderer>().color = Color.red;
+        GetComponent<SpriteRenderer>().color = Color.yellow;
     }
 }

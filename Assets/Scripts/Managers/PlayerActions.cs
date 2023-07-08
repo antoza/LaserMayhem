@@ -52,6 +52,7 @@ public class PlayerActions : ScriptableObject
     {
         if (!m_CanPlay) return false;
         if (!tile.m_Piece) return false;
+        Debug.Log("oui");
         if (PlayerData.PlayerEconomy.PayForDeletion())
         {
             tile.UpdatePiece(null);
@@ -65,6 +66,7 @@ public class PlayerActions : ScriptableObject
         if (!m_CanPlay) return false;
         //if (DataManager.Rules.IsMovementAllowed())
         //{
+        if (sourceTile == destinationTile) return false;
         Piece? movedPiece = sourceTile.m_Piece;
         if (!movedPiece) return false;
         if (destinationTile.m_Piece) return false;
@@ -82,7 +84,6 @@ public class PlayerActions : ScriptableObject
     {
         if (sourceTile is BoardTile or InfiniteTile)
         m_SourceTile = sourceTile;
-        Debug.Log(sourceTile.m_Piece);
     }
 
     public void MoveToDestinationTile(Tile destinationTile)
@@ -91,16 +92,19 @@ public class PlayerActions : ScriptableObject
         {
             return;
         }
-        if (destinationTile is BoardTile)
+        Debug.Log(m_SourceTile);
+        Debug.Log(destinationTile);
+        switch ((m_SourceTile, destinationTile))
         {
-            if (m_SourceTile is BoardTile)
-            {
+            case (BoardTile, BoardTile):
                 MovePiece((BoardTile)m_SourceTile!, (BoardTile)destinationTile);
-            }
-            else if (m_SourceTile is InfiniteTile)
-            {
+                break;
+            case (InfiniteTile, BoardTile):
                 PlacePiece(m_SourceTile, (BoardTile)destinationTile);
-            }
+                break;
+            case (BoardTile, TrashTile):
+                DeletePiece((BoardTile)m_SourceTile);
+                break;
         }
         // if destinationTile is TrashTile ... on delete la pièce
         {
