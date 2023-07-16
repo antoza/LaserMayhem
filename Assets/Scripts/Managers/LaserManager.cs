@@ -15,8 +15,8 @@ public class LaserManager : ScriptableObject
 	private GameObject m_LaserContainer;
 	private List<GameObject> m_LaserVisualHolder = new List<GameObject>() { };
 
-	private (int, int) m_StartingSpot = (3, -1);
-	private (int, int) m_StartingDirection = (0, 1);
+	private (int, int) m_StartingSpot = (-1, 3);
+	private (int, int) m_StartingDirection = (1, 0);
 
 	private bool[,,] m_LaserGrid;
 
@@ -43,8 +43,8 @@ public class LaserManager : ScriptableObject
 	{
 		CrossBoard();
 
-		//Set the laser initial part
-		GameObject laserPart;
+        //Set the laser initial part
+        GameObject laserPart;
 		if (prediction)
 		{
             laserPart = Instantiate(m_LaserVisualPredictionTemplate);
@@ -82,7 +82,7 @@ public class LaserManager : ScriptableObject
                         laserPart.transform.SetParent(m_LaserContainer.transform);
 						worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates((x, y));
                         laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[dir,0], worldCoord.Item2 + m_Offset[dir, 1], 0);
-                        laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
+                        //laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 
                     }
                 }
@@ -138,7 +138,7 @@ public class LaserManager : ScriptableObject
             {
                 foreach ((int, int) newDirection in pieceCrossed!.ComputeNewDirections(direction))
                 {
-                    if (!IsBeamDisplayed(spot, direction))
+                    if (!IsBeamDisplayed(spot, newDirection))
                     {
 						DisplayBeam(newSpot, newDirection, true);
                         CrossNextTile(newSpot, newDirection);
@@ -230,18 +230,18 @@ public class LaserManager : ScriptableObject
 		switch (direction)
 		{
 			case (1, 0):
-                laser.transform.position = new Vector3(position.Item1 + 0.25f, position.Item2, 0);
+                //laser.transform.position = new Vector3(position.Item1 + 0.25f, position.Item2, 0);
                 return;
 			case (-1, 0):
-				laser.transform.Rotate(new Vector3(0, 0, 180));
+				//laser.transform.Rotate(new Vector3(0, 0, 180));
 				laser.transform.position = new Vector3(position.Item1 - 0.25f, position.Item2, 0);
 				return;
 			case (0, 1):
-                laser.transform.position = new Vector3(position.Item1, position.Item2 + 0.25f, 0);
+                //laser.transform.position = new Vector3(position.Item1, position.Item2 + 0.25f, 0);
                 laser.transform.Rotate(new Vector3(0, 0, 90));
                 return;
 			case (0, -1):
-                laser.transform.position = new Vector3(position.Item1, position.Item2 - 0.25f, 0);
+                //laser.transform.position = new Vector3(position.Item1, position.Item2 - 0.25f, 0);
                 laser.transform.Rotate(new Vector3(0, 0, -90));
                 return;
 			default:
