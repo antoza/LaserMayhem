@@ -52,6 +52,7 @@ public class LaserManager : ScriptableObject
 		else
 		{
             laserPart = Instantiate(m_LaserVisualTemplate);
+			RemoveHP();
         }
         
         TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
@@ -97,10 +98,6 @@ public class LaserManager : ScriptableObject
 			Destroy(laserPart);
 		}
 	}
-
-
-
-
 
 	public IEnumerable<((int, int), (int, int))> CrossBoard()
 	{
@@ -186,6 +183,71 @@ public class LaserManager : ScriptableObject
 		}
 	}
 
+	void RemoveHP()
+	{
+		//PrintLaserGrid();
+		Debug.Log(m_BoardManager.width);
+		Debug.Log(m_BoardManager.height);
+		for(int i = 0; i < m_BoardManager.width; i++)
+		{
+			if(m_LaserGrid[i, 0, 3])
+			{
+				Debug.Log("I hit the player 2");
+			}
+			if(m_LaserGrid[i, m_BoardManager.height-1, 2])
+			{
+				Debug.Log("I Hit Player 1");
+			}	
+		}
+	}
+
+	void PrintLaserGrid()
+	{
+		for(int i = 0; i < m_BoardManager.width; i++)
+		{
+			for(int j = 0; j < m_BoardManager.height; j++)
+			{
+				bool yes = false;
+				if(m_LaserGrid[i, j, 0])
+				{
+					if(!yes)
+					{
+						Debug.Log("i : " + i + " j : " + j);
+						yes = true;
+					}
+					Debug.Log("Gauche");
+				}
+				if(m_LaserGrid[i, j, 1])
+				{
+					if(!yes)
+					{
+						Debug.Log("i : " + i + " j : " + j);
+						yes = true;
+					}
+					Debug.Log("Droite");
+				}
+				if(m_LaserGrid[i, j, 2])
+				{
+					if(!yes)
+					{
+						Debug.Log("i : " + i + " j : " + j);
+						yes = true;
+					}
+					Debug.Log("Haut");
+				}
+				if(m_LaserGrid[i, j, 3])
+				{
+					if(!yes)
+					{
+						Debug.Log("i : " + i + " j : " + j);
+						yes = true;
+					}
+					Debug.Log("Bas");
+				}
+			}
+		}
+	}
+
 	private int DirectionToInt((int, int) direction)
 	{
 		switch (direction)
@@ -229,24 +291,17 @@ public class LaserManager : ScriptableObject
 	{
 		switch (direction)
 		{
-			case (1, 0):
-                //laser.transform.position = new Vector3(position.Item1 + 0.25f, position.Item2, 0);
-                return;
 			case (-1, 0):
-				//laser.transform.Rotate(new Vector3(0, 0, 180));
 				laser.transform.position = new Vector3(position.Item1 - 0.25f, position.Item2, 0);
 				return;
 			case (0, 1):
-                //laser.transform.position = new Vector3(position.Item1, position.Item2 + 0.25f, 0);
                 laser.transform.Rotate(new Vector3(0, 0, 90));
                 return;
 			case (0, -1):
-                //laser.transform.position = new Vector3(position.Item1, position.Item2 - 0.25f, 0);
                 laser.transform.Rotate(new Vector3(0, 0, -90));
                 return;
 			default:
 				return;
 		}
 	}
-
 }
