@@ -37,13 +37,17 @@ public class LaserManager : ScriptableObject
 	private void Start()
 	{
 		m_LaserGrid = new bool[m_BoardManager.width, m_BoardManager.height, 4];
-	}
+    }
 
-	public void PrintLaserPart(bool prediction)
-	{
-		CrossBoard();
+    public void UpdateLaser(bool prediction)
+    {
+        m_DataManager.LaserManager.DestroyLaserPart();
+        m_DataManager.LaserManager.PrintLaserPart(prediction);
+    }
 
-        //Set the laser initial part
+    public void PrintLaserPart(bool prediction)
+    {
+		//Set the laser initial part
         GameObject laserPart;
 		if (prediction)
 		{
@@ -54,6 +58,9 @@ public class LaserManager : ScriptableObject
             laserPart = Instantiate(m_LaserVisualTemplate);
 			RemoveHP();
         }
+
+		ResetBoard();
+        CrossNextTile(m_StartingSpot, m_StartingDirection);
         
         TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
 		m_LaserVisualHolder.Add(laserPart);
@@ -62,32 +69,26 @@ public class LaserManager : ScriptableObject
         laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord.Item2 + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
 		laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 
-        for (int x = 0; x < m_LaserGrid.GetLength(0); x++)
+        foreach (((int, int), (int, int)) displayedBeam in DisplayedBeams())
 		{
-			for (int y = 0; y < m_LaserGrid.GetLength(1); y++)
-			{
-				for(int dir = 0; dir < m_LaserGrid.GetLength(2); dir++)
-				{
-					if (m_LaserGrid[x, y, dir])
-					{
-                        if (prediction)
-                        {
-                            laserPart = Instantiate(m_LaserVisualPredictionTemplate);
-                        }
-                        else
-                        {
-                            laserPart = Instantiate(m_LaserVisualTemplate);
-                        }
-                        TurnLaser(IntToDirection(dir), (x, y), laserPart);
-                        m_LaserVisualHolder.Add(laserPart);
-                        laserPart.transform.SetParent(m_LaserContainer.transform);
-						worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates((x, y));
-                        laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[dir,0], worldCoord.Item2 + m_Offset[dir, 1], 0);
-                        //laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
+			(int, int) beamDirection = displayedBeam.Item2;
+			(int, int) beamPosition = displayedBeam.Item1;
 
-                    }
-                }
-			}
+            if (prediction)
+            {
+                laserPart = Instantiate(m_LaserVisualPredictionTemplate);
+            }
+            else
+            {
+                laserPart = Instantiate(m_LaserVisualTemplate);
+            }
+
+            TurnLaser(beamDirection, beamPosition, laserPart);
+            m_LaserVisualHolder.Add(laserPart);
+            laserPart.transform.SetParent(m_LaserContainer.transform);
+			worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(beamPosition);
+            laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[DirectionToInt(beamDirection), 0], worldCoord.Item2 + m_Offset[DirectionToInt(beamDirection), 1], 0);
+            //laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 		}
 	}
 
@@ -97,13 +98,6 @@ public class LaserManager : ScriptableObject
 		{
 			Destroy(laserPart);
 		}
-	}
-
-	public IEnumerable<((int, int), (int, int))> CrossBoard()
-	{
-		ResetBoard();
-		CrossNextTile(m_StartingSpot, m_StartingDirection);
-		return DisplayedBeams();
 	}
 
 	public void ResetBoard()

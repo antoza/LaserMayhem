@@ -2,17 +2,20 @@ using Mono.CompilerServices.SymbolWriter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 #nullable enable
-public class PlayerActions : ScriptableObject
+public class PlayerActions : NetworkBehaviour
 {
+    private DataManager m_DataManager;
     private PlayerData PlayerData;
     private bool m_CanPlay = false;
     public Tile? m_SourceTile;
 
     public PlayerActions(PlayerData playerData)
     {
+        m_DataManager = FindObjectOfType<DataManager>();
         PlayerData = playerData;
     }
 
@@ -43,6 +46,7 @@ public class PlayerActions : ScriptableObject
         if (PlayerData.PlayerEconomy.PayForPlacement(pieceCost))
         {
             destinationTile.UpdatePiece(copiedPiece!);
+            m_DataManager.LaserManager.UpdateLaser(true);
             return true;
         }
         return false;
@@ -56,6 +60,7 @@ public class PlayerActions : ScriptableObject
         if (PlayerData.PlayerEconomy.PayForDeletion())
         {
             tile.UpdatePiece(null);
+            m_DataManager.LaserManager.UpdateLaser(true);
             return true;
         }
         return false;
@@ -74,6 +79,7 @@ public class PlayerActions : ScriptableObject
         {
             destinationTile.UpdatePiece(movedPiece);
             sourceTile.UpdatePiece(null);
+            m_DataManager.LaserManager.UpdateLaser(true);
             return true;
         }
         //}
@@ -86,33 +92,39 @@ public class PlayerActions : ScriptableObject
         m_SourceTile = sourceTile;
     }
 
-    public void MoveToDestinationTile(Tile destinationTile)
+    public void MoveToDestinationTile(Tile? sourceTile, Tile destinationTile)
     {
-        if (m_SourceTile == null)
+        if (sourceTile == null)
         {
             return;
         }
-        Debug.Log(m_SourceTile);
+        Debug.Log(sourceTile);
         Debug.Log(destinationTile);
-        switch ((m_SourceTile, destinationTile))
+        switch ((sourceTile, destinationTile))
         {
             case (BoardTile, BoardTile):
-                MovePiece((BoardTile)m_SourceTile!, (BoardTile)destinationTile);
+                MovePiece((BoardTile)sourceTile!, (BoardTile)destinationTile);
                 break;
             case (InfiniteTile, BoardTile):
-                PlacePiece(m_SourceTile, (BoardTile)destinationTile);
+                PlacePiece(sourceTile, (BoardTile)destinationTile);
                 break;
             case (BoardTile, TrashTile):
-                DeletePiece((BoardTile)m_SourceTile);
+                DeletePiece((BoardTile)sourceTile);
                 break;
         }
-        // if destinationTile is TrashTile ... on delete la pièce
-        {
-            /*if (MovePiece((m_SelectedPiece.parentTile.x, m_SelectedPiece.parentTile.y), spot))
-            { // CHANGER : faire en sorte que Piece ne soit plus cliquable, mais seulement les BoardTile le sont. Ajouter des tiles à gauche du board pour les pièces hors jeu
-                m_SelectedPiece = null;
-            }*/
-        }
-
     }
+    /*
+    [ClientRpc]
+    void RpcDoAction(Tile destinationTile)
+    {
+        MoveToDestinationTile(m_SourceTile, destinationTile);
+    }*/
+
+    //[Command] (pas public)
+    public void CmdDoAction(Tile destinationTile)
+    {
+        MoveToDestinationTile(m_SourceTile, destinationTile);
+        /*RpcDoAction(destinationTile);*/
+    }
+
 }

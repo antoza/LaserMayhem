@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: -5765095749286400666, guid: 39ded8bf324f63a4b8bffd4b3b37a1bd, type: 3}
     - target: {fileID: 8461873912048182643, guid: 4a44b797bd04b2945979a9138c157504, type: 3}
       propertyPath: m_Name
-      value: InfiniteTile (1)
+      value: InfiniteTileBackSlash
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -278,6 +278,78 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &713230917
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.617261
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1294067
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021125329839426001, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742882530286146499, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: positionX
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742882530286146499, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: scaleWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742882530286146499, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: scaleHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461873912048182643, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_Name
+      value: TrashTile
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
 --- !u!1001 &933173650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -351,7 +423,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7278721469675887426, guid: 1811c02b131ad234a87dc3cdc45eec6d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7278721469675887426, guid: 1811c02b131ad234a87dc3cdc45eec6d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -661,7 +733,7 @@ PrefabInstance:
       objectReference: {fileID: -5765095749286400666, guid: 39ded8bf324f63a4b8bffd4b3b37a1bd, type: 3}
     - target: {fileID: 8461873912048182643, guid: 4a44b797bd04b2945979a9138c157504, type: 3}
       propertyPath: m_Name
-      value: InfiniteTile
+      value: InfiniteTileSlash
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

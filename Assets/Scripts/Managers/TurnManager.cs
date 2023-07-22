@@ -68,7 +68,7 @@ public class TurnManager : ScriptableObject
         if (!firstTurn)
         {
             m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, true);
-            UpdateLaser(false);
+            m_DataManager.LaserManager.UpdateLaser(false);
         }
         else
         {
@@ -84,14 +84,8 @@ public class TurnManager : ScriptableObject
 
         m_Announcement.StartCoRoutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
         m_UIPieceUpdate.UpdatePieces();
-        UpdateLaser(true);
+        m_DataManager.LaserManager.UpdateLaser(true);
 
         m_CanSkipTurn = false;
-    }
-
-    public void UpdateLaser(bool prediction)
-    {
-        m_DataManager.LaserManager.DestroyLaserPart();
-        m_DataManager.LaserManager.PrintLaserPart(prediction);
     }
 }
