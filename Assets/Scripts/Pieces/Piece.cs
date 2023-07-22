@@ -15,7 +15,7 @@ public abstract class Piece : MonoBehaviour
         m_DataManager = FindObjectOfType<DataManager>();
     }
 
-    public abstract (int, int)[] ComputeNewDirections((int, int) sourceDirection);
+    public abstract IEnumerable<(int, int)> ComputeNewDirections((int, int) sourceDirection);
 
     public Sprite GetSprite()
     {

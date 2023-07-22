@@ -111,6 +111,8 @@ public class PlayerActions : NetworkBehaviour
             case (BoardTile, TrashTile):
                 DeletePiece((BoardTile)sourceTile);
                 break;
+            default:
+                break;
         }
     }
     /*
@@ -124,6 +126,7 @@ public class PlayerActions : NetworkBehaviour
     public void CmdDoAction(Tile destinationTile)
     {
         MoveToDestinationTile(m_SourceTile, destinationTile);
+        m_SourceTile = null;
         /*RpcDoAction(destinationTile);*/
     }
 
