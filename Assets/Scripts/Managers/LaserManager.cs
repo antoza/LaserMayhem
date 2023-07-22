@@ -15,8 +15,8 @@ public class LaserManager : ScriptableObject
 	private GameObject m_LaserContainer;
 	private List<GameObject> m_LaserVisualHolder = new List<GameObject>() { };
 
-	private (int, int) m_StartingSpot = (-1, 3);
-	private (int, int) m_StartingDirection = (1, 0);
+	private Vector2Int m_StartingSpot = new Vector2Int(-1, 3);
+	private Vector2Int m_StartingDirection = new Vector2Int(1, 0);
 
 	private bool[,,] m_LaserGrid;
 
@@ -56,7 +56,7 @@ public class LaserManager : ScriptableObject
 		else
 		{
             laserPart = Instantiate(m_LaserVisualTemplate);
-			RemoveHP();
+			HitPlayer();
         }
 
 		ResetBoard();
@@ -65,14 +65,18 @@ public class LaserManager : ScriptableObject
         TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
 		m_LaserVisualHolder.Add(laserPart);
         laserPart.transform.SetParent(m_LaserContainer.transform);
-        (int, int) worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
-        laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord.Item2 + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
+        Vector2Int worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
+        laserPart.transform.position = new Vector3(worldCoord[0] + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord[1] + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
 		laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 
-        foreach (((int, int), (int, int)) displayedBeam in DisplayedBeams())
+        foreach ((Vector2Int, Vector2Int) displayedBeam in DisplayedBeams())
 		{
-			(int, int) beamDirection = displayedBeam.Item2;
-			(int, int) beamPosition = displayedBeam.Item1;
+			Vector2Int beamDirection = displayedBeam.Item2;
+			Vector2Int beamPosition = displayedBeam.Item1;
+
+			//Debug.Log("\n");
+			//Debug.Log("Direction : " + beamDirection);
+			//Debug.Log("Position : " + beamPosition);	
 
             if (prediction)
             {
@@ -87,7 +91,7 @@ public class LaserManager : ScriptableObject
             m_LaserVisualHolder.Add(laserPart);
             laserPart.transform.SetParent(m_LaserContainer.transform);
 			worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(beamPosition);
-            laserPart.transform.position = new Vector3(worldCoord.Item1 + m_Offset[DirectionToInt(beamDirection), 0], worldCoord.Item2 + m_Offset[DirectionToInt(beamDirection), 1], 0);
+            laserPart.transform.position = new Vector3(worldCoord[0] + m_Offset[DirectionToInt(beamDirection), 0], worldCoord[1] + m_Offset[DirectionToInt(beamDirection), 1], 0);
             //laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 		}
 	}
@@ -105,29 +109,29 @@ public class LaserManager : ScriptableObject
 		m_LaserGrid = new bool[m_BoardManager.width, m_BoardManager.height, 4];
 	}
 
-	public void CrossNextTile((int, int) spot, (int, int) direction)
+	public void CrossNextTile(Vector2Int spot, Vector2Int direction)
 	{
 		DisplayBeam(spot, direction, true);
-		(int, int) newSpot = (spot.Item1 + direction.Item1, spot.Item2 + direction.Item2);
-		if (newSpot.Item1 < 0)
+		Vector2Int newSpot = new Vector2Int(spot[0] + direction[0], spot[1] + direction[1]);
+		if (newSpot[0] < 0)
 		{
 			return;
 		}
-		if (newSpot.Item2 < 0)
+		if (newSpot[1] < 0)
 		{
 			return;
 		}
-		if (newSpot.Item2 > m_BoardManager.width)
+		if (newSpot[1] > m_BoardManager.width)
 		{
 			return;
 		}
 
-		if (m_BoardManager.IsOnBoard(newSpot) && newSpot.Item1 < m_BoardManager.width && newSpot.Item2 < m_BoardManager.height)
+		if (m_BoardManager.IsOnBoard(newSpot) && newSpot[0] < m_BoardManager.width && newSpot[1] < m_BoardManager.height)
 		{
             Piece? pieceCrossed = m_BoardManager.GetPiece(newSpot);
             if (pieceCrossed)
             {
-                foreach ((int, int) newDirection in pieceCrossed!.ComputeNewDirections(direction))
+                foreach (Vector2Int newDirection in pieceCrossed!.ComputeNewDirections(direction))
                 {
                     if (!IsBeamDisplayed(spot, newDirection))
                     {
@@ -144,26 +148,26 @@ public class LaserManager : ScriptableObject
 		return;
 	}
 
-	public void DisplayBeam((int, int) spot, (int, int) direction, bool display)
+	public void DisplayBeam(Vector2Int spot, Vector2Int direction, bool display)
 	{
 		if (m_BoardManager.IsOnBoard(spot))
 		{
 			int directionNumber = DirectionToInt(direction);
-			m_LaserGrid[spot.Item1, spot.Item2, directionNumber] = display;
+			m_LaserGrid[spot[0], spot[1], directionNumber] = display;
 		}
 	}
 
-	public bool IsBeamDisplayed((int, int) spot, (int, int) direction)
+	public bool IsBeamDisplayed(Vector2Int spot, Vector2Int direction)
 	{
 		if (m_BoardManager.IsOnBoard(spot))
 		{
 			int directionNumber = DirectionToInt(direction);
-			return m_LaserGrid[spot.Item1, spot.Item2, directionNumber];
+			return m_LaserGrid[spot[0], spot[1], directionNumber];
 		}
 		return false;
 	}
 
-	public IEnumerable<((int, int), (int, int))> DisplayedBeams()
+	public IEnumerable<(Vector2Int, Vector2Int)> DisplayedBeams()
 	{
 		for (int i = 0; i < m_BoardManager.width; i++)
 		{
@@ -171,17 +175,14 @@ public class LaserManager : ScriptableObject
 			{
 				for (int d = 0; d < 4; d++)
 				{
-					if (m_LaserGrid[i, j, d]) yield return ((i, j), IntToDirection(d));
+					if (m_LaserGrid[i, j, d]) yield return (new Vector2Int(i, j), IntToDirection(d));
 				}
 			}
 		}
 	}
 
-	void RemoveHP()
+	void HitPlayer()
 	{
-		//PrintLaserGrid();
-		Debug.Log(m_BoardManager.width);
-		Debug.Log(m_BoardManager.height);
 		for(int i = 0; i < m_BoardManager.width; i++)
 		{
 			if(m_LaserGrid[i, 0, 3])
@@ -242,9 +243,9 @@ public class LaserManager : ScriptableObject
 		}
 	}
 
-	private int DirectionToInt((int, int) direction)
+	private int DirectionToInt(Vector2Int direction)
 	{
-		switch (direction)
+		switch ((direction[0], direction[1]))
 		{
 			case (1, 0):
 				return 0;
@@ -259,34 +260,34 @@ public class LaserManager : ScriptableObject
 		}
 	}
 
-	private (int, int) IntToDirection(int directionNumber)
+	private Vector2Int IntToDirection(int directionNumber)
 	{
 		switch (directionNumber)
 		{
 			case 0:
-				return (1, 0);
+				return new Vector2Int(1, 0);
 			case 1:
-				return (-1, 0);
+				return new Vector2Int(-1, 0);
 			case 2:
-				return (0, 1);
+				return new Vector2Int(0, 1);
 			case 3:
-				return (0, -1);
+				return new Vector2Int(0, -1);
 			default:
-				return (0, 0);
+				return new Vector2Int(0, 0);
 		}
 	}
 
-	private (int, int) GetOppositeDirection((int, int) direction)
+	private Vector2Int GetOppositeDirection(Vector2Int direction)
 	{
-		return (-direction.Item1, -direction.Item2);
+		return new Vector2Int(-direction[0], -direction[1]);
 	}
 
-	private void TurnLaser((int, int) direction,(int, int) position, GameObject laser)
+	private void TurnLaser(Vector2Int direction,Vector2Int position, GameObject laser)
 	{
-		switch (direction)
+		switch ((direction[0], direction[1])
 		{
 			case (-1, 0):
-				laser.transform.position = new Vector3(position.Item1 - 0.25f, position.Item2, 0);
+				laser.transform.position = new Vector3(position[0] - 0.25f, position[1], 0);
 				return;
 			case (0, 1):
                 laser.transform.Rotate(new Vector3(0, 0, 90));

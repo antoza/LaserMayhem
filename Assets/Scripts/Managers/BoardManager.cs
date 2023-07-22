@@ -24,17 +24,17 @@ public class BoardManager : ScriptableObject
         GenerateAllTiles();
     }
 
-    public Piece? GetPiece((int, int) tile)
+    public Piece? GetPiece(Vector2Int tile)
     {
-        return tilesArray[tile.Item1, tile.Item2].m_Piece;
+        return tilesArray[tile[0], tile[1]].m_Piece;
     }
     
-    public bool IsOnBoard((int, int) tile)
+    public bool IsOnBoard(Vector2Int tile)
     {
-        return tile.Item1 >= 0 && tile.Item1 < width && tile.Item2 >= 0 && tile.Item2 < height;
+        return tile[0] >= 0 && tile[0] < width && tile[1] >= 0 && tile[1] < height;
     }
     /*
-    public bool PlaceOnTile(Piece piece, (int, int) tile)
+    public bool PlaceOnTile(Piece piece, Vector2Int tile)
     {
         if (!GetPiece(tile))
         {
@@ -44,7 +44,7 @@ public class BoardManager : ScriptableObject
         return false;
     }
 
-    public Piece? EmptyTile((int, int) tile)
+    public Piece? EmptyTile(Vector2Int tile)
     {
         Piece? placedPiece = tilesArray[tile.Item1, tile.Item2].m_Piece;
         tilesArray[tile.Item1, tile.Item2].UpdatePiece(null);
@@ -82,8 +82,8 @@ public class BoardManager : ScriptableObject
         return boardTile;
     }
 
-    public (int, int) ConvertBoardCoordinateToWorldCoordinates((int, int) coord)
+    public Vector2Int ConvertBoardCoordinateToWorldCoordinates(Vector2Int coord)
     {
-        return (coord.Item1 - (width-1)/2, coord.Item2 - (height-1) / 2);
+        return new Vector2Int(coord[0] - (width-1)/2, coord[1] - (height-1) / 2);
     }
 }
