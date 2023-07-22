@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MirrorSlash : Piece
 {
-    public override IEnumerable<(int, int)> ComputeNewDirections((int, int) sourceDirection)
+    public override IEnumerable<Vector2Int> ComputeNewDirections(Vector2Int sourceDirection)
     {
-        yield return (sourceDirection.Item2, sourceDirection.Item1);
+        yield return new Vector2Int(sourceDirection[1], sourceDirection[0]);
     }
 }
