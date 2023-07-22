@@ -108,18 +108,6 @@ public class LaserManager : ScriptableObject
 	public void CrossNextTile((int, int) spot, (int, int) direction)
 	{
 		(int, int) newSpot = (spot.Item1 + direction.Item1, spot.Item2 + direction.Item2);
-		if (newSpot.Item1 < 0)
-		{
-			return;
-		}
-		if (newSpot.Item2 < 0)
-		{
-			return;
-		}
-		if (newSpot.Item2 > m_BoardManager.width)
-		{
-			return;
-		}
 
 		if (m_BoardManager.IsOnBoard(newSpot))
 		{
@@ -128,7 +116,7 @@ public class LaserManager : ScriptableObject
             {
                 foreach ((int, int) newDirection in pieceCrossed!.ComputeNewDirections(direction))
                 {
-                    if (!IsBeamDisplayed(spot, newDirection))
+                    if (!IsBeamDisplayed(newSpot, newDirection))
                     {
 						DisplayBeam(newSpot, newDirection, true);
                         CrossNextTile(newSpot, newDirection);
@@ -137,7 +125,7 @@ public class LaserManager : ScriptableObject
             }
             else
             {
-                if (!IsBeamDisplayed(spot, direction))
+                if (!IsBeamDisplayed(newSpot, direction))
                 {
                     DisplayBeam(newSpot, direction, true);
                     CrossNextTile(newSpot, direction);
