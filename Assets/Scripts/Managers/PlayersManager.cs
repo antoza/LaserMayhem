@@ -36,4 +36,14 @@ public class PlayersManager : ScriptableObject
     {
         return m_PlayerList[m_CurrentPlayerID];
     }
+
+    public void HitPlayer(int id)
+    {
+        m_PlayerList[id].PlayerHealth.TakeDamage(1);
+    }
+
+    public int GetHealth(int id)
+    {
+        return m_PlayerList[id].PlayerHealth.m_health;
+    }
 }
