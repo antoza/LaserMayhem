@@ -174,11 +174,11 @@ public class LaserManager : ScriptableObject
 		{
 			if(m_LaserGrid[i, 0, 3])
 			{
-				Debug.Log("I hit the player 2");
+				m_DataManager.PlayersManager.HitPlayer(1);
 			}
 			if(m_LaserGrid[i, m_BoardManager.height-1, 2])
 			{
-				Debug.Log("I Hit Player 1");
+				m_DataManager.PlayersManager.HitPlayer(0);
 			}	
 		}
 	}
