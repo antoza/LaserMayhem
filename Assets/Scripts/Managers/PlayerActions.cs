@@ -56,7 +56,6 @@ public class PlayerActions : NetworkBehaviour
     {
         if (!m_CanPlay) return false;
         if (!tile.m_Piece) return false;
-        Debug.Log("oui");
         if (PlayerData.PlayerEconomy.PayForDeletion())
         {
             tile.UpdatePiece(null);
@@ -98,8 +97,6 @@ public class PlayerActions : NetworkBehaviour
         {
             return;
         }
-        Debug.Log(sourceTile);
-        Debug.Log(destinationTile);
         switch ((sourceTile, destinationTile))
         {
             case (BoardTile, BoardTile):

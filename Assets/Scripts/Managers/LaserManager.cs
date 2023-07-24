@@ -74,10 +74,6 @@ public class LaserManager : ScriptableObject
 			Vector2Int beamDirection = displayedBeam.Item2;
 			Vector2Int beamPosition = displayedBeam.Item1;
 
-			//Debug.Log("\n");
-			//Debug.Log("Direction : " + beamDirection);
-			//Debug.Log("Position : " + beamPosition);	
-
             if (prediction)
             {
                 laserPart = Instantiate(m_LaserVisualPredictionTemplate);

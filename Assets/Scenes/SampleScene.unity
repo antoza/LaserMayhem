@@ -342,6 +342,10 @@ PrefabInstance:
       propertyPath: scaleHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3067852750868484345, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7482667652216324306, guid: 6d85601a74510d84880fd4114e026c1d, type: 3}
     - target: {fileID: 8461873912048182643, guid: 183d72f37cb133b459fb6b854d21686e, type: 3}
       propertyPath: m_Name
       value: TrashTile
@@ -742,6 +746,10 @@ PrefabInstance:
       propertyPath: m_Piece
       value: 
       objectReference: {fileID: 11400000, guid: d6d3a8c2744549546b8f61ec31b12ba9, type: 2}
+    - target: {fileID: 5639910906442664836, guid: af4af966949eb624a8891393484fe90a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7911521003814809268, guid: af4af966949eb624a8891393484fe90a, type: 3}
       propertyPath: m_IsActive
       value: 1
