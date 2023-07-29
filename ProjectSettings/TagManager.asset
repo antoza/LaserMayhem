@@ -7,6 +7,7 @@ TagManager:
   - LaserContainer
   - LaserVisual
   - Board
+  - LaserPredictionVisual
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Layer
     uniqueID: 679133495
+    locked: 0
+  - name: Front
+    uniqueID: 794470323
     locked: 0
