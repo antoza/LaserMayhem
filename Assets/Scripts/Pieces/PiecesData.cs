@@ -7,13 +7,13 @@ using UnityEngine;
 public class PiecesData : ScriptableObject
 {
     [SerializeField]
-    Piece[] m_Pieces;
+    GameObject[] m_Tiles;
 
 
 
-    public Piece GetRandomPiece()
+    public GameObject GetRandomPiece()
     {
-        int rd = Random.Range(0, m_Pieces.Length);
-        return m_Pieces[rd];
+        int rd = Random.Range(0, m_Tiles.Length);
+        return m_Tiles[rd];
     }
 }

@@ -25,8 +25,8 @@ public class TurnManager : ScriptableObject
     private UIPlayerTurnAnnouncement m_Announcement;
 
     //Piece Update UI
-    private UIPieceUpdate m_UIPieceUpdate;
     private UISkipTurnButton m_TurnButton;
+    private PieceUpdate m_PieceUpdate;
 
     public TurnManager(DataManager dataManager, PlayersManager playersManager, float skipTurnCooldown, float laserCooldown)
     {
@@ -34,11 +34,11 @@ public class TurnManager : ScriptableObject
         m_PlayersManager = playersManager;
         m_SkipTurnCooldown = m_DataManager.Rules.SkipTurnCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
-        m_UIPieceUpdate = FindObjectOfType<UIPieceUpdate>();
         m_PiecesData = FindObjectOfType<PiecesData>();
         m_TurnButton = FindObjectOfType<UISkipTurnButton>();
         m_SkipTurnCooldown = skipTurnCooldown;
         m_LaserCooldown = laserCooldown;
+        m_PieceUpdate = FindObjectOfType<PieceUpdate>();
     }
 
     public void Start()
@@ -81,9 +81,8 @@ public class TurnManager : ScriptableObject
     {
         m_PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
         m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, false);
-
+        m_PieceUpdate.UpdatePieces();
         m_Announcement.StartCoRoutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
-        m_UIPieceUpdate.UpdatePieces();
         m_DataManager.LaserManager.UpdateLaser(true);
 
         m_CanSkipTurn = false;

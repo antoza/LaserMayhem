@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d3922da0441074d93f4fd3a3519bdb, type: 3}
   m_Name: PieceHolder
   m_EditorClassIdentifier: 
-  m_Pieces:
-  - {fileID: 11400000, guid: 9f3bd3648ebbd1843af3185618aef956, type: 2}
-  - {fileID: 11400000, guid: d6d3a8c2744549546b8f61ec31b12ba9, type: 2}
+  m_Tiles:
+  - {fileID: 6333373406145283476, guid: 39ded8bf324f63a4b8bffd4b3b37a1bd, type: 3}
+  - {fileID: 1908386832349718085, guid: 5ef5afb38d2c38147b1abe3a0f63dacb, type: 3}
+  - {fileID: 1908386832349718085, guid: 8469d627929214f4d8ffa2bd9c3bd6bd, type: 3}
+  - {fileID: 1908386832349718085, guid: 49dd16c979958084c98efd632d4acbf1, type: 3}

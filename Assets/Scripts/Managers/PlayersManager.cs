@@ -46,4 +46,9 @@ public class PlayersManager : ScriptableObject
     {
         return m_PlayerList[id].PlayerHealth.m_health;
     }
+
+    public int GetMana(int id)
+    {
+        return m_PlayerList[id].PlayerEconomy.m_mana;
+    }
 }

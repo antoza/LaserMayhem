@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TileState
+{
+    Available,
+    Taken,
+    Count
+}
+
 #nullable enable
 public abstract class Tile : MonoBehaviour
 {
@@ -11,6 +18,8 @@ public abstract class Tile : MonoBehaviour
     [field: SerializeField]
     private Piece? m_startingPiece;
     public Piece? m_Piece { get; private set; }
+
+    public TileState m_TileState = TileState.Available;
 
     void Start()
     {
@@ -25,7 +34,7 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && m_TileState == TileState.Available)
         {
             if (m_Piece) m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.SetSourceTile(this);
         };
@@ -50,10 +59,12 @@ public abstract class Tile : MonoBehaviour
             m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
             m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
             m_Piece.parentTile = this;
+            m_TileState = TileState.Available;
         }
         else
         {
             m_Piece = null;
+            m_TileState = TileState.Taken;
         }
     }
 }
