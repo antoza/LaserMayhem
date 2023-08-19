@@ -26,19 +26,13 @@ public class PieceUpdate : MonoBehaviour
         for(int i = 0; i < m_PiecesSelection.Length; i++)
         {
             Tile currentTile = m_PiecesSelection[i].GetComponent<SelectPiece>().m_Tile;
-            if (currentTile.m_TileState == TileState.Taken)
+            for (int j = i+1; j < m_PiecesSelection.Length; j++)
             {
-                for (int j = i+1; j < m_PiecesSelection.Length; j++)
-                {
-                    Tile otherTile = m_PiecesSelection[j].GetComponent<SelectPiece>().m_Tile;
-                    if (otherTile.m_TileState == TileState.Available)
-                    {
-                        currentTile.UpdatePiece(otherTile.m_Piece);
-                        otherTile.setColor();
-                        break;
-                    }
+                Tile otherTile = m_PiecesSelection[j].GetComponent<SelectPiece>().m_Tile;
+                currentTile.UpdatePiece(otherTile.m_Piece);
+                otherTile.setColor();
+                break;
                     
-                }
             }
             
         }
@@ -47,10 +41,7 @@ public class PieceUpdate : MonoBehaviour
         for(int i = 0; i < m_PiecesSelection.Length; i++)
         {
             Tile currentTile = m_PiecesSelection[i].GetComponent<SelectPiece>().m_Tile;
-            if (currentTile.m_TileState == TileState.Taken)
-            {
-                currentTile.UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
-            }
+            currentTile.UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
         }
     }
 }

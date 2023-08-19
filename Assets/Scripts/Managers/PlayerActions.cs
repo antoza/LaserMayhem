@@ -36,10 +36,10 @@ public class PlayerActions : NetworkBehaviour
         return false;
     }
 
-    public bool PlacePiece(Tile sourceTile, BoardTile destinationTile)
+    public bool PlacePiece(Tile sourceTile, BoardTile destinationTile, int pieceCost = -1)
     {
         if (!m_CanPlay) return false;
-        int pieceCost = -1; // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
+        // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
         Piece? copiedPiece = sourceTile.m_Piece;
         if (!copiedPiece) return false;
         if (destinationTile.m_Piece) return false;
@@ -87,7 +87,7 @@ public class PlayerActions : NetworkBehaviour
 
     public void SetSourceTile(Tile sourceTile)
     {
-        if (sourceTile is BoardTile or InfiniteTile)
+        if (sourceTile is BoardTile or InfiniteTile or SelectionTile)
         m_SourceTile = sourceTile;
     }
 
@@ -107,6 +107,18 @@ public class PlayerActions : NetworkBehaviour
                 break;
             case (BoardTile, TrashTile):
                 DeletePiece((BoardTile)sourceTile);
+                break;
+            case (SelectionTile, BoardTile):
+                SelectPiece selectPiece = sourceTile.transform.parent.GetComponent<SelectPiece>();
+                int cost = -1;
+                if (selectPiece)
+                {
+                    cost = selectPiece.GetCost();
+                }
+                if(PlacePiece(sourceTile!, (BoardTile)destinationTile, cost))
+                {
+                    sourceTile.UpdatePiece(null);
+                }
                 break;
             default:
                 break;

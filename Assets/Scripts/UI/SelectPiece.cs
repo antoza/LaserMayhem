@@ -10,18 +10,14 @@ public class SelectPiece : MonoBehaviour
     [SerializeField]
     private int m_PieceID;
     [SerializeField]
-    public BoardTile m_Tile;
+    public SelectionTile m_Tile;
     [SerializeField]
     private int m_Cost;
-
-
-    [SerializeField]
-
 
     private void Awake()
     {
         m_DataManager = FindObjectOfType<DataManager>();
-        m_Cost = m_PieceID + 1;
+        m_Cost = -m_PieceID - 1;
     }
 
     public void UpdatePiece(Piece newPiece)
@@ -30,4 +26,8 @@ public class SelectPiece : MonoBehaviour
     }
 
     //Getter && Setter
+    public int GetCost()
+    {
+        return m_Cost;
+    }
 }

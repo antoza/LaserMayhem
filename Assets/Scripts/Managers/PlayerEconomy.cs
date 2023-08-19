@@ -27,14 +27,14 @@ public class PlayerEconomy : ScriptableObject
 
     private bool IsActionPossible(int cost)
     {
-        return m_mana >= cost;
+        return m_mana >= -cost;
     }
 
     public bool PayForPlacement(int cost)
     {
         if (IsActionPossible(cost))
         {
-            m_mana -= cost;
+            m_mana += cost;
             return true;
         }
         return false;
@@ -44,7 +44,7 @@ public class PlayerEconomy : ScriptableObject
     {
         if (IsActionPossible(m_deletionCost))
         {
-            m_mana -= m_deletionCost;
+            m_mana += m_deletionCost;
             m_deletionCost++;
             return true;
         }
@@ -55,7 +55,7 @@ public class PlayerEconomy : ScriptableObject
     {
         if (IsActionPossible(m_movingCost))
         {
-            m_mana -= m_movingCost;
+            m_mana += m_movingCost;
             return true;
         }
         return false;

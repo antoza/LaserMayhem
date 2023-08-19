@@ -15,7 +15,5 @@ public class BoardTile : Tile
         {
             GetComponent<SpriteRenderer>().color = Color.grey;
         }
-
-        m_TileState = TileState.Taken;
     }
 }
