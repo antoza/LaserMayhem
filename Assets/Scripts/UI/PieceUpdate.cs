@@ -5,7 +5,7 @@ using UnityEngine;
 public class PieceUpdate : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] m_PiecesSelection;
+    private SelectPiece[] m_PiecesSelection;
     [SerializeField]
     private DataManager m_DataManager;
 
@@ -14,9 +14,9 @@ public class PieceUpdate : MonoBehaviour
 
     private void Start()
     {
-        foreach(GameObject pieceSelection in m_PiecesSelection)
+        foreach(SelectPiece pieceSelection in m_PiecesSelection)
         {
-            pieceSelection.GetComponent<SelectPiece>().UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
+            pieceSelection.UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
         }
     }
 
@@ -26,22 +26,29 @@ public class PieceUpdate : MonoBehaviour
         for(int i = 0; i < m_PiecesSelection.Length; i++)
         {
             Tile currentTile = m_PiecesSelection[i].GetComponent<SelectPiece>().m_Tile;
-            for (int j = i+1; j < m_PiecesSelection.Length; j++)
+            if (!currentTile.m_Piece)
             {
-                Tile otherTile = m_PiecesSelection[j].GetComponent<SelectPiece>().m_Tile;
-                currentTile.UpdatePiece(otherTile.m_Piece);
-                otherTile.setColor();
-                break;
-                    
+                for (int j = i + 1; j < m_PiecesSelection.Length; j++)
+                {
+                    Tile otherTile = m_PiecesSelection[j].m_Tile;
+                    if (otherTile.m_Piece)
+                    {
+                        currentTile.UpdatePiece(otherTile.m_Piece);
+                        otherTile.UpdatePiece(null);
+                        break;
+                    }
+                }
             }
-            
         }
 
         //Add new ones
         for(int i = 0; i < m_PiecesSelection.Length; i++)
         {
             Tile currentTile = m_PiecesSelection[i].GetComponent<SelectPiece>().m_Tile;
-            currentTile.UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
+            if (!currentTile.m_Piece)
+            {
+                currentTile.UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
+            }
         }
     }
 }
