@@ -222,10 +222,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PiecesSelection:
-  - {fileID: 3038359335037805110}
-  - {fileID: 3038359334694111303}
-  - {fileID: 3038359335394358608}
-  - {fileID: 3038359336526366271}
+  - {fileID: 3038359335037805108}
+  - {fileID: 3038359334694111301}
+  - {fileID: 3038359335394358614}
+  - {fileID: 3038359336526366269}
   m_DataManager: {fileID: 0}
   m_PiecesData: {fileID: 11400000, guid: 8dc7968a57fae8145b878994636aa9c7, type: 2}
 --- !u!1 &3038359334694111303
