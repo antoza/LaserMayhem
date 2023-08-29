@@ -207,7 +207,7 @@ Transform:
   - {fileID: 3038359335394358615}
   - {fileID: 3038359336526366270}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3038359334653111194
 MonoBehaviour:
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PieceID: 1
   m_Tile: {fileID: 8811284761487381412}
-  m_Cost: 0
+  m_Cost: -2
 --- !u!1 &3038359334793431849
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,9 +667,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac7064a864177b4aa96d80bc523983f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PieceID: 1
+  m_PieceID: 0
   m_Tile: {fileID: 7239131002581864480}
-  m_Cost: 0
+  m_Cost: -1
 --- !u!1 &3038359335394358608
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PieceID: 2
   m_Tile: {fileID: 2886188463679252792}
-  m_Cost: 0
+  m_Cost: -3
 --- !u!1 &3038359335558661766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PieceID: 3
   m_Tile: {fileID: 7403695925026232355}
-  m_Cost: 0
+  m_Cost: -4
 --- !u!1001 &248644497270570301
 PrefabInstance:
   m_ObjectHideFlags: 0
