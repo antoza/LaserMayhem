@@ -8,15 +8,15 @@ using UnityEngine;
 #nullable enable
 public class PlayerActions : NetworkBehaviour
 {
-    private DataManager m_DataManager;
+    private DataManager DM;
     private PlayerData PlayerData;
     private bool m_CanPlay = false;
     public Tile? m_SourceTile;
 
     public PlayerActions(PlayerData playerData)
     {
-        m_DataManager = FindObjectOfType<DataManager>();
         PlayerData = playerData;
+        DM = PlayerData.DM;
     }
 
     public void StartTurn(int turnNumber)
@@ -28,7 +28,7 @@ public class PlayerActions : NetworkBehaviour
 
     public bool EndTurn()
     {
-        if (PlayerData.DataManager.TurnManager.TrySkipTurn(false))
+        if (DM.TurnManager.TrySkipTurn(false))
         {
             m_CanPlay = false;
             return true;
@@ -46,7 +46,7 @@ public class PlayerActions : NetworkBehaviour
         if (PlayerData.PlayerEconomy.PayForPlacement(pieceCost))
         {
             destinationTile.UpdatePiece(copiedPiece!);
-            m_DataManager.LaserManager.UpdateLaser(true);
+            DM.LaserManager.UpdateLaser(true);
             return true;
         }
         return false;
@@ -59,7 +59,7 @@ public class PlayerActions : NetworkBehaviour
         if (PlayerData.PlayerEconomy.PayForDeletion())
         {
             tile.UpdatePiece(null);
-            m_DataManager.LaserManager.UpdateLaser(true);
+            DM.LaserManager.UpdateLaser(true);
             return true;
         }
         return false;
@@ -78,7 +78,7 @@ public class PlayerActions : NetworkBehaviour
         {
             destinationTile.UpdatePiece(movedPiece);
             sourceTile.UpdatePiece(null);
-            m_DataManager.LaserManager.UpdateLaser(true);
+            DM.LaserManager.UpdateLaser(true);
             return true;
         }
         //}

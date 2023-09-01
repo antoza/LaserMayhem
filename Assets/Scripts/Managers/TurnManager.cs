@@ -7,8 +7,7 @@ using UnityEngine;
 public class TurnManager : ScriptableObject
 {
     private int m_TurnNumber = 0;
-    private DataManager m_DataManager;
-    private PlayersManager m_PlayersManager;
+    private DataManager DM;
 
     [Header("Time Management")]
     [SerializeField]
@@ -28,11 +27,10 @@ public class TurnManager : ScriptableObject
     private UISkipTurnButton m_TurnButton;
     private PieceUpdate m_PieceUpdate;
 
-    public TurnManager(DataManager dataManager, PlayersManager playersManager, float skipTurnCooldown, float laserCooldown)
+    public TurnManager(DataManager dataManager, float skipTurnCooldown, float laserCooldown)
     {
-        m_DataManager = dataManager;
-        m_PlayersManager = playersManager;
-        m_SkipTurnCooldown = m_DataManager.Rules.SkipTurnCooldown;
+        DM = dataManager;
+        m_SkipTurnCooldown = DM.Rules.SkipTurnCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_PiecesData = FindObjectOfType<PiecesData>();
         m_TurnButton = FindObjectOfType<UISkipTurnButton>();
@@ -68,7 +66,7 @@ public class TurnManager : ScriptableObject
         if (!firstTurn)
         {
             m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, true);
-            m_DataManager.LaserManager.UpdateLaser(false);
+            DM.LaserManager.UpdateLaser(false);
         }
         else
         {
@@ -79,11 +77,11 @@ public class TurnManager : ScriptableObject
     }
     public void EndOfLaser()
     {
-        m_PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
+        DM.PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
         m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, false);
         m_PieceUpdate.UpdatePieces();
         m_Announcement.StartCoRoutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
-        m_DataManager.LaserManager.UpdateLaser(true);
+        DM.LaserManager.UpdateLaser(true);
 
         m_CanSkipTurn = false;
     }

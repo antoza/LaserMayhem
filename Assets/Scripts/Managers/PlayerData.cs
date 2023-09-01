@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerData : ScriptableObject
 {
-    public DataManager DataManager { get; private set; }
+    public DataManager DM { get; private set; }
     public PlayerHealth PlayerHealth { get; private set; }
     public PlayerEconomy PlayerEconomy { get; private set; }
     public PlayerActions PlayerActions { get; private set; }
 
-    void Awake()
+    public PlayerData(DataManager dataManager)
     {
-        DataManager = FindObjectOfType<DataManager>();
+        DM = dataManager;
         PlayerHealth = new PlayerHealth();
         PlayerEconomy = new PlayerEconomy();
         PlayerActions = new PlayerActions(this);

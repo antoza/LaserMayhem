@@ -1,17 +1,16 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     [field: SerializeField]
     public Rules Rules { get; private set; }
-    [field: SerializeField]
     public BoardManager BoardManager { get; private set; }
     public LaserManager LaserManager { get; private set; }
-    [field: SerializeField]
     public PlayersManager PlayersManager { get; private set; }
-    [field: SerializeField]
     public TurnManager TurnManager { get; private set; }
-    public GameObject Board { get; private set; }
+    public GameMode GameMode { get; private set; }
 
     //Laser Templates
     [field : SerializeField]
@@ -21,16 +20,26 @@ public class DataManager : MonoBehaviour
     [field: SerializeField]
     public GameObject LaserContainer { get; private set; }
 
-
-    // Start : on crée chaque manager (BoardManager = new BoardManager(this)) etc plutôt que de faire des FindObjectWithTag
-    // à l'exception de Rules qui se place manuellement
     private void Awake()
     {
-        Board = GameObject.FindGameObjectWithTag("Board");
-        BoardManager = new BoardManager();
-        LaserManager = new LaserManager(this, BoardManager, LaserTemplate, LaserPredictionTemplate, LaserContainer);
-        PlayersManager = new PlayersManager();
-        TurnManager = new TurnManager(this, PlayersManager, Rules.SkipTurnCooldown, Rules.LaserCooldown);
+        BoardManager = new BoardManager(this, Instantiate(new GameObject("Board")));
+        LaserManager = new LaserManager(this, LaserTemplate, LaserPredictionTemplate, LaserContainer);
+        PlayersManager = new PlayersManager(this);
+        TurnManager = new TurnManager(this, Rules.SkipTurnCooldown, Rules.LaserCooldown);
+        CreateGameMode();
+    }
+
+    private void CreateGameMode()
+    {
+        Type type = Type.GetType("NamespaceName.GameMode" + Rules.GameModeName);
+        if (type != null && type.IsSubclassOf(typeof(GameMode)))
+        {
+            GameMode = (GameMode)Activator.CreateInstance(type);
+        }
+        else
+        {
+            Console.WriteLine("La classe spécifiée n'est pas valide.");
+        }
     }
 
     //On ne fait aucune action dans le Awake. Si besoins il suffit de recréer un start dans le scriptable voulu et de l'appeller dans le start du dataManager.

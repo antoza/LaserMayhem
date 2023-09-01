@@ -7,8 +7,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class LaserManager : ScriptableObject
 {
-	private DataManager m_DataManager;
-	private BoardManager m_BoardManager;
+	private DataManager DM;
 
 	private GameObject m_LaserVisualTemplate;
 	private GameObject m_LaserVisualPredictionTemplate;
@@ -25,10 +24,9 @@ public class LaserManager : ScriptableObject
 
     private float[,] m_Offset = { { 0.5f, 0f, 0f }, { -0.5f, 0f, 180f }, {0f, 0.5f, 90f }, { 0f, -0.5f, 270f } };
 
-	public LaserManager(DataManager dataManager, BoardManager boardManager, GameObject laserVisualTemplate, GameObject laserPredictionVisualTemplate, GameObject laserContainer)
+	public LaserManager(DataManager dataManager, GameObject laserVisualTemplate, GameObject laserPredictionVisualTemplate, GameObject laserContainer)
 	{
-		m_DataManager = dataManager;
-		m_BoardManager = boardManager;
+		DM = dataManager;
 		m_LaserVisualTemplate = laserVisualTemplate;
 		m_LaserVisualPredictionTemplate = laserPredictionVisualTemplate;
 		m_LaserContainer = laserContainer;
@@ -36,13 +34,13 @@ public class LaserManager : ScriptableObject
 
 	private void Start()
 	{
-		m_LaserGrid = new bool[m_BoardManager.width, m_BoardManager.height, 4];
+		m_LaserGrid = new bool[DM.BoardManager.width, DM.BoardManager.height, 4];
     }
 
     public void UpdateLaser(bool prediction)
     {
-        m_DataManager.LaserManager.DestroyLaserPart();
-        m_DataManager.LaserManager.PrintLaserPart(prediction);
+        DestroyLaserPart();
+        PrintLaserPart(prediction);
     }
 
     public void PrintLaserPart(bool prediction)
@@ -56,7 +54,7 @@ public class LaserManager : ScriptableObject
 		else
 		{
             laserPart = Instantiate(m_LaserVisualTemplate);
-			HitPlayer();
+			ProcessLeavingLasers();
         }
 
 		ResetBoard();
@@ -65,7 +63,7 @@ public class LaserManager : ScriptableObject
         TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
 		m_LaserVisualHolder.Add(laserPart);
         laserPart.transform.SetParent(m_LaserContainer.transform);
-        Vector2Int worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
+        Vector2Int worldCoord = DM.BoardManager.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
         laserPart.transform.position = new Vector3(worldCoord[0] + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord[1] + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
 		laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 
@@ -86,7 +84,7 @@ public class LaserManager : ScriptableObject
             TurnLaser(beamDirection, beamPosition, laserPart);
             m_LaserVisualHolder.Add(laserPart);
             laserPart.transform.SetParent(m_LaserContainer.transform);
-			worldCoord = m_BoardManager.ConvertBoardCoordinateToWorldCoordinates(beamPosition);
+			worldCoord = DM.BoardManager.ConvertBoardCoordinateToWorldCoordinates(beamPosition);
             laserPart.transform.position = new Vector3(worldCoord[0] + m_Offset[DirectionToInt(beamDirection), 0], worldCoord[1] + m_Offset[DirectionToInt(beamDirection), 1], 0);
             //laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);
 		}
@@ -102,16 +100,16 @@ public class LaserManager : ScriptableObject
 
 	public void ResetBoard()
 	{
-		m_LaserGrid = new bool[m_BoardManager.width, m_BoardManager.height, 4];
+		m_LaserGrid = new bool[DM.BoardManager.width, DM.BoardManager.height, 4];
 	}
 
 	public void CrossNextTile(Vector2Int spot, Vector2Int direction)
 	{
         Vector2Int newSpot = new Vector2Int(spot[0] + direction[0], spot[1] + direction[1]);
 
-        if (m_BoardManager.IsOnBoard(newSpot))
+        if (DM.BoardManager.IsOnBoard(newSpot))
 		{
-            Piece? pieceCrossed = m_BoardManager.GetPiece(newSpot);
+            Piece? pieceCrossed = DM.BoardManager.GetPiece(newSpot);
             if (pieceCrossed)
             {
                 foreach (Vector2Int newDirection in pieceCrossed!.ComputeNewDirections(direction))
@@ -137,7 +135,7 @@ public class LaserManager : ScriptableObject
 
 	public void DisplayBeam(Vector2Int spot, Vector2Int direction, bool display)
 	{
-		if (m_BoardManager.IsOnBoard(spot))
+		if (DM.BoardManager.IsOnBoard(spot))
 		{
 			int directionNumber = DirectionToInt(direction);
 			m_LaserGrid[spot[0], spot[1], directionNumber] = display;
@@ -146,7 +144,7 @@ public class LaserManager : ScriptableObject
 
 	public bool IsBeamDisplayed(Vector2Int spot, Vector2Int direction)
 	{
-		if (m_BoardManager.IsOnBoard(spot))
+		if (DM.BoardManager.IsOnBoard(spot))
 		{
 			int directionNumber = DirectionToInt(direction);
 			return m_LaserGrid[spot[0], spot[1], directionNumber];
@@ -156,9 +154,9 @@ public class LaserManager : ScriptableObject
 
 	public IEnumerable<(Vector2Int, Vector2Int)> DisplayedBeams()
 	{
-		for (int i = 0; i < m_BoardManager.width; i++)
+		for (int i = 0; i < DM.BoardManager.width; i++)
 		{
-			for (int j = 0; j < m_BoardManager.height; j++)
+			for (int j = 0; j < DM.BoardManager.height; j++)
 			{
 				for (int d = 0; d < 4; d++)
 				{
@@ -168,26 +166,42 @@ public class LaserManager : ScriptableObject
 		}
 	}
 
-	void HitPlayer()
+	void ProcessLeavingLasers()
 	{
-		for(int i = 0; i < m_BoardManager.width; i++)
+        List<int> leavingLasersRight = new List<int>();
+        List<int> leavingLasersLeft = new List<int>();
+        List<int> leavingLasersTop = new List<int>();
+        List<int> leavingLasersBot = new List<int>();
+        for (int i = 0; i < DM.BoardManager.height; i++)
 		{
-			if(m_LaserGrid[i, 0, 3])
+			if (m_LaserGrid[0, i, 3])
 			{
-				m_DataManager.PlayersManager.HitPlayer(1);
+				leavingLasersLeft.Add(i);
 			}
-			if(m_LaserGrid[i, m_BoardManager.height-1, 2])
-			{
-				m_DataManager.PlayersManager.HitPlayer(0);
-			}	
+			if (m_LaserGrid[DM.BoardManager.width-1, i, 2])
+            {
+                leavingLasersRight.Add(i);
+            }	
 		}
+        for (int j = 0; j < DM.BoardManager.width; j++)
+		{
+			if (m_LaserGrid[j, 0, 3])
+			{
+				leavingLasersBot.Add(j);
+			}
+			if (m_LaserGrid[j, DM.BoardManager.height-1, 2])
+            {
+                leavingLasersTop.Add(j);
+            }	
+		}
+		DM.GameMode.ProcessLeavingLasers(leavingLasersRight, leavingLasersLeft, leavingLasersTop, leavingLasersBot);
 	}
 
 	void PrintLaserGrid()
 	{
-		for(int i = 0; i < m_BoardManager.width; i++)
+		for(int i = 0; i < DM.BoardManager.width; i++)
 		{
-			for(int j = 0; j < m_BoardManager.height; j++)
+			for(int j = 0; j < DM.BoardManager.height; j++)
 			{
 				bool yes = false;
 				if(m_LaserGrid[i, j, 0])

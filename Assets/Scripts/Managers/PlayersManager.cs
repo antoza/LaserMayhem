@@ -4,51 +4,51 @@ using UnityEngine;
 
 public class PlayersManager : ScriptableObject
 {
-    private DataManager m_DataManager;
-    public int m_NumberOfPlayers { get; private set; }
-    public int m_CurrentPlayerID { get; private set; }
-    private PlayerData[] m_PlayerList;
+    private DataManager DM;
+    public int numberOfPlayers { get; private set; }
+    public int currentPlayerID { get; private set; }
+    private PlayerData[] playerList;
 
-    void Awake()
+    public PlayersManager(DataManager dataManager)
     {
-        m_DataManager = FindObjectOfType<DataManager>();
-        m_NumberOfPlayers = m_DataManager.Rules.NumberOfPlayers;
-        m_CurrentPlayerID = m_NumberOfPlayers - 1;
-        m_PlayerList = new PlayerData[m_NumberOfPlayers];
-        for (int i = 0; i < m_NumberOfPlayers; i++)
+        DM = dataManager;
+        numberOfPlayers = DM.Rules.NumberOfPlayers;
+        currentPlayerID = numberOfPlayers - 1;
+        playerList = new PlayerData[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++)
         {
-            m_PlayerList[i] = new PlayerData();
+            playerList[i] = new PlayerData(DM);
         }
     }
 
     public void StartNextPlayerTurn(int turnNumber)
     {
-        m_CurrentPlayerID = (m_CurrentPlayerID + 1) % m_NumberOfPlayers;
-        m_PlayerList[m_CurrentPlayerID].PlayerActions.StartTurn(turnNumber);
+        currentPlayerID = (currentPlayerID + 1) % numberOfPlayers;
+        playerList[currentPlayerID].PlayerActions.StartTurn(turnNumber);
     }
 
     public void EndCurrentPlayerTurn()
     {
-        m_PlayerList[m_CurrentPlayerID].PlayerActions.EndTurn();
+        playerList[currentPlayerID].PlayerActions.EndTurn();
     }
 
     public PlayerData GetCurrentPlayer()
     {
-        return m_PlayerList[m_CurrentPlayerID];
+        return playerList[currentPlayerID];
     }
 
-    public void HitPlayer(int id)
+    public void HitPlayer(int id, int damage)
     {
-        m_PlayerList[id].PlayerHealth.TakeDamage(1);
+        playerList[id].PlayerHealth.TakeDamage(damage);
     }
 
     public int GetHealth(int id)
     {
-        return m_PlayerList[id].PlayerHealth.m_health;
+        return playerList[id].PlayerHealth.m_health;
     }
 
     public int GetMana(int id)
     {
-        return m_PlayerList[id].PlayerEconomy.m_mana;
+        return playerList[id].PlayerEconomy.m_mana;
     }
 }

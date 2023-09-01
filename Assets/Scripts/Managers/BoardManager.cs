@@ -6,20 +6,22 @@ using UnityEngine;
 #nullable enable
 public class BoardManager : ScriptableObject
 {
-    private DataManager m_DataManager;
+    private DataManager DM;
+    private GameObject m_board;
     public int width { get; private set; }
     public int height { get; private set; }
     public float scaleWidth { get; private set; }
     public float scaleHeight { get; private set; }
     private BoardTile[,] tilesArray;
 
-    private void Awake()
+    public BoardManager(DataManager dataManager, GameObject board)
     {
-        m_DataManager = FindObjectOfType<DataManager>();
-        width = m_DataManager.Rules.BoardWidth;
-        height = m_DataManager.Rules.BoardHeight;
-        scaleWidth = m_DataManager.Rules.BoardScaleWidth;
-        scaleHeight = m_DataManager.Rules.BoardScaleHeight;
+        DM = dataManager;
+        m_board = board;
+        width = DM.Rules.BoardWidth;
+        height = DM.Rules.BoardHeight;
+        scaleWidth = DM.Rules.BoardScaleWidth;
+        scaleHeight = DM.Rules.BoardScaleHeight;
         tilesArray = new BoardTile[width, height];
         GenerateAllTiles();
     }
@@ -33,28 +35,10 @@ public class BoardManager : ScriptableObject
     {
         return tile[0] >= 0 && tile[0] < width && tile[1] >= 0 && tile[1] < height;
     }
-    /*
-    public bool PlaceOnTile(Piece piece, Vector2Int tile)
-    {
-        if (!GetPiece(tile))
-        {
-            tilesArray[tile.Item1, tile.Item2].UpdatePiece(piece);
-            return true;
-        }
-        return false;
-    }
-
-    public Piece? EmptyTile(Vector2Int tile)
-    {
-        Piece? placedPiece = tilesArray[tile.Item1, tile.Item2].m_Piece;
-        tilesArray[tile.Item1, tile.Item2].UpdatePiece(null);
-        return placedPiece;
-    }*/
-
 
     private void GenerateAllTiles()
     {
-        GameObject prefab = m_DataManager.Rules.TilePrefab;
+        GameObject prefab = DM.Rules.TilePrefab;
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -67,7 +51,7 @@ public class BoardManager : ScriptableObject
     private BoardTile GenerateTile(int x, int y, GameObject prefab)
     {
         GameObject spawnedTile = Instantiate(prefab);
-        spawnedTile.transform.SetParent(m_DataManager.Board.transform);
+        spawnedTile.transform.SetParent(m_board.transform);
         spawnedTile.AddComponent<BoardTile>();
         spawnedTile.name = "Tile_" + x + "_" + y;
         BoardTile boardTile = spawnedTile.GetComponent<BoardTile>();

@@ -31,7 +31,7 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
         Color c = m_TurnAnnouncementText.color;
         c.a = 1;
         m_TurnAnnouncementText.color = c;
-        m_TurnAnnouncementText.text = m_BaseString + m_DataManager.PlayersManager.m_CurrentPlayerID;
+        m_TurnAnnouncementText.text = m_BaseString + m_DataManager.PlayersManager.currentPlayerID;
 
 
 

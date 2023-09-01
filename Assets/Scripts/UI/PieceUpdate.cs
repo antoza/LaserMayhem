@@ -25,7 +25,7 @@ public class PieceUpdate : MonoBehaviour
         //Move pieces
         for(int i = 0; i < m_PiecesSelection.Length; i++)
         {
-            Tile currentTile = m_PiecesSelection[i].GetComponent<SelectPiece>().m_Tile;
+            Tile currentTile = m_PiecesSelection[i].m_Tile;
             if (!currentTile.m_Piece)
             {
                 for (int j = i + 1; j < m_PiecesSelection.Length; j++)
@@ -44,7 +44,7 @@ public class PieceUpdate : MonoBehaviour
         //Add new ones
         for(int i = 0; i < m_PiecesSelection.Length; i++)
         {
-            Tile currentTile = m_PiecesSelection[i].GetComponent<SelectPiece>().m_Tile;
+            Tile currentTile = m_PiecesSelection[i].m_Tile;
             if (!currentTile.m_Piece)
             {
                 currentTile.UpdatePiece(m_PiecesData.GetRandomPiece().GetComponent<Piece>());
