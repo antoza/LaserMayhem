@@ -31,14 +31,15 @@ public class DataManager : MonoBehaviour
 
     private void CreateGameMode()
     {
-        Type type = Type.GetType("NamespaceName.GameMode" + Rules.GameModeName);
+        Type type = Type.GetType("GameMode" + Rules.GameModeName);
         if (type != null && type.IsSubclassOf(typeof(GameMode)))
         {
             GameMode = (GameMode)Activator.CreateInstance(type);
+            GameMode.SetDamanager(this);
         }
         else
         {
-            Console.WriteLine("La classe spécifiée n'est pas valide.");
+            Debug.Log("La classe spécifiée n'est pas valide.");
         }
     }
 
