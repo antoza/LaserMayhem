@@ -36,7 +36,7 @@ public class PlayerActions : NetworkBehaviour
         return false;
     }
 
-    public bool PlacePiece(Tile sourceTile, BoardTile destinationTile, int pieceCost = -1)
+    public bool PlacePiece(Tile sourceTile, BoardTile destinationTile, int pieceCost = 0)
     {
         if (!m_CanPlay) return false;
         // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
