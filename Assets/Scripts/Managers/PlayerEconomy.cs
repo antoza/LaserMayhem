@@ -25,14 +25,24 @@ public class PlayerEconomy : ScriptableObject
         m_mana += manaToGive;
     }
 
-    private bool IsActionPossible(int cost)
+    public bool HasEnoughMana(int cost)
     {
         return m_mana >= -cost;
     }
 
+    public bool HasEnoughManaForDeletion()
+    {
+        return HasEnoughMana(m_deletionCost);
+    }
+
+    public bool HasEnoughManaForMovement()
+    {
+        return HasEnoughMana(m_movingCost);
+    }
+
     public bool PayForPlacement(int cost)
     {
-        if (IsActionPossible(cost))
+        if (HasEnoughMana(cost))
         {
             m_mana += cost;
             return true;
@@ -42,7 +52,7 @@ public class PlayerEconomy : ScriptableObject
 
     public bool PayForDeletion()
     {
-        if (IsActionPossible(m_deletionCost))
+        if (HasEnoughManaForDeletion())
         {
             m_mana += m_deletionCost;
             m_deletionCost++;
@@ -53,7 +63,7 @@ public class PlayerEconomy : ScriptableObject
 
     public bool PayForMovement()
     {
-        if (IsActionPossible(m_movingCost))
+        if (HasEnoughManaForMovement())
         {
             m_mana += m_movingCost;
             return true;

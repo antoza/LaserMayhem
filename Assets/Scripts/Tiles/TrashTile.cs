@@ -3,7 +3,7 @@ using UnityEngine;
 #nullable enable
 public class TrashTile : Tile
 {
-    public override void setColor()
+    public override void SetColor()
     {
         //GetComponent<SpriteRenderer>().color = Color.red;
     }

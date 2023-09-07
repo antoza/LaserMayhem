@@ -17,11 +17,11 @@ public abstract class Tile : MonoBehaviour
         m_DataManager = FindObjectOfType<DataManager>();
         transform.position = Vector2.right * positionX + Vector2.up * positionY;
         transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
-        setColor();
+        SetColor();
         UpdatePiece(m_startingPiece);
     }
 
-    public abstract void setColor();
+    public abstract void SetColor();
 
     void OnMouseOver()
     {

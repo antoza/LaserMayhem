@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#nullable enable
+
 public abstract class GameMode : ScriptableObject
 {
     public DataManager DM { get; private set; }
@@ -15,4 +17,6 @@ public abstract class GameMode : ScriptableObject
     {
         DM = dataManager;
     }
+
+    public abstract void MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData);
 }

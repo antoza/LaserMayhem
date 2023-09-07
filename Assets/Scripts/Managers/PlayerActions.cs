@@ -36,93 +36,40 @@ public class PlayerActions : NetworkBehaviour
         return false;
     }
 
-    public bool PlacePiece(Tile sourceTile, BoardTile destinationTile, int pieceCost = 0)
+    public bool CopyPiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
     {
-        if (!m_CanPlay) return false;
-        // DataManager.SelectablePieces.m_piecesListInfo[pieceNumber].m_cost
-        Piece? copiedPiece = sourceTile.m_Piece;
-        if (!copiedPiece) return false;
+        if (!sourceTile.m_Piece) return false;
         if (destinationTile.m_Piece) return false;
-        if (PlayerData.PlayerEconomy.PayForPlacement(pieceCost))
-        {
-            destinationTile.UpdatePiece(copiedPiece!);
-            DM.LaserManager.UpdateLaser(true);
-            return true;
-        }
-        return false;
+
+        destinationTile.UpdatePiece(sourceTile.m_Piece!);
+        DM.LaserManager.UpdateLaser(true);
+        return true;
     }
 
-    public bool DeletePiece(BoardTile tile)
+    public bool DeletePiece(Tile tile) // A déplacer dans un fichier plus adapté
     {
-        if (!m_CanPlay) return false;
         if (!tile.m_Piece) return false;
-        if (PlayerData.PlayerEconomy.PayForDeletion())
-        {
-            tile.UpdatePiece(null);
-            DM.LaserManager.UpdateLaser(true);
-            return true;
-        }
-        return false;
+
+        tile.UpdatePiece(null);
+        DM.LaserManager.UpdateLaser(true);
+        return true;
     }
 
-    public bool MovePiece(BoardTile sourceTile, BoardTile destinationTile)
+    public bool MovePiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
     {
-        if (!m_CanPlay) return false;
-        //if (DataManager.Rules.IsMovementAllowed())
-        //{
         if (sourceTile == destinationTile) return false;
-        Piece? movedPiece = sourceTile.m_Piece;
-        if (!movedPiece) return false;
+        if (!sourceTile.m_Piece) return false;
         if (destinationTile.m_Piece) return false;
-        if (PlayerData.PlayerEconomy.PayForMovement())
-        {
-            destinationTile.UpdatePiece(movedPiece);
-            sourceTile.UpdatePiece(null);
-            DM.LaserManager.UpdateLaser(true);
-            return true;
-        }
-        //}
-        return false;
+
+        destinationTile.UpdatePiece(sourceTile.m_Piece);
+        sourceTile.UpdatePiece(null);
+        DM.LaserManager.UpdateLaser(true);
+        return true;
     }
 
     public void SetSourceTile(Tile sourceTile)
     {
-        if (sourceTile is BoardTile or InfiniteTile or SelectionTile)
         m_SourceTile = sourceTile;
-    }
-
-    public void MoveToDestinationTile(Tile? sourceTile, Tile destinationTile)
-    {
-        if (sourceTile == null)
-        {
-            return;
-        }
-        switch ((sourceTile, destinationTile))
-        {
-            case (BoardTile, BoardTile):
-                MovePiece((BoardTile)sourceTile!, (BoardTile)destinationTile);
-                break;
-            case (InfiniteTile, BoardTile):
-                PlacePiece(sourceTile, (BoardTile)destinationTile);
-                break;
-            case (BoardTile, TrashTile):
-                DeletePiece((BoardTile)sourceTile);
-                break;
-            case (SelectionTile, BoardTile):
-                SelectPiece selectPiece = sourceTile.transform.parent.GetComponent<SelectPiece>();
-                int cost = -1;
-                if (selectPiece)
-                {
-                    cost = selectPiece.GetCost();
-                }
-                if(PlacePiece(sourceTile!, (BoardTile)destinationTile, cost))
-                {
-                    sourceTile.UpdatePiece(null);
-                }
-                break;
-            default:
-                break;
-        }
     }
     /*
     [ClientRpc]
@@ -134,7 +81,12 @@ public class PlayerActions : NetworkBehaviour
     //[Command] (pas public)
     public void CmdDoAction(Tile destinationTile)
     {
-        MoveToDestinationTile(m_SourceTile, destinationTile);
+        if (!m_CanPlay)
+        {
+            Debug.Log("It is not your turn to play");
+            return;
+        }
+        DM.GameMode.MoveToDestinationTile(m_SourceTile, destinationTile, PlayerData);
         m_SourceTile = null;
         /*RpcDoAction(destinationTile);*/
     }
