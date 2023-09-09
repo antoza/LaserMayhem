@@ -51,4 +51,11 @@ public class PlayersManager : ScriptableObject
     {
         return playerList[id].PlayerEconomy.m_mana;
     }
+
+#if DEBUG
+    public void AddInfiniteMana()
+    {
+        playerList[currentPlayerID].PlayerActions.AddInfiniteMana();
+    }
+#endif
 }

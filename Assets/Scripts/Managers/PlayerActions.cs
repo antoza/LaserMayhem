@@ -91,4 +91,11 @@ public class PlayerActions : NetworkBehaviour
         /*RpcDoAction(destinationTile);*/
     }
 
+#if DEBUG
+    public void AddInfiniteMana()
+    {
+        PlayerData.PlayerEconomy.AddNewTurnMana(500);
+    }
+#endif
+
 }
