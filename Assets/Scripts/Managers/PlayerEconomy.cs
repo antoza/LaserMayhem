@@ -27,7 +27,7 @@ public class PlayerEconomy : ScriptableObject
 
     public bool HasEnoughMana(int cost)
     {
-        return m_mana >= -cost;
+        return m_mana >= cost;
     }
 
     public bool HasEnoughManaForDeletion()
@@ -44,7 +44,7 @@ public class PlayerEconomy : ScriptableObject
     {
         if (HasEnoughMana(cost))
         {
-            m_mana += cost;
+            m_mana -= cost;
             return true;
         }
         return false;
@@ -54,7 +54,7 @@ public class PlayerEconomy : ScriptableObject
     {
         if (HasEnoughManaForDeletion())
         {
-            m_mana += m_deletionCost;
+            m_mana -= m_deletionCost;
             m_deletionCost++;
             return true;
         }
@@ -65,7 +65,7 @@ public class PlayerEconomy : ScriptableObject
     {
         if (HasEnoughManaForMovement())
         {
-            m_mana += m_movingCost;
+            m_mana -= m_movingCost;
             return true;
         }
         return false;

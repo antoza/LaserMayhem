@@ -10,11 +10,9 @@ public class TurnManager : ScriptableObject
     private DataManager DM;
 
     [Header("Time Management")]
-    [SerializeField]
     private float m_SkipTurnCooldown;
-    [SerializeField]
     private float m_LaserCooldown;
-    public bool m_CanSkipTurn { get; set; } = true;
+    private bool m_CanSkipTurn = false;
 
 
     [Header("Test Data")]
@@ -27,62 +25,52 @@ public class TurnManager : ScriptableObject
     private UISkipTurnButton m_TurnButton;
     private PieceUpdate m_PieceUpdate;
 
-    public TurnManager(DataManager dataManager, float skipTurnCooldown, float laserCooldown)
+    public TurnManager(DataManager dataManager)
     {
         DM = dataManager;
         m_SkipTurnCooldown = DM.Rules.SkipTurnCooldown;
+        m_LaserCooldown = DM.Rules.LaserCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_PiecesData = FindObjectOfType<PiecesData>();
         m_TurnButton = FindObjectOfType<UISkipTurnButton>();
-        m_SkipTurnCooldown = skipTurnCooldown;
-        m_LaserCooldown = laserCooldown;
         m_PieceUpdate = FindObjectOfType<PieceUpdate>();
     }
 
     public void Start()
     {
         m_TurnButton.TurnManager = this;
-        SkipTurn(true);
+        StartAnnouncementPhase();
     }
 
-    public bool TrySkipTurn(bool firstTurn)
+    public bool TrySkipTurn()
     {
         if (m_CanSkipTurn)
         {
-            SkipTurn(firstTurn);
+            StartLaserPhase();
             return true;
         }
         return false;
     }
 
-
-    private void SkipTurn(bool firstTurn)
+    public void StartLaserPhase()
     {
-        EndOfTurn(firstTurn);
+        m_CanSkipTurn = false;
+        DM.LaserManager.UpdateLaser(false);
+        m_TurnButton.StartCoroutineCooldownFromScriptable(m_LaserCooldown, true);
     }
 
-    public void EndOfTurn(bool firstTurn)
-    {
-        if (!firstTurn)
-        {
-            m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, true);
-            DM.LaserManager.UpdateLaser(false);
-        }
-        else
-        {
-            EndOfLaser();
-        }
-        
-
-    }
-    public void EndOfLaser()
+    public void StartAnnouncementPhase()
     {
         DM.PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
-        m_TurnButton.StartCoRoutineCooldownFromScriptable(m_LaserCooldown, false);
-        m_PieceUpdate.UpdatePieces();
-        m_Announcement.StartCoRoutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
         DM.LaserManager.UpdateLaser(true);
+        m_PieceUpdate.UpdatePieces();
+        m_TurnButton.StartCoroutineCooldownFromScriptable(m_SkipTurnCooldown, false);
+        m_Announcement.StartCoroutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
+    }
 
-        m_CanSkipTurn = false;
+    public void StartTurnPhase()
+    {
+        DM.LaserManager.UpdateLaser(true);
+        m_CanSkipTurn = true;
     }
 }

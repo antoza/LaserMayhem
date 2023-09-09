@@ -28,7 +28,7 @@ public class PlayerActions : NetworkBehaviour
 
     public bool EndTurn()
     {
-        if (DM.TurnManager.TrySkipTurn(false))
+        if (DM.TurnManager.TrySkipTurn())
         {
             m_CanPlay = false;
             return true;

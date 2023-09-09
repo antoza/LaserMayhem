@@ -34,17 +34,15 @@ public class UISkipTurnButton : MonoBehaviour
         m_TurnButton.interactable = true;
         if (laser)
         {
-            TurnManager.EndOfLaser();
+            TurnManager.StartAnnouncementPhase();
         }
         else
         {
-            TurnManager.m_CanSkipTurn = true;
+            TurnManager.StartTurnPhase();
         }
-
-        
     }
 
-    public void StartCoRoutineCooldownFromScriptable(float cooldown, bool laser)
+    public void StartCoroutineCooldownFromScriptable(float cooldown, bool laser)
     {
         StartCoroutine(Cooldown(cooldown, laser));
     }

@@ -27,7 +27,14 @@ public class GameModeRPG : GameMode
                 }
                 playerData.PlayerEconomy.PayForPlacement(cost);
                 break;
-
+#if DEBUG
+            case (InfiniteTile, BoardTile):
+                if (!playerData.PlayerActions.CopyPiece(sourceTile, destinationTile))
+                {
+                    return;
+                }
+                break;
+#endif
             case (BoardTile, BoardTile):
                 if (!playerData.PlayerEconomy.HasEnoughManaForMovement())
                 {

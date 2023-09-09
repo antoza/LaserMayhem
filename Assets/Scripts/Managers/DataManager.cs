@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour
         BoardManager = new BoardManager(this, Instantiate(new GameObject("Board")));
         LaserManager = new LaserManager(this, LaserTemplate, LaserPredictionTemplate, LaserContainer);
         PlayersManager = new PlayersManager(this);
-        TurnManager = new TurnManager(this, Rules.SkipTurnCooldown, Rules.LaserCooldown);
+        TurnManager = new TurnManager(this);
         CreateGameMode();
     }
 

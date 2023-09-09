@@ -17,7 +17,7 @@ public class SelectPiece : MonoBehaviour
     private void Awake()
     {
         m_DataManager = FindObjectOfType<DataManager>();
-        m_Cost = -m_PieceID - 1;
+        m_Cost = m_PieceID + 1;
     }
 
     public void UpdatePiece(Piece newPiece)
