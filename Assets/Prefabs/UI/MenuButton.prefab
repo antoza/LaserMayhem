@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 3567388136536118781}
   - component: {fileID: 375998237300198826}
   - component: {fileID: 3941000792299872690}
-  - component: {fileID: 7825531177915790111}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -229,7 +228,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7825531177915790111}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonPressed, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -261,19 +260,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7825531177915790111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6637795461570761566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9cf03d09a6cddd47affbeeb794f1070, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 3941000792299872690}
 --- !u!1 &8005702356770354517
 GameObject:
   m_ObjectHideFlags: 0
