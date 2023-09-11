@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerHealth : ScriptableObject
 {
-    private DataManager m_DataManager;
+    private DataManager DM;
     public int m_health { get; private set; }
 
-    void Awake()
+    public PlayerHealth(DataManager dataManager)
     {
-        m_DataManager = FindObjectOfType<DataManager>();
-        m_health = m_DataManager.Rules.InitialHealth;
+        DM = dataManager;
+        m_health = DM.Rules.InitialHealth;
     }
 
     public bool IsDead()

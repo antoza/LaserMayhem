@@ -32,9 +32,19 @@ public class PlayersManager : ScriptableObject
         playerList[currentPlayerID].PlayerActions.EndTurn();
     }
 
+    public PlayerData GetPlayer(int id)
+    {
+        if (id >= numberOfPlayers)
+        {
+            Debug.Log("This id does not correspond to a player");
+            return playerList[0];
+        }
+        return playerList[id];
+    }
+
     public PlayerData GetCurrentPlayer()
     {
-        return playerList[currentPlayerID];
+        return GetPlayer(currentPlayerID);
     }
 
     public void HitPlayer(int id, int damage)

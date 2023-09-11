@@ -12,11 +12,11 @@ public class UIEcoPlayer : MonoBehaviour
     private TextMeshProUGUI m_EcoText;
 
     [SerializeField]
-    private int m_CurrentPlayerID;
+    private int m_PlayerID;
 
     // Update is called once per frame
     void Update()
     {
-        m_EcoText.text = m_DataManager.PlayersManager.GetMana(m_CurrentPlayerID).ToString();
+        m_EcoText.text = m_DataManager.PlayersManager.GetMana(m_PlayerID).ToString();
     }
 }

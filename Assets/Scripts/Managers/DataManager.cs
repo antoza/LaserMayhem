@@ -10,6 +10,7 @@ public class DataManager : MonoBehaviour
     public LaserManager LaserManager { get; private set; }
     public PlayersManager PlayersManager { get; private set; }
     public TurnManager TurnManager { get; private set; }
+    public MessageManager MessageManager { get; private set; }
     public GameMode GameMode { get; private set; }
 
     //Laser Templates
@@ -26,7 +27,9 @@ public class DataManager : MonoBehaviour
         LaserManager = new LaserManager(this, LaserTemplate, LaserPredictionTemplate, LaserContainer);
         PlayersManager = new PlayersManager(this);
         TurnManager = new TurnManager(this);
+        MessageManager = new MessageManager(this);
         CreateGameMode();
+        MessageManager.GetInitialData();
     }
 
     private void CreateGameMode()

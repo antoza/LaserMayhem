@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIHealthPlayer : MonoBehaviour
-{
 
+public class UINamePlayer : MonoBehaviour
+{
     [SerializeField]
     private DataManager m_DataManager;
     [SerializeField]
-    private TextMeshProUGUI m_HealthText;
+    private TextMeshProUGUI m_NameText;
 
     [SerializeField]
     private int m_PlayerID;
@@ -17,6 +17,6 @@ public class UIHealthPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_HealthText.text = m_DataManager.PlayersManager.GetHealth(m_PlayerID).ToString();
+        m_NameText.text = m_DataManager.PlayersManager.GetPlayer(m_PlayerID).m_name;
     }
 }
