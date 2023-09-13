@@ -50,6 +50,7 @@ public abstract class Tile : MonoBehaviour
             m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
             m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
             m_Piece.parentTile = this;
+            m_Piece.GetComponent<Animator>().SetTrigger("PieceSelection");
         }
         else
         {

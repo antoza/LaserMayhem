@@ -7,6 +7,7 @@ public class GameModeRPG : GameMode
 {
     public override void MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData)
     {
+        Debug.Log("Hello");
         if (sourceTile == null)
         {
             return;
