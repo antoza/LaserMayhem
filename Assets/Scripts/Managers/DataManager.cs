@@ -20,6 +20,8 @@ public class DataManager : MonoBehaviour
     public GameObject LaserPredictionTemplate { get; private set; }
     [field: SerializeField]
     public GameObject LaserContainer { get; private set; }
+    [field: SerializeField]
+    public MouseFollower MouseFollower { get; private set; }
 
     private void Awake()
     {

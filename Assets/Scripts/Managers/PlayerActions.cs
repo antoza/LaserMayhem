@@ -31,6 +31,7 @@ public class PlayerActions : NetworkBehaviour
         if (DM.TurnManager.TrySkipTurn())
         {
             m_CanPlay = false;
+            DM.MouseFollower.ChangeFollowingTile(null);
             return true;
         }
         return false;
@@ -70,6 +71,7 @@ public class PlayerActions : NetworkBehaviour
     public void SetSourceTile(Tile sourceTile)
     {
         m_SourceTile = sourceTile;
+        DM.MouseFollower.ChangeFollowingTile(sourceTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite);
     }
     /*
     [ClientRpc]
@@ -88,6 +90,7 @@ public class PlayerActions : NetworkBehaviour
         }
         DM.GameMode.MoveToDestinationTile(m_SourceTile, destinationTile, PlayerData);
         m_SourceTile = null;
+        DM.MouseFollower.ChangeFollowingTile(null);
         /*RpcDoAction(destinationTile);*/
     }
 

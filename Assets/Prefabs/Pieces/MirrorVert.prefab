@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2288418677413283940}
   - component: {fileID: 6464141023753336254}
   - component: {fileID: -752507427774156925}
+  - component: {fileID: -6874260879678537551}
   m_Layer: 0
   m_Name: MirrorVert
   m_TagString: Untagged
@@ -99,3 +100,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 0}
   parentTile: {fileID: 0}
+--- !u!95 &-6874260879678537551
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908386832349718085}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
