@@ -60,7 +60,9 @@ public class DataManager : MonoBehaviour
 
     private void GetInitialParameters()
     {
-        PlayersManager.SetPlayerNames(GameInitialParameters.PlayerNames);
-        Rules = GameInitialParameters.Rules;
+        if (GameInitialParameters.PlayerNames != null)
+            PlayersManager.SetPlayerNames(GameInitialParameters.PlayerNames);
+        if (GameInitialParameters.PlayerNames != null)
+            Rules = GameInitialParameters.Rules;
     }
 }
