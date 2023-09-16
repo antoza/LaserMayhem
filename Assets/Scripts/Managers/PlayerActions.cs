@@ -94,6 +94,17 @@ public class PlayerActions : NetworkBehaviour
         /*RpcDoAction(destinationTile);*/
     }
 
+    public void MoveOverSelectioner(Tile tileOver)
+    {
+        if (DM.MouseOverSelectioner && tileOver)
+        {
+            float x = tileOver.positionX;
+            float y = tileOver.positionY;
+
+            DM.MouseOverSelectioner.transform.position = new Vector2(x, y);
+        }
+    }
+
 #if DEBUG
     public void AddInfiniteMana()
     {

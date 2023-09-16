@@ -25,14 +25,15 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseOver()
     {
+        m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.MoveOverSelectioner(this);
         if (Input.GetMouseButtonDown(0))
         {
             if (m_Piece) m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.SetSourceTile(this);
-        };
+        }
         if (Input.GetMouseButtonUp(0))
         {
             m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.CmdDoAction(this);
-        };
+        }
     }
 
     public void UpdatePiece(Piece? piece)

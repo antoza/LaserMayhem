@@ -22,6 +22,8 @@ public class DataManager : MonoBehaviour
     public GameObject LaserContainer { get; private set; }
     [field: SerializeField]
     public MouseFollower MouseFollower { get; private set; }
+    [field: SerializeField]
+    public GameObject MouseOverSelectioner { get; private set; }
 
     private void Awake()
     {
