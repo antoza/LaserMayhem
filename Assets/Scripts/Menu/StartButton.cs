@@ -8,5 +8,6 @@ public class StartButton : MenuButton
     public override void ChangeMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        MenuMessageManager.GetGameInitialParameters();
     }
 }

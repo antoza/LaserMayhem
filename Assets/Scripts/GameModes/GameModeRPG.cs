@@ -1,13 +1,44 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 #nullable enable
 
 public class GameModeRPG : GameMode
 {
+    public HashSet<int> playersAlive;
+
+    public override void Initialise()
+    {
+        playersAlive = new HashSet<int>();
+        for (int i = 0; i < DM.Rules.NumberOfPlayers; i++)
+        {
+            playersAlive.Add(i);
+        }
+    }
+
+    public void PlayerDied(int playerID)
+    {
+        playersAlive.Remove(playerID);
+    }
+
+    public override bool CheckGameOver()
+    {
+        if (playersAlive.Count() == 0)
+        {
+            TriggerGameOver(null);
+            return true;
+        }
+        else if (playersAlive.Count() == 1)
+        {
+            TriggerGameOver(playersAlive.Single());
+            return true;
+        }
+        return false;
+    }
+
     public override void MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData)
     {
-        Debug.Log("Hello");
         if (sourceTile == null)
         {
             return;

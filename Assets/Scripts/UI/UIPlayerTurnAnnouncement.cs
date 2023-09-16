@@ -10,7 +10,9 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
     private DataManager m_DataManager;
 
     [SerializeReference, TextArea(1, 2)]
-    private string m_BaseString;
+    private string m_BaseStringStart;
+    [SerializeReference, TextArea(1, 2)]
+    private string m_BaseStringEnd;
 
     //Text 
     private TextMeshProUGUI m_TurnAnnouncementText;
@@ -31,7 +33,7 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
         Color c = m_TurnAnnouncementText.color;
         c.a = 1;
         m_TurnAnnouncementText.color = c;
-        m_TurnAnnouncementText.text = m_BaseString + m_DataManager.PlayersManager.currentPlayerID;
+        m_TurnAnnouncementText.text = m_BaseStringStart + m_DataManager.PlayersManager.GetCurrentPlayer().m_name + m_BaseStringEnd;
 
 
 

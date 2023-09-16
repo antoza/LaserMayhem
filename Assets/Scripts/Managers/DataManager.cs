@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
     public LaserManager LaserManager { get; private set; }
     public PlayersManager PlayersManager { get; private set; }
     public TurnManager TurnManager { get; private set; }
-    public MessageManager MessageManager { get; private set; }
+    public GameMessageManager GameMessageManager { get; private set; }
     public GameMode GameMode { get; private set; }
 
     //Laser Templates
@@ -29,9 +29,8 @@ public class DataManager : MonoBehaviour
         LaserManager = new LaserManager(this, LaserTemplate, LaserPredictionTemplate, LaserContainer);
         PlayersManager = new PlayersManager(this);
         TurnManager = new TurnManager(this);
-        MessageManager = new MessageManager(this);
+        GameMessageManager = new GameMessageManager(this);
         CreateGameMode();
-        MessageManager.GetInitialData();
     }
 
     private void CreateGameMode()
@@ -40,7 +39,8 @@ public class DataManager : MonoBehaviour
         if (type != null && type.IsSubclassOf(typeof(GameMode)))
         {
             GameMode = (GameMode)Activator.CreateInstance(type);
-            GameMode.SetDamanager(this);
+            GameMode.SetDataManager(this);
+            GameMode.Initialise();
         }
         else
         {
@@ -48,10 +48,17 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    //On ne fait aucune action dans le Awake. Si besoins il suffit de recréer un start dans le scriptable voulu et de l'appeller dans le start du dataManager.
+    //On ne fait aucune action dans le Awake. Si besoin il suffit de recréer un start dans le scriptable voulu et de l'appeller dans le start du dataManager.
     //Void TurnManager
     private void Start()
     {
+        GetInitialParameters();
         TurnManager.Start();
+    }
+
+    private void GetInitialParameters()
+    {
+        PlayersManager.SetPlayerNames(GameInitialParameters.PlayerNames);
+        Rules = GameInitialParameters.Rules;
     }
 }

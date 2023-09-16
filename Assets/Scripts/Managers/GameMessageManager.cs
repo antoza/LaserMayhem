@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class MessageManager : MonoBehaviour
+public class GameMessageManager : MonoBehaviour
 {
     private DataManager DM;
 
-    public MessageManager(DataManager dataManager)
+    public GameMessageManager(DataManager dataManager)
     {
         DM = dataManager;
     }
@@ -26,16 +26,5 @@ public class MessageManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void GetInitialData()
-    {
-        SetInitialData("moi", "adversaire");
-    }
-
-    public void SetInitialData(string myName, string opponentName)
-    {
-        DM.PlayersManager.GetPlayer(0).m_name = myName;
-        DM.PlayersManager.GetPlayer(1).m_name = opponentName;
     }
 }

@@ -61,6 +61,10 @@ public class TurnManager : ScriptableObject
 
     public void StartAnnouncementPhase()
     {
+        if (DM.GameMode.CheckGameOver())
+        {
+            return;
+        }
         DM.PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
         DM.LaserManager.UpdateLaser(true);
         m_PieceUpdate.UpdatePieces();

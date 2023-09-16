@@ -17,7 +17,15 @@ public class PlayersManager : ScriptableObject
         playerList = new PlayerData[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            playerList[i] = new PlayerData(DM);
+            playerList[i] = new PlayerData(DM, i);
+        }
+    }
+
+    public void SetPlayerNames(string[] playerNames)
+    {
+        for (int i = 0; i < playerNames.Length; i++)
+        {
+            GetPlayer(i).m_name = playerNames[i];
         }
     }
 
