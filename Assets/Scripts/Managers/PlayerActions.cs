@@ -101,7 +101,7 @@ public class PlayerActions : NetworkBehaviour
             float x = tileOver.positionX;
             float y = tileOver.positionY;
 
-            DM.MouseOverSelectioner.transform.position = new Vector2(x, y);
+            DM.MouseOverSelectioner.transform.position = new Vector3(x, y, -5);
         }
     }
 
