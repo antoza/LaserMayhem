@@ -10,7 +10,7 @@ public class MouseFollower : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-        worldPosition = new Vector3(worldPosition.x, worldPosition.y, -2);
+        worldPosition = new Vector3(worldPosition.x, worldPosition.y, -5);
         this.transform.position = worldPosition;
     }
 

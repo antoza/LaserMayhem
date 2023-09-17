@@ -11,6 +11,9 @@ public abstract class Tile : MonoBehaviour
     [field: SerializeField]
     private Piece? m_startingPiece;
     public Piece? m_Piece { get; private set; }
+    [field: SerializeField]
+    private GameObject m_MouseOver;
+
 
     void Start()
     {
@@ -25,7 +28,6 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseOver()
     {
-        m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.MoveOverSelectioner(this);
         if (Input.GetMouseButtonDown(0))
         {
             if (m_Piece) m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.SetSourceTile(this);
@@ -34,6 +36,16 @@ public abstract class Tile : MonoBehaviour
         {
             m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.CmdDoAction(this);
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        m_MouseOver.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        m_MouseOver.SetActive(false);
     }
 
     public void UpdatePiece(Piece? piece)

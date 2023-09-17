@@ -52,7 +52,6 @@ public class BoardManager : ScriptableObject
     {
         GameObject spawnedTile = Instantiate(prefab);
         spawnedTile.transform.SetParent(m_board.transform);
-        spawnedTile.AddComponent<BoardTile>();
         spawnedTile.name = "Tile_" + x + "_" + y;
         BoardTile boardTile = spawnedTile.GetComponent<BoardTile>();
 

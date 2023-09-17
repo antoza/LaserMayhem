@@ -71,7 +71,7 @@ public class PlayerActions : NetworkBehaviour
     public void SetSourceTile(Tile sourceTile)
     {
         m_SourceTile = sourceTile;
-        DM.MouseFollower.ChangeFollowingTile(sourceTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite);
+        DM.MouseFollower.ChangeFollowingTile(sourceTile.GetComponentInChildren<Piece>().transform.GetComponent<SpriteRenderer>().sprite);
     }
     /*
     [ClientRpc]
@@ -92,17 +92,6 @@ public class PlayerActions : NetworkBehaviour
         m_SourceTile = null;
         DM.MouseFollower.ChangeFollowingTile(null);
         /*RpcDoAction(destinationTile);*/
-    }
-
-    public void MoveOverSelectioner(Tile tileOver)
-    {
-        if (DM.MouseOverSelectioner && tileOver)
-        {
-            float x = tileOver.positionX;
-            float y = tileOver.positionY;
-
-            DM.MouseOverSelectioner.transform.position = new Vector3(x, y, -5);
-        }
     }
 
 #if DEBUG
