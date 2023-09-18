@@ -26,7 +26,7 @@ public abstract class Tile : MonoBehaviour
 
     public abstract void SetColor();
 
-    void OnMouseOver()
+    protected virtual void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {

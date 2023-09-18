@@ -46,8 +46,8 @@ public class GameModeRPG : GameMode
         switch ((sourceTile!, destinationTile))
         {
             case (SelectionTile, BoardTile):
-                SelectPiece selectPiece = sourceTile.transform.parent.GetComponent<SelectPiece>(); //mettre cost dans selectionTile
-                int cost = selectPiece.GetCost();
+                SelectionTile selectionTile = (SelectionTile)sourceTile;
+                int cost = selectionTile.cost;
                 if (!playerData.PlayerEconomy.HasEnoughMana(cost))
                 {
                     Debug.Log("You don't have enough mana");
