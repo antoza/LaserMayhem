@@ -4,5 +4,6 @@ using UnityEngine;
 public static class GameInitialParameters
 {
     public static Rules Rules;
-    public static string[] PlayerNames;
+    public static string[] playerNames;
+    public static int localPlayerID;
 }

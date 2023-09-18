@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugMoney : MonoBehaviour
+public class DebugSwitchPlayer : MonoBehaviour
 {
     [field: SerializeField]
     private DataManager DM;
@@ -17,7 +17,8 @@ public class DebugMoney : MonoBehaviour
 #if DEBUG
     public void OnClick()
     {
-        DM.PlayersManager.AddInfiniteMana();
+        GameInitialParameters.localPlayerID = (GameInitialParameters.localPlayerID + 1) % DM.Rules.NumberOfPlayers;
+        Debug.Log("DEBUG : You are playing as player " + DM.PlayersManager.GetLocalPlayer().m_name);
     }
 #endif
 }

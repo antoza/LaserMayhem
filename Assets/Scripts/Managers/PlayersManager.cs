@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,6 +54,11 @@ public class PlayersManager : ScriptableObject
     public PlayerData GetCurrentPlayer()
     {
         return GetPlayer(currentPlayerID);
+    }
+
+    public PlayerData GetLocalPlayer()
+    {
+        return GetPlayer(GameInitialParameters.localPlayerID);
     }
 
     public void HitPlayer(int id, int damage)

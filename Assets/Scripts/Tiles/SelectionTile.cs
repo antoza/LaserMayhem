@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SelectionTile : Tile
 {
-
     public override void SetColor()
     {
         GetComponent<SpriteRenderer>().color = Color.black;

@@ -44,7 +44,7 @@ public class TurnManager : ScriptableObject
 
     public bool TrySkipTurn()
     {
-        if (m_CanSkipTurn)
+        if (DM.PlayersManager.GetLocalPlayer().PlayerActions.CanPlay() && m_CanSkipTurn)
         {
             StartLaserPhase();
             return true;

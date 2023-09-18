@@ -30,11 +30,11 @@ public abstract class Tile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_Piece) m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.SetSourceTile(this);
+            if (m_Piece) m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
         }
         if (Input.GetMouseButtonUp(0))
         {
-            m_DataManager.PlayersManager.GetCurrentPlayer().PlayerActions.CmdDoAction(this);
+            m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.CmdDoAction(this);
         }
     }
 

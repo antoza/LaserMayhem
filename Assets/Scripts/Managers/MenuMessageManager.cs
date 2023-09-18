@@ -31,12 +31,13 @@ public class MenuMessageManager : MonoBehaviour
     public void GetGameInitialParameters()
     {
         string[] names = { "moi", "adversaire" };
-        SetGameInitialParameters(Rules, names);
+        SetGameInitialParameters(Rules, 0, names);
     }
 
-    public void SetGameInitialParameters(Rules rules, string[] names)
+    public void SetGameInitialParameters(Rules rules, int localPlayerID, string[] names)
     {
         GameInitialParameters.Rules = rules;
-        GameInitialParameters.PlayerNames = names;
+        GameInitialParameters.localPlayerID = localPlayerID;
+        GameInitialParameters.playerNames = names;
     }
 }
