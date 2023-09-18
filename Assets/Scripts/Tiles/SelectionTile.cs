@@ -14,15 +14,21 @@ public class SelectionTile : Tile
 
     protected override void OnMouseOver()
     {
-        if (m_DataManager.PlayersManager.GetCurrentPlayer().PlayerEconomy.HasEnoughMana(cost))
+        if (Input.GetMouseButtonDown(0))
         {
-            base.OnMouseOver();
+            if (m_DataManager.PlayersManager.GetCurrentPlayer().PlayerEconomy.HasEnoughMana(cost))
+            {
+                if (m_Piece) m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
+            }
+            else
+            {
+                Debug.Log("You Don't have enough money peasant !");
+            }
+
         }
-        else
+        if (Input.GetMouseButtonUp(0))
         {
-            //There will be a sound or anim to show it's not possible
-            Debug.Log("You don't have enough money");
+            m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.CmdDoAction(this);
         }
-        
     }
 }
