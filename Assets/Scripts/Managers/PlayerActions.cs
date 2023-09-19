@@ -82,8 +82,15 @@ public class PlayerActions : NetworkBehaviour
     {
         if (!CanPlay()) return;
         m_SourceTile = sourceTile;
-        DM.MouseFollower.ChangeFollowingTile(sourceTile.GetComponentInChildren<Piece>().transform.GetComponent<SpriteRenderer>().sprite);
+        DM.MouseFollower.ChangeFollowingTile(sourceTile);
     }
+
+    public void ResetSourceTile()
+    {
+        m_SourceTile = null;
+        DM.MouseFollower.ChangeFollowingTile(null);
+    }
+
     /*
     [ClientRpc]
     void RpcDoAction(Tile destinationTile)
@@ -96,8 +103,6 @@ public class PlayerActions : NetworkBehaviour
     {
         if (!CanPlay()) return;
         DM.GameMode.MoveToDestinationTile(m_SourceTile, destinationTile, PlayerData);
-        m_SourceTile = null;
-        DM.MouseFollower.ChangeFollowingTile(null);
         /*RpcDoAction(destinationTile);*/
     }
 

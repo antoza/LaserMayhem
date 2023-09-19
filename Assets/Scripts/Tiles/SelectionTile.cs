@@ -6,7 +6,7 @@ public class SelectionTile : Tile
 {
 
     [field: SerializeField]
-    public int cost { get; set; }
+    public int cost;
     public override void SetColor()
     {
         GetComponent<SpriteRenderer>().color = Color.black;
@@ -16,7 +16,7 @@ public class SelectionTile : Tile
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_DataManager.PlayersManager.GetCurrentPlayer().PlayerEconomy.HasEnoughMana(cost))
+            if (m_DataManager.PlayersManager.GetLocalPlayer().PlayerEconomy.HasEnoughMana(cost))
             {
                 if (m_Piece) m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
             }
