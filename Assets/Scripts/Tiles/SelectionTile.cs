@@ -19,6 +19,7 @@ public class SelectionTile : Tile
             if (m_DataManager.PlayersManager.GetLocalPlayer().PlayerEconomy.HasEnoughMana(cost))
             {
                 if (m_Piece) m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
+                m_Piece.GetComponent<Animator>().SetTrigger("PieceClicked");
             }
             else
             {

@@ -30,7 +30,12 @@ public abstract class Tile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_Piece) m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
+            if (m_Piece)
+            {
+                m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
+                m_Piece.GetComponent<Animator>().SetTrigger("PieceClicked");
+            }
+
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -63,7 +68,7 @@ public abstract class Tile : MonoBehaviour
             m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
             m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
             m_Piece.parentTile = this;
-            m_Piece.GetComponent<Animator>().SetTrigger("PieceSelection");
+            m_Piece.GetComponent<Animator>().SetTrigger("PiecePlaced");
         }
         else
         {
