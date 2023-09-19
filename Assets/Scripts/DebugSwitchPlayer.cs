@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DebugSwitchPlayer : MonoBehaviour
 {
     [field: SerializeField]
     private DataManager DM;
+    [field: SerializeField]
+    private TextMeshProUGUI m_PlayerText;
 
 #if !DEBUG
     private void Start()
@@ -17,8 +20,9 @@ public class DebugSwitchPlayer : MonoBehaviour
 #if DEBUG
     public void OnClick()
     {
-        GameInitialParameters.localPlayerID = (GameInitialParameters.localPlayerID + 1) % DM.Rules.NumberOfPlayers;
-        Debug.Log("DEBUG : You are playing as player " + DM.PlayersManager.GetLocalPlayer().m_name);
+        int currentPlayer = (GameInitialParameters.localPlayerID + 1) % DM.Rules.NumberOfPlayers;
+        GameInitialParameters.localPlayerID = currentPlayer;
+        m_PlayerText.text = "P" + currentPlayer;
     }
 #endif
 }
