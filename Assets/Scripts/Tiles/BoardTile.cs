@@ -9,11 +9,11 @@ public class BoardTile : Tile
     {
         if ((x + y) % 2 == 0)
         {
-            GetComponent<SpriteRenderer>().color = Color.black;
+            GetComponent<SpriteRenderer>().color = Color.grey;
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = Color.grey;
+            GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
