@@ -9,7 +9,7 @@ public class PlayerEconomy : ScriptableObject
     private void Awake()
     {
         m_mana = 0;
-        m_deletionCost = 9999;
+        m_deletionCost = 1;
         m_movingCost = 0;
     }
 

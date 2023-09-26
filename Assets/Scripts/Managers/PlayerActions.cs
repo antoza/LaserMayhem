@@ -1,12 +1,9 @@
-using Mono.CompilerServices.SymbolWriter;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 #nullable enable
-public class PlayerActions : NetworkBehaviour
+public class PlayerActions : ScriptableObject
 {
     private DataManager DM;
     private PlayerData PlayerData;
@@ -36,15 +33,18 @@ public class PlayerActions : NetworkBehaviour
         m_SourceTile = null;
     }
 
-    public bool EndTurn()
+    public void PrepareEndTurn()
     {
-        if (DM.TurnManager.TrySkipTurn())
+        if (CanPlay()) // EUUUUH BIZARRE LE JOUEUR 1 PEUT JOUER AU TOUR DU JOUEUR 0
         {
-            m_CanPlay = false;
-            DM.MouseFollower.ChangeFollowingTile(null);
-            return true;
+            DM.TurnManager.PrepareSkipTurn(PlayerData.m_playerID);
         }
-        return false;
+    }
+
+    public void EndTurn()
+    {
+        m_CanPlay = false;
+        DM.MouseFollower.ChangeFollowingTile(null);
     }
 
     public bool CopyPiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
@@ -91,24 +91,17 @@ public class PlayerActions : NetworkBehaviour
         DM.MouseFollower.ChangeFollowingTile(null);
     }
 
-    /*
-    [ClientRpc]
-    void RpcDoAction(Tile destinationTile)
-    {
-        MoveToDestinationTile(m_SourceTile, destinationTile);
-    }*/
-
-    //[Command] (pas public)
-    public void CmdDoAction(Tile destinationTile)
+    public void PrepareMoveToDestinationTile(Tile destinationTile)
     {
         if (!CanPlay()) return;
-        DM.GameMode.MoveToDestinationTile(m_SourceTile, destinationTile, PlayerData);
-        /*RpcDoAction(destinationTile);*/
+        if (m_SourceTile == null) return; // Pas nécessaire mais permet d'éviter un envoi de message inutile au serveur
+        DM.GameMessageManager.MoveToDestinationTileServerRPC(m_SourceTile.name, destinationTile.name, PlayerData.m_playerID);
     }
 
 #if DEBUG
     public void AddInfiniteMana()
     {
+        Debug.Log("aa");
         PlayerData.PlayerEconomy.AddNewTurnMana(500);
     }
 #endif

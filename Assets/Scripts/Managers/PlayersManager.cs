@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayersManager : ScriptableObject
 {
@@ -36,11 +37,6 @@ public class PlayersManager : ScriptableObject
         playerList[currentPlayerID].PlayerActions.StartTurn(turnNumber);
     }
 
-    public void EndCurrentPlayerTurn()
-    {
-        playerList[currentPlayerID].PlayerActions.EndTurn();
-    }
-
     public PlayerData GetPlayer(int id)
     {
         if (id >= numberOfPlayers)
@@ -58,6 +54,7 @@ public class PlayersManager : ScriptableObject
 
     public PlayerData GetLocalPlayer()
     {
+        Assert.IsFalse(GameInitialParameters.localPlayerID == -1, "You are the server");
         return GetPlayer(GameInitialParameters.localPlayerID);
     }
 

@@ -2,30 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuMessageManager : MonoBehaviour
 {
     [field: SerializeField]
     private Rules Rules;
 
-    public MenuMessageManager()
+    [field: SerializeField]
+    private string sceneName = "SampleScene";
+
+    public void StartHost()
     {
+        NetworkManager.Singleton.StartHost();
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        GetGameInitialParameters();
     }
 
-    public class Notification : MonoBehaviour//MessageBase
+    public void StartServer()
     {
-        public string oui;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        NetworkManager.Singleton.StartServer();
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        GetGameInitialParameters();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartClient()
     {
-        
+        NetworkManager.Singleton.StartClient();
+        GetGameInitialParameters();
     }
 
     public void GetGameInitialParameters()

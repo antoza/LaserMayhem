@@ -37,11 +37,11 @@ public class GameModeRPG : GameMode
         return false;
     }
 
-    public override void MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData)
+    public override bool MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData)
     {
         if (sourceTile == null)
         {
-            return;
+            return false;
         }
         switch ((sourceTile!, destinationTile))
         {
@@ -51,55 +51,55 @@ public class GameModeRPG : GameMode
                 if (!playerData.PlayerEconomy.HasEnoughMana(cost))
                 {
                     Debug.Log("You don't have enough mana");
-                    return;
+                    return false;
                 }
                 if (!playerData.PlayerActions.MovePiece(sourceTile, destinationTile))
                 {
-                    return;
+                    return false;
                 }
                 playerData.PlayerEconomy.PayForPlacement(cost);
-                break;
+                return true;
 #if DEBUG
             case (InfiniteTile, BoardTile):
                 if (!playerData.PlayerActions.CopyPiece(sourceTile, destinationTile))
                 {
-                    return;
+                    return false;
                 }
-                break;
+                return true;
 #endif
             case (BoardTile, BoardTile):
                 if (!playerData.PlayerEconomy.HasEnoughManaForMovement())
                 {
                     Debug.Log("You don't have enough mana");
-                    return;
+                    return false;
                 }
                 if (!((BoardTile)destinationTile).IsCloseEnoughFrom((BoardTile)sourceTile, 1))
                 {
                     Debug.Log("You can't move a piece too far away");
-                    return;
+                    return false;
                 }
                 if (!playerData.PlayerActions.MovePiece(sourceTile, destinationTile))
                 {
-                    return;
+                    return false;
                 }
                 playerData.PlayerEconomy.PayForMovement();
-                break;
+                return true;
 
             case (BoardTile, TrashTile):
                 if (!playerData.PlayerEconomy.HasEnoughManaForDeletion())
                 {
                     Debug.Log("You don't have enough mana");
-                    return;
+                    return false;
                 }
                 if (!playerData.PlayerActions.DeletePiece(sourceTile))
                 {
-                    return;
+                    return false;
                 }
                 playerData.PlayerEconomy.PayForDeletion();
-                break;
+                return true;
 
             default:
-                break;
+                return false;
         }
     }
 }

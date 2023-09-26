@@ -42,14 +42,12 @@ public class TurnManager : ScriptableObject
         StartAnnouncementPhase();
     }
 
-    public bool TrySkipTurn()
+    public void PrepareSkipTurn(int playerID)
     {
-        if (DM.PlayersManager.GetLocalPlayer().PlayerActions.CanPlay() && m_CanSkipTurn)
+        if (m_CanSkipTurn)
         {
-            StartLaserPhase();
-            return true;
+            DM.GameMessageManager.TrySkipTurnServerRPC(playerID);
         }
-        return false;
     }
 
     public void StartLaserPhase()

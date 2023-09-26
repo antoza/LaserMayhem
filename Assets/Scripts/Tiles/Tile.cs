@@ -39,7 +39,7 @@ public abstract class Tile : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.CmdDoAction(this);
+            m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.PrepareMoveToDestinationTile(this);
         }
     }
 
