@@ -289,6 +289,7 @@ public class LaserManager : ScriptableObject
 		{
 			case (-1, 0):
 				laser.transform.position = new Vector3(position[0] - 0.25f, position[1], 0);
+				laser.transform.Rotate(new Vector3(0, 0, 180));
 				return;
 			case (0, 1):
                 laser.transform.Rotate(new Vector3(0, 0, 90));

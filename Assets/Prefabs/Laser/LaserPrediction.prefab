@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7955681494685381500}
   - component: {fileID: 6929430284223278653}
+  - component: {fileID: 6877009331431465262}
   m_Layer: 0
   m_Name: LaserPrediction
   m_TagString: LaserPredictionVisual
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1587343247428712523}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 41.737, y: 17.89, z: 0}
-  m_LocalScale: {x: 1.5985982, y: 0.9849, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,14 +74,34 @@ SpriteRenderer:
   m_SortingLayerID: 679133495
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9f4eb64b32dfd0148b65db9d3e5b3aa9, type: 3}
+  m_Sprite: {fileID: -1562688395, guid: fafa9de7a784e5a479305f2a42ef2378, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.1, y: 0.03}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6877009331431465262
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587343247428712523}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ae8bcfdd05665945bb9a93e6f42b34d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
