@@ -70,4 +70,20 @@ public class PlayerEconomy : ScriptableObject
         }
         return false;
     }
+
+    public void RefundPlacement(int cost)
+    {
+        m_mana += cost;
+    }
+
+    public void RefundDeletion()
+    {
+        m_deletionCost--;
+        m_mana += m_deletionCost;
+    }
+
+    public void RefundMovement()
+    {
+        m_mana += m_movingCost;
+    }
 }

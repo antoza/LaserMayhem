@@ -1,8 +1,10 @@
+using Mono.CompilerServices.SymbolWriter;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+#nullable enable
 public class GameMessageManager : NetworkBehaviour
 {
     [field: SerializeField]
@@ -64,28 +66,37 @@ public class GameMessageManager : NetworkBehaviour
 
 
 
-
-    public class Notification : MonoBehaviour//MessageBase
-    {
-        public string oui;
-    }
+    // IDEE : faire une seule fonction où on envoie au serveur une Action. Le serveur dit "ok" si ça lui va.
+    // Dans ce cas il faut trouver comment sérialiser une Action
 
     // GameObject.Find est temporaire, je pense ajouter un dictionnaire de tiles plus tard pour les référencer avec un id
     [ServerRpc(RequireOwnership = false)]
-    public void MoveToDestinationTileServerRPC(string sourceTileName, string destinationTileName, int playerID, ServerRpcParams serverRpcParams = default)
+    public void TryMoveToDestinationTileServerRPC(string sourceTileName, string destinationTileName, int playerID, ServerRpcParams serverRpcParams = default)
     {
+        // A changer d'endroit. L'Action doit exister avant d'arriver ici.
         PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
+        Tile sourceTile = GameObject.Find(sourceTileName).GetComponent<Tile>();
+        Tile destinationTile = GameObject.Find(destinationTileName).GetComponent<Tile>();
+        Piece? piece = sourceTile.m_Piece;
+
         if (!playerData.PlayerActions.m_CanPlay) return;
-        if (DM.GameMode.MoveToDestinationTile(GameObject.Find(sourceTileName).GetComponent<Tile>(), GameObject.Find(destinationTileName).GetComponent<Tile>(), playerData))
+        if (DM.GameMode.MoveToDestinationTile(sourceTile, destinationTile, playerData))
         {
             MoveToDestinationTileClientRPC(sourceTileName, destinationTileName, playerID);
+            DM.RewindManager.AddAction(new MovePiece(DM, playerData, sourceTile, destinationTile, piece!));
         }
     }
 
     [ClientRpc]
     private void MoveToDestinationTileClientRPC(string sourceTileName, string destinationTileName, int playerID)
     {
-        DM.GameMode.MoveToDestinationTile(GameObject.Find(sourceTileName).GetComponent<Tile>(), GameObject.Find(destinationTileName).GetComponent<Tile>(), DM.PlayersManager.GetPlayer(playerID));
+        PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
+        Tile sourceTile = GameObject.Find(sourceTileName).GetComponent<Tile>();
+        Tile destinationTile = GameObject.Find(destinationTileName).GetComponent<Tile>();
+        Piece? piece = sourceTile.m_Piece;
+
+        DM.GameMode.MoveToDestinationTile(sourceTile, destinationTile, playerData);
+        DM.RewindManager.AddAction(new MovePiece(DM, playerData, sourceTile, destinationTile, piece!));
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -93,16 +104,48 @@ public class GameMessageManager : NetworkBehaviour
     {
         PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
         if (!playerData.PlayerActions.m_CanPlay) return;
-        TrySkipTurnClientRPC(playerID);
+        SkipTurnClientRPC(playerID);
         playerData.PlayerActions.EndTurn();
+        DM.RewindManager.ClearAllActions();
         DM.TurnManager.StartLaserPhase();
     }
 
     [ClientRpc]
-    private void TrySkipTurnClientRPC(int playerID)
+    private void SkipTurnClientRPC(int playerID)
     {
         PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
         playerData.PlayerActions.EndTurn();
+        DM.RewindManager.ClearAllActions();
         DM.TurnManager.StartLaserPhase();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TryRevertLastActionServerRPC(int playerID, ServerRpcParams serverRpcParams = default)
+    {
+        PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
+        if (!playerData.PlayerActions.m_CanPlay) return;
+        RevertLastActionClientRPC(playerID);
+        DM.RewindManager.RevertLastAction();
+    }
+
+    [ClientRpc]
+    private void RevertLastActionClientRPC(int playerID)
+    {
+        DM.RewindManager.RevertLastAction();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TryClearAllActionsServerRPC(int playerID, ServerRpcParams serverRpcParams = default)
+    {
+        PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
+        if (!playerData.PlayerActions.m_CanPlay) return;
+        ClearAllActionsClientRPC(playerID);
+        DM.RewindManager.ClearAllActions();
+    }
+
+    [ClientRpc]
+    private void ClearAllActionsClientRPC(int playerID)
+    {
+        DM.RewindManager.ClearAllActions();
     }
 }

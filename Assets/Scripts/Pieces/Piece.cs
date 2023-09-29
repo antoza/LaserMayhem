@@ -7,15 +7,26 @@ using UnityEngine.Assertions;
 public abstract class Piece : MonoBehaviour
 {
     [field: SerializeField]
-    public Sprite m_Sprite { get; protected set; }
-    private DataManager m_DataManager;
-    public Tile? parentTile;
+    public GameObject m_Prefab { get; protected set; }     // Peut-être ne plus rendre la pièce singleton, mais avoir une fonction "GetOriginalPiece"
+    //public Sprite m_Sprite { get; protected set; }
+    public static Piece Instance { get; protected set; }
 
-    void Start()
+    public static T GetInstance<T>() where T : Piece, new()
     {
-        m_DataManager = FindObjectOfType<DataManager>();
-        m_Sprite = this.transform.GetComponent<SpriteRenderer>().sprite;
+        if (Instance == null)
+        {
+            Instance = new T();
+        }
+
+        return Instance as T;
+    }
+
+    public Sprite GetSprite()
+    {
+        return m_Prefab.GetComponent<SpriteRenderer>().sprite;
     }
 
     public abstract IEnumerable<Vector2Int> ComputeNewDirections(Vector2Int sourceDirection);
+
+    public static implicit operator bool(Piece piece) { return piece != null; }
 }

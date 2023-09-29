@@ -38,7 +38,6 @@ public class TurnManager : ScriptableObject
 
     public void Start()
     {
-        m_TurnButton.TurnManager = this;
         StartAnnouncementPhase();
     }
 

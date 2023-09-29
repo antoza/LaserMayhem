@@ -26,6 +26,7 @@ public abstract class GameMode : ScriptableObject
     public abstract bool CheckGameOver();
 
     public abstract bool MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData);
+    public abstract bool RevertMove(Tile sourceTile, Tile destinationTile, Piece piece, PlayerData playerData);
 
     // A METTRE DANS UNE NOUVELLE CLASSE QUI GERE LE DEBUT / LA FIN DE PARTIE
     public void TriggerGameOver(int? winner)

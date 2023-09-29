@@ -10,6 +10,7 @@ public class DataManager : MonoBehaviour
     public LaserManager LaserManager { get; private set; }
     public PlayersManager PlayersManager { get; private set; }
     public TurnManager TurnManager { get; private set; }
+    public RewindManager RewindManager { get; private set; }
     public GameMessageManager GameMessageManager;// { get; private set; }
     public GameMode GameMode { get; private set; }
 
@@ -31,6 +32,7 @@ public class DataManager : MonoBehaviour
         LaserManager = new LaserManager(this, LaserTemplate, LaserPredictionTemplate, LaserContainer);
         PlayersManager = new PlayersManager(this);
         TurnManager = new TurnManager(this);
+        RewindManager = new RewindManager(this);
         //GameMessageManager = new GameMessageManager(this);
         CreateGameMode();
     }

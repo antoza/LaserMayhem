@@ -11,6 +11,7 @@ public abstract class Tile : MonoBehaviour
     [field: SerializeField]
     private Piece? m_startingPiece;
     public Piece? m_Piece { get; private set; }
+    public GameObject? m_PieceGameObject { get; private set; }
     [field: SerializeField]
     private GameObject m_MouseOver;
 
@@ -33,7 +34,7 @@ public abstract class Tile : MonoBehaviour
             if (m_Piece)
             {
                 m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
-                m_Piece.GetComponent<Animator>().SetTrigger("PieceClicked");
+                m_Piece.m_Prefab.GetComponent<Animator>().SetTrigger("PieceClicked");
             }
 
         }
@@ -55,20 +56,20 @@ public abstract class Tile : MonoBehaviour
 
     public void UpdatePiece(Piece? piece)
     {
-        if (m_Piece)
+        if (m_Piece != null)
         {
-            Destroy(m_Piece!.gameObject);
+            Destroy(m_PieceGameObject);
         }
         if (piece)
         {
-            GameObject newPieceGameObject = Instantiate(piece!.gameObject);
-            m_Piece = newPieceGameObject.GetComponent<Piece>();
-            m_Piece.transform.SetParent(transform);
-            m_Piece.name = transform.name + "'s_Piece";
-            m_Piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
-            m_Piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
-            m_Piece.parentTile = this;
-            m_Piece.GetComponent<Animator>().SetTrigger("PiecePlaced");
+            m_Piece = piece;
+            GameObject newPieceGameObject = Instantiate(piece!.m_Prefab);
+            m_PieceGameObject = newPieceGameObject;
+            newPieceGameObject.transform.SetParent(transform);
+            newPieceGameObject.name = transform.name + "'s_Piece";
+            newPieceGameObject.transform.position = Vector2.right * positionX + Vector2.up * positionY;
+            newPieceGameObject.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
+            newPieceGameObject.GetComponent<Animator>().SetTrigger("PiecePlaced");
         }
         else
         {

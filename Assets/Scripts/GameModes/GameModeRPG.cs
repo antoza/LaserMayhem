@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 #nullable enable
 
@@ -46,8 +47,7 @@ public class GameModeRPG : GameMode
         switch ((sourceTile!, destinationTile))
         {
             case (SelectionTile, BoardTile):
-                SelectionTile selectionTile = (SelectionTile)sourceTile;
-                int cost = selectionTile.cost;
+                int cost = ((SelectionTile)sourceTile).cost;
                 if (!playerData.PlayerEconomy.HasEnoughMana(cost))
                 {
                     Debug.Log("You don't have enough mana");
@@ -96,6 +96,43 @@ public class GameModeRPG : GameMode
                     return false;
                 }
                 playerData.PlayerEconomy.PayForDeletion();
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    public override bool RevertMove(Tile sourceTile, Tile destinationTile, Piece piece, PlayerData playerData)
+    {
+        switch ((sourceTile, destinationTile))
+        {
+            // Ne pas mettre d'Update***** ici, c'est inappoprié. Il faut des fonctions pour ça
+            // On pourrait même faire en sorte que chaque RevertableAction a son propre comportement de revert renseignée dans sa classe
+            case (SelectionTile, BoardTile):
+                int cost = ((SelectionTile)sourceTile).cost;
+                sourceTile.UpdatePiece(destinationTile.m_Piece);
+                destinationTile.UpdatePiece(null);
+                DM.LaserManager.UpdateLaser(true);
+                playerData.PlayerEconomy.RefundPlacement(cost);
+                return true;
+#if DEBUG
+            case (InfiniteTile, BoardTile):
+                destinationTile.UpdatePiece(null);
+                DM.LaserManager.UpdateLaser(true);
+                return true;
+#endif
+            case (BoardTile, BoardTile):
+                sourceTile.UpdatePiece(destinationTile.m_Piece);
+                destinationTile.UpdatePiece(null);
+                DM.LaserManager.UpdateLaser(true);
+                playerData.PlayerEconomy.RefundMovement();
+                return true;
+
+            case (BoardTile, TrashTile):
+                sourceTile.UpdatePiece(piece);
+                DM.LaserManager.UpdateLaser(true);
+                playerData.PlayerEconomy.RefundDeletion();
                 return true;
 
             default:

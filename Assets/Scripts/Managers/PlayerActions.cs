@@ -95,7 +95,7 @@ public class PlayerActions : ScriptableObject
     {
         if (!CanPlay()) return;
         if (m_SourceTile == null) return; // Pas nécessaire mais permet d'éviter un envoi de message inutile au serveur
-        DM.GameMessageManager.MoveToDestinationTileServerRPC(m_SourceTile.name, destinationTile.name, PlayerData.m_playerID);
+        DM.GameMessageManager.TryMoveToDestinationTileServerRPC(m_SourceTile.name, destinationTile.name, PlayerData.m_playerID);
     }
 
 #if DEBUG

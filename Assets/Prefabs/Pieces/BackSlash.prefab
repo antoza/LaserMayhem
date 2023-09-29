@@ -98,8 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749d639e4741bb94581dcf02d0dd15b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <m_Sprite>k__BackingField: {fileID: 0}
-  parentTile: {fileID: 0}
+  <m_Prefab>k__BackingField: {fileID: 6333373406145283476}
 --- !u!95 &-2843685945936672621
 Animator:
   serializedVersion: 4
