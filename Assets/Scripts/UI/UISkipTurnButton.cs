@@ -5,20 +5,17 @@ using UnityEngine.UI;
 
 public class UISkipTurnButton : MonoBehaviour
 {
-    private DataManager DM;
-
     private float m_CurrentCooldown;
     Button m_TurnButton;
 
     private void Awake()
     {
-        DM = FindObjectOfType<DataManager>();
         m_TurnButton = GetComponent<Button>();
     }
 
     public void OnClick()
     {
-        DM.PlayersManager.GetCurrentPlayer().PlayerActions.PrepareEndTurn();
+        PlayersManager.GetInstance().GetCurrentPlayer().PlayerActions.PrepareEndTurn();
     }
 
     public IEnumerator Cooldown(float cooldown, bool laser)
@@ -33,11 +30,11 @@ public class UISkipTurnButton : MonoBehaviour
         m_TurnButton.interactable = true;
         if (laser)
         {
-            DM.TurnManager.StartAnnouncementPhase();
+            TurnManager.GetInstance().StartAnnouncementPhase();
         }
         else
         {
-            DM.TurnManager.StartTurnPhase();
+            TurnManager.GetInstance().StartTurnPhase();
         }
     }
 

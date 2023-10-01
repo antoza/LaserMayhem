@@ -2,27 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using System;
 
 #nullable enable
-public class BoardManager : ScriptableObject
+public sealed class BoardManager : ScriptableObject
 {
-    private DataManager DM;
-    private GameObject m_board;
-    public int width { get; private set; }
-    public int height { get; private set; }
-    public float scaleWidth { get; private set; }
-    public float scaleHeight { get; private set; }
+    public static BoardManager? Instance { get; private set; }
+
+    private readonly GameObject m_board;
+    public int Width { get; private set; }
+    public int Height { get; private set; }
+    public float ScaleWidth { get; private set; }
+    public float ScaleHeight { get; private set; }
     private BoardTile[,] tilesArray;
 
-    public BoardManager(DataManager dataManager, GameObject board)
+    public static void SetInstance(GameObject board)
     {
-        DM = dataManager;
+        Instance = new BoardManager(board);
+    }
+
+    public static BoardManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Debug.LogError("BoardManager has not been instantiated");
+        }
+
+        return Instance!;
+    }
+
+
+    public BoardManager(GameObject board)
+    {
         m_board = board;
-        width = DM.Rules.BoardWidth;
-        height = DM.Rules.BoardHeight;
-        scaleWidth = DM.Rules.BoardScaleWidth;
-        scaleHeight = DM.Rules.BoardScaleHeight;
-        tilesArray = new BoardTile[width, height];
+        DataManager DM = DataManager.Instance;
+        Width = DM.Rules.BoardWidth;
+        Height = DM.Rules.BoardHeight;
+        ScaleWidth = DM.Rules.BoardScaleWidth;
+        ScaleHeight = DM.Rules.BoardScaleHeight;
+        tilesArray = new BoardTile[Width, Height];
         GenerateAllTiles();
     }
 
@@ -33,15 +51,15 @@ public class BoardManager : ScriptableObject
     
     public bool IsOnBoard(Vector2Int tile)
     {
-        return tile[0] >= 0 && tile[0] < width && tile[1] >= 0 && tile[1] < height;
+        return tile[0] >= 0 && tile[0] < Width && tile[1] >= 0 && tile[1] < Height;
     }
 
     private void GenerateAllTiles()
     {
-        GameObject prefab = DM.Rules.TilePrefab;
-        for (int x = 0; x < width; x++)
+        GameObject prefab = DataManager.Instance.Rules.TilePrefab;
+        for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
                 tilesArray[x, y] = GenerateTile(x, y, prefab);
             }
@@ -57,16 +75,16 @@ public class BoardManager : ScriptableObject
 
         boardTile.x = x;
         boardTile.y = y;
-        boardTile.positionX = (x - width/2) * scaleWidth / width;
-        boardTile.positionY = (y - height/2) * scaleHeight / height;
-        boardTile.scaleWidth = scaleWidth / width;
-        boardTile.scaleHeight = scaleHeight / height;
+        boardTile.positionX = (x - Width/2) * ScaleWidth / Width;
+        boardTile.positionY = (y - Height/2) * ScaleHeight / Height;
+        boardTile.scaleWidth = ScaleWidth / Width;
+        boardTile.scaleHeight = ScaleHeight / Height;
 
         return boardTile;
     }
 
     public Vector2Int ConvertBoardCoordinateToWorldCoordinates(Vector2Int coord)
     {
-        return new Vector2Int(coord[0] - (width-1)/2, coord[1] - (height-1) / 2);
+        return new Vector2Int(coord[0] - (Width-1)/2, coord[1] - (Height-1) / 2);
     }
 }

@@ -5,9 +5,6 @@ using TMPro;
 
 public class UIHealthPlayer : MonoBehaviour
 {
-
-    [SerializeField]
-    private DataManager m_DataManager;
     [SerializeField]
     private TextMeshProUGUI m_HealthText;
 
@@ -17,6 +14,6 @@ public class UIHealthPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_HealthText.text = m_DataManager.PlayersManager.GetHealth(m_PlayerID).ToString();
+        m_HealthText.text = PlayersManager.GetInstance().GetHealth(m_PlayerID).ToString();
     }
 }

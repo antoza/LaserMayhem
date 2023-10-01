@@ -1,18 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
+using System;
+#nullable enable
 
-public class RewindManager : ScriptableObject
+public sealed class RewindManager : ScriptableObject
 {
-    private DataManager DM;
+    public static RewindManager? Instance { get; private set; }
+
     private Stack<RevertableAction> m_actionsList;
 
-    public RewindManager(DataManager dataManager)
+    public RewindManager()
     {
-        DM = dataManager;
         m_actionsList = new Stack<RevertableAction>();
+    }
+
+    public static void SetInstance()
+    {
+        Instance = new RewindManager();
+    }
+
+    public static RewindManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Debug.LogError("RewindManager has not been instantiated");
+        }
+
+        return Instance!;
     }
 
     public void AddAction(RevertableAction action)
@@ -38,17 +52,17 @@ public class RewindManager : ScriptableObject
 
     public void PrepareRevertLastAction()
     {
-        PlayerData currentPlayer = DM.PlayersManager.GetCurrentPlayer(); // Réfléchir à comment gérer ceci plus logiquement...
+        PlayerData currentPlayer = PlayersManager.GetInstance().GetCurrentPlayer(); // Réfléchir à comment gérer ceci plus logiquement...
         if (m_actionsList.Count == 0) return;
         if (!currentPlayer.PlayerActions.CanPlay()) return;
-        DM.GameMessageManager.TryRevertLastActionServerRPC(currentPlayer.m_playerID);
+        GameMessageManager.Instance!.TryRevertLastActionServerRPC(currentPlayer.m_playerID);
     }
 
     public void PrepareClearAllActions()
     {
-        PlayerData currentPlayer = DM.PlayersManager.GetCurrentPlayer();
+        PlayerData currentPlayer = PlayersManager.GetInstance().GetCurrentPlayer();
         if (m_actionsList.Count == 0) return;
         if (!currentPlayer.PlayerActions.CanPlay()) return;
-        DM.GameMessageManager.TryClearAllActionsServerRPC(currentPlayer.m_playerID);
+        GameMessageManager.Instance!.TryClearAllActionsServerRPC(currentPlayer.m_playerID);
     }
 }

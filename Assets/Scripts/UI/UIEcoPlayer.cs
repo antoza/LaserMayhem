@@ -7,8 +7,6 @@ using TMPro;
 public class UIEcoPlayer : MonoBehaviour
 {
     [SerializeField]
-    private DataManager m_DataManager;
-    [SerializeField]
     private TextMeshProUGUI m_EcoText;
 
     [SerializeField]
@@ -17,6 +15,6 @@ public class UIEcoPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_EcoText.text = m_DataManager.PlayersManager.GetMana(m_PlayerID).ToString();
+        m_EcoText.text = PlayersManager.GetInstance().GetMana(m_PlayerID).ToString();
     }
 }

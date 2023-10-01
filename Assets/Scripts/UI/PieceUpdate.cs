@@ -6,8 +6,6 @@ public class PieceUpdate : MonoBehaviour
 {
     [SerializeField]
     private SelectPiece[] m_PiecesSelection;
-    [SerializeField]
-    private DataManager m_DataManager;
 
     [SerializeField]
     private PiecesData m_PiecesData;

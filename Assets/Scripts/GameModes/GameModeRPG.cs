@@ -7,12 +7,12 @@ using UnityEngine.Assertions;
 
 public class GameModeRPG : GameMode
 {
-    public HashSet<int> playersAlive;
+    public HashSet<int>? playersAlive;
 
     public override void Initialise()
     {
-        playersAlive = new HashSet<int>();
-        for (int i = 0; i < DM.Rules.NumberOfPlayers; i++)
+        playersAlive = new();
+        for (int i = 0; i < DataManager.Instance.Rules.NumberOfPlayers; i++)
         {
             playersAlive.Add(i);
         }
@@ -20,19 +20,19 @@ public class GameModeRPG : GameMode
 
     public void PlayerDied(int playerID)
     {
-        playersAlive.Remove(playerID);
+        playersAlive!.Remove(playerID);
     }
 
     public override bool CheckGameOver()
     {
-        if (playersAlive.Count() == 0)
+        if (playersAlive!.Count() == 0)
         {
             TriggerGameOver(null);
             return true;
         }
-        else if (playersAlive.Count() == 1)
+        else if (playersAlive!.Count() == 1)
         {
-            TriggerGameOver(playersAlive.Single());
+            TriggerGameOver(playersAlive!.Single());
             return true;
         }
         return false;
@@ -113,25 +113,25 @@ public class GameModeRPG : GameMode
                 int cost = ((SelectionTile)sourceTile).cost;
                 sourceTile.UpdatePiece(destinationTile.m_Piece);
                 destinationTile.UpdatePiece(null);
-                DM.LaserManager.UpdateLaser(true);
+                LaserManager.GetInstance().UpdateLaser(true);
                 playerData.PlayerEconomy.RefundPlacement(cost);
                 return true;
 #if DEBUG
             case (InfiniteTile, BoardTile):
                 destinationTile.UpdatePiece(null);
-                DM.LaserManager.UpdateLaser(true);
+                LaserManager.GetInstance().UpdateLaser(true);
                 return true;
 #endif
             case (BoardTile, BoardTile):
                 sourceTile.UpdatePiece(destinationTile.m_Piece);
                 destinationTile.UpdatePiece(null);
-                DM.LaserManager.UpdateLaser(true);
+                LaserManager.GetInstance().UpdateLaser(true);
                 playerData.PlayerEconomy.RefundMovement();
                 return true;
 
             case (BoardTile, TrashTile):
                 sourceTile.UpdatePiece(piece);
-                DM.LaserManager.UpdateLaser(true);
+                LaserManager.GetInstance().UpdateLaser(true);
                 playerData.PlayerEconomy.RefundDeletion();
                 return true;
 

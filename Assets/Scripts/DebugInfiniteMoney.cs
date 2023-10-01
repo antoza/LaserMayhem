@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DebugInfiniteMoney : MonoBehaviour
 {
-    [field: SerializeField]
-    private DataManager DM;
 
 #if !DEBUG
     private void Start()
@@ -17,7 +15,7 @@ public class DebugInfiniteMoney : MonoBehaviour
 #if DEBUG
     public void OnClick()
     {
-        DM.PlayersManager.AddInfiniteMana();
+        PlayersManager.GetInstance().AddInfiniteMana();
     }
 #endif
 }

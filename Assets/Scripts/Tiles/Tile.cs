@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+#nullable enable
 
 #nullable enable
 public abstract class Tile : MonoBehaviour
 {
-    protected DataManager m_DataManager;
     public float positionX, positionY;
     public float scaleWidth, scaleHeight;
     [field: SerializeField]
@@ -13,12 +12,11 @@ public abstract class Tile : MonoBehaviour
     public Piece? m_Piece { get; private set; }
     public GameObject? m_PieceGameObject { get; private set; }
     [field: SerializeField]
-    private GameObject m_MouseOver;
+    private GameObject? m_MouseOver;
 
 
     void Start()
     {
-        m_DataManager = FindObjectOfType<DataManager>();
         transform.position = Vector2.right * positionX + Vector2.up * positionY;
         transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
         SetColor();
@@ -31,27 +29,27 @@ public abstract class Tile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_Piece)
+            if (m_Piece != null)
             {
-                m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
-                m_Piece.m_Prefab.GetComponent<Animator>().SetTrigger("PieceClicked");
+                PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.SetSourceTile(this);
+                m_Piece.m_Prefab!.GetComponent<Animator>().SetTrigger("PieceClicked");
             }
 
         }
         if (Input.GetMouseButtonUp(0))
         {
-            m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.PrepareMoveToDestinationTile(this);
+            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.PrepareMoveToDestinationTile(this);
         }
     }
 
     private void OnMouseEnter()
     {
-        m_MouseOver.SetActive(true);
+        m_MouseOver!.SetActive(true);
     }
 
     private void OnMouseExit()
     {
-        m_MouseOver.SetActive(false);
+        m_MouseOver!.SetActive(false);
     }
 
     public void UpdatePiece(Piece? piece)
@@ -60,10 +58,10 @@ public abstract class Tile : MonoBehaviour
         {
             Destroy(m_PieceGameObject);
         }
-        if (piece)
+        if (piece != null)
         {
             m_Piece = piece;
-            GameObject newPieceGameObject = Instantiate(piece!.m_Prefab);
+            GameObject newPieceGameObject = Instantiate(piece!.m_Prefab!);
             m_PieceGameObject = newPieceGameObject;
             newPieceGameObject.transform.SetParent(transform);
             newPieceGameObject.name = transform.name + "'s_Piece";

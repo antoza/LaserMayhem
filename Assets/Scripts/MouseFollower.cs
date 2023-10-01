@@ -6,9 +6,7 @@ using UnityEngine;
 public class MouseFollower : MonoBehaviour
 {
     [field: SerializeField]
-    private DataManager DM;
-    [field: SerializeField]
-    private SpriteRenderer m_FollowingTileRenderer;
+    private SpriteRenderer? m_FollowingTileRenderer;
 
     void Update()
     {
@@ -18,19 +16,19 @@ public class MouseFollower : MonoBehaviour
         this.transform.position = worldPosition;
         if (Input.GetMouseButtonUp(0))
         {
-            DM.PlayersManager.GetLocalPlayer().PlayerActions.ResetSourceTile();
+            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.ResetSourceTile();
         }
     }
 
     public void ChangeFollowingTile(Tile? tile)
     {
-        if (tile && tile!.m_Piece)
+        if (tile != null && tile.m_Piece!)
         {
-            m_FollowingTileRenderer.sprite = tile!.m_Piece!.GetSprite();
+            m_FollowingTileRenderer!.sprite = tile!.m_Piece!.GetSprite();
         }
         else
         {
-            m_FollowingTileRenderer.sprite = null;
+            m_FollowingTileRenderer!.sprite = null;
         }
     }
 }

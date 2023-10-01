@@ -8,7 +8,7 @@ public class MovePiece : RevertableAction
     public Tile TargetTile { get; private set; }
     public Piece Piece { get; private set; }
 
-    public MovePiece(DataManager dataManager, PlayerData playerData, Tile sourceTile, Tile targetTile, Piece piece) : base(dataManager, playerData)
+    public MovePiece(PlayerData playerData, Tile sourceTile, Tile targetTile, Piece piece) : base(playerData)
     {
         SourceTile = sourceTile;
         TargetTile = targetTile;
@@ -17,6 +17,6 @@ public class MovePiece : RevertableAction
 
     public override void Revert()
     {
-        DM.GameMode.RevertMove(SourceTile, TargetTile, Piece, PlayerData);
+        DataManager.Instance.GameMode.RevertMove(SourceTile, TargetTile, Piece, PlayerData);
     }
 }
