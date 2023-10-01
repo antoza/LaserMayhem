@@ -35,7 +35,7 @@ public class PlayerActions : ScriptableObject
 
     public void PrepareEndTurn()
     {
-        if (CanPlay()) // EUUUUH BIZARRE LE JOUEUR 1 PEUT JOUER AU TOUR DU JOUEUR 0
+        if (CanPlay()) // TODO : EUUUUH BIZARRE LE JOUEUR 1 PEUT JOUER AU TOUR DU JOUEUR 0
         {
             DM.TurnManager.PrepareSkipTurn(PlayerData.m_playerID);
         }
@@ -47,7 +47,7 @@ public class PlayerActions : ScriptableObject
         DM.MouseFollower.ChangeFollowingTile(null);
     }
 
-    public bool CopyPiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
+    public bool CopyPiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (!sourceTile.m_Piece) return false;
         if (destinationTile.m_Piece) return false;
@@ -57,7 +57,7 @@ public class PlayerActions : ScriptableObject
         return true;
     }
 
-    public bool DeletePiece(Tile tile) // A déplacer dans un fichier plus adapté
+    public bool DeletePiece(Tile tile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (!tile.m_Piece) return false;
 
@@ -66,7 +66,7 @@ public class PlayerActions : ScriptableObject
         return true;
     }
 
-    public bool MovePiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
+    public bool MovePiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (sourceTile == destinationTile) return false;
         if (!sourceTile.m_Piece) return false;
@@ -94,8 +94,11 @@ public class PlayerActions : ScriptableObject
     public void PrepareMoveToDestinationTile(Tile destinationTile)
     {
         if (!CanPlay()) return;
-        if (m_SourceTile == null) return; // Pas nécessaire mais permet d'éviter un envoi de message inutile au serveur
-        DM.GameMessageManager.TryMoveToDestinationTileServerRPC(m_SourceTile.name, destinationTile.name, PlayerData.m_playerID);
+        if (m_SourceTile == null) return; // TODO : Pas nécessaire mais permet d'éviter un envoi de message inutile au serveur
+        if (m_SourceTile.m_Piece == null) return; // TODO : Pas nécessaire mais permet d'éviter un envoi de message inutile au serveur
+        MovePieceAction action = new MovePieceAction(DM, PlayerData, m_SourceTile, destinationTile, m_SourceTile.m_Piece!);
+        action.AskServerRPC();
+        //DM.GameMessageManager.TryMoveToDestinationTileServerRPC(m_SourceTile.name, destinationTile.name, PlayerData.m_playerID);
     }
 
 #if DEBUG

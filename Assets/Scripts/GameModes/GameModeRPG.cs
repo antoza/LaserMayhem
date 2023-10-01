@@ -107,7 +107,7 @@ public class GameModeRPG : GameMode
     {
         switch ((sourceTile, destinationTile))
         {
-            // Ne pas mettre d'Update***** ici, c'est inappoprié. Il faut des fonctions pour ça
+            // TODO : Ne pas mettre d'Update***** ici, c'est inappoprié. Il faut des fonctions pour ça
             // On pourrait même faire en sorte que chaque RevertableAction a son propre comportement de revert renseignée dans sa classe
             case (SelectionTile, BoardTile):
                 int cost = ((SelectionTile)sourceTile).cost;

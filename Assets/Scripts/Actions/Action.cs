@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class Action
+public abstract class Action : NetworkBehaviour
 {
     protected DataManager DM { get; private set; }
     protected PlayerData PlayerData { get; private set; }

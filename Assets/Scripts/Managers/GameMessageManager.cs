@@ -63,41 +63,15 @@ public class GameMessageManager : NetworkBehaviour
     }
 
 
-
-
-
-    // IDEE : faire une seule fonction où on envoie au serveur une Action. Le serveur dit "ok" si ça lui va.
-    // Dans ce cas il faut trouver comment sérialiser une Action
-
-    // GameObject.Find est temporaire, je pense ajouter un dictionnaire de tiles plus tard pour les référencer avec un id
     [ServerRpc(RequireOwnership = false)]
-    public void TryMoveToDestinationTileServerRPC(string sourceTileName, string destinationTileName, int playerID, ServerRpcParams serverRpcParams = default)
+    public void TryActionServerRPC(int playerID, Action action, ServerRpcParams serverRpcParams = default)
     {
-        // A changer d'endroit. L'Action doit exister avant d'arriver ici.
-        PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
-        Tile sourceTile = GameObject.Find(sourceTileName).GetComponent<Tile>();
-        Tile destinationTile = GameObject.Find(destinationTileName).GetComponent<Tile>();
-        Piece? piece = sourceTile.m_Piece;
 
-        if (!playerData.PlayerActions.m_CanPlay) return;
-        if (DM.GameMode.MoveToDestinationTile(sourceTile, destinationTile, playerData))
-        {
-            MoveToDestinationTileClientRPC(sourceTileName, destinationTileName, playerID);
-            DM.RewindManager.AddAction(new MovePiece(DM, playerData, sourceTile, destinationTile, piece!));
-        }
     }
 
-    [ClientRpc]
-    private void MoveToDestinationTileClientRPC(string sourceTileName, string destinationTileName, int playerID)
-    {
-        PlayerData playerData = DM.PlayersManager.GetPlayer(playerID);
-        Tile sourceTile = GameObject.Find(sourceTileName).GetComponent<Tile>();
-        Tile destinationTile = GameObject.Find(destinationTileName).GetComponent<Tile>();
-        Piece? piece = sourceTile.m_Piece;
 
-        DM.GameMode.MoveToDestinationTile(sourceTile, destinationTile, playerData);
-        DM.RewindManager.AddAction(new MovePiece(DM, playerData, sourceTile, destinationTile, piece!));
-    }
+    // TODO : IDEE : faire une seule fonction où on envoie au serveur une Action. Le serveur dit "ok" si ça lui va.
+    // Dans ce cas il faut trouver comment sérialiser une Action
 
     [ServerRpc(RequireOwnership = false)]
     public void TrySkipTurnServerRPC(int playerID, ServerRpcParams serverRpcParams = default)

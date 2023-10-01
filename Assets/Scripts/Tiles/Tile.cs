@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 #nullable enable
-public abstract class Tile : MonoBehaviour
+public abstract class Tile : MonoBehaviour, INetworkSerializable
 {
     protected DataManager m_DataManager;
     public float positionX, positionY;
@@ -14,6 +15,7 @@ public abstract class Tile : MonoBehaviour
     public GameObject? m_PieceGameObject { get; private set; }
     [field: SerializeField]
     private GameObject m_MouseOver;
+    public int m_id { get; private set; }
 
 
     void Start()
@@ -75,5 +77,10 @@ public abstract class Tile : MonoBehaviour
         {
             m_Piece = null;
         }
+    }
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+    {
+        serializer.SerializeValue(out m_id);
     }
 }

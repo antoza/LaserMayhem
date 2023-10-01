@@ -25,8 +25,8 @@ public abstract class Piece : MonoBehaviour
     {
         return m_Prefab.GetComponent<SpriteRenderer>().sprite;
     }
-
     public abstract IEnumerable<Vector2Int> ComputeNewDirections(Vector2Int sourceDirection);
 
-    public static implicit operator bool(Piece piece) { return piece != null; }
+    /* TODO : A supprimer si inutilisé
+    public static implicit operator bool(Piece piece) { return piece != null; }*/
 }
