@@ -26,4 +26,9 @@ public sealed class TilesManager
     {
         _tiles.Append(tile);
     }
+
+    public Tile GetTile(int tileID)
+    {
+        return _tiles[tileID];
+    }
 }

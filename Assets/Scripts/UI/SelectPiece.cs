@@ -12,11 +12,6 @@ public class SelectPiece : MonoBehaviour
     [SerializeField]
     public SelectionTile m_Tile;
 
-    private void Awake()
-    {
-        m_DataManager = FindObjectOfType<DataManager>();
-    }
-
     public void UpdatePiece(Piece newPiece)
     {
         m_Tile.UpdatePiece(newPiece);

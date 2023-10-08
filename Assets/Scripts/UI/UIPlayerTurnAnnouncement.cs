@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class UIPlayerTurnAnnouncement : MonoBehaviour
 {
-    private DataManager m_DataManager;
 
     [SerializeReference, TextArea(1, 2)]
     private string m_BaseStringStart;
@@ -17,13 +16,8 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
     //Text 
     private TextMeshProUGUI m_TurnAnnouncementText;
 
-    //TurnManager
-    private TurnManager m_TurnManager;
-
     private void Awake()
     {
-        m_DataManager = FindObjectOfType<DataManager>();
-        m_TurnManager = m_DataManager.TurnManager;
         m_TurnAnnouncementText = GetComponent<TextMeshProUGUI>();
     }
 
@@ -33,7 +27,7 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
         Color c = m_TurnAnnouncementText.color;
         c.a = 1;
         m_TurnAnnouncementText.color = c;
-        m_TurnAnnouncementText.text = m_BaseStringStart + m_DataManager.PlayersManager.GetCurrentPlayer().m_name + m_BaseStringEnd;
+        m_TurnAnnouncementText.text = m_BaseStringStart + PlayersManager.GetInstance().GetCurrentPlayer().m_name + m_BaseStringEnd;
 
 
 

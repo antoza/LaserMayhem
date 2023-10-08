@@ -2,20 +2,16 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public sealed class DataManager : MonoBehaviour
 {
+    public static DataManager Instance { get; private set; }
+
     [field: SerializeField]
     public Rules Rules { get; private set; }
-    public BoardManager BoardManager { get; private set; }
-    public LaserManager LaserManager { get; private set; }
-    public PlayersManager PlayersManager { get; private set; }
-    public TurnManager TurnManager { get; private set; }
-    public RewindManager RewindManager { get; private set; }
-    public GameMessageManager GameMessageManager;// { get; private set; }
     public GameMode GameMode { get; private set; }
 
     //Laser Templates
-    [field : SerializeField]
+    [field: SerializeField]
     public GameObject LaserTemplate { get; private set; }
     [field: SerializeField]
     public GameObject LaserPredictionTemplate { get; private set; }
@@ -28,12 +24,13 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        BoardManager = new BoardManager(this, Instantiate(new GameObject("Board")));
-        LaserManager = new LaserManager(this, LaserTemplate, LaserPredictionTemplate, LaserContainer);
-        PlayersManager = new PlayersManager(this);
-        TurnManager = new TurnManager(this);
-        RewindManager = new RewindManager(this);
-        //GameMessageManager = new GameMessageManager(this);
+        Instance = this;
+
+        BoardManager.SetInstance(Instantiate(new GameObject("Board")));
+        LaserManager.SetInstance(LaserTemplate, LaserPredictionTemplate, LaserContainer);
+        PlayersManager.SetInstance();
+        TurnManager.SetInstance();
+        RewindManager.SetInstance();
         CreateGameMode();
     }
 
@@ -43,7 +40,6 @@ public class DataManager : MonoBehaviour
         if (type != null && type.IsSubclassOf(typeof(GameMode)))
         {
             GameMode = (GameMode)Activator.CreateInstance(type);
-            GameMode.SetDataManager(this);
             GameMode.Initialise();
         }
         else
@@ -57,13 +53,13 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         GetInitialParameters();
-        TurnManager.Start();
+        TurnManager.GetInstance().Start();
     }
 
     private void GetInitialParameters()
     {
         if (GameInitialParameters.playerNames != null)
-            PlayersManager.SetPlayerNames(GameInitialParameters.playerNames);
+            PlayersManager.GetInstance().SetPlayerNames(GameInitialParameters.playerNames);
         if (GameInitialParameters.playerNames != null)
             Rules = GameInitialParameters.Rules;
     }

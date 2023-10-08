@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
+using System;
+#nullable enable
 
-public class TurnManager : ScriptableObject
+public sealed class TurnManager : ScriptableObject
 {
+    public static TurnManager? Instance { get; private set; }
+
     private int m_TurnNumber = 0;
-    private DataManager DM;
 
     [Header("Time Management")]
     private float m_SkipTurnCooldown;
@@ -25,15 +24,30 @@ public class TurnManager : ScriptableObject
     private UISkipTurnButton m_TurnButton;
     private PieceUpdate m_PieceUpdate;
 
-    public TurnManager(DataManager dataManager)
+    public TurnManager()
     {
-        DM = dataManager;
-        m_SkipTurnCooldown = DM.Rules.SkipTurnCooldown;
-        m_LaserCooldown = DM.Rules.LaserCooldown;
+        DataManager DM = DataManager.Instance;
+        m_SkipTurnCooldown = DataManager.Instance.Rules.SkipTurnCooldown;
+        m_LaserCooldown = DataManager.Instance.Rules.LaserCooldown;
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_PiecesData = FindObjectOfType<PiecesData>();
         m_TurnButton = FindObjectOfType<UISkipTurnButton>();
         m_PieceUpdate = FindObjectOfType<PieceUpdate>();
+    }
+
+    public static void SetInstance()
+    {
+        Instance = new TurnManager();
+    }
+
+    public static TurnManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Debug.LogError("TurnManager has not been instantiated");
+        }
+
+        return Instance!;
     }
 
     public void Start()
@@ -41,29 +55,21 @@ public class TurnManager : ScriptableObject
         StartAnnouncementPhase();
     }
 
-    public void PrepareSkipTurn(int playerID)
-    {
-        if (m_CanSkipTurn)
-        {
-            DM.GameMessageManager.TrySkipTurnServerRPC(playerID);
-        }
-    }
-
     public void StartLaserPhase()
     {
         m_CanSkipTurn = false;
-        DM.LaserManager.UpdateLaser(false);
+        LaserManager.GetInstance().UpdateLaser(false);
         m_TurnButton.StartCoroutineCooldownFromScriptable(m_LaserCooldown, true);
     }
 
     public void StartAnnouncementPhase()
     {
-        if (DM.GameMode.CheckGameOver())
+        if (DataManager.Instance.GameMode.CheckGameOver())
         {
             return;
         }
-        DM.PlayersManager.StartNextPlayerTurn(++m_TurnNumber);
-        DM.LaserManager.UpdateLaser(true);
+        PlayersManager.GetInstance().StartNextPlayerTurn(++m_TurnNumber);
+        LaserManager.GetInstance().UpdateLaser(true);
         m_PieceUpdate.UpdatePieces();
         m_TurnButton.StartCoroutineCooldownFromScriptable(m_SkipTurnCooldown, false);
         m_Announcement.StartCoroutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
@@ -71,7 +77,7 @@ public class TurnManager : ScriptableObject
 
     public void StartTurnPhase()
     {
-        DM.LaserManager.UpdateLaser(true);
+        LaserManager.GetInstance().UpdateLaser(true);
         m_CanSkipTurn = true;
     }
 }

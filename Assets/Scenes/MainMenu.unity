@@ -495,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9094895096204354797, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
       propertyPath: m_text
-      value: R E G U L A R
+      value: S E R V E R
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7825531177915790111, guid: 974bb39519f48194688a8effeaa262d0, type: 3}

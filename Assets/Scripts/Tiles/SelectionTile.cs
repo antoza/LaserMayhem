@@ -16,10 +16,10 @@ public class SelectionTile : Tile
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_DataManager.PlayersManager.GetLocalPlayer().PlayerEconomy.HasEnoughMana(cost))
+            if (PlayersManager.GetInstance().GetLocalPlayer().PlayerEconomy.HasEnoughMana(cost))
             {
-                if (m_Piece) m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.SetSourceTile(this);
-                m_PieceGameObject.GetComponent<Animator>().SetTrigger("PieceClicked");
+                PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.SetSourceTile(this);
+                if (m_Piece) m_PieceGameObject.GetComponent<Animator>().SetTrigger("PieceClicked");
             }
             else
             {
@@ -29,7 +29,7 @@ public class SelectionTile : Tile
         }
         if (Input.GetMouseButtonUp(0))
         {
-            m_DataManager.PlayersManager.GetLocalPlayer().PlayerActions.PrepareMoveToDestinationTile(this);
+            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.CreateAndVerifyMovePieceAction(this);
         }
     }
 }

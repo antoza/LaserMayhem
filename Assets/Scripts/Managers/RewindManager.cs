@@ -1,54 +1,63 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using UnityEngine.Assertions;
+#nullable enable
 
-public class RewindManager : ScriptableObject
+public sealed class RewindManager : ScriptableObject
 {
-    private DataManager DM;
-    private Stack<RevertableAction> m_actionsList;
+    public static RewindManager? Instance { get; private set; }
 
-    public RewindManager(DataManager dataManager)
+    private Stack<Action> m_actionsList;
+
+    public RewindManager()
     {
-        DM = dataManager;
-        m_actionsList = new Stack<RevertableAction>();
+        m_actionsList = new Stack<Action>();
     }
 
-    public void AddAction(RevertableAction action)
+    public static void SetInstance()
+    {
+        Instance = new RewindManager();
+    }
+
+    public static RewindManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Debug.LogError("RewindManager has not been instantiated");
+        }
+
+        return Instance!;
+    }
+
+    public bool IsEmpty()
+    {
+        return m_actionsList.Count == 0;
+    }
+
+    public void AddAction(Action action)
     {
         m_actionsList.Push(action);
     }
 
     public void RevertLastAction()
     {
-        if (m_actionsList.Count == 0)
+        Assert.IsFalse(IsEmpty());
+        Action lastAction = m_actionsList.Pop();
+        DataManager.Instance.GameMode.RevertAction(lastAction);
+    }
+
+    public void RevertAllActions()
+    {
+        Assert.IsFalse(IsEmpty());
+        while(IsEmpty())
         {
-            Debug.Log("naaan");
-            return;
+            RevertLastAction();
         }
-        RevertableAction lastAction = m_actionsList.Pop();
-        lastAction.Revert();
     }
 
     public void ClearAllActions()
     {
         m_actionsList.Clear();
-    }
-
-    public void PrepareRevertLastAction()
-    {
-        PlayerData currentPlayer = DM.PlayersManager.GetCurrentPlayer(); // Réfléchir à comment gérer ceci plus logiquement...
-        if (m_actionsList.Count == 0) return;
-        if (!currentPlayer.PlayerActions.CanPlay()) return;
-        DM.GameMessageManager.TryRevertLastActionServerRPC(currentPlayer.m_playerID);
-    }
-
-    public void PrepareClearAllActions()
-    {
-        PlayerData currentPlayer = DM.PlayersManager.GetCurrentPlayer();
-        if (m_actionsList.Count == 0) return;
-        if (!currentPlayer.PlayerActions.CanPlay()) return;
-        DM.GameMessageManager.TryClearAllActionsServerRPC(currentPlayer.m_playerID);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class RevertableAction : Action
 {
-    public RevertableAction(DataManager dataManager, PlayerData playerData) : base(dataManager, playerData)
+    public RevertableAction(PlayerData playerData) : base(playerData)
     {
     }
 

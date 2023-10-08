@@ -1,26 +1,40 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+#nullable enable
 
-public class PlayersManager : ScriptableObject
+public sealed class PlayersManager : ScriptableObject
 {
-    private DataManager DM;
+    public static PlayersManager? Instance { get; private set; }
+
     public int numberOfPlayers { get; private set; }
     public int currentPlayerID { get; private set; }
     private PlayerData[] playerList;
 
-    public PlayersManager(DataManager dataManager)
+    public PlayersManager()
     {
-        DM = dataManager;
-        numberOfPlayers = DM.Rules.NumberOfPlayers;
+        numberOfPlayers = DataManager.Instance.Rules.NumberOfPlayers;
         currentPlayerID = numberOfPlayers - 1;
         playerList = new PlayerData[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            playerList[i] = new PlayerData(DM, i);
+            playerList[i] = new PlayerData(i);
         }
+    }
+
+    public static void SetInstance()
+    {
+        Instance = new PlayersManager();
+    }
+
+    public static PlayersManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Debug.LogError("PlayersManager has not been instantiated");
+        }
+
+        return Instance!;
     }
 
     public void SetPlayerNames(string[] playerNames)
