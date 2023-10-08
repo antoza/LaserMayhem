@@ -10,19 +10,21 @@ public class MenuMessageManager : MonoBehaviour
     private Rules Rules;
 
     [field: SerializeField]
-    private string sceneName = "SampleScene";
+    private string sceneName1 = "SampleScene";
+    [field: SerializeField]
+    private string sceneName2 = "BranchSimon";
 
-    public void StartHost()
+    public void StartHost(string SceneName)
     {
         NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         GetGameInitialParameters();
     }
 
-    public void StartServer()
+    public void StartServer(string SceneName)
     {
         NetworkManager.Singleton.StartServer();
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         GetGameInitialParameters();
     }
 

@@ -6,10 +6,18 @@ using UnityEngine.SceneManagement;
 public class StartButton : MenuButton
 {
     [field: SerializeField]
-    private int SceneIndex = 0;
+    private bool IsServerButton = false;
+    [field: SerializeField]
+    private string SceneName = "Error";
     public override void ChangeMenu()
     {
-        SceneManager.LoadScene(SceneIndex > 0 ? SceneIndex : SceneManager.GetActiveScene().buildIndex + 1);
-        MenuMessageManager.GetGameInitialParameters();
+        if (IsServerButton) 
+        {
+            MenuMessageManager.StartServer(SceneName);
+        }
+        else
+        {
+            MenuMessageManager.StartClient();
+        }
     }
 }

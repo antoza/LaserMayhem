@@ -20,7 +20,6 @@ public sealed class DataManager : MonoBehaviour
     [field: SerializeField]
     public MouseFollower MouseFollower { get; private set; }
     [field: SerializeField]
-    public GameObject MouseOverSelectioner { get; private set; }
 
     private void Awake()
     {

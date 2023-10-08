@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class SelectPiece : MonoBehaviour
 {
-    private DataManager m_DataManager;
-
     [SerializeField]
     private int m_PieceID;
     [SerializeField]

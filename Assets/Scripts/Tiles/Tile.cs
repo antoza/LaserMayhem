@@ -16,10 +16,18 @@ public abstract class Tile : MonoBehaviour
 
     void Start()
     {
+        SetColor();
+        if(!m_Piece)
+        {
+            InitPiecePositions();
+            UpdatePiece(m_startingPiece);
+        }
+    }
+
+    void InitPiecePositions()
+    {
         transform.position = Vector2.right * positionX + Vector2.up * positionY;
         transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
-        SetColor();
-        UpdatePiece(m_startingPiece);
     }
 
     public abstract void SetColor();
@@ -56,6 +64,10 @@ public abstract class Tile : MonoBehaviour
         if (m_Piece != null)
         {
             Destroy(m_PieceGameObject);
+        }
+        else
+        {
+            InitPiecePositions();
         }
         if (piece != null)
         {
