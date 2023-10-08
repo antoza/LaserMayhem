@@ -55,14 +55,6 @@ public sealed class TurnManager : ScriptableObject
         StartAnnouncementPhase();
     }
 
-    public void PrepareSkipTurn(int playerID)
-    {
-        if (m_CanSkipTurn)
-        {
-            GameMessageManager.Instance!.TrySkipTurnServerRPC(playerID);
-        }
-    }
-
     public void StartLaserPhase()
     {
         m_CanSkipTurn = false;

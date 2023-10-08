@@ -17,10 +17,20 @@ public abstract class GameMode : ScriptableObject
 
     public abstract bool CheckGameOver();
 
-    public abstract bool MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData);
-    public abstract bool RevertMove(Tile sourceTile, Tile destinationTile, Piece piece, PlayerData playerData);
+    public virtual bool VerifyAction(Action action)
+    {
+        if (action.PlayerData.PlayerActions.m_CanPlay) return true;
+        // TODO : On pourrait ajouter qu'on n'autorise pas le joueur à jouer si le laser n'a pas fini son animation
+        return false;
+    }
+    public abstract void ExecuteAction(Action action);
+    public abstract void RevertAction(Action action);
 
-    // A METTRE DANS UNE NOUVELLE CLASSE QUI GERE LE DEBUT / LA FIN DE PARTIE
+    // TODO : A supprimer
+    /*public abstract bool MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData);
+    public abstract bool RevertMove(Tile sourceTile, Tile destinationTile, Piece piece, PlayerData playerData);*/
+
+    // TODO : A METTRE DANS UNE NOUVELLE CLASSE QUI GERE LE DEBUT / LA FIN DE PARTIE
     public void TriggerGameOver(int? winner)
     {
         if (winner == null)

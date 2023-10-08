@@ -15,7 +15,7 @@ public class UISkipTurnButton : MonoBehaviour
 
     public void OnClick()
     {
-        PlayersManager.GetInstance().GetCurrentPlayer().PlayerActions.PrepareEndTurn();
+        PlayersManager.GetInstance().GetCurrentPlayer().PlayerActions.CreateAndVerifyEndTurnAction();
     }
 
     public IEnumerator Cooldown(float cooldown, bool laser)

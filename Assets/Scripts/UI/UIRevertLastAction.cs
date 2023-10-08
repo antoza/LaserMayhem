@@ -7,6 +7,6 @@ public class UIRevertLastAction : MonoBehaviour
 {
     public void OnClick()
     {
-        RewindManager.GetInstance().PrepareRevertLastAction();
+        PlayersManager.GetInstance().GetCurrentPlayer().PlayerActions.CreateAndVerifyRevertLastActionAction();
     }
 }

@@ -14,6 +14,7 @@ public class PlayerActions : ScriptableObject
         PlayerData = playerData;
     }
 
+    //TODO : A enlever
     public bool CanPlay()
     {
         if (!m_CanPlay)
@@ -31,12 +32,10 @@ public class PlayerActions : ScriptableObject
         m_SourceTile = null;
     }
 
-    public void PrepareEndTurn()
+    public void CreateAndVerifyEndTurnAction()
     {
-        if (CanPlay()) // EUUUUH BIZARRE LE JOUEUR 1 PEUT JOUER AU TOUR DU JOUEUR 0
-        {
-            TurnManager.GetInstance().PrepareSkipTurn(PlayerData.m_playerID);
-        }
+        EndTurnAction action = new EndTurnAction(PlayerData);
+        GameMessageManager.GetInstance().VerifyActionAndSendItToServer(action);
     }
 
     public void EndTurn()
@@ -45,7 +44,7 @@ public class PlayerActions : ScriptableObject
         DataManager.Instance.MouseFollower.ChangeFollowingTile(null);
     }
 
-    public bool CopyPiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
+    public bool CopyPiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (sourceTile.m_Piece == null) return false;
         if (destinationTile.m_Piece != null) return false;
@@ -55,7 +54,7 @@ public class PlayerActions : ScriptableObject
         return true;
     }
 
-    public bool DeletePiece(Tile tile) // A déplacer dans un fichier plus adapté
+    public bool DeletePiece(Tile tile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (tile.m_Piece == null) return false;
 
@@ -64,7 +63,7 @@ public class PlayerActions : ScriptableObject
         return true;
     }
 
-    public bool MovePiece(Tile sourceTile, Tile destinationTile) // A déplacer dans un fichier plus adapté
+    public bool MovePiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (sourceTile == destinationTile) return false;
         if (sourceTile.m_Piece == null) return false;
@@ -89,11 +88,23 @@ public class PlayerActions : ScriptableObject
         DataManager.Instance.MouseFollower.ChangeFollowingTile(null);
     }
 
-    public void PrepareMoveToDestinationTile(Tile destinationTile)
+    public void CreateAndVerifyMovePieceAction(Tile destinationTile)
     {
-        if (!CanPlay()) return;
-        if (m_SourceTile == null) return; // Pas nécessaire mais permet d'éviter un envoi de message inutile au serveur
-         GameMessageManager.Instance!.TryMoveToDestinationTileServerRPC(m_SourceTile.name, destinationTile.name, PlayerData.m_playerID);
+        if (m_SourceTile == null) return;
+        MovePieceAction action = new MovePieceAction(PlayerData, m_SourceTile, destinationTile);
+        GameMessageManager.GetInstance().VerifyActionAndSendItToServer(action);
+    }
+
+    public void CreateAndVerifyRevertLastActionAction()
+    {
+        RevertLastActionAction action = new RevertLastActionAction(PlayerData);
+        GameMessageManager.GetInstance().VerifyActionAndSendItToServer(action);
+    }
+
+    public void CreateAndVerifyRevertAllActionsAction()
+    {
+        RevertAllActionsAction action = new RevertAllActionsAction(PlayerData);
+        GameMessageManager.GetInstance().VerifyActionAndSendItToServer(action);
     }
 
 #if DEBUG
@@ -103,5 +114,4 @@ public class PlayerActions : ScriptableObject
         PlayerData.PlayerEconomy.AddNewTurnMana(500);
     }
 #endif
-
 }

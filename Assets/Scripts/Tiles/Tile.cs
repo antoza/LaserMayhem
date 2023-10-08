@@ -1,8 +1,6 @@
 using UnityEngine;
 
 #nullable enable
-
-#nullable enable
 public abstract class Tile : MonoBehaviour
 {
     public float positionX, positionY;
@@ -13,6 +11,7 @@ public abstract class Tile : MonoBehaviour
     public GameObject? m_PieceGameObject { get; private set; }
     [field: SerializeField]
     private GameObject? m_MouseOver;
+    public int m_id { get; private set; }
 
 
     void Start()
@@ -29,16 +28,16 @@ public abstract class Tile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.SetSourceTile(this);
             if (m_Piece != null)
             {
-                PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.SetSourceTile(this);
                 m_Piece.m_Prefab!.GetComponent<Animator>().SetTrigger("PieceClicked");
             }
 
         }
         if (Input.GetMouseButtonUp(0))
         {
-            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.PrepareMoveToDestinationTile(this);
+            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.CreateAndVerifyMovePieceAction(this);
         }
     }
 

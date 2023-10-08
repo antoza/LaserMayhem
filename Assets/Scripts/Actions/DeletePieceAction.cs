@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class MovePiece : RevertableAction
 {
     public Tile SourceTile { get; private set; }
@@ -20,3 +20,4 @@ public class MovePiece : RevertableAction
         DataManager.Instance.GameMode.RevertMove(SourceTile, TargetTile, Piece, PlayerData);
     }
 }
+*/
