@@ -43,7 +43,7 @@ public class PlayerActions : ScriptableObject
         m_CanPlay = false;
         DataManager.Instance.MouseFollower.ChangeFollowingTile(null);
     }
-
+    /*
     public bool CopyPiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
     {
         if (sourceTile.m_Piece == null) return false;
@@ -73,7 +73,7 @@ public class PlayerActions : ScriptableObject
         sourceTile.UpdatePiece(null);
         LaserManager.GetInstance().UpdateLaser(true);
         return true;
-    }
+    }*/
 
     public void SetSourceTile(Tile sourceTile)
     {

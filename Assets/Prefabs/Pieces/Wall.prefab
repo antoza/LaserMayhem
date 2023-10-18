@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2288418677413283940}
   - component: {fileID: 6464141023753336254}
-  - component: {fileID: 6972822722293040829}
   - component: {fileID: -8807962517997127541}
+  - component: {fileID: -8779936390711595858}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6972822722293040829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908386832349718085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a88d93dc874074882462923915a64e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <m_Prefab>k__BackingField: {fileID: 1908386832349718085}
 --- !u!95 &-8807962517997127541
 Animator:
   serializedVersion: 4
@@ -119,3 +106,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8779936390711595858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908386832349718085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a88d93dc874074882462923915a64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 1908386832349718085}

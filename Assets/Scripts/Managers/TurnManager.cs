@@ -22,7 +22,7 @@ public sealed class TurnManager : ScriptableObject
 
     //Piece Update UI
     private UISkipTurnButton m_TurnButton;
-    private PieceUpdate m_PieceUpdate;
+    private SelectionTilesUpdate m_SelectionTilesUpdate;
 
     public TurnManager()
     {
@@ -32,7 +32,7 @@ public sealed class TurnManager : ScriptableObject
         m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
         m_PiecesData = FindObjectOfType<PiecesData>();
         m_TurnButton = FindObjectOfType<UISkipTurnButton>();
-        m_PieceUpdate = FindObjectOfType<PieceUpdate>();
+        m_SelectionTilesUpdate = FindObjectOfType<SelectionTilesUpdate>();
     }
 
     public static void SetInstance()
@@ -52,7 +52,8 @@ public sealed class TurnManager : ScriptableObject
 
     public void Start()
     {
-        StartAnnouncementPhase();
+        m_TurnButton.StartCoroutineAEFFACERAPRES();
+        //StartAnnouncementPhase();
     }
 
     public void StartLaserPhase()
@@ -70,7 +71,7 @@ public sealed class TurnManager : ScriptableObject
         }
         PlayersManager.GetInstance().StartNextPlayerTurn(++m_TurnNumber);
         LaserManager.GetInstance().UpdateLaser(true);
-        m_PieceUpdate.UpdatePieces();
+        if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces();
         m_TurnButton.StartCoroutineCooldownFromScriptable(m_SkipTurnCooldown, false);
         m_Announcement.StartCoroutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
     }

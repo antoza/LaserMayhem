@@ -25,7 +25,7 @@ public class MenuMessageManager : MonoBehaviour
     {
         NetworkManager.Singleton.StartServer();
         NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
-        GetGameInitialParameters();
+        GetServerGameInitialParameters();
     }
 
     public void StartClient()
@@ -38,6 +38,12 @@ public class MenuMessageManager : MonoBehaviour
     {
         string[] names = { "moi", "adversaire" };
         SetGameInitialParameters(Rules, 0, names);
+    }
+
+    public void GetServerGameInitialParameters()
+    {
+        string[] names = { "moi", "adversaire" };
+        SetGameInitialParameters(Rules, -1, names);
     }
 
     public void SetGameInitialParameters(Rules rules, int localPlayerID, string[] names)

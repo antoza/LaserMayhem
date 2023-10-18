@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2288418677413283940}
   - component: {fileID: 6464141023753336254}
-  - component: {fileID: 6538896407925537123}
   - component: {fileID: 7367269318277494929}
+  - component: {fileID: -4142218111923267171}
   m_Layer: 0
   m_Name: RotateTrigo
   m_TagString: Untagged
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6538896407925537123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908386832349718085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b32a7504bd3cf0342b28d7064d245b78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <m_Prefab>k__BackingField: {fileID: 1908386832349718085}
 --- !u!95 &7367269318277494929
 Animator:
   serializedVersion: 4
@@ -119,3 +106,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4142218111923267171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908386832349718085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b32a7504bd3cf0342b28d7064d245b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 1908386832349718085}

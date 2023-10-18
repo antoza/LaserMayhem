@@ -19,9 +19,10 @@ public abstract class GameMode : ScriptableObject
 
     public virtual bool VerifyAction(Action action)
     {
-        if (action.PlayerData.PlayerActions.m_CanPlay) return true;
+        if (action is not PlayerAction) return false;
+        if (!((PlayerAction)action).PlayerData.PlayerActions.m_CanPlay) return false;
         // TODO : On pourrait ajouter qu'on n'autorise pas le joueur à jouer si le laser n'a pas fini son animation
-        return false;
+        return true;
     }
     public abstract void ExecuteAction(Action action);
     public abstract void RevertAction(Action action);

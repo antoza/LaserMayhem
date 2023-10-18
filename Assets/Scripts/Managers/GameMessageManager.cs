@@ -77,23 +77,23 @@ public class GameMessageManager : NetworkBehaviour
     {
         if (DataManager.Instance.GameMode.VerifyAction(action))
         {
-            VerifyAndExecuteActionServerRPC(PlayersManager.GetInstance().GetLocalPlayer().m_playerID, action.SerializeAction());
+            VerifyAndExecuteActionServerRPC(/*PlayersManager.GetInstance().GetLocalPlayer().m_playerID, */action.SerializeAction());
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void VerifyAndExecuteActionServerRPC(int playerID, string serializedAction, ServerRpcParams serverRpcParams = default)
+    public void VerifyAndExecuteActionServerRPC(string serializedAction, ServerRpcParams serverRpcParams = default)
     {
         Action action = Action.DeserializeAction(serializedAction);
         if (DataManager.Instance.GameMode.VerifyAction(action))
         {
             DataManager.Instance.GameMode.ExecuteAction(action);
-            ExecuteActionClientRPC(playerID, serializedAction);
+            ExecuteActionClientRPC(serializedAction);
         }
     }
 
     [ClientRpc]
-    private void ExecuteActionClientRPC(int playerID, string serializedAction)
+    public void ExecuteActionClientRPC(string serializedAction)
     {
         Action action = Action.DeserializeAction(serializedAction);
         DataManager.Instance.GameMode.ExecuteAction(action);

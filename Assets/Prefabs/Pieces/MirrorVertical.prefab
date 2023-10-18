@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2288418677413283940}
   - component: {fileID: 6464141023753336254}
-  - component: {fileID: -752507427774156925}
   - component: {fileID: -6874260879678537551}
+  - component: {fileID: -4625553683963872327}
   m_Layer: 0
-  m_Name: MirrorVert
+  m_Name: MirrorVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-752507427774156925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908386832349718085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e8ca4e5d2e5fa14ca171f34e5f01dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <m_Prefab>k__BackingField: {fileID: 1908386832349718085}
 --- !u!95 &-6874260879678537551
 Animator:
   serializedVersion: 4
@@ -119,3 +106,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4625553683963872327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908386832349718085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8ca4e5d2e5fa14ca171f34e5f01dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 1908386832349718085}

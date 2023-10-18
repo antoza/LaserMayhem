@@ -9,6 +9,8 @@ public sealed class DataManager : MonoBehaviour
     [field: SerializeField]
     public Rules Rules { get; private set; }
     public GameMode GameMode { get; private set; }
+    [field: SerializeField]
+    public PiecePrefabs PiecePrefabs { get; private set; }
 
     //Laser Templates
     [field: SerializeField]
@@ -19,7 +21,6 @@ public sealed class DataManager : MonoBehaviour
     public GameObject LaserContainer { get; private set; }
     [field: SerializeField]
     public MouseFollower MouseFollower { get; private set; }
-    [field: SerializeField]
 
     private void Awake()
     {

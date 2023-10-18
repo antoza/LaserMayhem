@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class EndTurnAction : Action
+public class EndTurnAction : PlayerAction
 {
     public EndTurnAction() : base()
     {

@@ -1,4 +1,5 @@
 using Mono.CompilerServices.SymbolWriter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -64,6 +65,9 @@ public class GameModeRPG : GameMode
             case MovePieceAction:
                 ExecuteMovePieceAction((MovePieceAction)action);
                 break;
+            case ServerSpawnPieceAction:
+                ((ServerSpawnPieceAction)action).Tile.InstantiatePiece(((ServerSpawnPieceAction)action).PieceName);
+                break;
             case RevertLastActionAction:
                 RewindManager.GetInstance().RevertLastAction();
                 break;
@@ -71,9 +75,12 @@ public class GameModeRPG : GameMode
                 RewindManager.GetInstance().RevertAllActions();
                 break;
             case EndTurnAction:
-                action.PlayerData.PlayerActions.EndTurn();
+                ((EndTurnAction)action).PlayerData.PlayerActions.EndTurn();
                 RewindManager.GetInstance().ClearAllActions();
                 TurnManager.GetInstance().StartLaserPhase();
+                break;
+            case ServerSendPiecesListAction:
+                FindObjectOfType<SelectionTilesUpdate>().ClientUpdateSelectionPieces((ServerSendPiecesListAction)action);
                 break;
             default:
                 // TODO : On peut rajouter un Throw Exception
@@ -172,33 +179,29 @@ public class GameModeRPG : GameMode
             // On pourrait même faire en sorte que chaque RevertableAction a son propre comportement de revert renseignée dans sa classe
             case (SelectionTile, BoardTile):
                 int cost = ((SelectionTile)sourceTile).cost;
-                sourceTile.UpdatePiece(targetTile.m_Piece);
-                targetTile.UpdatePiece(null);
-                LaserManager.GetInstance().UpdateLaser(true);
+                sourceTile.TakePieceFromTile(targetTile);
                 playerData.PlayerEconomy.RefundPlacement(cost);
                 break;
 #if DEBUG
             case (InfiniteTile, BoardTile):
-                targetTile.UpdatePiece(null);
-                LaserManager.GetInstance().UpdateLaser(true);
+                targetTile.DestroyPiece();
                 break;
 #endif
             case (BoardTile, BoardTile):
-                sourceTile.UpdatePiece(targetTile.m_Piece);
-                targetTile.UpdatePiece(null);
-                LaserManager.GetInstance().UpdateLaser(true);
+                sourceTile.TakePieceFromTile(targetTile);
                 playerData.PlayerEconomy.RefundMovement();
                 break;
 
             case (BoardTile, TrashTile):
                 sourceTile.UpdatePiece(action.SourcePiece);
-                LaserManager.GetInstance().UpdateLaser(true);
                 playerData.PlayerEconomy.RefundDeletion();
                 break;
 
             default:
                 break;
         }
+
+        LaserManager.GetInstance().UpdateLaser(true);
     }
 
     public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)
@@ -215,8 +218,7 @@ public class GameModeRPG : GameMode
 
     public void ExecutePlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)
     {
-        targetTile.UpdatePiece(sourceTile.m_Piece);
-        sourceTile.UpdatePiece(null);
+        targetTile.TakePieceFromTile(sourceTile);
         playerData.PlayerEconomy.PayForPlacement(sourceTile.cost);
     }
 
@@ -230,7 +232,7 @@ public class GameModeRPG : GameMode
 
     public void ExecuteCheatPlacement(InfiniteTile sourceTile, BoardTile targetTile)
     {
-        targetTile.UpdatePiece(sourceTile.m_Piece);
+        targetTile.InstantiatePiece(sourceTile.m_Piece!);
     }
 #endif
 
@@ -254,8 +256,7 @@ public class GameModeRPG : GameMode
 
     public void ExecuteMovement(PlayerData playerData, BoardTile sourceTile, BoardTile targetTile)
     {
-        targetTile.UpdatePiece(sourceTile.m_Piece);
-        sourceTile.UpdatePiece(null);
+        targetTile.TakePieceFromTile(sourceTile);
         playerData.PlayerEconomy.PayForMovement();
     }
 

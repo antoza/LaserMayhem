@@ -1,22 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public class Action : INetworkSerializable
+public class Action/* : INetworkSerializable*/
 {
-    public int PlayerID;
-    public PlayerData PlayerData => PlayersManager.GetInstance().GetPlayer(PlayerID);
-
+    public Action()
+    {
+    }
+    
     public static Action DeserializeAction(string serializedAction)
     {
-        string[] parsedString = serializedAction.Split('+');
-        Type type = Type.GetType(parsedString[0]);
+        Queue<string> parsedString = new Queue<string>(serializedAction.Split('+'));
+        Type type = Type.GetType(parsedString.Dequeue());
         if (type != null && type.IsSubclassOf(typeof(Action)))
         {
             Action action = (Action)Activator.CreateInstance(type);
-            if (action.Initialize(parsedString)) return action;
+            if (action.DeserializeSubAction(parsedString)) return action;
         }
         Debug.Log("Given action is incorrect");
         return null;
@@ -24,30 +24,12 @@ public class Action : INetworkSerializable
 
     public virtual string SerializeAction()
     {
-        return GetType().Name + '+' + PlayerID;
+        return GetType().Name;
     }
 
-    public Action()
+    public virtual bool DeserializeSubAction(Queue<string> parsedString)
     {
-        PlayerID = 0;
-    }
-
-    public Action(PlayerData playerData)
-    {
-        PlayerID = playerData.m_playerID;
-    }
-
-    public virtual bool Initialize(string[] parsedString)
-    {
-        try
-        {
-            PlayerID = int.Parse(parsedString[1]);
-            return true;
-        }
-        catch (Exception ex) when (ex is FormatException || ex is IndexOutOfRangeException)
-        {
-            return false;
-        }
+        return true;
     }
     /*
     public virtual bool Verify()
@@ -59,9 +41,9 @@ public class Action : INetworkSerializable
     }
 
     public abstract void Execute();*/
-
+    /*
     public virtual void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref PlayerID);
-    }
+    }*/
 }

@@ -42,4 +42,15 @@ public class UISkipTurnButton : MonoBehaviour
     {
         StartCoroutine(Cooldown(cooldown, laser));
     }
+
+    public void StartCoroutineAEFFACERAPRES()
+    {
+        StartCoroutine(taertae());
+    }
+
+    public IEnumerator taertae()
+    {
+        yield return new WaitForSeconds(10);
+        TurnManager.GetInstance().StartAnnouncementPhase();
+    }
 }

@@ -4,28 +4,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 #nullable enable
-public class MovePieceAction : PlayerAction
-{    
-    public Tile SourceTile;
-    public Tile TargetTile;
-    public Piece? SourcePiece;
-    public Piece? TargetPiece;
+public class ServerSpawnPieceAction : Action
+{
+    public Tile Tile;
+    public PieceName PieceName;
 
     public override string SerializeAction()
     {
-        return base.SerializeAction() + "+" + SourceTile.name + "+" + TargetTile.name;
+        return base.SerializeAction() + "+" + Tile.name + "+" + PieceName;
     }
 
-    public MovePieceAction() : base()
+    public ServerSpawnPieceAction() : base()
     {
     }
 
-    public MovePieceAction(PlayerData playerData, Tile sourceTile, Tile targetTile) : base(playerData)
+    public ServerSpawnPieceAction(Tile tile, PieceName pieceName) : base()
     {
-        SourceTile = sourceTile;
-        TargetTile = targetTile;
+        Tile = tile;
+        PieceName = pieceName;
     }
 
     public override bool DeserializeSubAction(Queue<string> parsedString)
@@ -33,8 +32,8 @@ public class MovePieceAction : PlayerAction
         base.DeserializeSubAction(parsedString);
         try
         {
-            SourceTile = GameObject.Find(parsedString.Dequeue()).GetComponent<Tile>();
-            TargetTile = GameObject.Find(parsedString.Dequeue()).GetComponent<Tile>();
+            Tile = GameObject.Find(parsedString.Dequeue()).GetComponent<Tile>();
+            Assert.IsTrue(Enum.TryParse(parsedString.Dequeue(), out PieceName));
             return true;
         }
         catch (Exception)
