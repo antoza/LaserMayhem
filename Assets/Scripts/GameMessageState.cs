@@ -6,28 +6,24 @@ using UnityEngine;
 
 public struct GameMessageState : INetworkSerializable, IEquatable<GameMessageState>
 {
-    public ulong ClientId;
-    public int SourceTileName;
-    public int DestinationTileName;
+    public ulong ClientID;
+    public int PlayerID;
 
-    public GameMessageState(ulong clientId, int sourceTileName = -1, int destinationTileName = -1)
+    public GameMessageState(ulong clientId, int playerID)
     {
-        ClientId = clientId;
-        SourceTileName = sourceTileName;
-        DestinationTileName = destinationTileName;
+        ClientID = clientId;
+        PlayerID = playerID;
     }
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
-        serializer.SerializeValue(ref ClientId);
-        serializer.SerializeValue(ref SourceTileName);
-        serializer.SerializeValue(ref DestinationTileName);
+        serializer.SerializeValue(ref ClientID);
+        serializer.SerializeValue(ref PlayerID);
     }
 
     public bool Equals(GameMessageState other)
     {
-        return ClientId == other.ClientId &&
-            SourceTileName == other.SourceTileName &&
-            DestinationTileName == other.DestinationTileName;
+        return ClientID == other.ClientID &&
+            PlayerID == other.PlayerID;
     }
 }

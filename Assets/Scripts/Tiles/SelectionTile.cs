@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SelectionTile : Tile
 {
-
     [field: SerializeField]
     public int cost;
+
     public override void SetColor()
     {
         GetComponent<SpriteRenderer>().color = Color.black;

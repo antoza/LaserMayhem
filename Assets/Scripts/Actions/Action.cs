@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Action/* : INetworkSerializable*/
+public class Action
 {
     public Action()
     {
@@ -31,19 +31,4 @@ public class Action/* : INetworkSerializable*/
     {
         return true;
     }
-    /*
-    public virtual bool Verify()
-    {
-        if (PlayerData.PlayerActions.m_CanPlay) return false;
-        // TODO : On pourrait ajouter qu'on n'autorise pas le joueur à jouer si le laser n'a pas fini son animation
-        if (DataManager.Instance.GameMode.VerifyAction(this)) // TODO : Rendre GameMode singleton
-        return true;
-    }
-
-    public abstract void Execute();*/
-    /*
-    public virtual void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-    {
-        serializer.SerializeValue(ref PlayerID);
-    }*/
 }

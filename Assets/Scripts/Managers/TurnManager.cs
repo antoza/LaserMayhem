@@ -52,6 +52,7 @@ public sealed class TurnManager : ScriptableObject
 
     public void Start()
     {
+        // TODO : A corriger
         m_TurnButton.StartCoroutineAEFFACERAPRES();
         //StartAnnouncementPhase();
     }

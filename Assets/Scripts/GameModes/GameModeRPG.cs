@@ -41,7 +41,7 @@ public class GameModeRPG : GameMode
         return false;
     }
 
-    public override bool VerifyAction(Action action)
+    public override bool VerifyAction(PlayerAction action)
     {
         if (!base.VerifyAction(action)) return false;
         switch (action)
@@ -80,6 +80,7 @@ public class GameModeRPG : GameMode
                 TurnManager.GetInstance().StartLaserPhase();
                 break;
             case ServerSendPiecesListAction:
+                if (GameInitialParameters.localPlayerID == -1) return;
                 FindObjectOfType<SelectionTilesUpdate>().ClientUpdateSelectionPieces((ServerSendPiecesListAction)action);
                 break;
             default:

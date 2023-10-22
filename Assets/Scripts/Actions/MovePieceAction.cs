@@ -42,11 +42,4 @@ public class MovePieceAction : PlayerAction
             return false;
         }
     }
-    /*
-    public override void NetworkSerialize<T>(BufferSerializer<T> serializer)
-    {
-        base.NetworkSerialize(serializer);
-        serializer.SerializeValue(ref SourceTileID);
-        serializer.SerializeValue(ref TargetTileID);
-    }*/
 }

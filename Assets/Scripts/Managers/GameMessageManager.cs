@@ -9,7 +9,7 @@ using UnityEngine;
 public class GameMessageManager : NetworkBehaviour
 {
     public static GameMessageManager? Instance { get; private set; }
-    private NetworkList<GameMessageState>? players;
+    private ulong[] playersClientID;
 
     public static void SetInstance()
     {
@@ -20,7 +20,7 @@ public class GameMessageManager : NetworkBehaviour
     {
         if (Instance == null)
         {
-            Debug.LogError("RewindManager has not been instantiated");
+            Debug.LogError("GameMessageManager has not been instantiated");
         }
 
         return Instance!;
@@ -28,11 +28,33 @@ public class GameMessageManager : NetworkBehaviour
 
     private void Awake()
     {
-        players = new NetworkList<GameMessageState>();
-
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (IsServer)
+        {
+            playersClientID = new ulong[DataManager.Instance.Rules.NumberOfPlayers];
+        }
+    }
+
+    private int FindClientsPlayerID(ulong ClientID)
+    {
+        if (IsServer)
+        {
+            for (int i = 0; i < playersClientID.Length; i++)
+            {
+                if (playersClientID[i] == ClientID) return i;
+            }
+            Debug.Log("ClientID not found");
+            return -1;
+        }
+        return -1;
+    }
+
+    // TODO : Utiliser OnServerConnect et OnServerDisconnect (voir doc en ligne) à la place
+    // Peut-être que cela signifie de faire en sorte que GameMessageManager hérite de NetworkManager
     public override void OnNetworkSpawn()
     {
         if (IsServer)
@@ -56,98 +78,84 @@ public class GameMessageManager : NetworkBehaviour
         }
     }
 
-    private void HandleClientConnected(ulong clientId)
+    private void HandleClientConnected(ulong clientID)
     {
-        players!.Add(new GameMessageState(clientId));
-    }
-
-    private void HandleClientDisconnected(ulong clientId)
-    {
-        for (int i = 0; i < players!.Count; i++)
+        for (int i = 0; i < playersClientID.Length; i++)
         {
-            if (players[i].ClientId == clientId)
+            if (playersClientID[i] == 0)
             {
-                players.RemoveAt(i);
-                break;
+                playersClientID[i] = clientID;
+                // TODO : la ligne suivante devrait être appelée par le client dans un OnClientConnect
+                ((ServerSendActionsManager)SendActionsManager.GetInstance()).ReceivePlayerRequest(i, 0);
+                return;
             }
         }
+        Debug.Log("The maximum number of players has already been reached");
+        // TODO : dire au client de NetworkManager.Singleton.StopClient();
     }
 
-    public void VerifyActionAndSendItToServer(Action action)
+    private void HandleClientDisconnected(ulong clientID)
     {
-        if (DataManager.Instance.GameMode.VerifyAction(action))
+        int playerID = FindClientsPlayerID(clientID);
+        if (playerID == -1) return;
+        playersClientID[playerID] = 0;
+    }
+
+
+
+
+    // Functions to be called by SendActionsManager
+
+    public void SendActionToPlayer(Action action, int actionOrder, int playerID)
+    {
+        if (!IsServer) return;
+
+        ClientRpcParams clientRpcParams = new ClientRpcParams
         {
-            VerifyAndExecuteActionServerRPC(/*PlayersManager.GetInstance().GetLocalPlayer().m_playerID, */action.SerializeAction());
-        }
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { playersClientID[playerID] }
+            }
+        };
+        string serializedAction = action.SerializeAction();
+
+        ReceiveServerActionClientRPC(serializedAction, actionOrder, clientRpcParams);
+    }
+
+    public void SendActionToServer(PlayerAction action)
+    {
+        ReceivePlayerActionServerRPC(action.SerializeAction());
+    }
+
+    public void RequestActionToServer(int actionOrder)
+    {
+        ReceivePlayerRequestServerRPC(actionOrder);
+    }
+
+
+    // RPC functions, do not call them in other files
+
+    [ClientRpc]
+    public void ReceiveServerActionClientRPC(string serializedAction, int actionOrder, ClientRpcParams clientRpcParams = default)
+    {
+        Action action = Action.DeserializeAction(serializedAction);
+        ((ClientSendActionsManager)SendActionsManager.GetInstance()).ReceiveAndExecuteAction(action, actionOrder);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void VerifyAndExecuteActionServerRPC(string serializedAction, ServerRpcParams serverRpcParams = default)
+    public void ReceivePlayerActionServerRPC(string serializedAction, ServerRpcParams serverRpcParams = default)
     {
         Action action = Action.DeserializeAction(serializedAction);
-        if (DataManager.Instance.GameMode.VerifyAction(action))
-        {
-            DataManager.Instance.GameMode.ExecuteAction(action);
-            ExecuteActionClientRPC(serializedAction);
-        }
+        int playerID = FindClientsPlayerID(serverRpcParams.Receive.SenderClientId);
+        if (playerID == -1) return;
+        ((ServerSendActionsManager)SendActionsManager.GetInstance()).ReceivePlayerAction(playerID, action);
     }
 
-    [ClientRpc]
-    public void ExecuteActionClientRPC(string serializedAction)
+    [ServerRpc(RequireOwnership = false)]
+    public void ReceivePlayerRequestServerRPC(int actionOrder, ServerRpcParams serverRpcParams = default)
     {
-        Action action = Action.DeserializeAction(serializedAction);
-        DataManager.Instance.GameMode.ExecuteAction(action);
+        int playerID = FindClientsPlayerID(serverRpcParams.Receive.SenderClientId);
+        if (playerID == -1) return;
+        ((ServerSendActionsManager)SendActionsManager.GetInstance()).ReceivePlayerRequest(playerID, actionOrder);
     }
-
-        /*
-
-        [ServerRpc(RequireOwnership = false)]
-        public void TrySkipTurnServerRPC(int playerID, ServerRpcParams serverRpcParams = default)
-        {
-            PlayerData playerData = PlayersManager.GetInstance().GetPlayer(playerID);
-            if (!playerData.PlayerActions.m_CanPlay) return;
-            SkipTurnClientRPC(playerID);
-            playerData.PlayerActions.EndTurn();
-            RewindManager.GetInstance().ClearAllActions();
-            TurnManager.GetInstance().StartLaserPhase();
-        }
-
-        [ClientRpc]
-        private void SkipTurnClientRPC(int playerID)
-        {
-            PlayerData playerData = PlayersManager.GetInstance().GetPlayer(playerID);
-            playerData.PlayerActions.EndTurn();
-            RewindManager.GetInstance().ClearAllActions();
-            TurnManager.GetInstance().StartLaserPhase();
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void TryRevertLastActionServerRPC(int playerID, ServerRpcParams serverRpcParams = default)
-        {
-            PlayerData playerData = PlayersManager.GetInstance().GetPlayer(playerID);
-            if (!playerData.PlayerActions.m_CanPlay) return;
-            RevertLastActionClientRPC(playerID);
-            RewindManager.GetInstance().RevertLastAction();
-        }
-
-        [ClientRpc]
-        private void RevertLastActionClientRPC(int playerID)
-        {
-            RewindManager.GetInstance().RevertLastAction();
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void TryClearAllActionsServerRPC(int playerID, ServerRpcParams serverRpcParams = default)
-        {
-            PlayerData playerData = PlayersManager.GetInstance().GetPlayer(playerID);
-            if (!playerData.PlayerActions.m_CanPlay) return;
-            ClearAllActionsClientRPC(playerID);
-            RewindManager.GetInstance().ClearAllActions();
-        }
-
-        [ClientRpc]
-        private void ClearAllActionsClientRPC(int playerID)
-        {
-            RewindManager.GetInstance().ClearAllActions();
-        }*/
-    }
+}

@@ -26,11 +26,13 @@ public sealed class DataManager : MonoBehaviour
     {
         Instance = this;
 
+        // TODO : mettre tous ces managers en MonoBehavior, et dans la scène. Ils ne doivent plus être générés par le DM
         BoardManager.SetInstance(Instantiate(new GameObject("Board")));
         LaserManager.SetInstance(LaserTemplate, LaserPredictionTemplate, LaserContainer);
         PlayersManager.SetInstance();
         TurnManager.SetInstance();
         RewindManager.SetInstance();
+        SendActionsManager.SetInstance();
         CreateGameMode();
     }
 

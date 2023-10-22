@@ -50,7 +50,7 @@ public class UISkipTurnButton : MonoBehaviour
 
     public IEnumerator taertae()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(1);
         TurnManager.GetInstance().StartAnnouncementPhase();
     }
 }

@@ -13,7 +13,6 @@ public abstract class Tile : MonoBehaviour
     private GameObject? m_MouseOver;
     public int m_id { get; private set; }
 
-
     void Start()
     {
         SetColor();
@@ -58,9 +57,9 @@ public abstract class Tile : MonoBehaviour
 
     public void InstantiatePiece(PieceName pieceName)
     {
-        Assert.IsNull(m_Piece);
         if (pieceName != PieceName.None)
         {
+            Assert.IsNull(m_Piece);
             UpdatePiece(PiecePrefabs.GetInstance().GetPiece(pieceName).InstantiatePiece());
         }
     }

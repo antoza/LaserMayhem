@@ -28,7 +28,7 @@ public class SelectionTilesUpdate : MonoBehaviour
         AddNewPieces(firstEmptySelectionTileIndex, action.PiecesList);
 
         Debug.Log(action.SerializeAction());
-        GameMessageManager.GetInstance().ExecuteActionClientRPC(action.SerializeAction());
+        ((ServerSendActionsManager)SendActionsManager.GetInstance()).ExecuteActionAndSendItToAllPlayers(action);
     }
 
     public void ClientUpdateSelectionPieces(ServerSendPiecesListAction action)
