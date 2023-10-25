@@ -35,7 +35,7 @@ public class PlayerActions : ScriptableObject
     public void CreateAndVerifyEndTurnAction()
     {
         EndTurnAction action = new EndTurnAction(PlayerData);
-        ((ClientSendActionsManager)SendActionsManager.GetInstance()).VerifyAndSendAction(action);
+        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
     }
 
     public void EndTurn()
@@ -92,19 +92,19 @@ public class PlayerActions : ScriptableObject
     {
         if (m_SourceTile == null) return;
         MovePieceAction action = new MovePieceAction(PlayerData, m_SourceTile, destinationTile);
-        ((ClientSendActionsManager)SendActionsManager.GetInstance()).VerifyAndSendAction(action);
+        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
     }
 
     public void CreateAndVerifyRevertLastActionAction()
     {
         RevertLastActionAction action = new RevertLastActionAction(PlayerData);
-        ((ClientSendActionsManager)SendActionsManager.GetInstance()).VerifyAndSendAction(action);
+        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
     }
 
     public void CreateAndVerifyRevertAllActionsAction()
     {
         RevertAllActionsAction action = new RevertAllActionsAction(PlayerData);
-        ((ClientSendActionsManager)SendActionsManager.GetInstance()).VerifyAndSendAction(action);
+        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
     }
 
 #if DEBUG

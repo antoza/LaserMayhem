@@ -15,6 +15,6 @@ public class UIEcoPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_EcoText.text = PlayersManager.GetInstance().GetMana(m_PlayerID).ToString();
+        m_EcoText.text = PlayersManager.Instance.GetMana(m_PlayerID).ToString();
     }
 }

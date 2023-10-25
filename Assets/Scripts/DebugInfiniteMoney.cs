@@ -15,7 +15,7 @@ public class DebugInfiniteMoney : MonoBehaviour
 #if DEBUG
     public void OnClick()
     {
-        PlayersManager.GetInstance().AddInfiniteMana();
+        PlayersManager.Instance.AddInfiniteMana();
     }
 #endif
 }

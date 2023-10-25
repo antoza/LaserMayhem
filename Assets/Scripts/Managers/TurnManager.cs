@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 #nullable enable
 
-public sealed class TurnManager : ScriptableObject
+public sealed class TurnManager : MonoBehaviour
 {
-    public static TurnManager? Instance { get; private set; }
+    public static TurnManager Instance { get; private set; }
 
     private int m_TurnNumber = 0;
 
@@ -24,8 +24,9 @@ public sealed class TurnManager : ScriptableObject
     private UISkipTurnButton m_TurnButton;
     private SelectionTilesUpdate m_SelectionTilesUpdate;
 
-    public TurnManager()
+    void Awake()
     {
+        Instance = this;
         DataManager DM = DataManager.Instance;
         m_SkipTurnCooldown = DataManager.Instance.Rules.SkipTurnCooldown;
         m_LaserCooldown = DataManager.Instance.Rules.LaserCooldown;
@@ -34,7 +35,7 @@ public sealed class TurnManager : ScriptableObject
         m_TurnButton = FindObjectOfType<UISkipTurnButton>();
         m_SelectionTilesUpdate = FindObjectOfType<SelectionTilesUpdate>();
     }
-
+    /*
     public static void SetInstance()
     {
         Instance = new TurnManager();
@@ -48,7 +49,7 @@ public sealed class TurnManager : ScriptableObject
         }
 
         return Instance!;
-    }
+    }*/
 
     public void Start()
     {
@@ -60,7 +61,7 @@ public sealed class TurnManager : ScriptableObject
     public void StartLaserPhase()
     {
         m_CanSkipTurn = false;
-        LaserManager.GetInstance().UpdateLaser(false);
+        LaserManager.Instance.UpdateLaser(false);
         m_TurnButton.StartCoroutineCooldownFromScriptable(m_LaserCooldown, true);
     }
 
@@ -70,8 +71,8 @@ public sealed class TurnManager : ScriptableObject
         {
             return;
         }
-        PlayersManager.GetInstance().StartNextPlayerTurn(++m_TurnNumber);
-        LaserManager.GetInstance().UpdateLaser(true);
+        PlayersManager.Instance.StartNextPlayerTurn(++m_TurnNumber);
+        LaserManager.Instance.UpdateLaser(true);
         if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces();
         m_TurnButton.StartCoroutineCooldownFromScriptable(m_SkipTurnCooldown, false);
         m_Announcement.StartCoroutineTurnAnnouncementFadeFromScriptable(m_SkipTurnCooldown);
@@ -79,7 +80,7 @@ public sealed class TurnManager : ScriptableObject
 
     public void StartTurnPhase()
     {
-        LaserManager.GetInstance().UpdateLaser(true);
+        LaserManager.Instance.UpdateLaser(true);
         m_CanSkipTurn = true;
     }
 }

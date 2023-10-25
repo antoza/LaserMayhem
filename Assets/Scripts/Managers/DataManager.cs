@@ -5,20 +5,12 @@ using UnityEngine;
 public sealed class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
-
-    [field: SerializeField]
     public Rules Rules { get; private set; }
     public GameMode GameMode { get; private set; }
     [field: SerializeField]
     public PiecePrefabs PiecePrefabs { get; private set; }
 
     //Laser Templates
-    [field: SerializeField]
-    public GameObject LaserTemplate { get; private set; }
-    [field: SerializeField]
-    public GameObject LaserPredictionTemplate { get; private set; }
-    [field: SerializeField]
-    public GameObject LaserContainer { get; private set; }
     [field: SerializeField]
     public MouseFollower MouseFollower { get; private set; }
 
@@ -27,12 +19,13 @@ public sealed class DataManager : MonoBehaviour
         Instance = this;
 
         // TODO : mettre tous ces managers en MonoBehavior, et dans la scène. Ils ne doivent plus être générés par le DM
-        BoardManager.SetInstance(Instantiate(new GameObject("Board")));
-        LaserManager.SetInstance(LaserTemplate, LaserPredictionTemplate, LaserContainer);
-        PlayersManager.SetInstance();
-        TurnManager.SetInstance();
-        RewindManager.SetInstance();
-        SendActionsManager.SetInstance();
+        //BoardManager.SetInstance(new GameObject("Board"));
+        //LaserManager.SetInstance(LaserTemplate, LaserPredictionTemplate, LaserContainer);
+        //PlayersManager.SetInstance();
+        //TurnManager.SetInstance();
+        //RewindManager.SetInstance();
+        //SendActionsManager.SetInstance();
+        Rules = GameInitialParameters.Rules;
         CreateGameMode();
     }
 
@@ -50,19 +43,7 @@ public sealed class DataManager : MonoBehaviour
         }
     }
 
-    //On ne fait aucune action dans le Awake. Si besoin il suffit de recréer un start dans le scriptable voulu et de l'appeller dans le start du dataManager.
-    //Void TurnManager
     private void Start()
     {
-        GetInitialParameters();
-        TurnManager.GetInstance().Start();
-    }
-
-    private void GetInitialParameters()
-    {
-        if (GameInitialParameters.playerNames != null)
-            PlayersManager.GetInstance().SetPlayerNames(GameInitialParameters.playerNames);
-        if (GameInitialParameters.playerNames != null)
-            Rules = GameInitialParameters.Rules;
     }
 }

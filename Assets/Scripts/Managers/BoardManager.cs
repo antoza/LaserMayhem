@@ -5,20 +5,20 @@ using UnityEngine;
 using System;
 
 #nullable enable
-public sealed class BoardManager : ScriptableObject
+public sealed class BoardManager : MonoBehaviour
 {
-    public static BoardManager? Instance { get; private set; }
+    public static BoardManager Instance { get; private set; }
 
-    private readonly GameObject m_board;
+    private GameObject m_board;
     public int Width { get; private set; }
     public int Height { get; private set; }
     public float ScaleWidth { get; private set; }
     public float ScaleHeight { get; private set; }
     private BoardTile[,] tilesArray;
-
-    public static void SetInstance(GameObject board)
+    /*
+    public static void SetInstance()
     {
-        Instance = new BoardManager(board);
+        Instance = new BoardManager();
     }
 
     public static BoardManager GetInstance()
@@ -29,19 +29,23 @@ public sealed class BoardManager : ScriptableObject
         }
 
         return Instance!;
-    }
+    }*/
 
-
-    public BoardManager(GameObject board)
+    private void Awake()
     {
-        m_board = board;
-        DataManager DM = DataManager.Instance;
-        Width = DM.Rules.BoardWidth;
-        Height = DM.Rules.BoardHeight;
-        ScaleWidth = DM.Rules.BoardScaleWidth;
-        ScaleHeight = DM.Rules.BoardScaleHeight;
+        Instance = this;
+        m_board = new GameObject("Board");
+        Width = DataManager.Instance.Rules.BoardWidth;
+        Height = DataManager.Instance.Rules.BoardHeight;
+        ScaleWidth = DataManager.Instance.Rules.BoardScaleWidth;
+        ScaleHeight = DataManager.Instance.Rules.BoardScaleHeight;
         tilesArray = new BoardTile[Width, Height];
         GenerateAllTiles();
+        
+    }
+
+    private void Start()
+    {
     }
 
     public Piece? GetPiece(Vector2Int tile)

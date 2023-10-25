@@ -15,7 +15,7 @@ public class UISkipTurnButton : MonoBehaviour
 
     public void OnClick()
     {
-        PlayersManager.GetInstance().GetCurrentPlayer().PlayerActions.CreateAndVerifyEndTurnAction();
+        PlayersManager.Instance.GetCurrentPlayer().PlayerActions.CreateAndVerifyEndTurnAction();
     }
 
     public IEnumerator Cooldown(float cooldown, bool laser)
@@ -30,11 +30,11 @@ public class UISkipTurnButton : MonoBehaviour
         m_TurnButton.interactable = true;
         if (laser)
         {
-            TurnManager.GetInstance().StartAnnouncementPhase();
+            TurnManager.Instance.StartAnnouncementPhase();
         }
         else
         {
-            TurnManager.GetInstance().StartTurnPhase();
+            TurnManager.Instance.StartTurnPhase();
         }
     }
 
@@ -51,6 +51,6 @@ public class UISkipTurnButton : MonoBehaviour
     public IEnumerator taertae()
     {
         yield return new WaitForSeconds(1);
-        TurnManager.GetInstance().StartAnnouncementPhase();
+        TurnManager.Instance.StartAnnouncementPhase();
     }
 }
