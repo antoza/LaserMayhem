@@ -15,6 +15,6 @@ public class UINamePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_NameText.text = PlayersManager.GetInstance().GetPlayer(m_PlayerID).m_name;
+        m_NameText.text = PlayersManager.Instance.GetPlayer(m_PlayerID).m_name;
     }
 }

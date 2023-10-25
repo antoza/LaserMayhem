@@ -16,7 +16,7 @@ public class MouseFollower : MonoBehaviour
         this.transform.position = worldPosition;
         if (Input.GetMouseButtonUp(0))
         {
-            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.ResetSourceTile();
+            PlayersManager.Instance.GetLocalPlayer().PlayerActions.ResetSourceTile();
         }
     }
 

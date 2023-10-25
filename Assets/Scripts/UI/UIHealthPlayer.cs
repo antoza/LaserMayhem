@@ -14,6 +14,6 @@ public class UIHealthPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_HealthText.text = PlayersManager.GetInstance().GetHealth(m_PlayerID).ToString();
+        m_HealthText.text = PlayersManager.Instance.GetHealth(m_PlayerID).ToString();
     }
 }

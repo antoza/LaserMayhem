@@ -24,7 +24,7 @@ public abstract class PlayerAction : Action
     {
         try
         {
-            PlayerData = PlayersManager.GetInstance().GetPlayer(int.Parse(parsedString.Dequeue()));
+            PlayerData = PlayersManager.Instance.GetPlayer(int.Parse(parsedString.Dequeue()));
             return true;
         }
         catch (Exception)

@@ -11,8 +11,9 @@ public class ServerSendActionsManager : SendActionsManager
     //private List<int> currentActionOrder = new List<int>();
     private List<bool> isWaitingForNewAction;
 
-    void Awake()
+    private void Awake()
     {
+        Instance = this;
         actionsToSend = new List<List<Action>>();
         isWaitingForNewAction = new List<bool>();
 
@@ -40,7 +41,7 @@ public class ServerSendActionsManager : SendActionsManager
     private void SendActionToPlayer(int playerID, int actionOrder)
     {
         Action actionToSend = actionsToSend[playerID][actionOrder];
-        GameMessageManager.GetInstance().SendActionToPlayer(actionToSend, actionOrder, playerID);
+        GameMessageManager.Instance.SendActionToPlayer(actionToSend, actionOrder, playerID);
     }
 
     public void ReceivePlayerRequest(int playerID, int actionOrder)

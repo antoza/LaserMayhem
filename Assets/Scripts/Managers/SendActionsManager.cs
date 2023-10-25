@@ -5,10 +5,23 @@ using UnityEngine;
 using System;
 
 #nullable enable
-public class SendActionsManager : ScriptableObject
+public class SendActionsManager : MonoBehaviour
 {
-    public static SendActionsManager? Instance;
+    public static SendActionsManager Instance;
 
+    private void Awake()
+    {
+        if (GameInitialParameters.localPlayerID == -1)
+        {
+            gameObject.AddComponent<ServerSendActionsManager>();
+        }
+        else
+        {
+            gameObject.AddComponent<ClientSendActionsManager>();
+        }
+        Destroy(this);
+    }
+    /*
     public static void SetInstance()
     {
         if (GameInitialParameters.localPlayerID == -1)
@@ -29,5 +42,5 @@ public class SendActionsManager : ScriptableObject
         }
 
         return Instance!;
-    }
+    }*/
 }

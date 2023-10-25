@@ -50,7 +50,7 @@ public class GameModeRPG : GameMode
                 return VerifyMovePieceAction((MovePieceAction)action);
             case RevertLastActionAction:
             case RevertAllActionsAction:
-                return !RewindManager.GetInstance().IsEmpty();
+                return !RewindManager.Instance.IsEmpty();
             case EndTurnAction:
                 return true;
             default:
@@ -69,15 +69,15 @@ public class GameModeRPG : GameMode
                 ((ServerSpawnPieceAction)action).Tile.InstantiatePiece(((ServerSpawnPieceAction)action).PieceName);
                 break;
             case RevertLastActionAction:
-                RewindManager.GetInstance().RevertLastAction();
+                RewindManager.Instance.RevertLastAction();
                 break;
             case RevertAllActionsAction:
-                RewindManager.GetInstance().RevertAllActions();
+                RewindManager.Instance.RevertAllActions();
                 break;
             case EndTurnAction:
                 ((EndTurnAction)action).PlayerData.PlayerActions.EndTurn();
-                RewindManager.GetInstance().ClearAllActions();
-                TurnManager.GetInstance().StartLaserPhase();
+                RewindManager.Instance.ClearAllActions();
+                TurnManager.Instance.StartLaserPhase();
                 break;
             case ServerSendPiecesListAction:
                 if (GameInitialParameters.localPlayerID == -1) return;
@@ -163,8 +163,8 @@ public class GameModeRPG : GameMode
                 break;
         }
 
-        RewindManager.GetInstance().AddAction(action);
-        LaserManager.GetInstance().UpdateLaser(true);
+        RewindManager.Instance.AddAction(action);
+        LaserManager.Instance.UpdateLaser(true);
     }
 
     public void RevertMovePieceAction(MovePieceAction action)
@@ -202,7 +202,7 @@ public class GameModeRPG : GameMode
                 break;
         }
 
-        LaserManager.GetInstance().UpdateLaser(true);
+        LaserManager.Instance.UpdateLaser(true);
     }
 
     public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)

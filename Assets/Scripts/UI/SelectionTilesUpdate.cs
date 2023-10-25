@@ -27,8 +27,7 @@ public class SelectionTilesUpdate : MonoBehaviour
         ServerSendPiecesListAction action = new ServerSendPiecesListAction(piecesList);
         AddNewPieces(firstEmptySelectionTileIndex, action.PiecesList);
 
-        Debug.Log(action.SerializeAction());
-        ((ServerSendActionsManager)SendActionsManager.GetInstance()).ExecuteActionAndSendItToAllPlayers(action);
+        ((ServerSendActionsManager)SendActionsManager.Instance).ExecuteActionAndSendItToAllPlayers(action);
     }
 
     public void ClientUpdateSelectionPieces(ServerSendPiecesListAction action)
@@ -72,7 +71,6 @@ public class SelectionTilesUpdate : MonoBehaviour
         for(int i = 0; i < piecesList.Count(); i++)
         {
             Tile currentTile = m_SelectionTiles[firstEmptySelectionTileIndex + i];
-            Debug.Log(piecesList.ElementAt(i));
             currentTile.InstantiatePiece(piecesList.ElementAt(i));
         }
     }

@@ -3,16 +3,17 @@ using UnityEngine;
 using UnityEngine.Assertions;
 #nullable enable
 
-public sealed class PlayersManager : ScriptableObject
+public sealed class PlayersManager : MonoBehaviour
 {
-    public static PlayersManager? Instance { get; private set; }
+    public static PlayersManager Instance { get; private set; }
 
     public int numberOfPlayers { get; private set; }
     public int currentPlayerID { get; private set; }
     private PlayerData[] playerList;
 
-    public PlayersManager()
+    private void Awake()
     {
+        Instance = this;
         numberOfPlayers = DataManager.Instance.Rules.NumberOfPlayers;
         currentPlayerID = numberOfPlayers - 1;
         playerList = new PlayerData[numberOfPlayers];
@@ -20,8 +21,13 @@ public sealed class PlayersManager : ScriptableObject
         {
             playerList[i] = new PlayerData(i);
         }
+        SetPlayerNames(GameInitialParameters.playerNames);
     }
 
+    private void Start()
+    {
+    }
+    /*
     public static void SetInstance()
     {
         Instance = new PlayersManager();
@@ -35,7 +41,7 @@ public sealed class PlayersManager : ScriptableObject
         }
 
         return Instance!;
-    }
+    }*/
 
     public void SetPlayerNames(string[] playerNames)
     {
