@@ -4,17 +4,18 @@ using System;
 using UnityEngine.Assertions;
 #nullable enable
 
-public sealed class RewindManager : ScriptableObject
+public sealed class RewindManager : MonoBehaviour
 {
-    public static RewindManager? Instance { get; private set; }
+    public static RewindManager Instance { get; private set; }
 
     private Stack<Action> m_actionsList;
 
-    public RewindManager()
+    private void Awake()
     {
+        Instance = this;
         m_actionsList = new Stack<Action>();
     }
-
+    /*
     public static void SetInstance()
     {
         Instance = new RewindManager();
@@ -28,7 +29,7 @@ public sealed class RewindManager : ScriptableObject
         }
 
         return Instance!;
-    }
+    }*/
 
     public bool IsEmpty()
     {

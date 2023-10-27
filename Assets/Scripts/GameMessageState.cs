@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -27,3 +27,4 @@ public struct GameMessageState : INetworkSerializable, IEquatable<GameMessageSta
             PlayerID == other.PlayerID;
     }
 }
+*/

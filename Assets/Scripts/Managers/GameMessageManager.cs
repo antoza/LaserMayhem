@@ -3,20 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-#nullable enable
 
 #nullable enable
 public class GameMessageManager : NetworkBehaviour
 {
-    public static GameMessageManager? Instance { get; private set; }
+    public static GameMessageManager Instance { get; private set; }
     private ulong[] playersClientID;
-
+    /*
     public static void SetInstance()
     {
-        Instance = new GameMessageManager();
+        Instance = new GameNetworkManager();
     }
-
-    public static GameMessageManager GetInstance()
+    
+    public static GameNetworkManager GetInstance()
     {
         if (Instance == null)
         {
@@ -24,13 +23,14 @@ public class GameMessageManager : NetworkBehaviour
         }
 
         return Instance!;
-    }
+    }*/
 
     private void Awake()
     {
         Instance = this;
     }
 
+    // "IsServer" isn't true during Awake, so we have to initialize this in Start
     private void Start()
     {
         if (IsServer)
@@ -86,7 +86,7 @@ public class GameMessageManager : NetworkBehaviour
             {
                 playersClientID[i] = clientID;
                 // TODO : la ligne suivante devrait être appelée par le client dans un OnClientConnect
-                ((ServerSendActionsManager)SendActionsManager.GetInstance()).ReceivePlayerRequest(i, 0);
+                ((ServerSendActionsManager)SendActionsManager.Instance).ReceivePlayerRequest(i, 0);
                 return;
             }
         }
@@ -139,7 +139,7 @@ public class GameMessageManager : NetworkBehaviour
     public void ReceiveServerActionClientRPC(string serializedAction, int actionOrder, ClientRpcParams clientRpcParams = default)
     {
         Action action = Action.DeserializeAction(serializedAction);
-        ((ClientSendActionsManager)SendActionsManager.GetInstance()).ReceiveAndExecuteAction(action, actionOrder);
+        ((ClientSendActionsManager)SendActionsManager.Instance).ReceiveAndExecuteAction(action, actionOrder);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -148,7 +148,7 @@ public class GameMessageManager : NetworkBehaviour
         Action action = Action.DeserializeAction(serializedAction);
         int playerID = FindClientsPlayerID(serverRpcParams.Receive.SenderClientId);
         if (playerID == -1) return;
-        ((ServerSendActionsManager)SendActionsManager.GetInstance()).ReceivePlayerAction(playerID, action);
+        ((ServerSendActionsManager)SendActionsManager.Instance).ReceivePlayerAction(playerID, action);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -156,6 +156,6 @@ public class GameMessageManager : NetworkBehaviour
     {
         int playerID = FindClientsPlayerID(serverRpcParams.Receive.SenderClientId);
         if (playerID == -1) return;
-        ((ServerSendActionsManager)SendActionsManager.GetInstance()).ReceivePlayerRequest(playerID, actionOrder);
+        ((ServerSendActionsManager)SendActionsManager.Instance).ReceivePlayerRequest(playerID, actionOrder);
     }
 }

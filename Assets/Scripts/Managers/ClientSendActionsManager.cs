@@ -10,9 +10,14 @@ public class ClientSendActionsManager : SendActionsManager
 {
     private int currentActionOrder = 0;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void RequestAction()
     {
-        GameMessageManager.GetInstance().RequestActionToServer(currentActionOrder);
+        GameMessageManager.Instance.RequestActionToServer(currentActionOrder);
     }
 
     public void ReceiveAndExecuteAction(Action action, int actionOrder)
@@ -29,7 +34,7 @@ public class ClientSendActionsManager : SendActionsManager
     {
         if (DataManager.Instance.GameMode.VerifyAction(action))
         {
-            GameMessageManager.GetInstance().SendActionToServer(action);
+            GameMessageManager.Instance.SendActionToServer(action);
         }
     }
 }

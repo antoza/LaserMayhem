@@ -24,7 +24,6 @@ public class ServerSendPiecesListAction : Action
         foreach (PieceName pieceName in PiecesList)
         {
             serializedAction += "+" + pieceName;
-            Debug.Log(serializedAction);
         }
         return serializedAction;
     }

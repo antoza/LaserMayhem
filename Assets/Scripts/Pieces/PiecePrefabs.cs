@@ -18,21 +18,20 @@ public enum PieceName
 }
 
 #nullable enable
-[CreateAssetMenu]
-public class PiecePrefabs : ScriptableObject
+public class PiecePrefabs : MonoBehaviour
 {
-    public static PiecePrefabs? Instance { get; private set; }
+    public static PiecePrefabs Instance { get; private set; }
     [SerializeField]
     private List<Piece> pieceList;
     private Dictionary<PieceName, Piece> pieceDictionary;
-
+    /*
     public static PiecePrefabs GetInstance()
     {
         Assert.IsNotNull(Instance, "PiecePrefabs has not been instantiated");
         return Instance!;
-    }
+    }*/
 
-    private void OnEnable()
+    private void Awake()
     {
         Instance = this;
         pieceDictionary = new Dictionary<PieceName, Piece>();

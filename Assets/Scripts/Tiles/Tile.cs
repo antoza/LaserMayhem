@@ -32,7 +32,7 @@ public abstract class Tile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.SetSourceTile(this);
+            PlayersManager.Instance.GetLocalPlayer().PlayerActions.SetSourceTile(this);
             if (m_Piece)
             {
                 m_Piece!.GetComponent<Animator>().SetTrigger("PieceClicked");
@@ -41,7 +41,7 @@ public abstract class Tile : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            PlayersManager.GetInstance().GetLocalPlayer().PlayerActions.CreateAndVerifyMovePieceAction(this);
+            PlayersManager.Instance.GetLocalPlayer().PlayerActions.CreateAndVerifyMovePieceAction(this);
         }
     }
 
@@ -60,13 +60,13 @@ public abstract class Tile : MonoBehaviour
         if (pieceName != PieceName.None)
         {
             Assert.IsNull(m_Piece);
-            UpdatePiece(PiecePrefabs.GetInstance().GetPiece(pieceName).InstantiatePiece());
+            UpdatePiece(PiecePrefabs.Instance.GetPiece(pieceName).InstantiatePiece());
         }
     }
 
     public void InstantiatePiece(Piece piece)
     {
-        InstantiatePiece(PiecePrefabs.GetInstance().GetPieceNameFromPiece(piece));
+        InstantiatePiece(PiecePrefabs.Instance.GetPieceNameFromPiece(piece));
     }
 
     public void DestroyPiece()

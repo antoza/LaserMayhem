@@ -27,7 +27,7 @@ public class UIPlayerTurnAnnouncement : MonoBehaviour
         Color c = m_TurnAnnouncementText.color;
         c.a = 1;
         m_TurnAnnouncementText.color = c;
-        m_TurnAnnouncementText.text = m_BaseStringStart + PlayersManager.GetInstance().GetCurrentPlayer().m_name + m_BaseStringEnd;
+        m_TurnAnnouncementText.text = m_BaseStringStart + PlayersManager.Instance.GetCurrentPlayer().m_name + m_BaseStringEnd;
 
 
 
