@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -25,7 +26,7 @@ public class RelayManager : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
-    public async void CreateRelay()
+    public async Task CreateRelay()
     {
         try
         {
@@ -44,7 +45,7 @@ public class RelayManager : MonoBehaviour
         }
     }
 
-    public async void JoinRelay(string joinCode)
+    public async Task JoinRelay(string joinCode)
     {
         try
         {

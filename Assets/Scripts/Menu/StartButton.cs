@@ -19,15 +19,13 @@ public class StartButton : MenuButton
     {
         if (IsServerButton)
         {
-            RelayManager.Instance.CreateRelay();
-            await Task.Delay(3000);
+            await RelayManager.Instance.CreateRelay();
             MenuMessageManager.StartServer(SceneName);
         }
         else
         {
             string JoinCode = JoinCodeInputField.text;
-            RelayManager.Instance.JoinRelay(JoinCode.Remove(JoinCode.Length - 1));
-            await Task.Delay(3000);
+            await RelayManager.Instance.JoinRelay(JoinCode.Remove(JoinCode.Length - 1));
             MenuMessageManager.StartClient();
         }
     }
