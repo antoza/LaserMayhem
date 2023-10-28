@@ -676,11 +676,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 2926210f-48a5-4d0a-ad1a-8ed4b3dfef7f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Lasergame
+  organizationId: unity_-6vip3gs6vclyw
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
