@@ -10,19 +10,20 @@ public class PlayerEconomy : ScriptableObject
     {
         m_mana = 0;
         m_deletionCost = 1;
-        m_movingCost = 0;
+        m_movingCost = 1;
     }
 
     public void AddNewTurnMana(int turnNumber)
     {
-        int manaToGive = 1;
+        /*int manaToGive = 1;
         int manaSum = 1;
         while (manaSum < turnNumber)
         {
             manaToGive++;
             manaSum += manaToGive;
         }
-        m_mana += manaToGive;
+        m_mana += manaToGive;*/
+        m_mana += turnNumber == 1 ? 1 : 2;
     }
 
     public bool HasEnoughMana(int cost)
@@ -66,6 +67,7 @@ public class PlayerEconomy : ScriptableObject
         if (HasEnoughManaForMovement())
         {
             m_mana -= m_movingCost;
+            m_movingCost++;
             return true;
         }
         return false;
@@ -84,6 +86,7 @@ public class PlayerEconomy : ScriptableObject
 
     public void RefundMovement()
     {
+        m_movingCost--;
         m_mana += m_movingCost;
     }
 }

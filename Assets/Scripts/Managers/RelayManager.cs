@@ -33,7 +33,8 @@ public class RelayManager : MonoBehaviour
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            Debug.Log(joinCode);
+            Debug.Log("Creating Relay with " + joinCode);
+            UIJoinCode.SetCodeTextAsync(joinCode);
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
@@ -50,6 +51,8 @@ public class RelayManager : MonoBehaviour
         try
         {
             Debug.Log("Joining Relay with " + joinCode);
+            UIJoinCode.SetCodeTextAsync(joinCode);
+
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");

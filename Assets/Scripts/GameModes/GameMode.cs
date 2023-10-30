@@ -13,6 +13,7 @@ public abstract class GameMode : ScriptableObject
     {
         PlayersManager.Instance.HitPlayer(0, leavingLasersBot.Count);
         PlayersManager.Instance.HitPlayer(1, leavingLasersTop.Count);
+        PlayersManager.Instance.HitPlayer(PlayersManager.Instance.currentPlayerID, leavingLasersLeft.Count + leavingLasersRight.Count);
     }
 
     public abstract bool CheckGameOver();

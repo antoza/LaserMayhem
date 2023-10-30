@@ -8,7 +8,7 @@ public class Rules : ScriptableObject
     [field: SerializeField]
     public string GameModeName { get; private set; } = "RPG";
     [field: SerializeField]
-    public int InitialHealth { get; private set; } = 30;
+    public int InitialHealth { get; private set; } = 15;
     [field: SerializeField]
     public int SkipTurnCooldown { get; private set; } = 3;
     [field: SerializeField]

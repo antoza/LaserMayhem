@@ -110,7 +110,6 @@ public class PlayerActions : ScriptableObject
 #if DEBUG
     public void AddInfiniteMana()
     {
-        Debug.Log("aa");
         PlayerData.PlayerEconomy.AddNewTurnMana(500);
     }
 #endif

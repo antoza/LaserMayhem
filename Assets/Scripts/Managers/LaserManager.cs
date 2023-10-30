@@ -193,11 +193,11 @@ public sealed class LaserManager : MonoBehaviour
         List<int> leavingLasersBot = new List<int>();
         for (int i = 0; i < BoardManager.Instance.Height; i++)
 		{
-			if (m_LaserGrid[0, i, 3])
+			if (m_LaserGrid[0, i, 1])
 			{
 				leavingLasersLeft.Add(i);
 			}
-			if (m_LaserGrid[BoardManager.Instance.Width-1, i, 2])
+			if (m_LaserGrid[BoardManager.Instance.Width-1, i, 0])
             {
                 leavingLasersRight.Add(i);
             }	
