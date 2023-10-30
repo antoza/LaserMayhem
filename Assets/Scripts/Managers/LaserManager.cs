@@ -60,6 +60,12 @@ public sealed class LaserManager : MonoBehaviour
     {
         DestroyLaserPart();
         PrintLaserPart(prediction);
+		if (!prediction)
+		{
+			ProcessLeavingLasers();
+			SoundManager.Instance.playLaserSound();
+			Debug.Log("non non non");
+		}
     }
 
     public void PrintLaserPart(bool prediction)
@@ -73,8 +79,6 @@ public sealed class LaserManager : MonoBehaviour
 		else
 		{
             laserPart = Instantiate(m_LaserVisualTemplate);
-			ProcessLeavingLasers();
-			SoundManager.Instance.playLaserSound();
         }
 
 		ResetBoard();
