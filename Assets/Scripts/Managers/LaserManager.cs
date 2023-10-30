@@ -74,6 +74,7 @@ public sealed class LaserManager : MonoBehaviour
 		{
             laserPart = Instantiate(m_LaserVisualTemplate);
 			ProcessLeavingLasers();
+			SoundManager.Instance.playLaserSound();
         }
 
 		ResetBoard();
