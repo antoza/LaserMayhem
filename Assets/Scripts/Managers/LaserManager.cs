@@ -64,7 +64,6 @@ public sealed class LaserManager : MonoBehaviour
 		{
 			ProcessLeavingLasers();
 			SoundManager.Instance.playLaserSound();
-			Debug.Log("non non non");
 		}
     }
 
