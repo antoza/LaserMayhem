@@ -91,7 +91,7 @@ public abstract class Tile : MonoBehaviour
             piece.transform.position = Vector2.right * positionX + Vector2.up * positionY;
             piece.transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
             piece.GetComponent<Animator>().SetTrigger("PiecePlaced");
-            SoundManager.Instance.playPlacePieceSound();
+            SoundManager.Instance.PlayPlacePieceSound();
         }
     }
 
