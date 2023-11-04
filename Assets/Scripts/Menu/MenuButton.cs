@@ -7,7 +7,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     protected MenuMessageManager MenuMessageManager;
     [field: SerializeField]
-    private Animator m_Animator;
+    protected Animator m_Animator;
     [field: SerializeField]
     protected MenuSelection m_MenuSelection;
 
@@ -16,10 +16,10 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         MenuMessageManager = FindObjectOfType<MenuMessageManager>();
     }
 
-    public void OnClick()
+    public virtual void OnClick()
     {
-        m_Animator.SetTrigger("Pressed");
-        if (m_MenuSelection.StartChange())
+        m_Animator.SetBool("Pressed", true);
+        if (m_MenuSelection && m_MenuSelection.StartChange())
         {
             //This value select the duration of the waiting time after a button is pressed
             StartCoroutine(Delay(0.2f));

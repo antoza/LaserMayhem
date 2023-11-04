@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UISkipTurnButton : MonoBehaviour
+public class UISkipTurnButton : MenuButton
 {
     private float m_CurrentCooldown;
     Button m_TurnButton;
@@ -13,9 +13,17 @@ public class UISkipTurnButton : MonoBehaviour
         m_TurnButton = GetComponent<Button>();
     }
 
-    public void OnClick()
+    private void Start()
     {
-        PlayersManager.Instance.GetCurrentPlayer().PlayerActions.CreateAndVerifyEndTurnAction();
+    }
+
+    public override void OnClick()
+    {
+        if(PlayersManager.Instance.GetCurrentPlayer().m_playerID == PlayersManager.Instance.GetLocalPlayer().m_playerID)
+        {
+            base.OnClick();
+            PlayersManager.Instance.GetCurrentPlayer().PlayerActions.CreateAndVerifyEndTurnAction();
+        }
     }
 
     public IEnumerator Cooldown(float cooldown, bool laser)
@@ -31,10 +39,14 @@ public class UISkipTurnButton : MonoBehaviour
         if (laser)
         {
             TurnManager.Instance.StartAnnouncementPhase();
+            if (PlayersManager.Instance.GetCurrentPlayer().m_playerID == PlayersManager.Instance.GetLocalPlayer().m_playerID)
+            {
+                m_Animator.SetBool("Pressed", false);
+            }
         }
         else
         {
-            TurnManager.Instance.StartTurnPhase();
+            TurnManager.Instance.StartTurnPhase();  
         }
     }
 
@@ -52,5 +64,10 @@ public class UISkipTurnButton : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         TurnManager.Instance.StartAnnouncementPhase();
+
+        if (PlayersManager.Instance.GetCurrentPlayer().m_playerID != PlayersManager.Instance.GetLocalPlayer().m_playerID)
+        {
+            m_Animator.SetBool("Pressed", true);
+        }
     }
 }
