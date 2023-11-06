@@ -53,9 +53,7 @@ public sealed class TurnManager : MonoBehaviour
 
     public void Start()
     {
-        // TODO : A corriger
-        m_TurnButton.StartCoroutineAEFFACERAPRES();
-        //StartAnnouncementPhase();
+        StartAnnouncementPhase();
     }
 
     public void StartLaserPhase()
@@ -66,7 +64,7 @@ public sealed class TurnManager : MonoBehaviour
     }
 
     public void StartAnnouncementPhase()
-    {
+    { 
         if (DataManager.Instance.GameMode.CheckGameOver())
         {
             return;

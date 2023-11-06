@@ -41,7 +41,6 @@ public sealed class BoardManager : MonoBehaviour
         ScaleHeight = DataManager.Instance.Rules.BoardScaleHeight;
         tilesArray = new BoardTile[Width, Height];
         GenerateAllTiles();
-        
     }
 
     private void Start()

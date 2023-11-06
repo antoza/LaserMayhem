@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
     {
         Instance = this;
         InitializeMasterVolume();
-        music.Play();
+        //music.Play();
     }
 
     // Master volume functions

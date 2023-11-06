@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Text;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuMessageManager : MonoBehaviour
 {
+    private TcpClient clientSocket;
+
     [field: SerializeField]
     private Rules Rules;
 
@@ -13,6 +18,29 @@ public class MenuMessageManager : MonoBehaviour
     private string sceneName1 = "SampleScene";
     [field: SerializeField]
     private string sceneName2 = "BranchSimon";
+    
+    void Start()
+    {
+        clientSocket = new TcpClient();
+        clientSocket.Connect("127.0.0.1", 8888); // TODO : Mettre les bonnes valeurs ici
+    }
+
+    void SendData(string data)
+    {
+        try
+        {
+            NetworkStream serverStream = clientSocket.GetStream();
+            byte[] outStream = Encoding.ASCII.GetBytes(data);
+            serverStream.Write(outStream, 0, outStream.Length);
+            serverStream.Flush();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
+    }
+    
+
 
     public void StartHost(string SceneName)
     {
@@ -26,6 +54,7 @@ public class MenuMessageManager : MonoBehaviour
         NetworkManager.Singleton.StartServer();
         NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         GetServerGameInitialParameters();
+        SendData("15+SearchGame+RPG");
     }
 
     public void StartClient()

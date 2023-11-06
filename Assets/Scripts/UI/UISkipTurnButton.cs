@@ -39,7 +39,7 @@ public class UISkipTurnButton : MenuButton
         if (laser)
         {
             TurnManager.Instance.StartAnnouncementPhase();
-            if (PlayersManager.Instance.GetCurrentPlayer().m_playerID == PlayersManager.Instance.GetLocalPlayer().m_playerID)
+            if (PlayersManager.Instance.GetCurrentPlayer().m_playerID == GameInitialParameters.localPlayerID)
             {
                 m_Animator.SetBool("Pressed", false);
             }
@@ -53,21 +53,5 @@ public class UISkipTurnButton : MenuButton
     public void StartCoroutineCooldownFromScriptable(float cooldown, bool laser)
     {
         StartCoroutine(Cooldown(cooldown, laser));
-    }
-
-    public void StartCoroutineAEFFACERAPRES()
-    {
-        StartCoroutine(taertae());
-    }
-
-    public IEnumerator taertae()
-    {
-        yield return new WaitForSeconds(1);
-        TurnManager.Instance.StartAnnouncementPhase();
-
-        if (PlayersManager.Instance.GetCurrentPlayer().m_playerID != PlayersManager.Instance.GetLocalPlayer().m_playerID)
-        {
-            m_Animator.SetBool("Pressed", true);
-        }
     }
 }

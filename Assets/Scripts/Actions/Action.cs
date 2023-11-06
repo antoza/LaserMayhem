@@ -9,7 +9,7 @@ public class Action
     {
     }
     
-    public static Action DeserializeAction(string serializedAction)
+    public static Action DeserializeAction(string serializedAction) // TODO : peut-on sérialiser une Queue<string> directement ?
     {
         Queue<string> parsedString = new Queue<string>(serializedAction.Split('+'));
         Type type = Type.GetType(parsedString.Dequeue());
