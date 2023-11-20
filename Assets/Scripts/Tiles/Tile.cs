@@ -20,7 +20,7 @@ public abstract class Tile : MonoBehaviour
         InstantiatePiece(m_startingPiece);
     }
     
-    void InitTilePositions()
+    public virtual void InitTilePositions()
     {
         transform.position = Vector2.right * positionX + Vector2.up * positionY;
         transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;

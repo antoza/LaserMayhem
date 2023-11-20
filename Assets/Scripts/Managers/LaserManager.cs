@@ -17,8 +17,8 @@ public sealed class LaserManager : MonoBehaviour
     public GameObject m_LaserContainer { get; private set; }
     private List<GameObject> m_LaserVisualHolder = new() { };
 
-	private Vector2Int m_StartingSpot = new(-1, 3);
-	private Vector2Int m_StartingDirection = new(1, 0);
+	private Vector2Int m_StartingSpot;
+	private Vector2Int m_StartingDirection;
 
 	private bool[,,] m_LaserGrid;
 
@@ -48,13 +48,24 @@ public sealed class LaserManager : MonoBehaviour
 		/*m_LaserVisualTemplate = laserVisualTemplate;
 		m_LaserVisualPredictionTemplate = laserPredictionVisualTemplate;
 		m_LaserContainer = laserContainer;*/
+		
 		m_LaserGrid = new bool[0, 0, 0];
 	}
 
 	private void Start()
 	{
 		m_LaserGrid = new bool[BoardManager.Instance.Width, BoardManager.Instance.Height, 4];
-    }
+		if (GameInitialParameters.localPlayerID == 1)
+		{
+			m_StartingSpot = new(BoardManager.Instance.Width, (BoardManager.Instance.Height - 1) / 2);
+			m_StartingDirection = new(-1, 0);
+		}
+		else
+		{
+			m_StartingSpot = new(-1, (BoardManager.Instance.Height - 1) / 2);
+			m_StartingDirection = new(1, 0);
+		}
+	}
 
     public void UpdateLaser(bool prediction)
     {

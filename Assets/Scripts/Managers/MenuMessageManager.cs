@@ -65,13 +65,14 @@ public class MenuMessageManager : MonoBehaviour
 
     public void GetGameInitialParameters()
     {
-        string[] names = { "moi", "adversaire" };
-        SetGameInitialParameters(Rules, 0, names);
+        string[] names = { "Player 0", "Player 1" };
+        Debug.Log("Connecting with id player : " + PlayerID.playerID); //TODO : Delete this
+        SetGameInitialParameters(Rules, PlayerID.playerID, names);
     }
 
     public void GetServerGameInitialParameters()
     {
-        string[] names = { "moi", "adversaire" };
+        string[] names = { "Player 0", "Player 1" };
         SetGameInitialParameters(Rules, -1, names);
     }
 
