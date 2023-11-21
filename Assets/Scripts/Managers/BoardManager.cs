@@ -64,7 +64,17 @@ public sealed class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < Height; y++)
             {
-                tilesArray[x, y] = GenerateTile(x, y, prefab);
+                if (GameInitialParameters.localPlayerID == 1)
+                {
+                    int subX = Height - 1 - x;
+                    int subY = Width - 1 - y;
+                    tilesArray[subX, subY] = GenerateTile(x, y, prefab);
+                }
+                else
+                {
+                    tilesArray[x, y] = GenerateTile(x, y, prefab);
+                }
+                
             }
         }
     }
@@ -76,8 +86,13 @@ public sealed class BoardManager : MonoBehaviour
         spawnedTile.name = "Tile_" + x + "_" + y;
         BoardTile boardTile = spawnedTile.GetComponent<BoardTile>();
 
-        boardTile.x = x;
         boardTile.y = y;
+        boardTile.x = x;
+        if(GameInitialParameters.localPlayerID == 1)
+        {
+            x = Height - 1 - x;
+            y = Width - 1 - y;
+        }
         boardTile.positionX = (x - Width/2) * ScaleWidth / Width;
         boardTile.positionY = (y - Height/2) * ScaleHeight / Height;
         boardTile.scaleWidth = ScaleWidth / Width;

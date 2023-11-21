@@ -11,9 +11,19 @@ public abstract class GameMode : ScriptableObject
 
     public void ProcessLeavingLasers(List<int> leavingLasersRight, List<int> leavingLasersLeft, List<int> leavingLasersTop, List<int> leavingLasersBot)
     {
-        PlayersManager.Instance.HitPlayer(0, leavingLasersBot.Count);
-        PlayersManager.Instance.HitPlayer(1, leavingLasersTop.Count);
-        PlayersManager.Instance.HitPlayer(PlayersManager.Instance.currentPlayerID, leavingLasersLeft.Count + leavingLasersRight.Count);
+        if(GameInitialParameters.localPlayerID == 1)
+        {
+            PlayersManager.Instance.HitPlayer(1, leavingLasersBot.Count);
+            PlayersManager.Instance.HitPlayer(0, leavingLasersTop.Count);
+            PlayersManager.Instance.HitPlayer(PlayersManager.Instance.currentPlayerID, leavingLasersLeft.Count + leavingLasersRight.Count);
+        }
+        else
+        {
+            PlayersManager.Instance.HitPlayer(0, leavingLasersBot.Count);
+            PlayersManager.Instance.HitPlayer(1, leavingLasersTop.Count);
+            PlayersManager.Instance.HitPlayer(PlayersManager.Instance.currentPlayerID, leavingLasersLeft.Count + leavingLasersRight.Count);
+        }
+        
     }
 
     public abstract bool CheckGameOver();

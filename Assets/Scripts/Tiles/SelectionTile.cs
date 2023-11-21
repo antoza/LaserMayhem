@@ -12,6 +12,16 @@ public class SelectionTile : Tile
         GetComponent<SpriteRenderer>().color = Color.black;
     }
 
+    public override void InitTilePositions()
+    {
+        transform.position = Vector2.right * positionX + Vector2.up * positionY;
+        transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
+        if(GameInitialParameters.localPlayerID == 1)
+        {
+            transform.localScale = new(transform.localScale.x, transform.localScale.y*-1);
+        }
+    }
+
     protected override void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
