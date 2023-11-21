@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class StartButton : MenuButton
 {
     [field: SerializeField]
-    private bool IsServerButton = false;
+    /*private*/public bool IsServerButton = false;
     [field: SerializeField]
     private string SceneName = "Error";
     [field: SerializeField]
@@ -20,13 +20,13 @@ public class StartButton : MenuButton
         if (IsServerButton)
         {
             await RelayManager.Instance.CreateRelay();
-            MenuMessageManager.StartServer(SceneName);
+            MenuMessageManager.Instance.StartServer(SceneName);
         }
         else
         {
             string JoinCode = JoinCodeInputField.text;
             await RelayManager.Instance.JoinRelay(JoinCode.Remove(JoinCode.Length - 1));
-            MenuMessageManager.StartClient();
+            MenuMessageManager.Instance.StartClient();
         }
     }
 }

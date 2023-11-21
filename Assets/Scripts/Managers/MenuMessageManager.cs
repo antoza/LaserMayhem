@@ -1,15 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuMessageManager : MonoBehaviour
 {
-    private TcpClient clientSocket;
+    public static MenuMessageManager Instance { get; private set; }
+
+    private TcpClient tcpClient;
+    private NetworkStream stream;
+
+    private string instanceID;
 
     [field: SerializeField]
     private Rules Rules;
@@ -18,19 +25,29 @@ public class MenuMessageManager : MonoBehaviour
     private string sceneName1 = "SampleScene";
     [field: SerializeField]
     private string sceneName2 = "BranchSimon";
-    
-    void Start()
+
+    private void Awake()
     {
-        clientSocket = new TcpClient();
-        clientSocket.Connect("127.0.0.1", 8888); // TODO : Mettre les bonnes valeurs ici
+        Instance = this;
     }
 
-    void SendData(string data)
+    private void Start()
+    {
+        ConnectToServer();
+        instanceID = "0";
+#if DEDICATED_SERVER
+        instanceID = "s0";
+        RegisterAsServer();
+#endif
+        yyy();
+    }
+    /*
+    public void SendRequest(string request)
     {
         try
         {
             NetworkStream serverStream = clientSocket.GetStream();
-            byte[] outStream = Encoding.ASCII.GetBytes(data);
+            byte[] outStream = Encoding.ASCII.GetBytes(request);
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
         }
@@ -38,9 +55,95 @@ public class MenuMessageManager : MonoBehaviour
         {
             Debug.Log(e);
         }
-    }
-    
+    }*/
 
+    private void ConnectToServer()
+    {
+        try
+        {
+            Debug.Log("92.167.126.212");
+            Debug.Log(11586);
+            tcpClient = new TcpClient("92.167.126.212", 11586);
+            stream = tcpClient.GetStream();
+            Debug.Log("Connected to the API");
+            ReceiveMessages();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error trying to connect to the API: " + e.Message);
+        }
+    }
+
+    private async void yyy()
+    {
+        await System.Threading.Tasks.Task.Delay(10000);
+        SendRequest("uuu");
+    }
+
+    private async void ReceiveMessages()
+    {
+        byte[] message = new byte[1024];
+        int bytesRead;
+        while (tcpClient.Connected)
+        {
+            try
+            {
+                if (stream.DataAvailable)
+                {
+                    bytesRead = stream.Read(message, 0, 1024);
+                    string receivedMessage = Encoding.ASCII.GetString(message, 0, bytesRead);
+                    Debug.Log("Message received from the API: " + receivedMessage);
+                    APIMessageParser.CallAppropriateFunction(receivedMessage);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error trying to receive a message from the API: " + e.Message);
+                break;
+            }
+            await System.Threading.Tasks.Task.Yield();
+        }
+
+        DisconnectFromServer();
+    }
+
+    private void DisconnectFromServer()
+    {
+        if (tcpClient != null)
+        {
+            tcpClient.Close();
+            Debug.Log("Disconnected from the API");
+        }
+    }
+
+    public void SendRequest(string message)
+    {
+        if (tcpClient != null && tcpClient.Connected)
+        {
+            try
+            {
+                byte[] outStream = Encoding.ASCII.GetBytes(instanceID + "+" + message + "\n");
+                stream.Write(outStream, 0, outStream.Length);
+                stream.Flush();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error trying to send a message to the API: " + e.Message);
+            }
+        }
+    }
+
+#if DEDICATED_SERVER
+    private void RegisterAsServer()
+    {
+        SendRequest("RegisterAsServer");
+    }
+
+    public void SetServerID(string serverID)
+    {
+        instanceID = serverID;
+    }
+#endif
 
     public void StartHost(string SceneName)
     {
@@ -54,7 +157,6 @@ public class MenuMessageManager : MonoBehaviour
         NetworkManager.Singleton.StartServer();
         NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         GetServerGameInitialParameters();
-        SendData("15+SearchGame+RPG");
     }
 
     public void StartClient()

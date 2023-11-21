@@ -35,6 +35,7 @@ public class RelayManager : MonoBehaviour
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log("Creating Relay with " + joinCode);
             UIJoinCode.SetCodeTextAsync(joinCode);
+            MenuMessageManager.Instance.SendRequest("SetRelayCode+" + joinCode);
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 

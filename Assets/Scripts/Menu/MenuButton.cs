@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    protected MenuMessageManager MenuMessageManager;
     [field: SerializeField]
     protected Animator m_Animator;
     [field: SerializeField]
@@ -13,7 +12,6 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void Awake()
     {
-        MenuMessageManager = FindObjectOfType<MenuMessageManager>();
     }
 
     public virtual void OnClick()
