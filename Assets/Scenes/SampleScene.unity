@@ -1155,30 +1155,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1095153942, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_DataManager
-      value: 
-      objectReference: {fileID: 82382637}
-    - target: {fileID: 1346179637, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_DataManager
-      value: 
-      objectReference: {fileID: 82382637}
-    - target: {fileID: 1630795843, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_DataManager
-      value: 
-      objectReference: {fileID: 82382637}
-    - target: {fileID: 1827805136, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_DataManager
-      value: 
-      objectReference: {fileID: 82382637}
-    - target: {fileID: 610322282684227954, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_DataManager
-      value: 
-      objectReference: {fileID: 82382637}
-    - target: {fileID: 2983940815188120957, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_DataManager
-      value: 
-      objectReference: {fileID: 82382637}
     - target: {fileID: 2995213973580693768, guid: af4af966949eb624a8891393484fe90a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1267,18 +1243,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5195898442773818899, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195898442773818925, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: DM
-      value: 
-      objectReference: {fileID: 82382637}
-    - target: {fileID: 9135468036142244542, guid: af4af966949eb624a8891393484fe90a, type: 3}
-      propertyPath: DM
-      value: 
-      objectReference: {fileID: 82382637}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: af4af966949eb624a8891393484fe90a, type: 3}
