@@ -435,154 +435,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 3941000792299872690, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
   m_PrefabInstance: {fileID: 47727941}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &125821000
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 1845468043423972502}
-    m_Modifications:
-    - target: {fileID: 375998237300198826, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 125821004}
-    - target: {fileID: 375998237300198826, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 375998237300198826, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: StartButton, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.082975
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 682
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6637795461570761566, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_Name
-      value: ServerButtonSimon
-      objectReference: {fileID: 0}
-    - target: {fileID: 9094895096204354797, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-      propertyPath: m_text
-      value: S E R V E R
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7825531177915790111, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
---- !u!224 &125821001 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2305241151264258677, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-  m_PrefabInstance: {fileID: 125821000}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &125821002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6637795461570761566, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-  m_PrefabInstance: {fileID: 125821000}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &125821003 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3941000792299872690, guid: 974bb39519f48194688a8effeaa262d0, type: 3}
-  m_PrefabInstance: {fileID: 125821000}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &125821004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125821002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d13adb9319570144897c76e5fd20bd0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 125821003}
-  m_MenuSelection: {fileID: 620740060007655831}
-  IsServerButton: 1
-  SceneName: BranchSimon
-  JoinCodeInputField: {fileID: 0}
 --- !u!1 &166147686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,7 +1264,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281479730
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1425,7 +1277,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2238,7 +2090,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 2150773298
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2251,7 +2103,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2796,7 +2648,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2961,7 +2813,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 2150773298
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2974,7 +2826,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3803,7 +3655,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281479730
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3816,7 +3668,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -4403,7 +4255,6 @@ Transform:
   - {fileID: 2555344656933024816}
   - {fileID: 1688329430}
   - {fileID: 382211131}
-  - {fileID: 125821001}
   m_Father: {fileID: 7866484425158149213}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
