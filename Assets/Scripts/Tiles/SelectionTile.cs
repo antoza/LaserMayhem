@@ -18,7 +18,7 @@ public class SelectionTile : Tile
         transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
         if(GameInitialParameters.localPlayerID == 1)
         {
-            transform.localScale = new(transform.localScale.x, transform.localScale.y*-1);
+            transform.localScale = new(transform.localScale.x*-1, transform.localScale.y*-1);
         }
     }
 
