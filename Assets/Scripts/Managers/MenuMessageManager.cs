@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class MenuMessageManager : MonoBehaviour
@@ -34,12 +36,11 @@ public class MenuMessageManager : MonoBehaviour
     private void Start()
     {
         ConnectToServer();
-        instanceID = "0";
+        instanceID = "p0";
 #if DEDICATED_SERVER
         instanceID = "s0";
         RegisterAsServer();
 #endif
-        yyy();
     }
     /*
     public void SendRequest(string request)
@@ -72,12 +73,6 @@ public class MenuMessageManager : MonoBehaviour
         {
             Debug.LogError("Error trying to connect to the API: " + e.Message);
         }
-    }
-
-    private async void yyy()
-    {
-        await System.Threading.Tasks.Task.Delay(10000);
-        SendRequest("uuu");
     }
 
     private async void ReceiveMessages()

@@ -24,9 +24,11 @@ public class StartButton : MenuButton
         }
         else
         {
+            MenuMessageManager.Instance.SendRequest("SearchGame+RPG");
+            /*
             string JoinCode = JoinCodeInputField.text;
             await RelayManager.Instance.JoinRelay(JoinCode.Remove(JoinCode.Length - 1));
-            MenuMessageManager.Instance.StartClient();
+            MenuMessageManager.Instance.StartClient();*/
         }
     }
 }

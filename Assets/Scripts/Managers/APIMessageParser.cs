@@ -13,7 +13,7 @@ public class APIMessageParser : MonoBehaviour
         {
 #if DEDICATED_SERVER
             case "SetServerID":
-                SetServerID(parsedMessage.Dequeue());
+                MenuMessageManager.Instance.SetServerID(parsedMessage.Dequeue());
                 break;
             case "ChangeScene":
                 TemporaryFunctionToStartServer(parsedMessage.Dequeue());
