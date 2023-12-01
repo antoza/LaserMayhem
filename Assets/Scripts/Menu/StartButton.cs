@@ -12,7 +12,7 @@ public class StartButton : MenuButton
     [field: SerializeField]
     private string SceneName = "Error";
     [field: SerializeField]
-    private TextMeshProUGUI JoinCodeInputField;
+    private TMP_InputField JoinCodeInputField;
 
     // TODO : Mettre le minimum de code dans les scripts des boutons
     public async override void ChangeMenu()
@@ -26,8 +26,7 @@ public class StartButton : MenuButton
         {
             MenuMessageManager.Instance.SendRequest("SearchGame+RPG");
             /*
-            string JoinCode = JoinCodeInputField.text;
-            await RelayManager.Instance.JoinRelay(JoinCode.Remove(JoinCode.Length - 1));
+            string joinCode = JoinCodeInputField.text;
             MenuMessageManager.Instance.StartClient();*/
         }
     }

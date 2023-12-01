@@ -62,12 +62,14 @@ public class MenuMessageManager : MonoBehaviour
     {
         try
         {
-            Debug.Log("92.167.126.212");
-            Debug.Log(11586);
-            tcpClient = new TcpClient("92.167.126.212", 11586);
+            tcpClient = new TcpClient("127.0.0.1", 11586);
+            //tcpClient = new TcpClient("92.167.126.212", 11586);
+            tcpClient.SendTimeout = 600000;
+            tcpClient.ReceiveTimeout = 600000;
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
             ReceiveMessages();
+            Task.Run(() => { Task.Delay(10000); SendRequest("trtr"); });
         }
         catch (Exception e)
         {
@@ -96,7 +98,7 @@ public class MenuMessageManager : MonoBehaviour
                 Debug.LogError("Error trying to receive a message from the API: " + e.Message);
                 break;
             }
-            await System.Threading.Tasks.Task.Yield();
+            await Task.Yield();
         }
 
         DisconnectFromServer();
@@ -117,7 +119,7 @@ public class MenuMessageManager : MonoBehaviour
         {
             try
             {
-                byte[] outStream = Encoding.ASCII.GetBytes(instanceID + "+" + message + "\n");
+                byte[] outStream = Encoding.ASCII.GetBytes(instanceID + "+" + message);
                 stream.Write(outStream, 0, outStream.Length);
                 stream.Flush();
             }
@@ -133,12 +135,12 @@ public class MenuMessageManager : MonoBehaviour
     {
         SendRequest("RegisterAsServer");
     }
-
-    public void SetServerID(string serverID)
-    {
-        instanceID = serverID;
-    }
 #endif
+
+    public void SetInstanceID(string instanceID)
+    {
+        this.instanceID = instanceID;
+    }
 
     public void StartHost(string SceneName)
     {

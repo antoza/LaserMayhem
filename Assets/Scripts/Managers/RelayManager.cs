@@ -28,6 +28,7 @@ public class RelayManager : MonoBehaviour
 
     public async Task CreateRelay()
     {
+        MenuMessageManager.Instance.SendRequest("ooo");
         try
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);

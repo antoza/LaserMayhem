@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum Menus
 {
+    Connection,
     Main,
     GameMode, 
     Options,
@@ -12,6 +13,10 @@ public enum Menus
 
 public class MenuSelection : MonoBehaviour
 {
+    public static MenuSelection Instance { get; private set; }
+
+    [field: SerializeField]
+    private GameObject m_ConnectionMenu;
     [field: SerializeField]
     private GameObject m_MainMenu;
     [field: SerializeField]
@@ -25,10 +30,16 @@ public class MenuSelection : MonoBehaviour
 
     private Dictionary<Menus, GameObject> m_Menus;
 
-    private Menus m_CurrentMenus = Menus.Main;
+    private Menus m_CurrentMenus = Menus.Connection;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         m_Menus = new Dictionary<Menus, GameObject>();
+        m_Menus[Menus.Connection] = m_ConnectionMenu;
         m_Menus[Menus.Main] = m_MainMenu;
         m_Menus[Menus.GameMode] = m_GamemodeMenu;
         m_Menus[Menus.Options] = m_OptionsMenu;

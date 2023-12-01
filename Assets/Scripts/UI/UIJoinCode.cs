@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class UIJoinCode : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI m_CodeText;
+    private TMP_Text m_CodeText;
 
     public static async void SetCodeTextAsync(string joinCode)
     {
