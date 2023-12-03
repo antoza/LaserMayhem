@@ -13,6 +13,7 @@ using UnityEngine;
 public class RelayManager : MonoBehaviour
 {
     public static RelayManager Instance;
+    private bool isRelayReady = false;
 
     private async void Start()
     {
@@ -24,13 +25,16 @@ public class RelayManager : MonoBehaviour
             Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+        isRelayReady = true;
     }
 
     public async Task CreateRelay()
     {
-        MenuMessageManager.Instance.SendRequest("ooo");
         try
         {
+            while (!isRelayReady) await Task.Delay(100);
+
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
@@ -52,6 +56,8 @@ public class RelayManager : MonoBehaviour
     {
         try
         {
+            while (!isRelayReady) await Task.Delay(100);
+
             Debug.Log("Joining Relay with " + joinCode);
             UIJoinCode.SetCodeTextAsync(joinCode);
 

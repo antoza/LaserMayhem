@@ -14,7 +14,7 @@ public class MenuMessageSerializer
         Instance = this;
     }
 
-    public void GenerateAuthenticationPrefix(int playerID/*, string authenticationToken*/)
+    public void GenerateAuthenticationPrefix(int playerID/* TODO : , string authenticationToken*/)
     {
         AuthenticationPrefix = $"{playerID}";
     }

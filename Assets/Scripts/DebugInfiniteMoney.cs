@@ -19,4 +19,3 @@ public class DebugInfiniteMoney : MonoBehaviour
     }
 #endif
 }
-    

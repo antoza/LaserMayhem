@@ -36,7 +36,7 @@ public class MenuMessageManager : MonoBehaviour
     private void Start()
     {
         ConnectToServer();
-        instanceID = "p0";
+        instanceID = "p0"; // TODO : mettre ceci dans MenuMessageSerializer
 #if DEDICATED_SERVER
         instanceID = "s0";
         RegisterAsServer();
@@ -62,14 +62,16 @@ public class MenuMessageManager : MonoBehaviour
     {
         try
         {
+#if DEBUG
             tcpClient = new TcpClient("127.0.0.1", 11586);
-            //tcpClient = new TcpClient("92.167.126.212", 11586);
+#else
+            tcpClient = new TcpClient("92.167.126.212", 11586);
+#endif
             tcpClient.SendTimeout = 600000;
             tcpClient.ReceiveTimeout = 600000;
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
             ReceiveMessages();
-            Task.Run(() => { Task.Delay(10000); SendRequest("trtr"); });
         }
         catch (Exception e)
         {
@@ -88,9 +90,14 @@ public class MenuMessageManager : MonoBehaviour
                 if (stream.DataAvailable)
                 {
                     bytesRead = stream.Read(message, 0, 1024);
-                    string receivedMessage = Encoding.ASCII.GetString(message, 0, bytesRead);
-                    Debug.Log("Message received from the API: " + receivedMessage);
-                    APIMessageParser.CallAppropriateFunction(receivedMessage);
+                    string receivedMessagesRaw = Encoding.ASCII.GetString(message, 0, bytesRead);
+                    string[] receivedMessages = receivedMessagesRaw.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string receivedMessage in receivedMessages)
+                    {
+                        Debug.Log("Message received from the API: " + receivedMessage);
+                        APIMessageParser.CallAppropriateFunction(receivedMessage);
+                    }
+
                 }
             }
             catch (Exception e)
