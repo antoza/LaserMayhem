@@ -17,16 +17,10 @@ public class MenuMessageManager : MonoBehaviour
 
     private TcpClient tcpClient;
     private NetworkStream stream;
-
-    private string instanceID;
-
+    private bool isTcpReady = false;
+    // TODO : supprimer
     [field: SerializeField]
     private Rules Rules;
-
-    [field: SerializeField]
-    private string sceneName1 = "SampleScene";
-    [field: SerializeField]
-    private string sceneName2 = "BranchSimon";
 
     private void Awake()
     {
@@ -36,11 +30,6 @@ public class MenuMessageManager : MonoBehaviour
     private void Start()
     {
         ConnectToServer();
-        instanceID = "p0"; // TODO : mettre ceci dans MenuMessageSerializer
-#if DEDICATED_SERVER
-        instanceID = "s0";
-        RegisterAsServer();
-#endif
     }
     /*
     public void SendRequest(string request)
@@ -67,16 +56,16 @@ public class MenuMessageManager : MonoBehaviour
 #else
             tcpClient = new TcpClient("92.167.126.212", 11586);
 #endif
-            tcpClient.SendTimeout = 600000;
-            tcpClient.ReceiveTimeout = 600000;
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
             ReceiveMessages();
+            PingServerRegularly();
         }
         catch (Exception e)
         {
             Debug.LogError("Error trying to connect to the API: " + e.Message);
         }
+        isTcpReady = true;
     }
 
     private async void ReceiveMessages()
@@ -95,7 +84,7 @@ public class MenuMessageManager : MonoBehaviour
                     foreach (string receivedMessage in receivedMessages)
                     {
                         Debug.Log("Message received from the API: " + receivedMessage);
-                        APIMessageParser.CallAppropriateFunction(receivedMessage);
+                        ReceiverManager.CallAppropriateFunction(receivedMessage);
                     }
 
                 }
@@ -107,8 +96,24 @@ public class MenuMessageManager : MonoBehaviour
             }
             await Task.Yield();
         }
+    }
 
-        DisconnectFromServer();
+    private async void PingServerRegularly()
+    {
+        while (tcpClient.Connected)
+        {
+            await Task.Delay(5000); // Pings the server every 5s
+            try
+            {
+                byte[] outStream = Encoding.ASCII.GetBytes("0");
+                stream.Write(outStream, 0, outStream.Length);
+                stream.Flush();
+            }
+            catch
+            {
+                DisconnectFromServer();
+            }
+        }
     }
 
     private void DisconnectFromServer()
@@ -120,13 +125,14 @@ public class MenuMessageManager : MonoBehaviour
         }
     }
 
-    public void SendRequest(string message)
+    public async void SendRequest(string message)
     {
+        while (!isTcpReady) await Task.Delay(100);
         if (tcpClient != null && tcpClient.Connected)
         {
             try
             {
-                byte[] outStream = Encoding.ASCII.GetBytes(instanceID + "+" + message);
+                byte[] outStream = Encoding.ASCII.GetBytes(message);
                 stream.Write(outStream, 0, outStream.Length);
                 stream.Flush();
             }
@@ -135,25 +141,6 @@ public class MenuMessageManager : MonoBehaviour
                 Debug.LogError("Error trying to send a message to the API: " + e.Message);
             }
         }
-    }
-
-#if DEDICATED_SERVER
-    private void RegisterAsServer()
-    {
-        SendRequest("RegisterAsServer");
-    }
-#endif
-
-    public void SetInstanceID(string instanceID)
-    {
-        this.instanceID = instanceID;
-    }
-
-    public void StartHost(string SceneName)
-    {
-        NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
-        GetGameInitialParameters();
     }
 
     public void StartServer(string SceneName)

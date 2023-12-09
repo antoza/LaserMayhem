@@ -29,6 +29,8 @@ public class RelayManager : MonoBehaviour
         isRelayReady = true;
     }
 
+#if DEDICATED_SERVER
+
     public async Task CreateRelay()
     {
         try
@@ -37,10 +39,9 @@ public class RelayManager : MonoBehaviour
 
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);
 
-            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            Debug.Log("Creating Relay with " + joinCode);
-            UIJoinCode.SetCodeTextAsync(joinCode);
-            MenuMessageManager.Instance.SendRequest("SetRelayCode+" + joinCode);
+            string relayCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log("Creating Relay with " + relayCode);
+            SenderManager.Instance.SendRelayCode(relayCode);
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
@@ -52,16 +53,17 @@ public class RelayManager : MonoBehaviour
         }
     }
 
-    public async Task JoinRelay(string joinCode)
+#else
+
+    public async Task JoinRelay(string relayCode)
     {
         try
         {
             while (!isRelayReady) await Task.Delay(100);
 
-            Debug.Log("Joining Relay with " + joinCode);
-            UIJoinCode.SetCodeTextAsync(joinCode);
+            Debug.Log("Joining Relay with " + relayCode);
 
-            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(relayCode);
 
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
 
@@ -72,4 +74,6 @@ public class RelayManager : MonoBehaviour
             Debug.Log(e);
         }
     }
+
+#endif
 }

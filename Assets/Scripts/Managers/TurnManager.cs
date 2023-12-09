@@ -18,10 +18,10 @@ public sealed class TurnManager : MonoBehaviour
     private PiecesData m_PiecesData;
 
     //Turn annoucement UI
-    private UIPlayerTurnAnnouncement m_Announcement;
+    private PlayerTurnAnnouncementUI m_Announcement;
 
     //Piece Update UI
-    private UISkipTurnButton m_TurnButton;
+    private SkipTurnButton m_TurnButton;
     private SelectionTilesUpdate m_SelectionTilesUpdate;
 
     void Awake()
@@ -30,9 +30,9 @@ public sealed class TurnManager : MonoBehaviour
         DataManager DM = DataManager.Instance;
         m_SkipTurnCooldown = DataManager.Instance.Rules.SkipTurnCooldown;
         m_LaserCooldown = DataManager.Instance.Rules.LaserCooldown;
-        m_Announcement = FindObjectOfType<UIPlayerTurnAnnouncement>();
+        m_Announcement = FindObjectOfType<PlayerTurnAnnouncementUI>();
         m_PiecesData = FindObjectOfType<PiecesData>();
-        m_TurnButton = FindObjectOfType<UISkipTurnButton>();
+        m_TurnButton = FindObjectOfType<SkipTurnButton>();
         m_SelectionTilesUpdate = FindObjectOfType<SelectionTilesUpdate>();
     }
     /*
