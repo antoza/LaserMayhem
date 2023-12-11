@@ -2,28 +2,15 @@ using Mono.CompilerServices.SymbolWriter;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 #nullable enable
 public class GameMessageManager : NetworkBehaviour
 {
     public static GameMessageManager Instance { get; private set; }
-    private ulong[] playersClientID;
-    /*
-    public static void SetInstance()
-    {
-        Instance = new GameNetworkManager();
-    }
-    
-    public static GameNetworkManager GetInstance()
-    {
-        if (Instance == null)
-        {
-            Debug.LogError("GameMessageManager has not been instantiated");
-        }
-
-        return Instance!;
-    }*/
+    private ulong[] playerIDsToClientIDs;
+    public List<int> playerSecrets;
 
     private void Awake()
     {
@@ -35,7 +22,12 @@ public class GameMessageManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            playersClientID = new ulong[DataManager.Instance.Rules.NumberOfPlayers];
+            playerIDsToClientIDs = new ulong[DataManager.Instance.Rules.NumberOfPlayers];
+            playerSecrets = GameInitialParameters.playerSecrets;
+        }
+        if (IsClient)
+        {
+            RegisterPlayerServerRPC(GameInitialParameters.playerSecret);
         }
     }
 
@@ -43,9 +35,9 @@ public class GameMessageManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            for (int i = 0; i < playersClientID.Length; i++)
+            for (int i = 0; i < playerIDsToClientIDs.Length; i++)
             {
-                if (playersClientID[i] == ClientID) return i;
+                if (playerIDsToClientIDs[i] == ClientID) return i;
             }
             Debug.Log("ClientID not found");
             return -1;
@@ -80,11 +72,11 @@ public class GameMessageManager : NetworkBehaviour
 
     private void HandleClientConnected(ulong clientID)
     {
-        for (int i = 0; i < playersClientID.Length; i++)
+        for (int i = 0; i < playerIDsToClientIDs.Length; i++)
         {
-            if (playersClientID[i] == 0)
+            if (playerIDsToClientIDs[i] == 0)
             {
-                playersClientID[i] = clientID;
+                playerIDsToClientIDs[i] = clientID;
                 // TODO : la ligne suivante devrait être appelée par le client dans un OnClientConnect
                 ((ServerSendActionsManager)SendActionsManager.Instance).ReceivePlayerRequest(i, 0);
                 return;
@@ -98,9 +90,23 @@ public class GameMessageManager : NetworkBehaviour
     {
         int playerID = FindClientsPlayerID(clientID);
         if (playerID == -1) return;
-        playersClientID[playerID] = 0;
+        playerIDsToClientIDs[playerID] = 0;
     }
 
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RegisterPlayerServerRPC(int playerSecret, ServerRpcParams serverRpcParams = default)
+    {
+        int playerID = playerSecrets.IndexOf(playerSecret);
+        if (playerID == -1) return; // TODO : Déconnecter le joueur ou le mettre en spectateur
+        if (playerIDsToClientIDs[playerID] == 0)
+        {
+            playerIDsToClientIDs[playerID] = serverRpcParams.Receive.SenderClientId;
+            // TODO : la ligne suivante devrait être appelée par le client dans un OnClientConnect
+            ((ServerSendActionsManager)SendActionsManager.Instance).ReceivePlayerRequest(playerID, 0);
+            return;
+        }
+    }
 
 
 
@@ -114,7 +120,7 @@ public class GameMessageManager : NetworkBehaviour
         {
             Send = new ClientRpcSendParams
             {
-                TargetClientIds = new ulong[] { playersClientID[playerID] }
+                TargetClientIds = new ulong[] { playerIDsToClientIDs[playerID] }
             }
         };
         string serializedAction = action.SerializeAction();
@@ -133,7 +139,7 @@ public class GameMessageManager : NetworkBehaviour
     }
 
 
-    // RPC functions, do not call them in other files
+    // In gale RPC functions, do not call them in other files
 
     [ClientRpc]
     public void ReceiveServerActionClientRPC(string serializedAction, int actionOrder, ClientRpcParams clientRpcParams = default)

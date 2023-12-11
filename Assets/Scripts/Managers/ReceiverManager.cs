@@ -16,7 +16,7 @@ public class ReceiverManager : MonoBehaviour
                 SenderManager.Instance.SetInstanceID(parsedMessage.Dequeue());
                 break;
             case "ChangeScene":
-                TemporaryFunctionToStartServer(parsedMessage.Dequeue());
+                TemporaryFunctionToStartServer(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()));
                 break;
 #else
             case "LogIn":
@@ -26,7 +26,7 @@ public class ReceiverManager : MonoBehaviour
                 TemporaryFunctionToLogOut(int.Parse(parsedMessage.Dequeue()));
                 break;
             case "JoinGame":
-                TemporaryFunctionToJoinGame(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()));
+                TemporaryFunctionToJoinGame(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()));
                 break;
 #endif
             default:
@@ -36,10 +36,13 @@ public class ReceiverManager : MonoBehaviour
 
 #if DEDICATED_SERVER
 
-    private async static void TemporaryFunctionToStartServer(string scene)
+    private async static void TemporaryFunctionToStartServer(string scene, int secret1, int secret2)
     {
         await RelayManager.Instance.CreateRelay();
-        MenuMessageManager.Instance.StartServer(scene);
+        List<int> playerSecrets = new List<int>();
+        playerSecrets.Add(secret1);
+        playerSecrets.Add(secret2);
+        MenuMessageManager.Instance.StartServer(scene, playerSecrets);
     }
 
 #else
@@ -57,11 +60,11 @@ public class ReceiverManager : MonoBehaviour
         MenusManager.Instance.ChangeMenu(Menus.Connection);
     }
     // TODO : corriger la confusion entre le playerID in game et le playerID de la database
-    private async static void TemporaryFunctionToJoinGame(string joinCode, int playerID) 
+    private async static void TemporaryFunctionToJoinGame(string joinCode, int playerID, int playerSecret) 
     {
         PlayerID.playerID = playerID;
         await RelayManager.Instance.JoinRelay(joinCode);
-        MenuMessageManager.Instance.StartClient();
+        MenuMessageManager.Instance.StartClient(playerSecret);
     }
 
 #endif

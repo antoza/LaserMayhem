@@ -143,17 +143,19 @@ public class MenuMessageManager : MonoBehaviour
         }
     }
 
-    public void StartServer(string SceneName)
+    public void StartServer(string SceneName, List<int> playerSecrets)
     {
         NetworkManager.Singleton.StartServer();
         NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         GetServerGameInitialParameters();
+        GameInitialParameters.playerSecrets = playerSecrets;
     }
 
-    public void StartClient()
+    public void StartClient(int playerSecret)
     {
         NetworkManager.Singleton.StartClient();
         GetGameInitialParameters();
+        GameInitialParameters.playerSecret = playerSecret;
     }
 
     public void GetGameInitialParameters()
