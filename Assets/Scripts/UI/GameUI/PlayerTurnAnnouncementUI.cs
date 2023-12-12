@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-
-[RequireComponent(typeof(TextMeshProUGUI))]
 public class PlayerTurnAnnouncementUI : MonoBehaviour
 {
 
@@ -13,34 +12,15 @@ public class PlayerTurnAnnouncementUI : MonoBehaviour
     [SerializeReference, TextArea(1, 2)]
     private string m_BaseStringEnd;
 
-    //Text 
-    private TextMeshProUGUI m_TurnAnnouncementText;
-
-    private void Awake()
-    {
-        m_TurnAnnouncementText = GetComponent<TextMeshProUGUI>();
-    }
-
-
-    public IEnumerator TurnAnnouncementFade(float duration)
-    {
-        Color c = m_TurnAnnouncementText.color;
-        c.a = 1;
-        m_TurnAnnouncementText.color = c;
-        m_TurnAnnouncementText.text = m_BaseStringStart + PlayersManager.Instance.GetCurrentPlayer().m_name + m_BaseStringEnd;
-
-
-
-        while(c.a > 0)
-        {
-            c.a = c.a - (1 / duration)*Time.deltaTime;
-            m_TurnAnnouncementText.color = c;
-            yield return null;
-        }
-    }
+    [field: SerializeField]
+    private Animator AnnouncementAnimator;
+    [field: SerializeField]
+    private TextMeshProUGUI TextBande;
 
     public void StartCoroutineTurnAnnouncementFadeFromScriptable(float duration)
     {
-        StartCoroutine(TurnAnnouncementFade(duration));
+        AnnouncementAnimator.SetTrigger("NewTurn");
+        AnnouncementAnimator.speed = 2 / duration;
+        TextBande.text = m_BaseStringStart + PlayersManager.Instance.GetCurrentPlayer().m_name + m_BaseStringEnd;
     }
 }

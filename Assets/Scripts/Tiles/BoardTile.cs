@@ -7,13 +7,14 @@ public class BoardTile : Tile
 
     public override void SetColor()
     {
+        Debug.Log("I change colors");
         if ((x + y) % 2 == 0)
         {
-            GetComponent<SpriteRenderer>().color = Color.grey;
+            GetComponent<SpriteRenderer>().color = new Color(145, 110, 70);
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<SpriteRenderer>().color = new Color(219, 221, 196);
         }
     }
 

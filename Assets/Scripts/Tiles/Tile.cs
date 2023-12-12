@@ -15,11 +15,11 @@ public abstract class Tile : MonoBehaviour
 
     void Start()
     {
-        SetColor();
         InitTilePositions();
         InstantiatePiece(m_startingPiece);
+        SetColor();
     }
-    
+
     public virtual void InitTilePositions()
     {
         transform.position = Vector2.right * positionX + Vector2.up * positionY;
