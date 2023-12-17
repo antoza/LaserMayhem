@@ -217,3 +217,5 @@ MonoBehaviour:
   m_MouseOver: {fileID: 2878110257578837311}
   x: 0
   y: 0
+  BlackSprite: {fileID: 21300000, guid: bd14b93bd8ea3f64da3ee42ad786e682, type: 3}
+  WhiteSprite: {fileID: 21300000, guid: 714f73e451342a9478ed83bd32c5d7ce, type: 3}

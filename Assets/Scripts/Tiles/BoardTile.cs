@@ -4,17 +4,21 @@ using UnityEngine;
 public class BoardTile : Tile
 {
     public int x, y;
+    [field: SerializeField]
+    private Sprite BlackSprite;
+    [field: SerializeField]
+    private Sprite WhiteSprite;
 
     public override void SetColor()
     {
         Debug.Log("I change colors");
         if ((x + y) % 2 == 0)
         {
-            GetComponent<SpriteRenderer>().color = new Color(145, 110, 70);
+            GetComponent<SpriteRenderer>().sprite = WhiteSprite;
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = new Color(219, 221, 196);
+            GetComponent<SpriteRenderer>().sprite = BlackSprite;
         }
     }
 
