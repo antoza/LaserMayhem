@@ -51,8 +51,21 @@ public abstract class GameMode : ScriptableObject
         }
         else
         {
+            if (winner! == GameInitialParameters.localPlayerID)
+            {
+                UIManager.Instance.TriggerVictory();
+            }
+            else
+            {
+                UIManager.Instance.TriggerDefeat();
+            }
             Debug.Log(PlayersManager.Instance.GetPlayer((int)winner).m_name + " wins !");
         }
+
+
+        //Pour demain : mettre un bouton "ok" après l'annonce de la victoire / défaite
+        //corriger le fait que certains managers comme relaymanager ne redéclenchent leur start quand on revient au menu après une game
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

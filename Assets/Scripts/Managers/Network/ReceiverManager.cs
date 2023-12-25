@@ -25,6 +25,12 @@ public class ReceiverManager : MonoBehaviour
             case "LogOut":
                 TemporaryFunctionToLogOut(int.Parse(parsedMessage.Dequeue()));
                 break;
+            case "SearchGame":
+                MenusManager.Instance.ChangeMenu(Menus.Matchmaking);
+                break;
+            case "CancelMatchmaking":
+                MenusManager.Instance.ChangeMenu(Menus.GameMode);
+                break;
             case "JoinGame":
                 TemporaryFunctionToJoinGame(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()));
                 break;

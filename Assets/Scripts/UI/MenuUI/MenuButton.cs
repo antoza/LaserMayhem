@@ -4,25 +4,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public abstract class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    protected Animator m_Animator;
-    private float m_CurrentCooldown;
+    private Animator m_Animator;
+    [SerializeField]
+    private static float m_AnimationDelay = 0.2f; // TODO : Faire en sorte que le délai de l'animation soit cette valeur
 
     public void Awake()
     {
         m_Animator = GetComponent<Animator>();
+        GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void OnClick()
     {
-        m_Animator.SetTrigger("Pressed");
-        if (MenusManager.Instance.StartChange())
+        if (MenusManager.Instance.TryInteractWithUI())
         {
-            //This value select the duration of the waiting time after a button is pressed
-            StopCoroutine("DelayClick");
-            StartCoroutine(DelayClick(0.2f));
+            StartCoroutine(OnClickCoroutine(0.2f));
         }
     }
     
@@ -31,26 +31,18 @@ public abstract class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointer
         m_Animator.SetTrigger("Highlighted");
     }
 
-    // This method is called when the mouse pointer exits the UI element
     public void OnPointerExit(PointerEventData eventData)
     {
        m_Animator.SetTrigger("Normal");
     }
     
-    IEnumerator DelayClick(float duration)
+    IEnumerator OnClickCoroutine(float duration)
     {
-        Debug.Log("pas fini");
-        m_CurrentCooldown = duration;
-        while (m_CurrentCooldown > 0)
-        {
-            m_CurrentCooldown -= Time.deltaTime;
-            yield return null;
-        }
-        //yield return new WaitForSeconds(duration);
-
-        m_Animator.SetTrigger("Highlighted");
+        m_Animator.SetTrigger("Pressed");
+        yield return new WaitForSeconds(duration);
+        m_Animator.SetTrigger("Normal");
         DoOnClick();
-        Debug.Log("fini");
+        MenusManager.Instance.StopChange();
     }
 
     public virtual void DoOnClick() { }

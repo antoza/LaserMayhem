@@ -1,8 +1,5 @@
-using Mono.CompilerServices.SymbolWriter;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 #nullable enable
@@ -72,7 +69,7 @@ public class GameMessageManager : NetworkBehaviour
 
     private void HandleClientConnected(ulong clientID)
     {
-        for (int i = 0; i < playerIDsToClientIDs.Length; i++)
+        /*for (int i = 0; i < playerIDsToClientIDs.Length; i++)
         {
             if (playerIDsToClientIDs[i] == 0)
             {
@@ -83,7 +80,7 @@ public class GameMessageManager : NetworkBehaviour
             }
         }
         Debug.Log("The maximum number of players has already been reached");
-        // TODO : dire au client de NetworkManager.Singleton.StopClient();
+        // TODO : dire au client de NetworkManager.Singleton.StopClient();*/
     }
 
     private void HandleClientDisconnected(ulong clientID)

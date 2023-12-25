@@ -75,5 +75,10 @@ public class SenderManager : MonoBehaviour
         SendRequest($"SearchGame+{gamemode}");
     }
 
+    public void CancelMatchmaking()
+    {
+        SendRequest($"CancelMatchmaking");
+    }
+
 #endif
 }

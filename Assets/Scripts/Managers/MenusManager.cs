@@ -8,6 +8,7 @@ public enum Menus
     Connection,
     Main,
     GameMode, 
+    Matchmaking,
     Options,
     GameOver
 }
@@ -23,11 +24,13 @@ public class MenusManager : MonoBehaviour
     [field: SerializeField]
     private GameObject m_GamemodeMenu;
     [field: SerializeField]
+    private GameObject m_MatchmakingMenu;
+    [field: SerializeField]
     private GameObject m_OptionsMenu;
     [field: SerializeField]
     private GameObject m_GameOverMenu;
 
-    private bool m_ChangeOnGoing = false;
+    private bool m_CanInteractWithUI = true;
 
     private Dictionary<Menus, GameObject> m_Menus;
 
@@ -43,6 +46,7 @@ public class MenusManager : MonoBehaviour
         m_Menus[Menus.Connection] = m_ConnectionMenu;
         m_Menus[Menus.Main] = m_MainMenu;
         m_Menus[Menus.GameMode] = m_GamemodeMenu;
+        m_Menus[Menus.Matchmaking] = m_MatchmakingMenu;
         m_Menus[Menus.Options] = m_OptionsMenu;
         m_Menus[Menus.GameOver] = m_GameOverMenu;
     }
@@ -53,18 +57,23 @@ public class MenusManager : MonoBehaviour
         m_Menus[newMenu].SetActive(true);
         m_CurrentMenus = newMenu;
 
-        m_ChangeOnGoing = false;
+        m_CanInteractWithUI = true;
     }
 
-    public bool StartChange()
+    public bool TryInteractWithUI()
     {
-        if (!m_ChangeOnGoing)
+        if (m_CanInteractWithUI)
         {
-            m_ChangeOnGoing = true;
+            m_CanInteractWithUI = false;
             return true;
         }
 
         return false;
+    }
+
+    public void StopChange()
+    {
+        m_CanInteractWithUI = true;
     }
 }
 #endif
