@@ -56,12 +56,14 @@ public class ReceiverManager : MonoBehaviour
     private static void TemporaryFunctionToLogIn(string playerID, string username, int playerMMR)
     {
         SenderManager.Instance.SetInstanceID(playerID);
+        PlayerProfile.isConnected = true;
         MenusManager.Instance.ChangeMenu(Menus.Main);
     }
 
     private static void TemporaryFunctionToLogOut(int reasonNumber)
     {
         if (reasonNumber == 34) Debug.Log("Another device has logged into your account.");
+        PlayerProfile.isConnected = false;
         SenderManager.Instance.SetInstanceID("p0");
         MenusManager.Instance.ChangeMenu(Menus.Connection);
     }

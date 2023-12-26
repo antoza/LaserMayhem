@@ -10,6 +10,8 @@ public sealed class UIManager : MonoBehaviour
     private GameObject VictoryPopUp;
     [SerializeField]
     private GameObject DefeatPopUp;
+    [SerializeField]
+    private GameObject DrawPopUp;
 
     void Awake()
     {
@@ -18,6 +20,11 @@ public sealed class UIManager : MonoBehaviour
 
     public void Start()
     {
+    }
+
+    public void TriggerDraw()
+    {
+        DrawPopUp.SetActive(true);
     }
 
     public void TriggerVictory()

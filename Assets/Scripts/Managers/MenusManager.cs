@@ -30,11 +30,11 @@ public class MenusManager : MonoBehaviour
     [field: SerializeField]
     private GameObject m_GameOverMenu;
 
-    private bool m_CanInteractWithUI = true;
-
     private Dictionary<Menus, GameObject> m_Menus;
 
     private Menus m_CurrentMenus = Menus.Connection;
+    private bool m_CanInteractWithUI = true;
+
     private void Awake()
     {
         Instance = this;
@@ -49,6 +49,11 @@ public class MenusManager : MonoBehaviour
         m_Menus[Menus.Matchmaking] = m_MatchmakingMenu;
         m_Menus[Menus.Options] = m_OptionsMenu;
         m_Menus[Menus.GameOver] = m_GameOverMenu;
+
+        if (PlayerProfile.isConnected)
+        {
+            ChangeMenu(Menus.Main);
+        }
     }
 
     public void ChangeMenu(Menus newMenu)

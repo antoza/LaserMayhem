@@ -15,9 +15,14 @@ public class RelayManager : MonoBehaviour
     public static RelayManager Instance;
     private bool isRelayReady = false;
 
-    private async void Start()
+    public void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private async void Start()
+    {
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () =>
