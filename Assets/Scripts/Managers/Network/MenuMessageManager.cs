@@ -52,11 +52,12 @@ public class MenuMessageManager : MonoBehaviour
     {
         try
         {
-#if DEBUG
+            //
+//#if DEBUG
             tcpClient = new TcpClient("127.0.0.1", 11586);
-#else
-            tcpClient = new TcpClient("92.167.126.212", 11586);
-#endif
+//#else
+//            tcpClient = new TcpClient("92.167.126.212", 11586);
+//#endif
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
             ReceiveMessages();
@@ -146,36 +147,33 @@ public class MenuMessageManager : MonoBehaviour
 
     public void StartServer(string SceneName, List<int> playerSecrets)
     {
+        GameInitialParameters.playerSecrets = playerSecrets;
+        GetServerGameInitialParameters();
         NetworkManager.Singleton.StartServer();
         NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
-        GetServerGameInitialParameters();
-        GameInitialParameters.playerSecrets = playerSecrets;
     }
 
     public void StartClient(int playerSecret)
     {
-        NetworkManager.Singleton.StartClient();
-        GetGameInitialParameters();
         GameInitialParameters.playerSecret = playerSecret;
+        GetGameInitialParameters();
+        NetworkManager.Singleton.StartClient();
     }
 
+    // TODO : supprimer ces fonctions inutiles
     public void GetGameInitialParameters()
     {
-        string[] names = { "Player 0", "Player 1" };
-        Debug.Log("Connecting with id player : " + PlayerID.playerID); //TODO : Delete this
-        SetGameInitialParameters(Rules, PlayerID.playerID, names);
+        SetGameInitialParameters(Rules, PlayerID.playerID);
     }
 
     public void GetServerGameInitialParameters()
     {
-        string[] names = { "Player 0", "Player 1" };
-        SetGameInitialParameters(Rules, -1, names);
+        SetGameInitialParameters(Rules, -1);
     }
 
-    public void SetGameInitialParameters(Rules rules, int localPlayerID, string[] names)
+    public void SetGameInitialParameters(Rules rules, int localPlayerID)
     {
         GameInitialParameters.Rules = rules;
         GameInitialParameters.localPlayerID = localPlayerID;
-        GameInitialParameters.playerNames = names;
     }
 }

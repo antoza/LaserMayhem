@@ -11,7 +11,6 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField]
     private int m_PlayerID;
 
-    // Update is called once per frame
     void Update()
     {
         m_HealthText.text = PlayersManager.Instance.GetHealth(m_PlayerID).ToString();

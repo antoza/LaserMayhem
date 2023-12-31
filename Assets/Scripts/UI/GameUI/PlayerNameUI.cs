@@ -12,7 +12,6 @@ public class PlayerNameUI : MonoBehaviour
     [SerializeField]
     private int m_PlayerID;
 
-    // Update is called once per frame
     void Update()
     {
         m_NameText.text = PlayersManager.Instance.GetPlayer(m_PlayerID).m_name;

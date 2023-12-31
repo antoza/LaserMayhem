@@ -32,7 +32,7 @@ public class ReceiverManager : MonoBehaviour
                 MenusManager.Instance.ChangeMenu(Menus.GameMode);
                 break;
             case "JoinGame":
-                TemporaryFunctionToJoinGame(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()));
+                TemporaryFunctionToJoinGame(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()), parsedMessage.Dequeue(), parsedMessage.Dequeue());
                 break;
 #endif
             default:
@@ -68,11 +68,12 @@ public class ReceiverManager : MonoBehaviour
         MenusManager.Instance.ChangeMenu(Menus.Connection);
     }
     // TODO : corriger la confusion entre le playerID in game et le playerID de la database
-    private async static void TemporaryFunctionToJoinGame(string joinCode, int playerID, int playerSecret) 
+    private async static void TemporaryFunctionToJoinGame(string joinCode, int playerID, int playerSecret, string player1Name, string player2Name) 
     {
         PlayerID.playerID = playerID;
         await RelayManager.Instance.JoinRelay(joinCode);
         MenuMessageManager.Instance.StartClient(playerSecret);
+        GameInitialParameters.playerNames = new string[] { player1Name , player2Name };
     }
 
 #endif

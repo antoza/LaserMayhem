@@ -12,7 +12,6 @@ public class PlayerManaUI : MonoBehaviour
     [SerializeField]
     private int m_PlayerID;
 
-    // Update is called once per frame
     void Update()
     {
         m_EcoText.text = PlayersManager.Instance.GetMana(m_PlayerID).ToString();

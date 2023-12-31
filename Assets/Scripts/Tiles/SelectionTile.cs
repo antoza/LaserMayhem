@@ -33,7 +33,7 @@ public class SelectionTile : Tile
             }
             else
             {
-                Debug.Log("You Don't have enough money peasant !");
+                UIManager.Instance.DisplayError("You don't have enough mana to buy this piece.");
             }
 
         }

@@ -22,7 +22,6 @@ public abstract class GameButton : MonoBehaviour, IPointerEnterHandler, IPointer
         m_Animator.SetBool("Selected", true);
     }
 
-    // This method is called when the mouse pointer exits the UI element
     public void OnPointerExit(PointerEventData eventData)
     {
        m_Animator.SetBool("Selected", false);

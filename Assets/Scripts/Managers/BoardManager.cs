@@ -81,8 +81,7 @@ public sealed class BoardManager : MonoBehaviour
 
     private BoardTile GenerateTile(int x, int y, GameObject prefab)
     {
-        GameObject spawnedTile = Instantiate(prefab);
-        spawnedTile.transform.SetParent(m_board.transform);
+        GameObject spawnedTile = Instantiate(prefab, m_board.transform);
         spawnedTile.name = "Tile_" + x + "_" + y;
         BoardTile boardTile = spawnedTile.GetComponent<BoardTile>();
 

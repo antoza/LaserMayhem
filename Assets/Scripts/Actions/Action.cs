@@ -18,7 +18,7 @@ public class Action
             Action action = (Action)Activator.CreateInstance(type);
             if (action.DeserializeSubAction(parsedString)) return action;
         }
-        Debug.Log("Given action is incorrect");
+        Debug.Log($"Received action [{serializedAction}] is incorrect");
         return null;
     }
 

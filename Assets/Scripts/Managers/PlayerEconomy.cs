@@ -4,13 +4,13 @@ public class PlayerEconomy : ScriptableObject
 {
     public int m_mana { get; private set; }
     public int m_deletionCost { get; private set; }
-    public int m_movingCost { get; private set; }
+    public int m_movementCost { get; private set; }
 
     private void Awake()
     {
         m_mana = 0;
         m_deletionCost = 1;
-        m_movingCost = 1;
+        m_movementCost = 1;
     }
 
     public void AddNewTurnMana(int turnNumber)
@@ -38,7 +38,7 @@ public class PlayerEconomy : ScriptableObject
 
     public bool HasEnoughManaForMovement()
     {
-        return HasEnoughMana(m_movingCost);
+        return HasEnoughMana(m_movementCost);
     }
 
     public bool PayForPlacement(int cost)
@@ -66,8 +66,8 @@ public class PlayerEconomy : ScriptableObject
     {
         if (HasEnoughManaForMovement())
         {
-            m_mana -= m_movingCost;
-            m_movingCost++;
+            m_mana -= m_movementCost;
+            m_movementCost++;
             return true;
         }
         return false;
@@ -86,7 +86,7 @@ public class PlayerEconomy : ScriptableObject
 
     public void RefundMovement()
     {
-        m_movingCost--;
-        m_mana += m_movingCost;
+        m_movementCost--;
+        m_mana += m_movementCost;
     }
 }

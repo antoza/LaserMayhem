@@ -36,8 +36,11 @@ public class ServerSendPiecesListAction : Action
         {
             while (parsedString.Count > 0)
             {
-                PieceName pieceName;
+                PieceName pieceName = PieceName.None;
+                // TODO : YA UN PROBLEME A CETTE LIGNE MAIS QUE SUR LE BUILD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                Debug.Log(parsedString.Peek());
                 Assert.IsTrue(Enum.TryParse(parsedString.Dequeue(), out pieceName));
+                //Debug.Log(pieceName);
                 PiecesList.Add(pieceName);
             }
             return true;

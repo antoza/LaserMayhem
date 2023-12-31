@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31f88983fe8b07458ba35f902bac457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VictoryPopUp: {fileID: 0}
-  DefeatPopUp: {fileID: 0}
+  canvas: {fileID: 0}
+  errorMessagePrefab: {fileID: 7181355789838300023, guid: a44dfc89e0f32ff4581a03beb32b2ac4, type: 3}
+  victoryPopUp: {fileID: 0}
+  defeatPopUp: {fileID: 0}
+  drawPopUp: {fileID: 0}

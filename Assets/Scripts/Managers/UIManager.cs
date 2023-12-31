@@ -1,17 +1,27 @@
 using UnityEngine;
 using System;
+using TMPro;
+using System.Collections;
 #nullable enable
 
-public sealed class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
     [SerializeField]
-    private GameObject VictoryPopUp;
+    private GameObject canvas;
+
     [SerializeField]
-    private GameObject DefeatPopUp;
+    private GameObject errorMessagePrefab;
+    private float errorDisplayTime = 3f;
+
+    // TODO : Rendre UIManager abstraite, avec des sous-classes comme GameUIManager
     [SerializeField]
-    private GameObject DrawPopUp;
+    private GameObject victoryPopUp;
+    [SerializeField]
+    private GameObject defeatPopUp;
+    [SerializeField]
+    private GameObject drawPopUp;
 
     void Awake()
     {
@@ -22,18 +32,31 @@ public sealed class UIManager : MonoBehaviour
     {
     }
 
+    public void DisplayError(string error)
+    {
+        GameObject errorMessageGameObject = Instantiate(errorMessagePrefab, canvas.transform);
+        errorMessageGameObject.GetComponent<TextMeshProUGUI>().text = error;
+        StartCoroutine(DestroyCoroutine(errorMessageGameObject, errorDisplayTime));
+    }
+
+    private IEnumerator DestroyCoroutine(GameObject go, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(go);
+    }
+
     public void TriggerDraw()
     {
-        DrawPopUp.SetActive(true);
+        drawPopUp.SetActive(true);
     }
 
     public void TriggerVictory()
     {
-        VictoryPopUp.SetActive(true);
+        victoryPopUp.SetActive(true);
     }
 
     public void TriggerDefeat()
     {
-        DefeatPopUp.SetActive(true);
+        defeatPopUp.SetActive(true);
     }
 }
