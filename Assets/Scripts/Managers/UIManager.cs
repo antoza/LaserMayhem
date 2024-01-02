@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject errorMessagePrefab;
-    private float errorDisplayTime = 3f;
+    private float errorDisplayTime = 8f;
 
     // TODO : Rendre UIManager abstraite, avec des sous-classes comme GameUIManager
     [SerializeField]

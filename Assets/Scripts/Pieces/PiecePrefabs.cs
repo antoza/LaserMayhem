@@ -43,8 +43,8 @@ public class PiecePrefabs : MonoBehaviour
 
     public PieceName GetPieceNameFromPiece(Piece piece)
     {
-        PieceName pieceName = PieceName.None;
-        Assert.IsTrue(Enum.TryParse(piece.GetType().Name, out pieceName));
+        bool result = Enum.TryParse(piece.GetType().Name, out PieceName pieceName);
+        Assert.IsTrue(result);
         return pieceName;
     }
 

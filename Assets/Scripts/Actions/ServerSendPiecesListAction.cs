@@ -30,17 +30,14 @@ public class ServerSendPiecesListAction : Action
 
     public override bool DeserializeSubAction(Queue<string> parsedString)
     {
-        PiecesList = new List<PieceName>(parsedString.Count);
         base.DeserializeSubAction(parsedString);
+        PiecesList = new List<PieceName>(parsedString.Count);
         try
         {
             while (parsedString.Count > 0)
             {
-                PieceName pieceName = PieceName.None;
-                // TODO : YA UN PROBLEME A CETTE LIGNE MAIS QUE SUR LE BUILD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                Debug.Log(parsedString.Peek());
-                Assert.IsTrue(Enum.TryParse(parsedString.Dequeue(), out pieceName));
-                //Debug.Log(pieceName);
+                bool result = Enum.TryParse(parsedString.Dequeue(), out PieceName pieceName);
+                Assert.IsTrue(result);
                 PiecesList.Add(pieceName);
             }
             return true;
