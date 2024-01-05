@@ -52,12 +52,11 @@ public class MenuMessageManager : MonoBehaviour
     {
         try
         {
-            //
-//#if DEBUG
+#if DEBUG
             tcpClient = new TcpClient("127.0.0.1", 11586);
-//#else
-//            tcpClient = new TcpClient("92.167.126.212", 11586);
-//#endif
+#else
+            tcpClient = new TcpClient("92.167.126.212", 11586);
+#endif
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
             ReceiveMessages();

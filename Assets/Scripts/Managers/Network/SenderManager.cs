@@ -40,9 +40,9 @@ public class SenderManager : MonoBehaviour
 
     // Server requests
 
-    private void RegisterAsServer()
+    public void RegisterAsServer()
     {
-        SendRequest("RegisterAsServer");
+        SendRequest("SaveResults");
     }
 
     public void SendRelayCode(string relayCode)

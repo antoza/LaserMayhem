@@ -45,6 +45,11 @@ public abstract class GameMode : ScriptableObject
     // TODO : A METTRE DANS UNE NOUVELLE CLASSE QUI GERE LE DEBUT / LA FIN DE PARTIE
     public void TriggerGameOver(int? winner)
     {
+#if DEDICATED_SERVER
+        SenderManager.Instance.RegisterAsServer(); 
+        SceneManager.LoadScene("ServerMenu");
+        return;
+#endif
         if (winner == null)
         {
             UIManager.Instance.TriggerDraw();

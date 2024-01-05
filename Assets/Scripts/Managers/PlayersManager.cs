@@ -27,21 +27,6 @@ public sealed class PlayersManager : MonoBehaviour
     private void Start()
     {
     }
-    /*
-    public static void SetInstance()
-    {
-        Instance = new PlayersManager();
-    }
-
-    public static PlayersManager GetInstance()
-    {
-        if (Instance == null)
-        {
-            Debug.LogError("PlayersManager has not been instantiated");
-        }
-
-        return Instance!;
-    }*/
 
     public void SetPlayerNames(string[] playerNames)
     {
@@ -92,11 +77,4 @@ public sealed class PlayersManager : MonoBehaviour
     {
         return playerList[id].PlayerEconomy.m_mana;
     }
-
-#if DEBUG
-    public void AddInfiniteMana()
-    {
-        playerList[currentPlayerID].PlayerActions.AddInfiniteMana();
-    }
-#endif
 }
