@@ -21,6 +21,6 @@ public class PlayerTurnAnnouncementUI : MonoBehaviour
     {
         AnnouncementAnimator.SetTrigger("NewTurn");
         AnnouncementAnimator.speed = 2 / duration;
-        TextBande.text = m_BaseStringStart + PlayersManager.Instance.GetCurrentPlayer().m_name + m_BaseStringEnd;
+        TextBande.text = m_BaseStringStart + PlayersManager.Instance.GetCurrentPlayer().Username + m_BaseStringEnd;
     }
 }

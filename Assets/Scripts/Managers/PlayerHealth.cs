@@ -5,24 +5,35 @@ using UnityEngine;
 public class PlayerHealth : ScriptableObject
 {
     private PlayerData PlayerData;
-    public int m_health { get; private set; }
+
+    private int _health;
+    public int Health
+    {
+        get => _health;
+        private set
+        {
+            _health = value;
+            UIManager.Instance.UpdateHealth(PlayerData.m_playerID, value);
+        }
+    }
 
     public PlayerHealth(PlayerData playerData)
     {
         PlayerData = playerData;
-        m_health = DataManager.Instance.Rules.InitialHealth;
+
+        Health = DataManager.Instance.Rules.InitialHealth;
     }
 
     public bool IsDead()
     {
-        return m_health <= 0;
+        return Health <= 0;
     }
 
     public void TakeDamage(int damage)
     {
-        m_health -= damage;
-        if (m_health <= 0) {
-            m_health = 0;
+        Health -= damage;
+        if (Health <= 0) {
+            Health = 0;
             ((GameModeRPG)DataManager.Instance.GameMode).PlayerDied(PlayerData.m_playerID);
         }
     }

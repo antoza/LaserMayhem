@@ -6,11 +6,11 @@ using TMPro;
 
 public class MovementCostUI : MonoBehaviour
 {
-    [SerializeField]
+    /*[SerializeField]
     private TextMeshProUGUI m_CostText;
 
     void Update()
     {
         m_CostText.text = "Movement: " + PlayersManager.Instance.GetLocalPlayer().PlayerEconomy.m_movementCost.ToString();
-    }
+    }*/
 }

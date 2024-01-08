@@ -1,16 +1,50 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerEconomy : ScriptableObject
 {
-    public int m_mana { get; private set; }
-    public int m_deletionCost { get; private set; }
-    public int m_movementCost { get; private set; }
+    private PlayerData PlayerData;
 
-    private void Awake()
+    private int _mana;
+    public int Mana
     {
-        m_mana = 0;
-        m_deletionCost = 1;
-        m_movementCost = 1;
+        get => _mana;
+        private set
+        {
+            _mana = value;
+            UIManager.Instance.UpdateMana(PlayerData.m_playerID, value);
+        }
+    }
+
+    private int _deletionCost;
+    public int DeletionCost
+    {
+        get => _deletionCost ;
+        private set
+        {
+            _deletionCost = value;
+            UIManager.Instance.UpdateDeletionCost(PlayerData.m_playerID, value);
+        }
+    }
+
+    private int _movementCost;
+    public int MovementCost
+    {
+        get => _movementCost;
+        private set
+        {
+            _movementCost = value;
+            UIManager.Instance.UpdateMovementCost(PlayerData.m_playerID, value);
+        }
+    }
+
+    public PlayerEconomy(PlayerData playerData)
+    {
+        PlayerData = playerData;
+
+        Mana = 0;
+        DeletionCost = 1;
+        MovementCost = 1;
     }
 
     public void AddNewTurnMana(int turnNumber)
@@ -23,29 +57,38 @@ public class PlayerEconomy : ScriptableObject
             manaSum += manaToGive;
         }
         m_mana += manaToGive;*/
-        m_mana += turnNumber == 1 ? 1 : 2;
+
+        // TODO : Faire proprement avec le turn manager après que Simon l'ait arrangé
+        Mana += turnNumber == 1 ? 1 : 2;
+        PlayerData opponent = PlayersManager.Instance.GetPlayer((PlayerData.m_playerID + 1) % 2);
+        if (opponent.PlayerEconomy.Mana < 0)
+        {
+            Mana += -2 * opponent.PlayerEconomy.Mana;
+            opponent.PlayerEconomy.Mana = 0;
+        }
     }
 
     public bool HasEnoughMana(int cost)
     {
-        return m_mana >= cost;
+        //return Mana >= cost;
+        return Mana >= cost - 3;
     }
 
     public bool HasEnoughManaForDeletion()
     {
-        return HasEnoughMana(m_deletionCost);
+        return HasEnoughMana(DeletionCost);
     }
 
     public bool HasEnoughManaForMovement()
     {
-        return HasEnoughMana(m_movementCost);
+        return HasEnoughMana(MovementCost);
     }
 
     public bool PayForPlacement(int cost)
     {
         if (HasEnoughMana(cost))
         {
-            m_mana -= cost;
+            Mana -= cost;
             return true;
         }
         return false;
@@ -55,8 +98,8 @@ public class PlayerEconomy : ScriptableObject
     {
         if (HasEnoughManaForDeletion())
         {
-            m_mana -= m_deletionCost;
-            m_deletionCost++;
+            Mana -= DeletionCost;
+            DeletionCost++;
             return true;
         }
         return false;
@@ -66,8 +109,8 @@ public class PlayerEconomy : ScriptableObject
     {
         if (HasEnoughManaForMovement())
         {
-            m_mana -= m_movementCost;
-            m_movementCost++;
+            Mana -= MovementCost;
+            MovementCost++;
             return true;
         }
         return false;
@@ -75,18 +118,18 @@ public class PlayerEconomy : ScriptableObject
 
     public void RefundPlacement(int cost)
     {
-        m_mana += cost;
+        Mana += cost;
     }
 
     public void RefundDeletion()
     {
-        m_deletionCost--;
-        m_mana += m_deletionCost;
+        DeletionCost--;
+        Mana += DeletionCost;
     }
 
     public void RefundMovement()
     {
-        m_movementCost--;
-        m_mana += m_movementCost;
+        MovementCost--;
+        Mana += MovementCost;
     }
 }

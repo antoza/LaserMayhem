@@ -103,7 +103,7 @@ public class MenuMessageManager : MonoBehaviour
     {
         while (tcpClient.Connected)
         {
-            await Task.Delay(5000); // Pings the server every 5s
+            await Task.Delay(1000); // Pings the server every second
             try
             {
                 byte[] outStream = Encoding.ASCII.GetBytes("0");

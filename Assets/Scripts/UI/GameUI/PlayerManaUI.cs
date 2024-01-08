@@ -6,7 +6,7 @@ using TMPro;
 
 public class PlayerManaUI : MonoBehaviour
 {
-    [SerializeField]
+    /*[SerializeField]
     private TextMeshProUGUI m_EcoText;
 
     [SerializeField]
@@ -15,5 +15,5 @@ public class PlayerManaUI : MonoBehaviour
     void Update()
     {
         m_EcoText.text = PlayersManager.Instance.GetMana(m_PlayerID).ToString();
-    }
+    }*/
 }

@@ -14,25 +14,26 @@ public sealed class PlayersManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
         numberOfPlayers = DataManager.Instance.Rules.NumberOfPlayers;
         currentPlayerID = numberOfPlayers - 1;
         playerList = new PlayerData[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
         {
+            // TODO : regrouper avec la ligne du dessous pour avoir PlayerData(i, username)
             playerList[i] = new PlayerData(i);
         }
-        SetPlayerNames(GameInitialParameters.playerNames);
+        SetUsernames(GameInitialParameters.usernames);
     }
 
-    private void Start()
+    public void SetUsernames(string[] username)
     {
-    }
-
-    public void SetPlayerNames(string[] playerNames)
-    {
-        for (int i = 0; i < playerNames.Length; i++)
+        for (int i = 0; i < username.Length; i++)
         {
-            GetPlayer(i).m_name = playerNames[i];
+            GetPlayer(i).Username = username[i];
         }
     }
 
@@ -70,11 +71,11 @@ public sealed class PlayersManager : MonoBehaviour
 
     public int GetHealth(int id)
     {
-        return playerList[id].PlayerHealth.m_health;
+        return playerList[id].PlayerHealth.Health;
     }
 
     public int GetMana(int id)
     {
-        return playerList[id].PlayerEconomy.m_mana;
+        return playerList[id].PlayerEconomy.Mana;
     }
 }

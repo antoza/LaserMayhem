@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerHealthUI : MonoBehaviour
 {
-    [SerializeField]
+    /*[SerializeField]
     private TextMeshProUGUI m_HealthText;
 
     [SerializeField]
@@ -13,6 +13,6 @@ public class PlayerHealthUI : MonoBehaviour
 
     void Update()
     {
-        m_HealthText.text = PlayersManager.Instance.GetHealth(m_PlayerID).ToString();
-    }
+        
+    }*/
 }

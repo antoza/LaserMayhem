@@ -73,7 +73,7 @@ public class ReceiverManager : MonoBehaviour
         PlayerID.playerID = playerID;
         await RelayManager.Instance.JoinRelay(joinCode);
         MenuMessageManager.Instance.StartClient(playerSecret);
-        GameInitialParameters.playerNames = new string[] { player1Name , player2Name };
+        GameInitialParameters.usernames = new string[] { player1Name , player2Name };
     }
 
 #endif

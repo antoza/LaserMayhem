@@ -20,7 +20,7 @@ public class MenuPosUpdate : MonoBehaviour
         }
         if (GameInitialParameters.localPlayerID == 0)
         {
-            RectTransform.localPosition =  PositionPlayer0;
+            RectTransform.localPosition = PositionPlayer0;
         }
         else if(GameInitialParameters.localPlayerID == 1)
         {

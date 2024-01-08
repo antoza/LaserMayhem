@@ -6,7 +6,7 @@ using TMPro;
 
 public class PlayerNameUI : MonoBehaviour
 {
-    [SerializeField]
+    /*[SerializeField]
     private TextMeshProUGUI m_NameText;
 
     [SerializeField]
@@ -15,5 +15,5 @@ public class PlayerNameUI : MonoBehaviour
     void Update()
     {
         m_NameText.text = PlayersManager.Instance.GetPlayer(m_PlayerID).m_name;
-    }
+    }*/
 }

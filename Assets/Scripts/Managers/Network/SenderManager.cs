@@ -42,6 +42,11 @@ public class SenderManager : MonoBehaviour
 
     public void RegisterAsServer()
     {
+        SendRequest("RegisterAsServer");
+    }
+
+    public void SaveResults()
+    {
         SendRequest("SaveResults");
     }
 
