@@ -58,6 +58,11 @@ public sealed class PlayersManager : MonoBehaviour
         return GetPlayer(currentPlayerID);
     }
 
+    public bool IsMyTurn()
+    {
+        return GetPlayer(currentPlayerID) == GetLocalPlayer();
+    }
+
     public PlayerData GetLocalPlayer()
     {
         Assert.IsFalse(GameInitialParameters.localPlayerID == -1, "You are the server");
