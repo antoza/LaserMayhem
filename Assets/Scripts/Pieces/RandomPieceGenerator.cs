@@ -4,11 +4,10 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class PiecesData : ScriptableObject
+public class RandomPieceGenerator : ScriptableObject
 {
     [SerializeField]
     PieceName[] m_Pieces;
-
 
 
     public PieceName GetRandomPiece()

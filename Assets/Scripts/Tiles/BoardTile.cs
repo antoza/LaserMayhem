@@ -11,7 +11,6 @@ public class BoardTile : Tile
 
     public override void SetColor()
     {
-        Debug.Log("I change colors");
         if ((x + y) % 2 == 0)
         {
             GetComponent<SpriteRenderer>().sprite = WhiteSprite;

@@ -106,7 +106,7 @@ public class MenuMessageManager : MonoBehaviour
             await Task.Delay(1000); // Pings the server every second
             try
             {
-                byte[] outStream = Encoding.ASCII.GetBytes("0");
+                byte[] outStream = Encoding.ASCII.GetBytes("0\n");
                 stream.Write(outStream, 0, outStream.Length);
                 stream.Flush();
             }
@@ -133,7 +133,7 @@ public class MenuMessageManager : MonoBehaviour
         {
             try
             {
-                byte[] outStream = Encoding.ASCII.GetBytes(message);
+                byte[] outStream = Encoding.ASCII.GetBytes(message + '\n');
                 stream.Write(outStream, 0, outStream.Length);
                 stream.Flush();
             }

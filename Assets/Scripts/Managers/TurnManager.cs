@@ -15,7 +15,7 @@ public sealed class TurnManager : MonoBehaviour
 
 
     [Header("Test Data")]
-    private PiecesData m_PiecesData;
+    private RandomPieceGenerator m_PiecesData;
 
     //Turn annoucement UI
     private PlayerTurnAnnouncementUI m_Announcement;
@@ -31,7 +31,7 @@ public sealed class TurnManager : MonoBehaviour
         m_SkipTurnCooldown = DataManager.Instance.Rules.SkipTurnCooldown;
         m_LaserCooldown = DataManager.Instance.Rules.LaserCooldown;
         m_Announcement = FindObjectOfType<PlayerTurnAnnouncementUI>();
-        m_PiecesData = FindObjectOfType<PiecesData>();
+        m_PiecesData = FindObjectOfType<RandomPieceGenerator>();
         m_TurnButton = FindObjectOfType<SkipTurnButton>();
         m_SelectionTilesUpdate = FindObjectOfType<SelectionTilesUpdate>();
     }

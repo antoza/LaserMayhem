@@ -14,7 +14,7 @@ public class SelectionTilesUpdate : MonoBehaviour
     private SelectionTile[] m_SelectionTiles;
 
     [SerializeField]
-    private PiecesData m_PiecesData;
+    private RandomPieceGenerator m_PiecesData;
 
     public void ServerUpdateSelectionPieces()
     {
