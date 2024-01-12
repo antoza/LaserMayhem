@@ -17,7 +17,7 @@ public class PlayerTurnAnnouncementUI : MonoBehaviour
     [field: SerializeField]
     private TextMeshProUGUI TextBande;
 
-    public void StartCoroutineTurnAnnouncementFadeFromScriptable(float duration)
+    public void TurnAnnouncementActivation(float duration)
     {
         AnnouncementAnimator.SetTrigger("NewTurn");
         AnnouncementAnimator.speed = 2 / duration;
