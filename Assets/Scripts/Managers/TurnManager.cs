@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 #nullable enable
 
 public sealed class TurnManager : MonoBehaviour
@@ -10,30 +11,21 @@ public sealed class TurnManager : MonoBehaviour
     private int m_TurnNumber = 0;
 
     [Header("Time Management")]
-    private float m_SkipTurnCooldown;
-    private float m_LaserCooldown;
-    private bool m_CanSkipTurn = false;
-    private float m_SkipTurnCurrentCooldown = 0;
+    private float m_AnnouncementPhaseDuration;
+    private float m_LaserPhaseDuration;
 
     [Header("Test Data")]
     private RandomPieceGenerator m_PiecesData;
 
-    //Turn annoucement UI
-    private PlayerTurnAnnouncementUI m_Announcement;
-
-    //Piece Update UI
-    private SkipTurnButton m_TurnButton;
     private SelectionTilesUpdate m_SelectionTilesUpdate;
 
     void Awake()
     {
         Instance = this;
         DataManager DM = DataManager.Instance;
-        m_SkipTurnCooldown = DataManager.Instance.Rules.SkipTurnCooldown;
-        m_LaserCooldown = DataManager.Instance.Rules.LaserCooldown;
-        m_Announcement = FindObjectOfType<PlayerTurnAnnouncementUI>();
+        m_AnnouncementPhaseDuration = DataManager.Instance.Rules.AnnouncementPhaseDuration;
+        m_LaserPhaseDuration = DataManager.Instance.Rules.LaserPhaseDuration;
         m_PiecesData = FindObjectOfType<RandomPieceGenerator>();
-        m_TurnButton = FindObjectOfType<SkipTurnButton>();
         m_SelectionTilesUpdate = FindObjectOfType<SelectionTilesUpdate>();
     }
     /*
@@ -59,9 +51,19 @@ public sealed class TurnManager : MonoBehaviour
 
     public void StartLaserPhase()
     {
-        m_CanSkipTurn = false;
+#if !DEDICATED_SERVER
+        UIManager.Instance.UpdateEndTurnButtonState("Pressed");
+        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile(); // TODO : Ligne à modifier pour ne pas avoir à appeler LocalPlayerManager ici
+#endif
+        RewindManager.Instance.ClearAllActions();
         LaserManager.Instance.UpdateLaser(false);
-        StartCoroutine(Cooldown(true));
+        StartCoroutine(LaserPhaseCoroutine());
+    }
+
+    public IEnumerator LaserPhaseCoroutine()
+    {
+        yield return new WaitForSeconds(m_LaserPhaseDuration);
+        StartAnnouncementPhase();
     }
 
     public void StartAnnouncementPhase()
@@ -71,36 +73,24 @@ public sealed class TurnManager : MonoBehaviour
             return;
         }
         PlayersManager.Instance.StartNextPlayerTurn(++m_TurnNumber);
+#if !DEDICATED_SERVER
+        UIManager.Instance.TriggerPlayerTurnAnnouncement();
+#endif
         LaserManager.Instance.UpdateLaser(true);
-        if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces();
-        StartCoroutine(Cooldown(false));
-        m_Announcement.TurnAnnouncementActivation(m_SkipTurnCooldown);
+        if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier
+        StartCoroutine(AnnouncementPhaseCoroutine());
+    }
+
+    public IEnumerator AnnouncementPhaseCoroutine()
+    {
+        yield return new WaitForSeconds(m_AnnouncementPhaseDuration);
+        StartTurnPhase();
     }
 
     public void StartTurnPhase()
     {
-        LaserManager.Instance.UpdateLaser(true);
-        m_CanSkipTurn = true;
-    }
-
-    public IEnumerator Cooldown(bool laser)
-    {
-        m_TurnButton.BeginCooldown(laser);
-        m_SkipTurnCurrentCooldown = m_SkipTurnCooldown;
-        while (m_SkipTurnCurrentCooldown > 0)
-        {
-            m_SkipTurnCurrentCooldown -= Time.deltaTime;
-            yield return null;
-        }
-
-        m_TurnButton.EndCooldown();
-        if (laser)
-        {
-            StartAnnouncementPhase();
-        }
-        else
-        {
-            StartTurnPhase();
-        }
+#if !DEDICATED_SERVER
+        UIManager.Instance.UpdateEndTurnButtonState("Unpressed");
+#endif
     }
 }

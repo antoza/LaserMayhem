@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkipTurnButton : GameButton
+public class EndTurnButton : GameButton
 {
+#if !DEDICATED_SERVER
     Button m_TurnButton;
 
     protected override void Awake()
@@ -15,35 +16,44 @@ public class SkipTurnButton : GameButton
 
     public override void OnClick()
     {
-        Debug.Log("Is it my turn ? :" + PlayersManager.Instance.IsMyTurn());
-        if(PlayersManager.Instance.IsMyTurn())
+        if(LocalPlayerManager.Instance.TryToPlay())
         {
             base.OnClick();
-            PlayersManager.Instance.GetCurrentPlayer().PlayerActions.CreateAndVerifyEndTurnAction();
+            LocalPlayerManager.Instance.CreateAndVerifyEndTurnAction();
         }
     }
 
+    public void SetAsPressed()
+    {
+        m_Animator.SetBool("Pressed", true);
+        m_TurnButton.interactable = false;
+    }
+
+    public void SetAsUnpressed()
+    {
+        m_Animator.SetBool("Pressed", false);
+        m_TurnButton.interactable = true;
+    }
+    /*
     // TODO : à mettre dans TurnManager, le bouton ne doit s'occuper que de son affichage et d'appeler la bonne fonction lors d'un clic
     public void BeginCooldown(bool laser)
     {
-        Debug.Log("Begin Cooldown");
-        Debug.Log(PlayersManager.Instance.IsMyTurn());
-        Debug.Log(laser);
         if ((!PlayersManager.Instance.IsMyTurn()) || (PlayersManager.Instance.IsMyTurn() && laser))
         {
             Debug.Log("I press");
             m_Animator.SetBool("Pressed", true);
+        m_TurnButton.interactable = false;
         }
         else
         {
             Debug.Log("I am unpressed");
             m_Animator.SetBool("Pressed", false);
+        m_TurnButton.interactable = true;
         }
-        m_TurnButton.interactable = false;
     }
 
     public void EndCooldown()
     {
-        m_TurnButton.interactable = true;
-    }
+    }*/
+#endif
 }

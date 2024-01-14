@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class RevertLastActionButton : MonoBehaviour
 {
+#if !DEDICATED_SERVER
     public void OnClick()
     {
-        PlayersManager.Instance.GetCurrentPlayer().PlayerActions.CreateAndVerifyRevertLastActionAction();
+        LocalPlayerManager.Instance.CreateAndVerifyRevertLastActionAction();
     }
+#endif
 }

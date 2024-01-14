@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 #nullable enable
 public class PlayerActions : ScriptableObject
 {
@@ -43,37 +43,6 @@ public class PlayerActions : ScriptableObject
         m_CanPlay = false;
         DataManager.Instance.MouseFollower.ChangeFollowingTile(null);
     }
-    /*
-    public bool CopyPiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
-    {
-        if (sourceTile.m_Piece == null) return false;
-        if (destinationTile.m_Piece != null) return false;
-
-        destinationTile.UpdatePiece(sourceTile.m_Piece!);
-        LaserManager.GetInstance().UpdateLaser(true);
-        return true;
-    }
-
-    public bool DeletePiece(Tile tile) // TODO : A déplacer dans un fichier plus adapté
-    {
-        if (tile.m_Piece == null) return false;
-
-        tile.UpdatePiece(null);
-        LaserManager.GetInstance().UpdateLaser(true);
-        return true;
-    }
-
-    public bool MovePiece(Tile sourceTile, Tile destinationTile) // TODO : A déplacer dans un fichier plus adapté
-    {
-        if (sourceTile == destinationTile) return false;
-        if (sourceTile.m_Piece == null) return false;
-        if (destinationTile.m_Piece != null) return false;
-
-        destinationTile.UpdatePiece(sourceTile.m_Piece);
-        sourceTile.UpdatePiece(null);
-        LaserManager.GetInstance().UpdateLaser(true);
-        return true;
-    }*/
 
     public void SetSourceTile(Tile sourceTile)
     {
@@ -113,4 +82,4 @@ public class PlayerActions : ScriptableObject
         PlayerData.PlayerEconomy.AddNewTurnMana(500);
     }
 #endif
-}
+}*/

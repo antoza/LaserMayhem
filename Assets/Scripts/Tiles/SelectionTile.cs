@@ -22,24 +22,16 @@ public class SelectionTile : Tile
         }
     }
 
-    protected override void OnMouseOver()
+#if !DEDICATED_SERVER
+    protected override bool VerifyOnMouseButtonDown()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!base.VerifyOnMouseButtonDown()) return false;
+        if (!LocalPlayerManager.Instance.LocalPlayer.PlayerEconomy.HasEnoughMana(cost))
         {
-            if (PlayersManager.Instance.GetLocalPlayer().PlayerEconomy.HasEnoughMana(cost))
-            {
-                PlayersManager.Instance.GetLocalPlayer().PlayerActions.SetSourceTile(this);
-                if (m_Piece) m_Piece!.GetComponent<Animator>().SetTrigger("PieceClicked");
-            }
-            else
-            {
-                UIManager.Instance.DisplayError("You don't have enough mana to buy this piece.");
-            }
-
+            UIManager.Instance.DisplayError("You don't have enough mana to buy this piece.");
+            return false;
         }
-        if (Input.GetMouseButtonUp(0))
-        {
-            PlayersManager.Instance.GetLocalPlayer().PlayerActions.CreateAndVerifyMovePieceAction(this);
-        }
+        return true;
     }
+#endif
 }

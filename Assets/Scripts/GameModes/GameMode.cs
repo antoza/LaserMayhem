@@ -30,8 +30,7 @@ public abstract class GameMode : ScriptableObject
 
     public virtual bool VerifyAction(PlayerAction action)
     {
-        // TODO : a supprimer : if (action is not PlayerAction) return false;
-        if (!((PlayerAction)action).PlayerData.PlayerActions.m_CanPlay) return false;
+        if (!PlayersManager.Instance.GetCurrentPlayer() == action.PlayerData) return false;
         // TODO : On pourrait ajouter qu'on n'autorise pas le joueur à jouer si le laser n'a pas fini son animation
         return true;
     }
@@ -49,7 +48,7 @@ public abstract class GameMode : ScriptableObject
         SenderManager.Instance.SaveResults(); 
         SceneManager.LoadScene("ServerMenu");
         return;
-#endif
+#else
         if (winner == null)
         {
             UIManager.Instance.TriggerDraw();
@@ -65,5 +64,6 @@ public abstract class GameMode : ScriptableObject
                 UIManager.Instance.TriggerDefeat();
             }
         }
+#endif
     }
 }

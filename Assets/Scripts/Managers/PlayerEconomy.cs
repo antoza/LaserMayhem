@@ -12,18 +12,22 @@ public class PlayerEconomy : ScriptableObject
         private set
         {
             _mana = value;
+#if !DEDICATED_SERVER
             UIManager.Instance.UpdateMana(PlayerData.m_playerID, value);
+#endif
         }
     }
 
     private int _deletionCost;
     public int DeletionCost
     {
-        get => _deletionCost ;
+        get => _deletionCost;
         private set
         {
             _deletionCost = value;
+#if !DEDICATED_SERVER
             UIManager.Instance.UpdateDeletionCost(PlayerData.m_playerID, value);
+#endif
         }
     }
 
@@ -34,7 +38,9 @@ public class PlayerEconomy : ScriptableObject
         private set
         {
             _movementCost = value;
+#if !DEDICATED_SERVER
             UIManager.Instance.UpdateMovementCost(PlayerData.m_playerID, value);
+#endif
         }
     }
 
@@ -58,7 +64,7 @@ public class PlayerEconomy : ScriptableObject
         }
         m_mana += manaToGive;*/
 
-        // TODO : Faire proprement avec le turn manager après que Simon l'ait arrangé
+        // TODO : Faire proprement avec le turn manager
         Mana += turnNumber == 1 ? 1 : 2;
         PlayerData opponent = PlayersManager.Instance.GetPlayer((PlayerData.m_playerID + 1) % 2);
         if (opponent.PlayerEconomy.Mana < 0)

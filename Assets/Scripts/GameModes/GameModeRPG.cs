@@ -75,8 +75,6 @@ public class GameModeRPG : GameMode
                 RewindManager.Instance.RevertAllActions();
                 break;
             case EndTurnAction:
-                ((EndTurnAction)action).PlayerData.PlayerActions.EndTurn();
-                RewindManager.Instance.ClearAllActions();
                 TurnManager.Instance.StartLaserPhase();
                 break;
             case ServerSendPiecesListAction:

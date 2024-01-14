@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 public class UIManager : MonoBehaviour
 {
+#if !DEDICATED_SERVER
     public static UIManager Instance { get; private set; }
 
     private bool isUIManagerReady = false;
+    // Orders to execute in order the UI updates called before manager is ready
+    private int nextUpdateOrder = 0;
+    private int nextUpdateToExecute = 0;
 
     [SerializeField]
     private GameObject canvas;
@@ -40,6 +44,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI[] deletionCostTexts;
 
+    [SerializeField]
+    private PlayerTurnAnnouncementUI playerTurnAnnouncement;
+    [SerializeField]
+    private EndTurnButton endTurnButton;
+
     void Awake()
     {
         Instance = this;
@@ -61,26 +70,24 @@ public class UIManager : MonoBehaviour
     }
 
     // Wait for UIManager to be ready, modifies UI only for clients
-    private async Task<bool> IsUIUpdatable()
+    private async Task WaitForReadiness()
     {
-#if DEDICATED_SERVER
-        return false;
-#else
-        while (!isUIManagerReady) await Task.Delay(100);
-        return true;
-#endif
+        if (isUIManagerReady && (nextUpdateOrder == nextUpdateToExecute)) return;
+
+        int thisUpdateOrder = nextUpdateOrder++;
+        while (!isUIManagerReady) await Task.Delay(10);
+        while (thisUpdateOrder != nextUpdateToExecute) await Task.Yield();
+        nextUpdateToExecute++;
     }
 
-    // Error Message
+    // Error message
 
     public async void DisplayError(string error)
     {
-        if (await IsUIUpdatable())
-        {
-            GameObject errorMessageGameObject = Instantiate(errorMessagePrefab, canvas.transform);
-            errorMessageGameObject.GetComponent<TextMeshProUGUI>().text = error;
-            StartCoroutine(DestroyCoroutine(errorMessageGameObject, errorDisplayTime));
-        }
+        await WaitForReadiness();
+        GameObject errorMessageGameObject = Instantiate(errorMessagePrefab, canvas.transform);
+        errorMessageGameObject.GetComponent<TextMeshProUGUI>().text = error;
+        StartCoroutine(DestroyCoroutine(errorMessageGameObject, errorDisplayTime));
     }
 
     private IEnumerator DestroyCoroutine(GameObject go, float delay)
@@ -90,77 +97,86 @@ public class UIManager : MonoBehaviour
     }
 
 
-    // Gameover Popups
+    // Gameover popups
 
     public async void TriggerDraw()
     {
-        if (await IsUIUpdatable())
-        {
-            drawPopUp.SetActive(true);
-        }
+        await WaitForReadiness();
+        drawPopUp.SetActive(true);
     }
 
     public async void TriggerVictory()
     {
-        if (await IsUIUpdatable())
-        {
-            victoryPopUp.SetActive(true);
-        }
+        await WaitForReadiness();
+        victoryPopUp.SetActive(true);
     }
 
     public async void TriggerDefeat()
     {
-        if (await IsUIUpdatable())
-        {
-            defeatPopUp.SetActive(true);
-        }
+        await WaitForReadiness();
+        defeatPopUp.SetActive(true);
     }
 
 
-    // Players UI
+    // Players information
 
     public async void UpdateUsername(int playerID, string value)
     {
-        if (await IsUIUpdatable())
-        {
-            TextMeshProUGUI tmp = usernameTexts[playerIndexes[playerID]];
-            if (tmp != null) tmp.text = value;
-        }
+        await WaitForReadiness();
+        TextMeshProUGUI tmp = usernameTexts[playerIndexes[playerID]];
+        if (tmp != null) tmp.text = value;
     }
 
     public async void UpdateHealth(int playerID, int value)
     {
-        if (await IsUIUpdatable())
-        {
-            TextMeshProUGUI tmp = healthTexts[playerIndexes[playerID]];
-            if (tmp != null) tmp.text = value.ToString();
-        }
+        await WaitForReadiness();
+        TextMeshProUGUI tmp = healthTexts[playerIndexes[playerID]];
+        if (tmp != null) tmp.text = value.ToString();
     }
 
     public async void UpdateMana(int playerID, int value)
     {
-        if (await IsUIUpdatable())
-        {
-            TextMeshProUGUI tmp = manaTexts[playerIndexes[playerID]];
-            if (tmp != null) tmp.text = value.ToString();
-        }
+        await WaitForReadiness();
+        TextMeshProUGUI tmp = manaTexts[playerIndexes[playerID]];
+        if (tmp != null) tmp.text = value.ToString();
     }
 
     public async void UpdateMovementCost(int playerID, int value)
     {
-        if (await IsUIUpdatable())
-        {
-            TextMeshProUGUI tmp = movementCostTexts[playerIndexes[playerID]];
-            if (tmp != null) tmp.text = "Movement: " + value.ToString();
-        }
+        await WaitForReadiness();
+        TextMeshProUGUI tmp = movementCostTexts[playerIndexes[playerID]];
+        if (tmp != null) tmp.text = "Movement: " + value.ToString();
     }
 
     public async void UpdateDeletionCost(int playerID, int value)
     {
-        if (await IsUIUpdatable())
+        await WaitForReadiness();
+        TextMeshProUGUI tmp = deletionCostTexts[playerIndexes[playerID]];
+        if (tmp != null) tmp.text = "Deletion: " + value.ToString();
+    }
+
+    // Turn
+
+    public async void UpdateEndTurnButtonState(string state)
+    {
+        await WaitForReadiness();
+        switch (state)
         {
-            TextMeshProUGUI tmp = deletionCostTexts[playerIndexes[playerID]];
-            if (tmp != null) tmp.text = "Deletion: " + value.ToString();
+            case "Pressed":
+                if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) endTurnButton.SetAsPressed();
+                break;
+            case "Unpressed":
+                if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) endTurnButton.SetAsUnpressed();
+                break;
+            default:
+                break;
         }
     }
+
+    public async void TriggerPlayerTurnAnnouncement()
+    {
+        await WaitForReadiness();
+        playerTurnAnnouncement.StartAnimation(PlayersManager.Instance.GetCurrentPlayer().Username);
+    }
+#endif
 }

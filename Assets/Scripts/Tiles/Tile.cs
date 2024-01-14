@@ -28,21 +28,37 @@ public abstract class Tile : MonoBehaviour
 
     public abstract void SetColor();
 
-    protected virtual void OnMouseOver()
+#if !DEDICATED_SERVER
+    private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            PlayersManager.Instance.GetLocalPlayer().PlayerActions.SetSourceTile(this);
-            if (m_Piece)
+            if (VerifyOnMouseButtonDown())
             {
-                m_Piece!.GetComponent<Animator>().SetTrigger("PieceClicked");
+                DoOnMouseButtonDown();
             }
-
         }
         if (Input.GetMouseButtonUp(0))
         {
-            PlayersManager.Instance.GetLocalPlayer().PlayerActions.CreateAndVerifyMovePieceAction(this);
+            DoOnMouseButtonUp();
         }
+    }
+
+    protected virtual bool VerifyOnMouseButtonDown()
+    {
+        if (!LocalPlayerManager.Instance.TryToPlay()) return false;
+        return true;
+    }
+
+    protected virtual void DoOnMouseButtonDown()
+    {
+         LocalPlayerManager.Instance.SetSourceTile(this);
+         if (m_Piece) m_Piece!.GetComponent<Animator>().SetTrigger("PieceClicked");
+    }
+
+    protected virtual void DoOnMouseButtonUp()
+    {
+         LocalPlayerManager.Instance.CreateAndVerifyMovePieceAction(this);
     }
 
     private void OnMouseEnter()
@@ -54,6 +70,7 @@ public abstract class Tile : MonoBehaviour
     {
         m_MouseOver!.SetActive(false);
     }
+#endif
 
     public void InstantiatePiece(PieceName pieceName)
     {

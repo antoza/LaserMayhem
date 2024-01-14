@@ -4,7 +4,7 @@ public class PlayerData : ScriptableObject
 {
     public PlayerHealth PlayerHealth { get; private set; }
     public PlayerEconomy PlayerEconomy { get; private set; }
-    public PlayerActions PlayerActions { get; private set; }
+    //public PlayerActions PlayerActions { get; private set; }
 
     public int m_playerID;
 
@@ -15,7 +15,9 @@ public class PlayerData : ScriptableObject
         set
         {
             _username = value;
+#if !DEDICATED_SERVER
             UIManager.Instance.UpdateUsername(m_playerID, value);
+#endif
         }
     }
 
@@ -25,6 +27,6 @@ public class PlayerData : ScriptableObject
         m_playerID = playerID;
         PlayerHealth = new PlayerHealth(this);
         PlayerEconomy = new PlayerEconomy(this);
-        PlayerActions = new PlayerActions(this);
+        //PlayerActions = new PlayerActions(this);
     }
 }

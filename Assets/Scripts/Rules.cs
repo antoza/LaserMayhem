@@ -10,9 +10,9 @@ public class Rules : ScriptableObject
     [field: SerializeField]
     public int InitialHealth { get; private set; } = 15;
     [field: SerializeField]
-    public int SkipTurnCooldown { get; private set; } = 3;
+    public int LaserPhaseDuration { get; private set; } = 3;
     [field: SerializeField]
-    public int LaserCooldown { get; private set; } = 3;
+    public int AnnouncementPhaseDuration { get; private set; } = 3;
     [field: SerializeField]
     public int BoardWidth { get; private set; } = 7;
     [field: SerializeField]

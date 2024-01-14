@@ -6,21 +6,27 @@ using UnityEngine.UI;
 
 public class PlayerTurnAnnouncementUI : MonoBehaviour
 {
-
     [SerializeReference, TextArea(1, 2)]
     private string m_BaseStringStart;
     [SerializeReference, TextArea(1, 2)]
     private string m_BaseStringEnd;
 
     [field: SerializeField]
-    private Animator AnnouncementAnimator;
+    private Animator announcementAnimator;
     [field: SerializeField]
-    private TextMeshProUGUI TextBande;
+    private TextMeshProUGUI announcementTMP;
 
-    public void TurnAnnouncementActivation(float duration)
+    private float m_AnnouncementPhaseDuration;
+
+    private void Start()
     {
-        AnnouncementAnimator.SetTrigger("NewTurn");
-        AnnouncementAnimator.speed = 2 / duration;
-        TextBande.text = m_BaseStringStart + PlayersManager.Instance.GetCurrentPlayer().Username + m_BaseStringEnd;
+        m_AnnouncementPhaseDuration = DataManager.Instance.Rules.AnnouncementPhaseDuration;
+    }
+
+    public void StartAnimation(string playerName)
+    {
+        announcementAnimator.SetTrigger("NewTurn");
+        announcementAnimator.speed = 2 / m_AnnouncementPhaseDuration;
+        announcementTMP.text = m_BaseStringStart + playerName + m_BaseStringEnd;
     }
 }

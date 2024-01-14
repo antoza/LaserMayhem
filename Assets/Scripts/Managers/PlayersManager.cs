@@ -26,7 +26,7 @@ public sealed class PlayersManager : MonoBehaviour
             // TODO : regrouper avec la ligne du dessous pour avoir PlayerData(i, username)
             playerList[i] = new PlayerData(i);
         }
-        SetUsernames(GameInitialParameters.usernames);
+        SetUsernames(GameInitialParameters.usernames); // TODO : le server ne doit pas exécuter ça
     }
 
     public void SetUsernames(string[] username)
@@ -40,7 +40,8 @@ public sealed class PlayersManager : MonoBehaviour
     public void StartNextPlayerTurn(int turnNumber)
     {
         currentPlayerID = (currentPlayerID + 1) % numberOfPlayers;
-        playerList[currentPlayerID].PlayerActions.StartTurn(turnNumber);
+        //playerList[currentPlayerID].PlayerActions.StartTurn(turnNumber);
+        playerList[currentPlayerID].PlayerEconomy.AddNewTurnMana(turnNumber);
     }
 
     public PlayerData GetPlayer(int id)
@@ -57,7 +58,7 @@ public sealed class PlayersManager : MonoBehaviour
     {
         return GetPlayer(currentPlayerID);
     }
-
+    /*
     public bool IsMyTurn()
     {
         return GetPlayer(currentPlayerID) == GetLocalPlayer();
@@ -67,7 +68,7 @@ public sealed class PlayersManager : MonoBehaviour
     {
         Assert.IsFalse(GameInitialParameters.localPlayerID == -1, "You are the server");
         return GetPlayer(GameInitialParameters.localPlayerID);
-    }
+    }*/
 
     public void HitPlayer(int id, int damage)
     {
