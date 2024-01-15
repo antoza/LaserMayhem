@@ -17,7 +17,18 @@ public abstract class Tile : MonoBehaviour
     {
         InitTilePositions();
         InstantiatePiece(m_startingPiece);
+        InitMouseOver();
         SetColor();
+    }
+
+    private void InitMouseOver()
+    {
+        if (m_MouseOver != null)
+        {
+            m_MouseOver = Instantiate(m_MouseOver);
+            m_MouseOver.transform.position = transform.position;
+            m_MouseOver.GetComponent<SpriteRenderer>().sortingLayerName = GetComponent<SpriteRenderer>().sortingLayerName;
+        }
     }
 
     public virtual void InitTilePositions()
