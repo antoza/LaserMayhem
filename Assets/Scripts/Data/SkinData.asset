@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96b0589a4f81e34b8f4fca607891821, type: 3}
+  m_Name: SkinData
+  m_EditorClassIdentifier: 
+  BackgroundSkin:
+    _serializedList:
+    - Key: Default
+      Value: {fileID: 21300000, guid: ecca608ec1c6b824dbf4bed4b7fe5963, type: 3}
+    - Key: Grass
+      Value: {fileID: 21300000, guid: 3fb7f9fd6bc4d88418ea5ef02fd0bf4f, type: 3}
+    - Key: CMarble
+      Value: {fileID: 21300000, guid: 9a25c295f1b68364f859df5fe5abffd2, type: 3}
+    - Key: BMarble
+      Value: {fileID: 21300000, guid: 1937afcf4df0cad4f9facada79f8dae1, type: 3}
+    - Key: Planked
+      Value: {fileID: 21300000, guid: ecca608ec1c6b824dbf4bed4b7fe5963, type: 3}

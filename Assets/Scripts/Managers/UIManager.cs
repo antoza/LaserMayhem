@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -49,6 +50,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private EndTurnButton endTurnButton;
 
+    [SerializeField]
+    private Image BackgroundImage;
+    [SerializeField]
+    public SkinData SkinData;
     void Awake()
     {
         Instance = this;
@@ -58,6 +63,8 @@ public class UIManager : MonoBehaviour
     {
         AssociatePlayersInAscendingOrder(GameInitialParameters.localPlayerID, GameInitialParameters.Rules.NumberOfPlayers);
         isUIManagerReady = true;
+        SetBackground();
+
     }
 
     private void AssociatePlayersInAscendingOrder(int localPlayerID, int numberOfPlayers)
@@ -177,6 +184,26 @@ public class UIManager : MonoBehaviour
     {
         await WaitForReadiness();
         playerTurnAnnouncement.StartAnimation(PlayersManager.Instance.GetCurrentPlayer().Username);
+    }
+
+    public void SetBackground()
+    {
+        if(PlayerPrefs.HasKey("Background Skin") && SkinData)
+        {
+            string backgroundSpriteName = PlayerPrefs.GetString("Background Skin");
+            if(SkinData.BackgroundSkin.ContainsKey(backgroundSpriteName))
+            {
+                BackgroundImage.sprite = SkinData.BackgroundSkin[backgroundSpriteName];
+            }
+        }
+        else
+        {
+            string backgroundSpriteName = "Default";
+            if (SkinData.BackgroundSkin.ContainsKey(backgroundSpriteName))
+            {
+                BackgroundImage.sprite = SkinData.BackgroundSkin[backgroundSpriteName];
+            }
+        }
     }
 #endif
 }

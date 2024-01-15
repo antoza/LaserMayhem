@@ -10,7 +10,8 @@ public enum Menus
     GameMode, 
     Matchmaking,
     Options,
-    GameOver
+    GameOver,
+    BackgroundChoice
 }
 
 public class MenusManager : MonoBehaviour
@@ -29,6 +30,10 @@ public class MenusManager : MonoBehaviour
     private GameObject m_OptionsMenu;
     [field: SerializeField]
     private GameObject m_GameOverMenu;
+    [field: SerializeField]
+    private GameObject m_BackgroundChoiceMenu;
+    [field: SerializeField]
+    public SkinData SkinData { get; private set; }
 
     private Dictionary<Menus, GameObject> m_Menus;
 
@@ -49,6 +54,7 @@ public class MenusManager : MonoBehaviour
         m_Menus[Menus.Matchmaking] = m_MatchmakingMenu;
         m_Menus[Menus.Options] = m_OptionsMenu;
         m_Menus[Menus.GameOver] = m_GameOverMenu;
+        m_Menus[Menus.BackgroundChoice] = m_BackgroundChoiceMenu;
 
         if (PlayerProfile.isConnected)
         {
