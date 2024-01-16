@@ -1904,9 +1904,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8317146592603995658, guid: af4af966949eb624a8891393484fe90a, type: 3}
+      propertyPath: m_Animator
+      value: 
+      objectReference: {fileID: 2525518184403481666}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: af4af966949eb624a8891393484fe90a, type: 3}
+--- !u!95 &2525518184403481666 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6556488990903543226, guid: af4af966949eb624a8891393484fe90a, type: 3}
+  m_PrefabInstance: {fileID: 2525518184403481665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2616983408086891805 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1781936758209994773, guid: 2d9d75fe51719204ba9766511a90455b, type: 3}

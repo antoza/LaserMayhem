@@ -12,4 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d3922da0441074d93f4fd3a3519bdb, type: 3}
   m_Name: PieceHolder
   m_EditorClassIdentifier: 
-  m_Pieces: 010000000200000003000000040000000500000006000000070000000100000001000000010000000200000002000000020000000300000003000000030000000600000007000000
+  _piecesPool:
+    _serializedList:
+    - Key: 1
+      Value: 20
+    - Key: 2
+      Value: 20
+    - Key: 3
+      Value: 14
+    - Key: 4
+      Value: 8
+    - Key: 5
+      Value: 8
+    - Key: 6
+      Value: 15
+    - Key: 7
+      Value: 15
+    - Key: 8
+      Value: 0

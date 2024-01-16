@@ -153,7 +153,7 @@ public class GameModeRPG : GameMode
                 ExecuteMovement(playerData, (BoardTile)sourceTile, (BoardTile)targetTile);
                 break;
             case (BoardTile, TrashTile):
-                action.SourcePiece = sourceTile.m_Piece;
+                action.SourcePiece = sourceTile.Piece;
                 ExecuteDeletion(playerData, (BoardTile)sourceTile);
                 break;
             default:
@@ -174,9 +174,9 @@ public class GameModeRPG : GameMode
         switch ((sourceTile!, targetTile))
         {
             case (SelectionTile, BoardTile):
-                int cost = ((SelectionTile)sourceTile).cost;
-                sourceTile.TakePieceFromTile(targetTile);
-                playerData.PlayerEconomy.RefundPlacement(cost);
+                playerData.PlayerEconomy.RefundPlacement(((SelectionTile)sourceTile).cost);
+                targetTile.Piece!.IsPlayedThisTurn = false;
+                sourceTile.Piece = targetTile.Piece;
                 break;
 #if DEBUG
             case (InfiniteTile, BoardTile):
@@ -184,13 +184,13 @@ public class GameModeRPG : GameMode
                 break;
 #endif
             case (BoardTile, BoardTile):
-                sourceTile.TakePieceFromTile(targetTile);
-                playerData.PlayerEconomy.RefundMovement();
+                if (!targetTile.Piece!.IsPlayedThisTurn) playerData.PlayerEconomy.RefundMovement();
+                sourceTile.Piece = targetTile.Piece;
                 break;
 
             case (BoardTile, TrashTile):
-                sourceTile.UpdatePiece(action.SourcePiece);
                 playerData.PlayerEconomy.RefundDeletion();
+                sourceTile.Piece = action.SourcePiece;
                 break;
 
             default:
@@ -202,11 +202,13 @@ public class GameModeRPG : GameMode
 
     public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)
     {
-        if (sourceTile.m_Piece == null) return false;
-        if (targetTile.m_Piece != null) return false;
+        if (sourceTile.Piece == null) return false;
+        if (targetTile.Piece != null) return false;
         if (!playerData.PlayerEconomy.HasEnoughMana(sourceTile.cost))
         {
-            Debug.Log("You don't have enough mana");
+#if !DEDICATED_SERVER
+            UIManager.Instance.DisplayError("You don't have enough mana");
+#endif
             return false;
         }
         return true;
@@ -214,54 +216,64 @@ public class GameModeRPG : GameMode
 
     public void ExecutePlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)
     {
-        targetTile.TakePieceFromTile(sourceTile);
+        targetTile.Piece = sourceTile.Piece;
+        targetTile.Piece!.IsPlayedThisTurn = true;
         playerData.PlayerEconomy.PayForPlacement(sourceTile.cost);
     }
 
 #if DEBUG
     public bool VerifyCheatPlacement(InfiniteTile sourceTile, BoardTile targetTile)
     {
-        if (sourceTile.m_Piece == null) return false;
-        if (targetTile.m_Piece != null) return false;
+        if (sourceTile.Piece == null) return false;
+        if (targetTile.Piece != null) return false;
         return true;
     }
 
     public void ExecuteCheatPlacement(InfiniteTile sourceTile, BoardTile targetTile)
     {
-        targetTile.InstantiatePiece(sourceTile.m_Piece!);
+        targetTile.InstantiatePiece(sourceTile.Piece!);
     }
 #endif
 
     public bool VerifyMovement(PlayerData playerData, BoardTile sourceTile, BoardTile targetTile)
     {
-        if (sourceTile.m_Piece == null) return false;
-        if (targetTile.m_Piece != null) return false;
+        if (sourceTile.Piece == null) return false;
+        if (targetTile.Piece != null) return false;
         if (sourceTile == targetTile) return false;
-        if (!playerData.PlayerEconomy.HasEnoughManaForMovement())
+        if (!sourceTile.Piece!.IsPlayedThisTurn)
         {
-            Debug.Log("You don't have enough mana");
-            return false;
-        }
-        if (!targetTile.IsCloseEnoughFrom(sourceTile, 1))
-        {
-            Debug.Log("You can't move a piece too far away");
-            return false;
+            if (!playerData.PlayerEconomy.HasEnoughManaForMovement())
+            {
+#if !DEDICATED_SERVER
+                UIManager.Instance.DisplayError("You don't have enough mana");
+#endif
+                return false;
+            }
+            if (!targetTile.IsCloseEnoughFrom(sourceTile, 1))
+            {
+#if !DEDICATED_SERVER
+                UIManager.Instance.DisplayError("You can't move a piece too far away");
+#endif
+                return false;
+            }
         }
         return true;
     }
 
     public void ExecuteMovement(PlayerData playerData, BoardTile sourceTile, BoardTile targetTile)
     {
-        targetTile.TakePieceFromTile(sourceTile);
-        playerData.PlayerEconomy.PayForMovement();
+        targetTile.Piece = sourceTile.Piece;
+        if (!targetTile.Piece!.IsPlayedThisTurn) playerData.PlayerEconomy.PayForMovement();
     }
 
     public bool VerifyDeletion(PlayerData playerData, BoardTile sourceTile)
     {
-        if (sourceTile.m_Piece == null) return false;
+        if (sourceTile.Piece == null) return false;
         if (!playerData.PlayerEconomy.HasEnoughManaForDeletion())
         {
-            Debug.Log("You don't have enough mana");
+#if !DEDICATED_SERVER
+            UIManager.Instance.DisplayError("You don't have enough mana");
+#endif
             return false;
         }
         return true;
@@ -269,7 +281,7 @@ public class GameModeRPG : GameMode
 
     public void ExecuteDeletion(PlayerData playerData, BoardTile sourceTile)
     {
-        sourceTile.UpdatePiece(null);
+        sourceTile.Piece = null;
         playerData.PlayerEconomy.PayForDeletion();
     }
 }

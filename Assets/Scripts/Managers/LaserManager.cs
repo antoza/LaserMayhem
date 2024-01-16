@@ -84,11 +84,11 @@ public sealed class LaserManager : MonoBehaviour
         GameObject laserPart;
 		if (prediction)
 		{
-            laserPart = Instantiate(m_LaserVisualPredictionTemplate);
+            laserPart = Instantiate(m_LaserVisualPredictionTemplate, m_LaserContainer.transform);
 		}
 		else
 		{
-            laserPart = Instantiate(m_LaserVisualTemplate);
+            laserPart = Instantiate(m_LaserVisualTemplate, m_LaserContainer.transform);
         }
 
 		ResetBoard();
@@ -96,7 +96,6 @@ public sealed class LaserManager : MonoBehaviour
         
         TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
 		m_LaserVisualHolder.Add(laserPart);
-        laserPart.transform.SetParent(m_LaserContainer.transform);
         Vector2Int worldCoord = BoardManager.Instance.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
         laserPart.transform.position = new Vector3(worldCoord[0] + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord[1] + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
 		laserPart.transform.rotation = Quaternion.Euler(0, 0, m_Offset[DirectionToInt(m_StartingDirection), 2]);

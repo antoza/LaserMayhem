@@ -23,9 +23,9 @@ public class MouseFollower : MonoBehaviour
 
     public void ChangeFollowingTile(Tile? tile)
     {
-        if (tile != null && tile.m_Piece!)
+        if (tile != null && tile.Piece!)
         {
-            m_FollowingTileRenderer!.sprite = tile!.m_Piece!.GetSprite();
+            m_FollowingTileRenderer!.sprite = tile!.Piece!.GetSprite();
         }
         else
         {

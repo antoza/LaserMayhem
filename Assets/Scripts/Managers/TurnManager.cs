@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Linq;
 #nullable enable
 
 public sealed class TurnManager : MonoBehaviour
@@ -18,6 +20,8 @@ public sealed class TurnManager : MonoBehaviour
     private RandomPieceGenerator m_PiecesData;
 
     private SelectionTilesUpdate m_SelectionTilesUpdate;
+
+    private HashSet<Piece> _piecesPlayedThisTurn = new HashSet<Piece>();
 
     void Awake()
     {
@@ -57,6 +61,7 @@ public sealed class TurnManager : MonoBehaviour
 #endif
         RewindManager.Instance.ClearAllActions();
         LaserManager.Instance.UpdateLaser(false);
+        ResetPiecesPlayedThisTurn();
         StartCoroutine(LaserPhaseCoroutine());
     }
 
@@ -92,5 +97,25 @@ public sealed class TurnManager : MonoBehaviour
 #if !DEDICATED_SERVER
         UIManager.Instance.UpdateEndTurnButtonState("Unpressed");
 #endif
+    }
+
+    // Pieces played this turn
+
+    public void ResetPiecesPlayedThisTurn()
+    {
+        while (_piecesPlayedThisTurn.Count > 0)
+        {
+            _piecesPlayedThisTurn.First().IsPlayedThisTurn = false;
+        }
+    }
+
+    public void AddPiecePlayedThisTurn(Piece piece)
+    {
+        _piecesPlayedThisTurn.Add(piece);
+    }
+
+    public void RemovePiecePlayedThisTurn(Piece piece)
+    {
+        _piecesPlayedThisTurn.Remove(piece);
     }
 }

@@ -49,7 +49,7 @@ public sealed class BoardManager : MonoBehaviour
 
     public Piece? GetPiece(Vector2Int tile)
     {
-        return tilesArray[tile[0], tile[1]].m_Piece;
+        return tilesArray[tile[0], tile[1]].Piece;
     }
     
     public bool IsOnBoard(Vector2Int tile)

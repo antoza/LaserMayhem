@@ -16,7 +16,7 @@ public class EndTurnButton : GameButton
 
     public override void OnClick()
     {
-        if(LocalPlayerManager.Instance.TryToPlay())
+        if (LocalPlayerManager.Instance.TryToPlay())
         {
             base.OnClick();
             LocalPlayerManager.Instance.CreateAndVerifyEndTurnAction();

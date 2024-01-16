@@ -22,10 +22,22 @@ public class SelectionTilesUpdate : MonoBehaviour
         int firstEmptySelectionTileIndex = MovePiecesToTheLeft();
         int missingPiecesCount = m_SelectionTiles.Length - firstEmptySelectionTileIndex;
         List<PieceName> piecesList = new List<PieceName>(missingPiecesCount);
+
+        List<PieceName> excludedPieces = new List<PieceName>();
+        foreach (SelectionTile tile in m_SelectionTiles)
+        {
+            if (tile.Piece != null)
+            {
+                excludedPieces.Add(tile.Piece!.GetPieceName());
+            }
+        }
         for (int i = 0; i < missingPiecesCount; i++)
         {
-            piecesList.Add(m_PiecesData.GetRandomPiece());
+            PieceName randomPiece = m_PiecesData.GetRandomButUniquePiece(excludedPieces);
+            piecesList.Add(randomPiece);
+            excludedPieces.Add(randomPiece);
         }
+
         ServerSendPiecesListAction action = new ServerSendPiecesListAction(piecesList);
         AddNewPieces(firstEmptySelectionTileIndex, action.PiecesList);
 
@@ -46,7 +58,7 @@ public class SelectionTilesUpdate : MonoBehaviour
         for (int i = 0; i < m_SelectionTiles.Length; i++)
         {
             Tile currentTile = m_SelectionTiles[i];
-            if (currentTile.m_Piece)
+            if (currentTile.Piece)
             {
                 firstEmptySelectionTileIndex++;
             }
@@ -55,9 +67,9 @@ public class SelectionTilesUpdate : MonoBehaviour
                 for (int j = i + 1; j < m_SelectionTiles.Length; j++)
                 {
                     Tile otherTile = m_SelectionTiles[j];
-                    if (otherTile.m_Piece)
+                    if (otherTile.Piece)
                     {
-                        currentTile.TakePieceFromTile(otherTile);
+                        currentTile.Piece = otherTile.Piece;
                         firstEmptySelectionTileIndex++;
                         break;
                     }
