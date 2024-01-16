@@ -12,6 +12,9 @@ public class UIMenuSelectBackground : MonoBehaviour
     [field: SerializeField]
     private Image BackgroundImage;
 
+    [field: SerializeField]
+    private GameObject Selectionner;
+
     public void Start()
     {
         if(MenusManager.Instance.SkinData && MenusManager.Instance.SkinData.BackgroundSkin.ContainsKey(BackgroundName))
@@ -25,7 +28,13 @@ public class UIMenuSelectBackground : MonoBehaviour
     }
     public void OnClick()
     {
-        PlayerPrefs.SetString("Background Skin", BackgroundName); 
+        BackgroundManager.Instance.SelectNewBackground(BackgroundName);
+        Selectionner.SetActive(true);
+    }
+
+    public void DisableSelectionner()
+    {
+        Selectionner.SetActive(false);
     }
 }
 #endif
