@@ -17,7 +17,7 @@ public class UIMenuSelectBackground : MonoBehaviour
 
     public void Start()
     {
-        if(MenusManager.Instance.SkinData && MenusManager.Instance.SkinData.BackgroundSkin.ContainsKey(BackgroundName))
+        if (MenusManager.Instance.SkinData && MenusManager.Instance.SkinData.BackgroundSkin.ContainsKey(BackgroundName))
         {
             BackgroundImage.sprite = MenusManager.Instance.SkinData.BackgroundSkin[BackgroundName];
         }
@@ -25,7 +25,17 @@ public class UIMenuSelectBackground : MonoBehaviour
         {
             Debug.Log("The background name " + BackgroundName + " doesn't exist in SkinData");
         }
+
+        if (PlayerPrefs.HasKey("Background Skin"))
+        {
+            string playerPrefsBackgroundName = PlayerPrefs.GetString("Background Skin");
+            if (BackgroundName == playerPrefsBackgroundName)
+            {
+                Selectionner.SetActive(true);
+            }
+        }
     }
+
     public void OnClick()
     {
         BackgroundManager.Instance.SelectNewBackground(BackgroundName);
