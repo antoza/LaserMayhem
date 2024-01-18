@@ -20,6 +20,7 @@ public abstract class Tile : MonoBehaviour
             {
                 _piece!.ParentTile = null;
                 _piece!.gameObject.SetActive(false);
+                //_piece.transform.SetParent(transform.parent);
             }
 
             _piece = value;
@@ -64,7 +65,7 @@ public abstract class Tile : MonoBehaviour
         transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
     }
 
-    public abstract void SetColor();
+    public virtual void SetColor() { }
 
 #if !DEDICATED_SERVER
     private void OnMouseOver()

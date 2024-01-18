@@ -52,7 +52,7 @@ public class MenuMessageManager : MonoBehaviour
     {
         try
         {
-#if DEBUG
+#if DEBUG || DEDICATED_SERVER
             tcpClient = new TcpClient("127.0.0.1", 11586);
 #else
             tcpClient = new TcpClient("92.167.126.212", 11586);
@@ -65,6 +65,9 @@ public class MenuMessageManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError("Error trying to connect to the API: " + e.Message);
+#if DEDICATED_SERVER
+            Application.Quit();
+#endif
         }
         isTcpReady = true;
     }
@@ -123,6 +126,9 @@ public class MenuMessageManager : MonoBehaviour
         {
             tcpClient.Close();
             Debug.Log("Disconnected from the API");
+#if DEDICATED_SERVER
+            Application.Quit();
+#endif
         }
     }
 

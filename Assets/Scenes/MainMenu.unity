@@ -507,6 +507,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2017691079566346073, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3292854197778582680, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4426274871896801670, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
       propertyPath: m_Camera
       value: 
