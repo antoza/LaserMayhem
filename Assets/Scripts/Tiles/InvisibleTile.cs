@@ -5,6 +5,7 @@ public class InvisibleTile : Tile
 {
     public int x, y;
 
+#if !DEDICATED_SERVER
     protected override bool VerifyOnMouseButtonDown()
     {
         return false;
@@ -17,4 +18,5 @@ public class InvisibleTile : Tile
     protected override void DoOnMouseButtonUp()
     {
     }
+#endif
 }

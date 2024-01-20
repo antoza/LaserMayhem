@@ -45,7 +45,8 @@ public abstract class GameMode : ScriptableObject
     public void TriggerGameOver(int? winner)
     {
 #if DEDICATED_SERVER
-        SenderManager.Instance.SaveResults(); 
+        SenderManager.Instance.SaveResults();
+        MenuMessageManager.Instance.StopServer();
         SceneManager.LoadScene("ServerMenu");
         return;
 #else

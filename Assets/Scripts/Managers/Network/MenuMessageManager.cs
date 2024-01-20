@@ -158,6 +158,11 @@ public class MenuMessageManager : MonoBehaviour
         NetworkManager.Singleton.SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
     }
 
+    public void StopServer()
+    {
+        NetworkManager.Singleton.Shutdown();
+    }
+
     public void StartClient(int playerSecret)
     {
         GameInitialParameters.playerSecret = playerSecret;
