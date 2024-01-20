@@ -94,7 +94,7 @@ public sealed class LaserManager : MonoBehaviour
 		ResetBoard();
         CrossNextTile(m_StartingSpot, m_StartingDirection);
         
-        TurnLaser(m_StartingDirection, m_StartingSpot, laserPart);
+        RotateLaser(m_StartingDirection, m_StartingSpot, laserPart);
 		m_LaserVisualHolder.Add(laserPart);
         Vector2Int worldCoord = BoardManager.Instance.ConvertBoardCoordinateToWorldCoordinates(m_StartingSpot);
         laserPart.transform.position = new Vector3(worldCoord[0] + m_Offset[DirectionToInt(m_StartingDirection), 0], worldCoord[1] + m_Offset[DirectionToInt(m_StartingDirection), 1], 0);
@@ -114,7 +114,7 @@ public sealed class LaserManager : MonoBehaviour
                 laserPart = Instantiate(m_LaserVisualTemplate);
             }
 
-            TurnLaser(beamDirection, beamPosition, laserPart);
+            RotateLaser(beamDirection, beamPosition, laserPart);
             m_LaserVisualHolder.Add(laserPart);
             laserPart.transform.SetParent(m_LaserContainer.transform);
 			worldCoord = BoardManager.Instance.ConvertBoardCoordinateToWorldCoordinates(beamPosition);
@@ -163,7 +163,6 @@ public sealed class LaserManager : MonoBehaviour
                 }
             }
         }
-		return;
 	}
 
 	public void DisplayBeam(Vector2Int spot, Vector2Int direction, bool display)
@@ -316,7 +315,7 @@ public sealed class LaserManager : MonoBehaviour
 		return new Vector2Int(-direction[0], -direction[1]);
 	}
 
-	private void TurnLaser(Vector2Int direction,Vector2Int position, GameObject laser)
+	private void RotateLaser(Vector2Int direction,Vector2Int position, GameObject laser)
 	{
 		switch ((direction[0], direction[1]))
 		{
