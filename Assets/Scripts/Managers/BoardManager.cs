@@ -10,26 +10,13 @@ public sealed class BoardManager : MonoBehaviour
     public static BoardManager Instance { get; private set; }
 
     private GameObject m_board;
+
+    // enlever ça, prendre le transform initial de la tile et le modifier pour les coordonnées ajustées à l'écran
     public int Width { get; private set; }
     public int Height { get; private set; }
     public float ScaleWidth { get; private set; }
     public float ScaleHeight { get; private set; }
     private BoardTile[,] tilesArray;
-    /*
-    public static void SetInstance()
-    {
-        Instance = new BoardManager();
-    }
-
-    public static BoardManager GetInstance()
-    {
-        if (Instance == null)
-        {
-            Debug.LogError("BoardManager has not been instantiated");
-        }
-
-        return Instance!;
-    }*/
 
     private void Awake()
     {
