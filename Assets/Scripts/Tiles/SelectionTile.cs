@@ -11,7 +11,7 @@ public class SelectionTile : Tile
     {
         GetComponent<SpriteRenderer>().color = Color.black;
     }
-
+    /*
     public override void InitTilePositions()
     {
         transform.position = Vector2.right * positionX + Vector2.up * positionY;
@@ -20,7 +20,7 @@ public class SelectionTile : Tile
         {
             transform.localScale = new(transform.localScale.x*-1, transform.localScale.y*-1);
         }
-    }
+    }*/
 
 #if !DEDICATED_SERVER
     protected override bool VerifyOnMouseButtonDown()

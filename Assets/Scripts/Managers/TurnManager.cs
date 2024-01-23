@@ -26,7 +26,6 @@ public sealed class TurnManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        DataManager DM = DataManager.Instance;
         m_AnnouncementPhaseDuration = DataManager.Instance.Rules.AnnouncementPhaseDuration;
         m_LaserPhaseDuration = DataManager.Instance.Rules.LaserPhaseDuration;
         m_PiecesData = FindObjectOfType<RandomPieceGenerator>();
@@ -60,7 +59,7 @@ public sealed class TurnManager : MonoBehaviour
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile(); // TODO : Ligne à modifier pour ne pas avoir à appeler LocalPlayerManager ici
 #endif
         RewindManager.Instance.ClearAllActions();
-        LaserManager.Instance.UpdateLaser(false);
+        //LaserManager.Instance.UpdateLaser(false);
         ResetPiecesPlayedThisTurn();
         StartCoroutine(LaserPhaseCoroutine());
     }
@@ -81,7 +80,7 @@ public sealed class TurnManager : MonoBehaviour
 #if !DEDICATED_SERVER
         UIManager.Instance.TriggerPlayerTurnAnnouncement();
 #endif
-        LaserManager.Instance.UpdateLaser(true);
+     //   LaserManager.Instance.UpdateLaser(true);
         if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier
         StartCoroutine(AnnouncementPhaseCoroutine());
     }

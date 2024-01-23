@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4435807938155911089}
-  - component: {fileID: 4435807938155911087}
   - component: {fileID: 4435807938155911088}
   m_Layer: 0
   m_Name: PiecePrefabs
@@ -33,18 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4435807938155911087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4435807938155911090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e96c9923bac4724c95c75c30f9282eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4435807938155911088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,3 +53,7 @@ MonoBehaviour:
   - {fileID: -4142218111923267171, guid: 7b3a474dee7340140a158cc3254466e2, type: 3}
   - {fileID: -1725851887307959072, guid: 8469d627929214f4d8ffa2bd9c3bd6bd, type: 3}
   - {fileID: -8779936390711595858, guid: 49dd16c979958084c98efd632d4acbf1, type: 3}
+  - {fileID: -5974902876655898732, guid: 0b337f9f47547c64892b31bb6a82c4ef, type: 3}
+  - {fileID: -1711624985462067198, guid: 03df7472a52fa1b4dbf2192654ff4fe5, type: 3}
+  - {fileID: 5348136526620092399, guid: 0222905856cf49f459b68b759f97e707, type: 3}
+  - {fileID: -2666174060654784598, guid: eaee1423d120b9644aef0b581810d2fe, type: 3}

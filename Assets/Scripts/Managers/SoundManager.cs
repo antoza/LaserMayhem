@@ -12,7 +12,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource laserSound;
     [SerializeField] private AudioSource music;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
         InitializeMasterVolume();

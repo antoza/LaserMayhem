@@ -162,7 +162,7 @@ public class GameModeRPG : GameMode
         }
 
         RewindManager.Instance.AddAction(action);
-        LaserManager.Instance.UpdateLaser(true);
+        //LaserManager.Instance.UpdateLaser(true);
     }
 
     public void RevertMovePieceAction(MovePieceAction action)
@@ -197,7 +197,7 @@ public class GameModeRPG : GameMode
                 break;
         }
 
-        LaserManager.Instance.UpdateLaser(true);
+       // LaserManager.Instance.UpdateLaser(true);
     }
 
     public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)

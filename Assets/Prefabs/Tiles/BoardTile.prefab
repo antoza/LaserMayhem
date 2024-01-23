@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6007165419088010291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8731031, y: 3.0758376, z: 0.048777215}
+  m_LocalPosition: {x: -3, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124,14 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29083fd86d511d42ad9283ea5cf2e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionX: 0
-  positionY: 0
-  scaleWidth: 0
-  scaleHeight: 0
+  Spot: {x: 3, y: 3}
   m_startingPiece: 0
+  PieceStorage: []
   _mouseOverIndicatorPrefab: {fileID: 3322914734441509336, guid: 952d7d6cbd96e6745b2939e1430e1107, type: 3}
   _pulsatingIndicatorPrefab: {fileID: 3322914734441509336, guid: c1143160ef9fdce4bbde3a5b3938a219, type: 3}
-  x: 0
-  y: 0
   BlackSprite: {fileID: 21300000, guid: bd14b93bd8ea3f64da3ee42ad786e682, type: 3}
   WhiteSprite: {fileID: 21300000, guid: 714f73e451342a9478ed83bd32c5d7ce, type: 3}

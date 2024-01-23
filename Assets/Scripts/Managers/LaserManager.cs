@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 #nullable enable
-
+/*
 public sealed class LaserManager : MonoBehaviour
 {
 	public static LaserManager Instance { get; private set; }
@@ -41,14 +41,14 @@ public sealed class LaserManager : MonoBehaviour
 
 		return Instance!;
 	}*/
-
+/*
 	private void Awake()
 	{
 		Instance = this;
 		/*m_LaserVisualTemplate = laserVisualTemplate;
 		m_LaserVisualPredictionTemplate = laserPredictionVisualTemplate;
 		m_LaserContainer = laserContainer;*/
-		
+	/*	
 		m_LaserGrid = new bool[0, 0, 0];
 	}
 
@@ -334,3 +334,4 @@ public sealed class LaserManager : MonoBehaviour
 		}
 	}
 }
+	*/

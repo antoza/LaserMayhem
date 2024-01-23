@@ -3,7 +3,6 @@ using UnityEngine;
 #nullable enable
 public class BoardTile : Tile
 {
-    public int x, y;
     [field: SerializeField]
     private Sprite BlackSprite;
     [field: SerializeField]
@@ -11,7 +10,7 @@ public class BoardTile : Tile
 
     public override void SetColor()
     {
-        if ((x + y) % 2 == 0)
+        if ((Spot.x + Spot.y) % 2 == 0)
         {
             GetComponent<SpriteRenderer>().sprite = WhiteSprite;
         }
@@ -23,7 +22,7 @@ public class BoardTile : Tile
 
     public Vector2Int GetDeltaPosFrom(BoardTile otherBoardTile)
     {
-        return new Vector2Int(x - otherBoardTile.x, y - otherBoardTile.y);
+        return new Vector2Int(Spot.x - otherBoardTile.Spot.x, Spot.y - otherBoardTile.Spot.y);
     }
 
     public bool IsCloseEnoughFrom(BoardTile otherBoardTile, int maxDistance)

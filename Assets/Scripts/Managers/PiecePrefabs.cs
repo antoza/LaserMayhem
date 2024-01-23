@@ -14,7 +14,11 @@ public enum PieceName
     MirrorVertical,
     RotateHour,
     RotateTrigo,
-    Wall
+    Wall,
+    WeakWallBot,
+    WeakWallTop,
+    WeakWallLeft,
+    WeakWallRight
 }
 
 #nullable enable
@@ -50,8 +54,7 @@ public class PiecePrefabs : MonoBehaviour
 
     public Piece? GetPieceOrNull(PieceName pieceName)
     {
-        Piece piece;
-        if (pieceDictionary.TryGetValue(pieceName, out piece)) return piece;
+        if (pieceDictionary.TryGetValue(pieceName, out Piece piece)) return piece;
         return null;
     }
 

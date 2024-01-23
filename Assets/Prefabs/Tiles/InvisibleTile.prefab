@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6007165419088010291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8731031, y: 3.0758376, z: 0.048777215}
+  m_LocalPosition: {x: -3, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124,12 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87468957651eb4d4a986fc6eead6b2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionX: 0
-  positionY: 0
-  scaleWidth: 0
-  scaleHeight: 0
+  Spot: {x: 3, y: -4}
   m_startingPiece: 0
+  PieceStorage: []
   _mouseOverIndicatorPrefab: {fileID: 0}
   _pulsatingIndicatorPrefab: {fileID: 0}
-  x: 0
-  y: 0
