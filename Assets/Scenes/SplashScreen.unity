@@ -427,10 +427,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 166147687}
     m_Modifications:
-    - target: {fileID: 3264573191326915724, guid: d963cc7e233650643ae1e836b63fd2fd, type: 3}
-      propertyPath: music
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6329539248834174577, guid: d963cc7e233650643ae1e836b63fd2fd, type: 3}
       propertyPath: m_RootOrder
       value: -1

@@ -1,13 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using System.Collections.Generic;
 
 #nullable enable
-public abstract class Tile : MonoBehaviour
-{
-    /*[field: SerializeField]
-    private bool belongsToBoard = true;*/
-    public Vector2Int Spot;
+public interface ISwitchableTile
+{/*
+    [field: SerializeField]
+    private List<PieceName> _piecesHiddenOnStart;
+    [SerializeField]
+    protected Vector2Int _spot;
     //public float scaleWidth, scaleHeight;
     [SerializeField]
     private PieceName m_startingPiece;
@@ -43,8 +44,6 @@ public abstract class Tile : MonoBehaviour
         }
     }
 
-    public List<Piece> PieceStorage = new List<Piece>();
-
     [field: SerializeField]
     private GameObject? _mouseOverIndicatorPrefab;
     private GameObject? _mouseOverIndicator;
@@ -55,7 +54,7 @@ public abstract class Tile : MonoBehaviour
 
     void Start()
     {
-        //InitTilePositions();
+        InitTilePositions();
         InstantiatePiece(m_startingPiece);
 #if !DEDICATED_SERVER
         InitMouseOverIndicator();
@@ -64,11 +63,16 @@ public abstract class Tile : MonoBehaviour
         SetColor();
     }
 
+    private void RegisterTile()
+    {
+        BoardManager.Instance.RegisterTile(_spot, this);
+    }
+
     protected virtual void InitTilePositions()
     {
-        //if (!belongsToBoard) return;
+        if (!belongsToBoard) return;
         int sign = GameInitialParameters.localPlayerID == 1 ? -1 : 1;
-        transform.position = sign * (Vector2.right * Spot.x + Vector2.up * Spot.y);
+        transform.position = sign * (Vector2.right * _spot.x + Vector2.up * _spot.y);
         //transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
     }
 
@@ -165,37 +169,18 @@ public abstract class Tile : MonoBehaviour
     }
 #endif
 
-    public Tile InstantiateTile()
-    {
-        return Instantiate(this).GetComponent<Tile>();
-    }
-
-    public TileName GetTileName()
-    {
-        return TilePrefabs.Instance.GetTileNameFromTile(this);
-    }
-
     public void InstantiatePiece(PieceName pieceName)
     {
         if (pieceName != PieceName.None)
         {
-            Piece = PiecePrefabs.Instance.GetPiece(pieceName).InstantiatePiece(gameObject);
+            Assert.IsNull(Piece);
+            Piece = PiecePrefabs.Instance.GetPiece(pieceName).InstantiatePiece();
         }
     }
 
     public void InstantiatePiece(Piece piece)
     {
-        InstantiatePiece(piece.GetPieceName());
-    }
-
-    public void StorePiece(PieceName pieceName)
-    {
-        if (pieceName != PieceName.None)
-        {
-            Piece pieceStored = PiecePrefabs.Instance.GetPiece(pieceName).InstantiatePiece(gameObject);
-            PieceStorage.Add(pieceStored);
-            pieceStored.gameObject.SetActive(false);
-        }
+        InstantiatePiece(PiecePrefabs.Instance.GetPieceNameFromPiece(piece));
     }
 
     public void DestroyPiece()
@@ -203,7 +188,7 @@ public abstract class Tile : MonoBehaviour
         Assert.IsNotNull(Piece);
         Destroy(Piece!.gameObject);
         Piece = null;
-    }
+    }*/
     /*
     public void TakePieceFromTile(Tile otherTile)
     {

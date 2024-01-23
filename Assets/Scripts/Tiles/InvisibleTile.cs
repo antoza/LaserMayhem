@@ -3,8 +3,6 @@ using UnityEngine;
 #nullable enable
 public class InvisibleTile : Tile
 {
-    public int x, y;
-
 #if !DEDICATED_SERVER
     protected override bool VerifyOnMouseButtonDown()
     {

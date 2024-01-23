@@ -9,6 +9,7 @@ public class LocalPlayerManager : MonoBehaviour
     public static LocalPlayerManager Instance { get; private set; }
 
     public PlayerData LocalPlayer { get; private set; }
+    [HideInInspector]
     public Tile? SourceTile;
 
     private void Awake()

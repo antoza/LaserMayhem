@@ -51,9 +51,9 @@ public abstract class Piece : MonoBehaviour
         }
     }
 
-    public Piece InstantiatePiece()
+    public Piece InstantiatePiece(GameObject? parent = null)
     {
-        return Instantiate(this).GetComponent<Piece>();
+        return Instantiate(this, parent?.transform).GetComponent<Piece>();
     }
 
     public PieceName GetPieceName()
