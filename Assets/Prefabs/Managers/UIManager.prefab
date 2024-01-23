@@ -49,3 +49,22 @@ MonoBehaviour:
   victoryPopUp: {fileID: 0}
   defeatPopUp: {fileID: 0}
   drawPopUp: {fileID: 0}
+  usernameTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  healthTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  manaTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  movementCostTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  deletionCostTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerTurnAnnouncement: {fileID: 0}
+  endTurnButton: {fileID: 0}
+  BackgroundImage: {fileID: 0}
+  SkinData: {fileID: 11400000, guid: d3bc5ad81c7c06945879f8080766bbb8, type: 2}
