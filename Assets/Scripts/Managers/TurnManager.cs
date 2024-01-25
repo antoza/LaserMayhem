@@ -4,6 +4,8 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
 #nullable enable
 
 public sealed class TurnManager : MonoBehaviour
@@ -59,7 +61,7 @@ public sealed class TurnManager : MonoBehaviour
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile(); // TODO : Ligne à modifier pour ne pas avoir à appeler LocalPlayerManager ici
 #endif
         RewindManager.Instance.ClearAllActions();
-        //LaserManager.Instance.UpdateLaser(false);
+        BoardManager.Instance.DisplayEndTurnLaser();
         ResetPiecesPlayedThisTurn();
         StartCoroutine(LaserPhaseCoroutine());
     }
@@ -80,8 +82,11 @@ public sealed class TurnManager : MonoBehaviour
 #if !DEDICATED_SERVER
         UIManager.Instance.TriggerPlayerTurnAnnouncement();
 #endif
-     //   LaserManager.Instance.UpdateLaser(true);
+        BoardManager.Instance.SwitchWeakSides(m_TurnNumber);
+        BoardManager.Instance.DisplayPredictionLaser();
+#if DEDICATED_SERVER
         if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier
+#endif
         StartCoroutine(AnnouncementPhaseCoroutine());
     }
 

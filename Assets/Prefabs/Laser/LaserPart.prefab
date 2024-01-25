@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 112812803008354553}
   - component: {fileID: 1140185516470519224}
   - component: {fileID: 1066217892282569563}
+  - component: {fileID: -2203173693486875877}
   m_Layer: 0
   m_Name: LaserPart
   m_TagString: LaserVisual
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8791000958007595982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7634, y: -3.513, z: 0.41932258}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105,3 +106,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-2203173693486875877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8791000958007595982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36925f9963d7994aa46057be5fa552f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DealsDamage: 1

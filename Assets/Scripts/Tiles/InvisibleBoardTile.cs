@@ -1,7 +1,7 @@
 using UnityEngine;
 
 #nullable enable
-public class InvisibleTile : Tile
+public class InvisibleBoardTile : BoardTile
 {
 #if !DEDICATED_SERVER
     protected override bool VerifyOnMouseButtonDown()

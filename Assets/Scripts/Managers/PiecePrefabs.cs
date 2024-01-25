@@ -7,18 +7,19 @@ using UnityEngine.Assertions;
 public enum PieceName
 {
     None,
+    LaserEmitter,
     MirrorSlash,
     MirrorBackSlash,
-    Divider,
+    MirrorDivider,
     MirrorHorizontal,
     MirrorVertical,
-    RotateHour,
-    RotateTrigo,
+    MirrorHour,
+    MirrorTrigo,
     Wall,
-    WeakWallBot,
-    WeakWallTop,
-    WeakWallLeft,
-    WeakWallRight
+    WeaknessRight,
+    WeaknessLeft,
+    WeaknessUp,
+    WeaknessDown
 }
 
 #nullable enable

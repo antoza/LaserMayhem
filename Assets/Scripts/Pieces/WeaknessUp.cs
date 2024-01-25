@@ -4,10 +4,10 @@ using System.Linq;
 using UnityEngine;
 
 #nullable enable
-public class Wall : Piece
+public class WeaknessUp : Weakness
 {
-    public override void ReceiveLaser(Laser? laser, Vector2Int direction)
+    private void Awake()
     {
-        return;
+        weaknessDirections = new List<Vector2Int>() { Vector2Int.up };
     }
 }

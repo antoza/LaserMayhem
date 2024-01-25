@@ -187,7 +187,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetBackground()
-    {
+    {/* TODO : décommenter (j'ai commenté car ça me créait des erreurs)
         if(PlayerPrefs.HasKey("Background Skin") && SkinData)
         {
             string backgroundSpriteName = PlayerPrefs.GetString("Background Skin");
@@ -203,7 +203,7 @@ public class UIManager : MonoBehaviour
             {
                 BackgroundImage.sprite = SkinData.BackgroundSkin[backgroundSpriteName];
             }
-        }
+        }*/
     }
 #endif
 }

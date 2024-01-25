@@ -66,5 +66,8 @@ public abstract class Piece : MonoBehaviour
         return GetComponent<SpriteRenderer>().sprite;
     }
 
-    public abstract IEnumerable<Vector2Int> ComputeNewDirections(Vector2Int sourceDirection);
+    public virtual void ReceiveLaser(Laser? laser, Vector2Int inDirection)
+    {
+        Assert.IsTrue(ParentTile is BoardTile);
+    }
 }

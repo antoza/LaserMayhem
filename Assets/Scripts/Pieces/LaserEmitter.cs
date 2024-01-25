@@ -1,24 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
+#nullable enable
 public class LaserEmitter : Piece
 {
+    // TODO : permettre qqc comme ça dans l'editor : private List<Direction> _startingDirections;
+    // TODO : tourner la pièce de la bonne rotation en fonction du laser de départ
+    protected List<Vector2Int> _startingDirections = new List<Vector2Int>() { Vector2Int.right };
 
-    [SerializeField]
-    private Direction StartingDirection;
-    public override IEnumerable<Vector2Int> ComputeNewDirections(Vector2Int sourceDirection)
+    public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {
-        yield return LaserManager.Instance.DirectionEnumToVector(StartingDirection);
+        return;
+    }
+
+    public void StartLaser(Laser? laser)
+    {
+        Assert.IsTrue(ParentTile is BoardTile);
+        foreach (Vector2Int startingDirection in _startingDirections)
+        {
+            ((BoardTile?)ParentTile)!.TransferLaser(laser, startingDirection);
+        }
     }
 
     //TODO : Events may be renamed
-    private void Start()
+    /*private void Start()
     {
         TurnManager.OnEndTurn += OnEndTurn;
         TurnManager.OnEndLaserPhase += OnEndLaserPhase;
     }
-
+    
     private void OnEndTurn()
     {
         StartLaser(false);
@@ -27,13 +39,5 @@ public class LaserEmitter : Piece
     private void OnEndLaserPhase()
     {
         StartLaser(true);
-    }
-
-    private void StartLaser(bool prediction)
-    {
-        if(ParentTile is BoardTile)
-        {
-            ((BoardTile)ParentTile).PropagateLaser(prediction, StartingDirection);
-        }
-    }
+    }*/
 }

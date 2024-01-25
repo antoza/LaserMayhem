@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -5,12 +6,8 @@ using UnityEngine.Assertions;
 #nullable enable
 public abstract class Tile : MonoBehaviour
 {
-    /*[field: SerializeField]
-    private bool belongsToBoard = true;*/
-    public Vector2Int Spot;
-    //public float scaleWidth, scaleHeight;
     [SerializeField]
-    private PieceName m_startingPiece;
+    private PieceName _startingPiece;
 
     private Piece? _piece;
     public Piece? Piece
@@ -42,7 +39,10 @@ public abstract class Tile : MonoBehaviour
             }
         }
     }
-
+    // TODO : Créer les pièces indiquées dans _pieceStorage et les enregistrer dans PieceStorage
+    [SerializeField]
+    private PieceName _pieceStorage;
+    [HideInInspector]
     public List<Piece> PieceStorage = new List<Piece>();
 
     [field: SerializeField]
@@ -56,20 +56,12 @@ public abstract class Tile : MonoBehaviour
     void Start()
     {
         //InitTilePositions();
-        InstantiatePiece(m_startingPiece);
+        InstantiatePiece(_startingPiece);
 #if !DEDICATED_SERVER
         InitMouseOverIndicator();
         InitPulsatingIndicator();
 #endif
         SetColor();
-    }
-
-    protected virtual void InitTilePositions()
-    {
-        //if (!belongsToBoard) return;
-        int sign = GameInitialParameters.localPlayerID == 1 ? -1 : 1;
-        transform.position = sign * (Vector2.right * Spot.x + Vector2.up * Spot.y);
-        //transform.localScale = Vector2.right * scaleWidth + Vector2.up * scaleHeight;
     }
 
     public virtual void SetColor() { }
@@ -204,11 +196,4 @@ public abstract class Tile : MonoBehaviour
         Destroy(Piece!.gameObject);
         Piece = null;
     }
-    /*
-    public void TakePieceFromTile(Tile otherTile)
-    {
-        Piece? piece = otherTile.Piece;
-        otherTile.Piece = null;
-        Piece = piece;
-    }*/
 }

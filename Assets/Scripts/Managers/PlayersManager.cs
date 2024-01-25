@@ -69,11 +69,11 @@ public sealed class PlayersManager : MonoBehaviour
         Assert.IsFalse(GameInitialParameters.localPlayerID == -1, "You are the server");
         return GetPlayer(GameInitialParameters.localPlayerID);
     }*/
-
+    /*
     public void HitPlayer(int id, int damage)
     {
         playerList[id].PlayerHealth.TakeDamage(damage);
-    }
+    }*/
 
     public int GetHealth(int id)
     {

@@ -7,8 +7,8 @@ using UnityEngine.Assertions;
 public enum TileName
 {
     None,
-    BoardTile,
-    InvisibleTile,
+    NormalBoardTile,
+    InvisibleBoardTile,
     SelectionTile,
     InfiniteTile,
     TrashTile,

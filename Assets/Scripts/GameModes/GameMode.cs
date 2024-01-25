@@ -8,7 +8,7 @@ public abstract class GameMode : ScriptableObject
     public virtual void Initialise()
     {
     }
-
+    /*
     public void ProcessLeavingLasers(List<int> leavingLasersRight, List<int> leavingLasersLeft, List<int> leavingLasersTop, List<int> leavingLasersBot)
     {
         if(GameInitialParameters.localPlayerID == 1)
@@ -24,7 +24,7 @@ public abstract class GameMode : ScriptableObject
             PlayersManager.Instance.HitPlayer(PlayersManager.Instance.currentPlayerID, leavingLasersLeft.Count + leavingLasersRight.Count);
         }
         
-    }
+    }*/
 
     public abstract bool CheckGameOver();
 

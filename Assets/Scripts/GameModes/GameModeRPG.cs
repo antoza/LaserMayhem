@@ -113,19 +113,19 @@ public class GameModeRPG : GameMode
 
         switch ((sourceTile!, targetTile))
         {
-            case (SelectionTile, BoardTile):
-                if (!VerifyPlacement(playerData, (SelectionTile)sourceTile, (BoardTile)targetTile)) return false;
+            case (SelectionTile, NormalBoardTile):
+                if (!VerifyPlacement(playerData, (SelectionTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
 #if DEBUG
-            case (InfiniteTile, BoardTile):
-                if (!VerifyCheatPlacement((InfiniteTile)sourceTile, (BoardTile)targetTile)) return false;
+            case (InfiniteTile, NormalBoardTile):
+                if (!VerifyCheatPlacement((InfiniteTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
 #endif
-            case (BoardTile, BoardTile):
-                if (!VerifyMovement(playerData, (BoardTile)sourceTile, (BoardTile)targetTile)) return false;
+            case (NormalBoardTile, NormalBoardTile):
+                if (!VerifyMovement(playerData, (NormalBoardTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
-            case (BoardTile, TrashTile):
-                if (!VerifyDeletion(playerData, (BoardTile)sourceTile)) return false;
+            case (NormalBoardTile, TrashTile):
+                if (!VerifyDeletion(playerData, (NormalBoardTile)sourceTile)) return false;
                 break;
             default:
                 return false;
@@ -135,26 +135,29 @@ public class GameModeRPG : GameMode
 
     public void ExecuteMovePieceAction(MovePieceAction action)
     {
+        // TODO : je n'aime pas cette approche, il faudrait que Clear / DisplayLaser soient appelés lors d'une modification du board
+        BoardManager.Instance.ClearLaser();
+
         Tile sourceTile = action.SourceTile;
         Tile targetTile = action.TargetTile;
         PlayerData playerData = action.PlayerData;
 
         switch ((sourceTile!, targetTile))
         {
-            case (SelectionTile, BoardTile):
-                ExecutePlacement(playerData, (SelectionTile)sourceTile, (BoardTile)targetTile);
+            case (SelectionTile, NormalBoardTile):
+                ExecutePlacement(playerData, (SelectionTile)sourceTile, (NormalBoardTile)targetTile);
                 break;
 #if DEBUG
-            case (InfiniteTile, BoardTile):
-                ExecuteCheatPlacement((InfiniteTile)sourceTile, (BoardTile)targetTile);
+            case (InfiniteTile, NormalBoardTile):
+                ExecuteCheatPlacement((InfiniteTile)sourceTile, (NormalBoardTile)targetTile);
                 break;
 #endif
-            case (BoardTile, BoardTile):
-                ExecuteMovement(playerData, (BoardTile)sourceTile, (BoardTile)targetTile);
+            case (NormalBoardTile, NormalBoardTile):
+                ExecuteMovement(playerData, (NormalBoardTile)sourceTile, (NormalBoardTile)targetTile);
                 break;
-            case (BoardTile, TrashTile):
+            case (NormalBoardTile, TrashTile):
                 action.SourcePiece = sourceTile.Piece;
-                ExecuteDeletion(playerData, (BoardTile)sourceTile);
+                ExecuteDeletion(playerData, (NormalBoardTile)sourceTile);
                 break;
             default:
                 // TODO : On peut rajouter un Throw Exception
@@ -162,33 +165,35 @@ public class GameModeRPG : GameMode
         }
 
         RewindManager.Instance.AddAction(action);
-        //LaserManager.Instance.UpdateLaser(true);
+        BoardManager.Instance.DisplayPredictionLaser();
     }
 
     public void RevertMovePieceAction(MovePieceAction action)
     {
+        BoardManager.Instance.ClearLaser();
+
         Tile sourceTile = action.SourceTile;
         Tile targetTile = action.TargetTile;
         PlayerData playerData = action.PlayerData;
 
         switch ((sourceTile!, targetTile))
         {
-            case (SelectionTile, BoardTile):
+            case (SelectionTile, NormalBoardTile):
                 playerData.PlayerEconomy.RefundPlacement(((SelectionTile)sourceTile).cost);
                 targetTile.Piece!.IsPlayedThisTurn = false;
                 sourceTile.Piece = targetTile.Piece;
                 break;
 #if DEBUG
-            case (InfiniteTile, BoardTile):
+            case (InfiniteTile, NormalBoardTile):
                 targetTile.DestroyPiece();
                 break;
 #endif
-            case (BoardTile, BoardTile):
+            case (NormalBoardTile, NormalBoardTile):
                 if (!targetTile.Piece!.IsPlayedThisTurn) playerData.PlayerEconomy.RefundMovement();
                 sourceTile.Piece = targetTile.Piece;
                 break;
 
-            case (BoardTile, TrashTile):
+            case (NormalBoardTile, TrashTile):
                 playerData.PlayerEconomy.RefundDeletion();
                 sourceTile.Piece = action.SourcePiece;
                 break;
@@ -197,10 +202,10 @@ public class GameModeRPG : GameMode
                 break;
         }
 
-       // LaserManager.Instance.UpdateLaser(true);
+        BoardManager.Instance.DisplayPredictionLaser();
     }
 
-    public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)
+    public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, NormalBoardTile targetTile)
     {
         if (sourceTile.Piece == null) return false;
         if (targetTile.Piece != null) return false;
@@ -214,7 +219,7 @@ public class GameModeRPG : GameMode
         return true;
     }
 
-    public void ExecutePlacement(PlayerData playerData, SelectionTile sourceTile, BoardTile targetTile)
+    public void ExecutePlacement(PlayerData playerData, SelectionTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece;
         targetTile.Piece!.IsPlayedThisTurn = true;
@@ -222,20 +227,20 @@ public class GameModeRPG : GameMode
     }
 
 #if DEBUG
-    public bool VerifyCheatPlacement(InfiniteTile sourceTile, BoardTile targetTile)
+    public bool VerifyCheatPlacement(InfiniteTile sourceTile, NormalBoardTile targetTile)
     {
         if (sourceTile.Piece == null) return false;
         if (targetTile.Piece != null) return false;
         return true;
     }
 
-    public void ExecuteCheatPlacement(InfiniteTile sourceTile, BoardTile targetTile)
+    public void ExecuteCheatPlacement(InfiniteTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.InstantiatePiece(sourceTile.Piece!);
     }
 #endif
 
-    public bool VerifyMovement(PlayerData playerData, BoardTile sourceTile, BoardTile targetTile)
+    public bool VerifyMovement(PlayerData playerData, NormalBoardTile sourceTile, NormalBoardTile targetTile)
     {
         if (sourceTile.Piece == null) return false;
         if (targetTile.Piece != null) return false;
@@ -260,13 +265,13 @@ public class GameModeRPG : GameMode
         return true;
     }
 
-    public void ExecuteMovement(PlayerData playerData, BoardTile sourceTile, BoardTile targetTile)
+    public void ExecuteMovement(PlayerData playerData, NormalBoardTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece;
         if (!targetTile.Piece!.IsPlayedThisTurn) playerData.PlayerEconomy.PayForMovement();
     }
 
-    public bool VerifyDeletion(PlayerData playerData, BoardTile sourceTile)
+    public bool VerifyDeletion(PlayerData playerData, NormalBoardTile sourceTile)
     {
         if (sourceTile.Piece == null) return false;
         if (!playerData.PlayerEconomy.HasEnoughManaForDeletion())
@@ -279,7 +284,7 @@ public class GameModeRPG : GameMode
         return true;
     }
 
-    public void ExecuteDeletion(PlayerData playerData, BoardTile sourceTile)
+    public void ExecuteDeletion(PlayerData playerData, NormalBoardTile sourceTile)
     {
         sourceTile.Piece = null;
         playerData.PlayerEconomy.PayForDeletion();
