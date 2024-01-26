@@ -1,3 +1,4 @@
+#if !DEDICATED_SERVER
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,3 +14,4 @@ public class URLOpener : MenuButton
         Application.OpenURL(_link);
     }
 }
+#endif
