@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _piecesPool:
     _serializedList:
-    - Key: 1
+    - Key: 201
       Value: 20
-    - Key: 2
+    - Key: 202
       Value: 20
-    - Key: 3
+    - Key: 203
       Value: 14
-    - Key: 4
+    - Key: 204
       Value: 8
-    - Key: 5
+    - Key: 205
       Value: 8
-    - Key: 6
+    - Key: 206
       Value: 15
-    - Key: 7
+    - Key: 207
       Value: 15
-    - Key: 8
+    - Key: 101
       Value: 0

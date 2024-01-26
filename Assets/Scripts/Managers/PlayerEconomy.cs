@@ -13,7 +13,7 @@ public class PlayerEconomy : ScriptableObject
         {
             _mana = value;
 #if !DEDICATED_SERVER
-            UIManager.Instance.UpdateMana(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateMana(PlayerData.m_playerID, value);
 #endif
         }
     }
@@ -26,7 +26,7 @@ public class PlayerEconomy : ScriptableObject
         {
             _deletionCost = value;
 #if !DEDICATED_SERVER
-            UIManager.Instance.UpdateDeletionCost(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateDeletionCost(PlayerData.m_playerID, value);
 #endif
         }
     }
@@ -39,7 +39,7 @@ public class PlayerEconomy : ScriptableObject
         {
             _movementCost = value;
 #if !DEDICATED_SERVER
-            UIManager.Instance.UpdateMovementCost(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateMovementCost(PlayerData.m_playerID, value);
 #endif
         }
     }

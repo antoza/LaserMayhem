@@ -6926,9 +6926,51 @@ PrefabInstance:
       propertyPath: movementCostTexts.Array.data[1]
       value: 
       objectReference: {fileID: 478928936}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3682243243945932287, guid: 2d9d75fe51719204ba9766511a90455b, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d9d75fe51719204ba9766511a90455b, type: 3}
+--- !u!1 &4389833713484913929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1781936758209994774, guid: 2d9d75fe51719204ba9766511a90455b, type: 3}
+  m_PrefabInstance: {fileID: 4389833713484913928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4389833713484913930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389833713484913929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0da63287e24aa649813b3e7f5a30393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 8984248167249483960}
+  errorMessagePrefab: {fileID: 7181355789838300023, guid: a44dfc89e0f32ff4581a03beb32b2ac4, type: 3}
+  victoryPopUp: {fileID: 474262519}
+  defeatPopUp: {fileID: 474262518}
+  drawPopUp: {fileID: 1826033325}
+  usernameTexts:
+  - {fileID: 3995423208959069324}
+  - {fileID: 1896629988434365350}
+  healthTexts:
+  - {fileID: 6219218872958584804}
+  - {fileID: 572857966201125193}
+  manaTexts:
+  - {fileID: 4313095651180090461}
+  - {fileID: 462722971072645933}
+  movementCostTexts:
+  - {fileID: 9012026400512888001}
+  - {fileID: 478928936}
+  deletionCostTexts:
+  - {fileID: 9012026400060068207}
+  - {fileID: 494116617}
+  playerTurnAnnouncement: {fileID: 95105106813914362}
+  endTurnButton: {fileID: 941530502}
+  BackgroundImage: {fileID: 0}
+  SkinData: {fileID: 0}
 --- !u!1001 &4966037127480070307
 PrefabInstance:
   m_ObjectHideFlags: 0

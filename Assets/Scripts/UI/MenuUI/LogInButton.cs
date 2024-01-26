@@ -14,6 +14,14 @@ public class LogInButton : MenuButton
     {
         string username = UsernameInputField.text;
         string password = PasswordInputField.text;
+        foreach (char c in username + password)
+        {
+            if (!(char.IsLetter(c) || char.IsDigit(c) || password.Length < 8))
+            {
+                UIManager.Instance.DisplayError("Incorrect username or password");
+                return;
+            }
+        }
         SenderManager.Instance.LogIn(username, password);
     }
 }

@@ -16,7 +16,7 @@ public class PlayerData : ScriptableObject
         {
             _username = value;
 #if !DEDICATED_SERVER
-            UIManager.Instance.UpdateUsername(m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateUsername(m_playerID, value);
 #endif
         }
     }

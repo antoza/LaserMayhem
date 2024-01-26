@@ -19,6 +19,9 @@ public class ReceiverManager : MonoBehaviour
                 TemporaryFunctionToStartServer(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()));
                 break;
 #else
+            case "DisplayError":
+                TemporaryFunctionToDisplayError(parsedMessage.Dequeue());
+                break;
             case "LogIn":
                 TemporaryFunctionToLogIn(parsedMessage.Dequeue(), parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()));
                 break;
@@ -52,6 +55,11 @@ public class ReceiverManager : MonoBehaviour
     }
 
 #else
+
+    private static void TemporaryFunctionToDisplayError(string message)
+    {
+        UIManager.Instance.DisplayError(message);
+    }
 
     private static void TemporaryFunctionToLogIn(string playerID, string username, int playerMMR)
     {

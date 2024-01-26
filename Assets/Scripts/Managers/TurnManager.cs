@@ -57,7 +57,7 @@ public sealed class TurnManager : MonoBehaviour
     public void StartLaserPhase()
     {
 #if !DEDICATED_SERVER
-        UIManager.Instance.UpdateEndTurnButtonState("Pressed");
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile(); // TODO : Ligne à modifier pour ne pas avoir à appeler LocalPlayerManager ici
 #endif
         RewindManager.Instance.ClearAllActions();
@@ -80,7 +80,7 @@ public sealed class TurnManager : MonoBehaviour
         }
         PlayersManager.Instance.StartNextPlayerTurn(++m_TurnNumber);
 #if !DEDICATED_SERVER
-        UIManager.Instance.TriggerPlayerTurnAnnouncement();
+        ((UIManagerGame)UIManager.Instance).TriggerPlayerTurnAnnouncement();
 #endif
         BoardManager.Instance.SwitchWeakSides(m_TurnNumber);
         BoardManager.Instance.DisplayPredictionLaser();
@@ -99,7 +99,7 @@ public sealed class TurnManager : MonoBehaviour
     public void StartTurnPhase()
     {
 #if !DEDICATED_SERVER
-        UIManager.Instance.UpdateEndTurnButtonState("Unpressed");
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
 #endif
     }
 

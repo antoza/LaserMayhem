@@ -7,19 +7,19 @@ using UnityEngine.Assertions;
 public enum PieceName
 {
     None,
-    LaserEmitter,
-    MirrorSlash,
-    MirrorBackSlash,
-    MirrorDivider,
-    MirrorHorizontal,
-    MirrorVertical,
-    MirrorHour,
-    MirrorTrigo,
-    Wall,
-    WeaknessRight,
-    WeaknessLeft,
-    WeaknessUp,
-    WeaknessDown
+    LaserEmitter = 1,
+    Wall = 101,
+    MirrorSlash = 201,
+    MirrorBackSlash = 202,
+    MirrorDivider = 203,
+    MirrorHorizontal = 204,
+    MirrorVertical = 205,
+    MirrorHour = 206,
+    MirrorTrigo = 207,
+    WeaknessRight = 301,
+    WeaknessLeft = 302,
+    WeaknessUp = 303,
+    WeaknessDown = 304
 }
 
 #nullable enable

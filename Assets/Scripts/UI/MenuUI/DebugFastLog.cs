@@ -11,22 +11,19 @@ public class DebugFastLog : MenuButton
     //[SerializeField]
     //public string SceneName;
 
+#if !DEBUG
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
+#endif
+
     public override void DoOnClick()
     {
         if (Letter == null) return;
         string username = Letter;
         string password = Letter + Letter + Letter + Letter + Letter + Letter + Letter + Letter;
         SenderManager.Instance.LogIn(username, password);
-        //StartCoroutine(SearchGameCoroutine());
     }
-    /*
-    public IEnumerator SearchGameCoroutine()
-    {
-        yield return new WaitForSeconds(3);
-        if (SceneName != null)
-        {
-            SenderManager.Instance.SearchGame(SceneName);
-        }
-    }*/
 }
 #endif

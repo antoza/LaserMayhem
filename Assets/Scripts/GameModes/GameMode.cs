@@ -52,17 +52,17 @@ public abstract class GameMode : ScriptableObject
 #else
         if (winner == null)
         {
-            UIManager.Instance.TriggerDraw();
+            ((UIManagerGame)UIManager.Instance).TriggerDraw();
         }
         else
         {
             if (winner! == GameInitialParameters.localPlayerID)
             {
-                UIManager.Instance.TriggerVictory();
+                ((UIManagerGame)UIManager.Instance).TriggerVictory();
             }
             else
             {
-                UIManager.Instance.TriggerDefeat();
+                ((UIManagerGame)UIManager.Instance).TriggerDefeat();
             }
         }
 #endif
