@@ -18,7 +18,7 @@ public class LogInButton : MenuButton
         {
             if (!(char.IsLetter(c) || char.IsDigit(c) || password.Length < 8))
             {
-                UIManager.Instance.DisplayError("Incorrect username or password");
+                UIManager.Instance.DisplayErrorMessage("Incorrect username or password");
                 return;
             }
         }

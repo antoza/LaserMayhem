@@ -253,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 430411238}
   errorMessagePrefab: {fileID: 7181355789838300023, guid: a44dfc89e0f32ff4581a03beb32b2ac4, type: 3}
+  wideMessagePrefab: {fileID: 5204183707723045741, guid: 0ad2108a4b0327c49a38e71b4d4e2b26, type: 3}
 --- !u!1 &417328868
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +729,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6329539248834174577, guid: d963cc7e233650643ae1e836b63fd2fd, type: 3}
   m_PrefabInstance: {fileID: 767057791}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &889196512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889196513}
+  m_Layer: 0
+  m_Name: NoneMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &889196513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889196512}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1386177716}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &904727662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,6 +1453,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361199846}
   m_CullTransparentMesh: 1
+--- !u!224 &1386177716 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3292854197502003341, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+  m_PrefabInstance: {fileID: 3292854198255520532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1443683156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,6 +1959,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1827250876}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
+      propertyPath: m_ConnectionNone
+      value: 
+      objectReference: {fileID: 889196512}
+    - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: m_MatchmakingMenu
       value: 
       objectReference: {fileID: 1757524069}
@@ -2054,6 +2095,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3292854196856236456, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3292854197778582680, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2100,6 +2145,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4654976653550505801, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654976653550505801, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654976653550505801, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654976653550505801, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4654976653550505801, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
@@ -2167,6 +2224,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4654976653550505801, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 583987059}
+    - targetCorrespondingSourceObject: {fileID: 3292854197502003341, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 889196513}
     - targetCorrespondingSourceObject: {fileID: 3292854196856236457, guid: 237270c5f74549f449a66eb2b81614ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1951225396}

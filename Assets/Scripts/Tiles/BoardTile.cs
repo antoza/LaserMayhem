@@ -15,12 +15,7 @@ public abstract class BoardTile : Tile
         { Vector2Int.left, null },
         { Vector2Int.up, null },
         { Vector2Int.down, null }
-};
-
-    void Start()
-    {
-        //InitTilePositions();
-    }
+    };
 
     protected virtual void InitTilePositions()
     {
@@ -61,7 +56,7 @@ public abstract class BoardTile : Tile
         {
             newLaser = Instantiate(laser, transform);
             // TODO : généraliser ce calcul de rotation de sprite aux tiles et aux pièces
-            int displayRotation = -90 + outDirection.x * 90 + outDirection.y * 180;
+            int displayRotation = (outDirection.x - Math.Abs(outDirection.x)) * 90 + outDirection.y * 90;
             Vector2 displayTranslation = (Vector2)outDirection / 2;
             if (GameInitialParameters.localPlayerID == 1)
             {

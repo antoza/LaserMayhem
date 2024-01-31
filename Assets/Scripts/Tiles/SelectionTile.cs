@@ -28,7 +28,7 @@ public class SelectionTile : Tile
         if (!base.VerifyOnMouseButtonDown()) return false;
         if (!LocalPlayerManager.Instance.LocalPlayer.PlayerEconomy.HasEnoughMana(cost))
         {
-            UIManager.Instance.DisplayError("You don't have enough mana to buy this piece.");
+            UIManager.Instance.DisplayErrorMessage("You don't have enough mana to buy this piece.");
             return false;
         }
         return true;

@@ -23,6 +23,8 @@ public abstract class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject errorMessagePrefab;
     private float errorDisplayTime = 8f;
+    [SerializeField]
+    private GameObject wideMessagePrefab;
 
     void Awake()
     {
@@ -48,12 +50,19 @@ public abstract class UIManager : MonoBehaviour
 
     // Error message
 
-    public async void DisplayError(string error)
+    public async void DisplayErrorMessage(string message)
     {
         await WaitForReadiness();
         GameObject errorMessageGameObject = Instantiate(errorMessagePrefab, canvas.transform);
-        errorMessageGameObject.GetComponent<TextMeshProUGUI>().text = error;
+        errorMessageGameObject.GetComponent<TextMeshProUGUI>().text = message;
         StartCoroutine(DestroyCoroutine(errorMessageGameObject, errorDisplayTime));
+    }
+
+    public async void DisplayWideMessage(string message)
+    {
+        await WaitForReadiness();
+        GameObject wideMessageGameObject = Instantiate(wideMessagePrefab, canvas.transform);
+        wideMessageGameObject.GetComponentInChildren<TextMeshProUGUI>().text = message;
     }
 
     protected IEnumerator DestroyCoroutine(GameObject go, float delay)

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum Menus
 {
+    None,
     Connection,
     Main,
     GameMode, 
@@ -18,6 +19,8 @@ public class MenusManager : MonoBehaviour
 {
     public static MenusManager Instance { get; private set; }
 
+    [field: SerializeField]
+    private GameObject m_ConnectionNone;
     [field: SerializeField]
     private GameObject m_ConnectionMenu;
     [field: SerializeField]
@@ -37,7 +40,7 @@ public class MenusManager : MonoBehaviour
 
     private Dictionary<Menus, GameObject> m_Menus;
 
-    private Menus m_CurrentMenus = Menus.Connection;
+    private Menus m_CurrentMenus = Menus.None;
     private bool m_CanInteractWithUI = true;
 
     private void Awake()
@@ -48,6 +51,7 @@ public class MenusManager : MonoBehaviour
     private void Start()
     {
         m_Menus = new Dictionary<Menus, GameObject>();
+        m_Menus[Menus.None] = m_ConnectionNone;
         m_Menus[Menus.Connection] = m_ConnectionMenu;
         m_Menus[Menus.Main] = m_MainMenu;
         m_Menus[Menus.GameMode] = m_GamemodeMenu;
@@ -55,11 +59,6 @@ public class MenusManager : MonoBehaviour
         m_Menus[Menus.Options] = m_OptionsMenu;
         m_Menus[Menus.GameOver] = m_GameOverMenu;
         m_Menus[Menus.BackgroundChoice] = m_BackgroundChoiceMenu;
-
-        if (PlayerProfile.isConnected)
-        {
-            ChangeMenu(Menus.Main);
-        }
     }
 
     public void ChangeMenu(Menus newMenu)

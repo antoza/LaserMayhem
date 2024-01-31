@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87468957651eb4d4a986fc6eead6b2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spot: {x: 3, y: -4}
-  m_startingPiece: 0
+  _startingPiece: 0
+  _pieceStorage: 0
   PieceStorage: []
   _mouseOverIndicatorPrefab: {fileID: 0}
   _pulsatingIndicatorPrefab: {fileID: 0}

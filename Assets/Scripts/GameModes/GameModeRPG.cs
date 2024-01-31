@@ -212,7 +212,7 @@ public class GameModeRPG : GameMode
         if (!playerData.PlayerEconomy.HasEnoughMana(sourceTile.cost))
         {
 #if !DEDICATED_SERVER
-            UIManager.Instance.DisplayError("You don't have enough mana");
+            UIManager.Instance.DisplayErrorMessage("You don't have enough coins");
 #endif
             return false;
         }
@@ -250,14 +250,14 @@ public class GameModeRPG : GameMode
             if (!playerData.PlayerEconomy.HasEnoughManaForMovement())
             {
 #if !DEDICATED_SERVER
-                UIManager.Instance.DisplayError("You don't have enough mana");
+                UIManager.Instance.DisplayErrorMessage("You don't have enough coins");
 #endif
                 return false;
             }
             if (!targetTile.IsCloseEnoughFrom(sourceTile, 1))
             {
 #if !DEDICATED_SERVER
-                UIManager.Instance.DisplayError("You can't move a piece too far away");
+                UIManager.Instance.DisplayErrorMessage("You can't move a piece too far away");
 #endif
                 return false;
             }
@@ -277,7 +277,7 @@ public class GameModeRPG : GameMode
         if (!playerData.PlayerEconomy.HasEnoughManaForDeletion())
         {
 #if !DEDICATED_SERVER
-            UIManager.Instance.DisplayError("You don't have enough mana");
+            UIManager.Instance.DisplayErrorMessage("You don't have enough coins");
 #endif
             return false;
         }

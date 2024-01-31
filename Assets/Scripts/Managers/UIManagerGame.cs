@@ -86,7 +86,11 @@ public class UIManagerGame : UIManager
     {
         await WaitForReadiness();
         TextMeshProUGUI tmp = usernameTexts[playerIndexes[playerID]];
-        if (tmp != null) tmp.text = value;
+        if (tmp != null)
+        {
+            tmp.text = value;
+            tmp.color = playerID == 0 ? new Color(.2f, .4f, 1f, 1f) : new Color(1f, .2f, .2f, 1f);
+        }
     }
 
     public async void UpdateHealth(int playerID, int value)

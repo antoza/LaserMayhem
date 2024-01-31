@@ -26,7 +26,7 @@ public class LocalPlayerManager : MonoBehaviour
     {
         if (!IsLocalPlayersTurn())
         {
-            UIManager.Instance.DisplayError("It is not your turn to play");
+            UIManager.Instance.DisplayErrorMessage("It is not your turn to play");
             return false;
         }
         return true;
