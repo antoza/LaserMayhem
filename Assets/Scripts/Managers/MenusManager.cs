@@ -1,7 +1,9 @@
 #if !DEDICATED_SERVER
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
+
+using AYellowpaper.SerializedCollections;
 
 public enum Menus
 {
@@ -11,31 +13,20 @@ public enum Menus
     Matchmaking,
     Options,
     GameOver,
-    BackgroundChoice
+    BackgroundChoice,
+    TutorialList,
+    TutorialGeneral,
+    TutorialPieceList
 }
 
 public class MenusManager : MonoBehaviour
 {
     public static MenusManager Instance { get; private set; }
 
-    [field: SerializeField]
-    private GameObject m_ConnectionMenu;
-    [field: SerializeField]
-    private GameObject m_MainMenu;
-    [field: SerializeField]
-    private GameObject m_GamemodeMenu;
-    [field: SerializeField]
-    private GameObject m_MatchmakingMenu;
-    [field: SerializeField]
-    private GameObject m_OptionsMenu;
-    [field: SerializeField]
-    private GameObject m_GameOverMenu;
-    [field: SerializeField]
-    private GameObject m_BackgroundChoiceMenu;
-    [field: SerializeField]
-    public SkinData SkinData { get; private set; }
+    [SerializedDictionary("Menu Name", "Object")]
+    public SerializedDictionary<Menus, GameObject> MenusDictionnary;
 
-    private Dictionary<Menus, GameObject> m_Menus;
+    public SkinData SkinData { get; private set; }
 
     private Menus m_CurrentMenus = Menus.Connection;
     private bool m_CanInteractWithUI = true;
@@ -47,15 +38,6 @@ public class MenusManager : MonoBehaviour
 
     private void Start()
     {
-        m_Menus = new Dictionary<Menus, GameObject>();
-        m_Menus[Menus.Connection] = m_ConnectionMenu;
-        m_Menus[Menus.Main] = m_MainMenu;
-        m_Menus[Menus.GameMode] = m_GamemodeMenu;
-        m_Menus[Menus.Matchmaking] = m_MatchmakingMenu;
-        m_Menus[Menus.Options] = m_OptionsMenu;
-        m_Menus[Menus.GameOver] = m_GameOverMenu;
-        m_Menus[Menus.BackgroundChoice] = m_BackgroundChoiceMenu;
-
         if (PlayerProfile.isConnected)
         {
             ChangeMenu(Menus.Main);
@@ -64,8 +46,8 @@ public class MenusManager : MonoBehaviour
 
     public void ChangeMenu(Menus newMenu)
     {
-        m_Menus[m_CurrentMenus].SetActive(false);
-        m_Menus[newMenu].SetActive(true);
+        MenusDictionnary[m_CurrentMenus].SetActive(false);
+        MenusDictionnary[newMenu].SetActive(true);
         m_CurrentMenus = newMenu;
 
         m_CanInteractWithUI = true;
