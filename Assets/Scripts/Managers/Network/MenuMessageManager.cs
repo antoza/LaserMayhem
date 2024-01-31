@@ -17,7 +17,7 @@ public class MenuMessageManager : MonoBehaviour
 
     private TcpClient tcpClient;
     private NetworkStream stream;
-    private bool isTcpReady = false;
+    public bool IsTcpReady { get; private set; } = false;
     // TODO : supprimer
     [field: SerializeField]
     private Rules Rules;
@@ -55,10 +55,11 @@ public class MenuMessageManager : MonoBehaviour
 #if DEBUG || DEDICATED_SERVER
             tcpClient = new TcpClient("127.0.0.1", 11586);
 #else
-            tcpClient = new TcpClient("92.167.126.212", 11586);
+            tcpClient = new TcpClient("90.51.225.76", 11586);
 #endif
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
+            IsTcpReady = true;
             ReceiveMessages();
             PingServerRegularly();
         }
@@ -69,7 +70,6 @@ public class MenuMessageManager : MonoBehaviour
             Application.Quit();
 #endif
         }
-        isTcpReady = true;
     }
 
     private async void ReceiveMessages()
@@ -134,7 +134,7 @@ public class MenuMessageManager : MonoBehaviour
 
     public async void SendRequest(string message)
     {
-        while (!isTcpReady) await Task.Delay(100);
+        while (!IsTcpReady) await Task.Delay(100);
         if (tcpClient != null && tcpClient.Connected)
         {
             try

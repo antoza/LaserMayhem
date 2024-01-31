@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ServerMenu.unity
     guid: 53f36801dbaea8f42a90c19e7b7dfc6f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/RpgSimon.unity
     guid: cf2b0f7bcddc7ea4aa2c5c40f52cf0dc
   m_configObjects: {}

@@ -7,6 +7,7 @@ using AYellowpaper.SerializedCollections;
 
 public enum Menus
 {
+    None,
     Connection,
     Main,
     GameMode, 
@@ -28,7 +29,7 @@ public class MenusManager : MonoBehaviour
 
     public SkinData SkinData { get; private set; }
 
-    private Menus m_CurrentMenus = Menus.Connection;
+    private Menus m_CurrentMenus = Menus.None;
     private bool m_CanInteractWithUI = true;
 
     private void Awake()

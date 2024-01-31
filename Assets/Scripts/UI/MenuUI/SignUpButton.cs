@@ -18,12 +18,12 @@ public class SignUpButton : MenuButton
         {
             if (!(char.IsLetter(c) || char.IsDigit(c)))
             {
-                UIManager.Instance.DisplayError("Please only use letters and digits in your credentials");
+                UIManager.Instance.DisplayErrorMessage("Please only use letters and digits in your credentials");
                 return;
             }
         }
         if (password.Length < 8 ) {
-            UIManager.Instance.DisplayError("Please use a password that contains at least 8 characters");
+            UIManager.Instance.DisplayErrorMessage("Please use a password that contains at least 8 characters");
             return;
         }
         SenderManager.Instance.SignUp(username, password);

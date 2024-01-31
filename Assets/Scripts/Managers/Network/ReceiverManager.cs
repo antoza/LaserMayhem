@@ -58,7 +58,7 @@ public class ReceiverManager : MonoBehaviour
 
     private static void TemporaryFunctionToDisplayError(string message)
     {
-        UIManager.Instance.DisplayError(message);
+        UIManager.Instance.DisplayErrorMessage(message);
     }
 
     private static void TemporaryFunctionToLogIn(string playerID, string username, int playerMMR)
