@@ -18,11 +18,11 @@ public abstract class UIManager : MonoBehaviour
     private int nextUpdateToExecute = 0;
 
     [SerializeField]
-    private GameObject canvas;
+    protected GameObject canvas;
 
     [SerializeField]
     private GameObject errorMessagePrefab;
-    private float errorDisplayTime = 8f;
+    private float errorDisplayTime = 3f;
     [SerializeField]
     private GameObject wideMessagePrefab;
 

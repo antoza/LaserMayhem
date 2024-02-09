@@ -148,6 +148,7 @@ public class GameMessageManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void ReceivePlayerActionServerRPC(string serializedAction, ServerRpcParams serverRpcParams = default)
     {
+        Debug.Log(serializedAction);
         Action action = Action.DeserializeAction(serializedAction);
         int playerID = FindClientsPlayerID(serverRpcParams.Receive.SenderClientId);
         if (playerID == -1) return;

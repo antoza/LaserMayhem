@@ -37,6 +37,7 @@ public class SplashScreenManager : MonoBehaviour
 #endif
     }
 
+#if !DEDICATED_SERVER
     private void StartMainMenu()
     {
         if (MenuMessageManager.Instance.IsTcpReady) {
@@ -45,16 +46,17 @@ public class SplashScreenManager : MonoBehaviour
         else
         {
             UIManager.Instance.DisplayWideMessage("The server is not available at the moment.\n" +
-                "It usually becomes available between 3 p.m. and 12 p.m., so please try again during these times.\n" +
+                "It usually becomes available between 3 p.m. and 12 p.m. CET, so please try again during these times.\n" +
                 "\n" +
                 "You'll find more information on Discord.\n" +
                 "(on the bottom left corner)");
         }
         Destroy(gameObject);
     }
-
+#else
     private void StartServerMenu()
     {
         Destroy(gameObject);
     }
+#endif
 }

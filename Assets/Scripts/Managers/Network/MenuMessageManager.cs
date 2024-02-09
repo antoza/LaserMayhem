@@ -132,6 +132,12 @@ public class MenuMessageManager : MonoBehaviour
         }
     }
 
+#if DEDICATED_SERVER
+    private void RequestDisconnectionIfInactive() {
+        // TODO : Si le serveur n'a pas lancé de game pendant plus de 5 minutes, alors demander à l'API de le déconnecter
+    }
+#endif
+
     public async void SendRequest(string message)
     {
         while (!IsTcpReady) await Task.Delay(100);

@@ -42,7 +42,9 @@ public abstract class BoardTile : Tile
 
     public void TransferLaser(Laser? laser, Vector2Int outDirection)
     {
-        // if (laserPrefab et _displayedLasers[outDirection] sont les mêmes laser)
+        Laser? oldLaser = _displayedLasers[outDirection];
+        if (laser == null && oldLaser == null ||
+            laser != null && oldLaser != null && laser!.Equals(oldLaser!)) return;
         DisplayLaser(laser, outDirection);
         BoardManager.Instance.GetBoardTile(Spot + outDirection)?.ReceiveLaser(laser, outDirection);
     }

@@ -118,4 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36925f9963d7994aa46057be5fa552f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: DamageLaser
   DealsDamage: 1

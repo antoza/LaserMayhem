@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 #nullable enable
 
 public class UIManagerGame : UIManager
@@ -35,6 +36,12 @@ public class UIManagerGame : UIManager
     private PlayerTurnAnnouncementUI playerTurnAnnouncement;
     [SerializeField]
     private EndTurnButton endTurnButton;
+
+    [SerializeField]
+    private GameObject healthLoss;
+    private float healthLossDisplayTime = 3f;
+    [SerializeField]
+    private GameObject actionCost;
 
     [SerializeField]
     private Image BackgroundImage;
@@ -144,6 +151,20 @@ public class UIManagerGame : UIManager
         await WaitForReadiness();
         playerTurnAnnouncement.StartAnimation(PlayersManager.Instance.GetCurrentPlayer().Username);
     }
+
+
+    // Volatile indicators
+
+    public async void DisplayHealthLoss(int amount, Vector2 position)
+    {
+        await WaitForReadiness();
+        GameObject healthLossGameObject = Instantiate(healthLoss, canvas.transform);
+        healthLossGameObject.transform.position = position;
+        healthLossGameObject.GetComponentInChildren<TextMeshProUGUI>().text = $"-{amount}";
+        StartCoroutine(DestroyCoroutine(healthLossGameObject, healthLossDisplayTime));
+    }
+
+
 
     public void SetBackground()
     {/* TODO : décommenter (j'ai commenté car ça me créait des erreurs)

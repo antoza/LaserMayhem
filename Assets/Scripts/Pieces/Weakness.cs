@@ -28,11 +28,14 @@ public abstract class Weakness : Piece
             if (laser != null && laser!.DealsDamage)
             {
                 WeakPlayer.PlayerHealth.TakeDamage(1); // Mettre le nb de dégâts renseigné par le laser
+#if !DEDICATED_SERVER
+                ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(1, transform.position);
+#endif
             }
         }
         else
         {
-            ((BoardTile?)ParentTile)!.TransferLaser(laser, inDirection);
+            ((BoardTile)ParentTile!).TransferLaser(laser, inDirection);
         }
     }
 }
