@@ -6,13 +6,9 @@ public sealed class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
     public Rules Rules { get; private set; }
-    public GameMode GameMode { get; private set; }
-    [field: SerializeField]
-    public PiecePrefabs PiecePrefabs { get; private set; }
+    //public GameMode GameMode { get; private set; }
 
     //Laser Templates
-    [field: SerializeField]
-    public MouseFollower MouseFollower { get; private set; }
 
     private void Awake()
     {
@@ -26,9 +22,9 @@ public sealed class DataManager : MonoBehaviour
         //RewindManager.SetInstance();
         //SendActionsManager.SetInstance();
         Rules = GameInitialParameters.Rules;
-        CreateGameMode();
+        //CreateGameMode();
     }
-
+    /*
     private void CreateGameMode()
     {
         Type type = Type.GetType("GameMode" + Rules.GameModeName);
@@ -41,7 +37,7 @@ public sealed class DataManager : MonoBehaviour
         {
             Debug.Log("La classe spécifiée n'est pas valide.");
         }
-    }
+    }*/
 
     private void Start()
     {

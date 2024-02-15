@@ -36,7 +36,7 @@ public class PlayerHealth : ScriptableObject
         Health -= damage;
         if (Health <= 0) {
             Health = 0;
-            ((GameModeRPG)DataManager.Instance.GameMode).PlayerDied(PlayerData.m_playerID);
+            GameModeManagerRPG.Instance.PlayerDied(PlayerData.m_playerID);
         }
     }
 }

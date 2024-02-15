@@ -3,25 +3,18 @@ using UnityEngine;
 using UnityEngine.Assertions;
 #nullable enable
 
-public sealed class PlayersManager : MonoBehaviour
+public abstract class PlayersManager : Manager<PlayersManager>
 {
-    public static PlayersManager Instance { get; private set; }
-
-    public int numberOfPlayers { get; private set; }
+    [field: SerializeField]
+    public int NumberOfPlayers { get; private set; }
     public int currentPlayerID { get; private set; }
     private PlayerData[] playerList;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     private void Start()
     {
-        numberOfPlayers = DataManager.Instance.Rules.NumberOfPlayers;
-        currentPlayerID = numberOfPlayers - 1;
-        playerList = new PlayerData[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++)
+        currentPlayerID = NumberOfPlayers - 1;
+        playerList = new PlayerData[NumberOfPlayers];
+        for (int i = 0; i < NumberOfPlayers; i++)
         {
             // TODO : regrouper avec la ligne du dessous pour avoir PlayerData(i, username)
             playerList[i] = new PlayerData(i);
@@ -39,14 +32,14 @@ public sealed class PlayersManager : MonoBehaviour
 
     public void StartNextPlayerTurn(int turnNumber)
     {
-        currentPlayerID = (currentPlayerID + 1) % numberOfPlayers;
+        currentPlayerID = (currentPlayerID + 1) % NumberOfPlayers;
         //playerList[currentPlayerID].PlayerActions.StartTurn(turnNumber);
         playerList[currentPlayerID].PlayerEconomy.AddNewTurnMana(turnNumber);
     }
 
     public PlayerData GetPlayer(int id)
     {
-        if (id >= numberOfPlayers)
+        if (id >= NumberOfPlayers)
         {
             Debug.Log("This id does not correspond to a player");
             return playerList[0];
@@ -58,22 +51,6 @@ public sealed class PlayersManager : MonoBehaviour
     {
         return GetPlayer(currentPlayerID);
     }
-    /*
-    public bool IsMyTurn()
-    {
-        return GetPlayer(currentPlayerID) == GetLocalPlayer();
-    }
-
-    public PlayerData GetLocalPlayer()
-    {
-        Assert.IsFalse(GameInitialParameters.localPlayerID == -1, "You are the server");
-        return GetPlayer(GameInitialParameters.localPlayerID);
-    }*/
-    /*
-    public void HitPlayer(int id, int damage)
-    {
-        playerList[id].PlayerHealth.TakeDamage(damage);
-    }*/
 
     public int GetHealth(int id)
     {

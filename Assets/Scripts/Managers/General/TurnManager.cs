@@ -74,7 +74,7 @@ public sealed class TurnManager : MonoBehaviour
 
     public void StartAnnouncementPhase()
     { 
-        if (DataManager.Instance.GameMode.CheckGameOver())
+        if (GameModeManager.Instance.CheckGameOver())
         {
             return;
         }
@@ -82,7 +82,7 @@ public sealed class TurnManager : MonoBehaviour
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).TriggerPlayerTurnAnnouncement();
 #endif
-        BoardManager.Instance.SwitchWeakSides(m_TurnNumber);
+        BoardManagerRPG.Instance.SwitchWeakSides(m_TurnNumber);
         BoardManager.Instance.DisplayPredictionLaser();
 #if DEDICATED_SERVER
         if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier

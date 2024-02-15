@@ -17,7 +17,7 @@ public class ServerSendActionsManager : SendActionsManager
         actionsToSend = new List<List<Action>>();
         isWaitingForNewAction = new List<bool>();
 
-        for (int i = 0; i < DataManager.Instance.Rules.NumberOfPlayers; i++)
+        for (int i = 0; i < PlayersManager.Instance.NumberOfPlayers; i++)
         {
             actionsToSend.Add(new List<Action>());
             isWaitingForNewAction.Add(false);
@@ -26,8 +26,8 @@ public class ServerSendActionsManager : SendActionsManager
 
     public void ExecuteActionAndSendItToAllPlayers(Action action)
     {
-        DataManager.Instance.GameMode.ExecuteAction(action);
-        for (int i = 0; i < DataManager.Instance.Rules.NumberOfPlayers; i++)
+        GameModeManager.Instance.ExecuteAction(action);
+        for (int i = 0; i < PlayersManager.Instance.NumberOfPlayers; i++)
         {
             actionsToSend[i].Add(action);
             if (isWaitingForNewAction[i])
@@ -72,7 +72,7 @@ public class ServerSendActionsManager : SendActionsManager
             return;
         }
 
-        if (DataManager.Instance.GameMode.VerifyAction((PlayerAction)action))
+        if (GameModeManager.Instance.VerifyAction((PlayerAction)action))
         {
             ExecuteActionAndSendItToAllPlayers(action);
         }

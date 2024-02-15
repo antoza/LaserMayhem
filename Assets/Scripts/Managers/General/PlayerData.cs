@@ -21,7 +21,6 @@ public class PlayerData : ScriptableObject
         }
     }
 
-
     public PlayerData(int playerID)
     {
         m_playerID = playerID;

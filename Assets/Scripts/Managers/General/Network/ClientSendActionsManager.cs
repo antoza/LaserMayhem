@@ -24,17 +24,14 @@ public class ClientSendActionsManager : SendActionsManager
     {
         if (actionOrder == currentActionOrder)
         {
-            DataManager.Instance.GameMode.ExecuteAction(action);
+            GameModeManager.Instance.ExecuteAction(action);
             currentActionOrder++;
         }
         RequestAction();
     }
 
-    public void VerifyAndSendAction(PlayerAction action)
+    public void SendAction(PlayerAction action)
     {
-        if (DataManager.Instance.GameMode.VerifyAction(action))
-        {
-            GameMessageManager.Instance.SendActionToServer(action);
-        }
+        GameMessageManager.Instance.SendActionToServer(action);
     }
 }

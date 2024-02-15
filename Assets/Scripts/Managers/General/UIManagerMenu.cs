@@ -10,5 +10,7 @@ using System.Threading.Tasks;
 public class UIManagerMenu : UIManager
 {
 #if !DEDICATED_SERVER
+    public static new UIManagerMenu Instance => (UIManagerMenu)UIManager.Instance;
+
 #endif
 }

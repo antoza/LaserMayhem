@@ -45,7 +45,7 @@ public sealed class RewindManager : MonoBehaviour
     {
         Assert.IsFalse(IsEmpty());
         Action lastAction = m_actionsList.Pop();
-        DataManager.Instance.GameMode.RevertAction(lastAction);
+        GameModeManager.Instance.RevertAction(lastAction);
     }
 
     public void RevertAllActions()

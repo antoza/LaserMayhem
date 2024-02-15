@@ -11,6 +11,8 @@ using Unity.VisualScripting;
 public class UIManagerGame : UIManager
 {
 #if !DEDICATED_SERVER
+    public static new UIManagerGame Instance => (UIManagerGame)UIManager.Instance;
+
     private int[] playerIndexes;
 
     // TODO : Rendre UIManager abstraite, avec des sous-classes comme GameUIManager
@@ -51,7 +53,7 @@ public class UIManagerGame : UIManager
     protected override void Start()
     {
         base.Start();
-        AssociatePlayersInAscendingOrder(GameInitialParameters.localPlayerID, GameInitialParameters.Rules.NumberOfPlayers);
+        AssociatePlayersInAscendingOrder(GameInitialParameters.localPlayerID, PlayersManager.Instance.NumberOfPlayers);
         SetBackground();
 
     }

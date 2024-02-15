@@ -8,14 +8,16 @@ using UnityEngine.Assertions;
 
 #nullable enable
 
-public class GameModeRPG : GameMode
+public class GameModeManagerRPG : GameModeManager
 {
+    public static new GameModeManagerRPG Instance => (GameModeManagerRPG)GameModeManager.Instance;
+
     public HashSet<int>? playersAlive;
 
-    public override void Initialise()
+    private void Start()
     {
         playersAlive = new();
-        for (int i = 0; i < DataManager.Instance.Rules.NumberOfPlayers; i++)
+        for (int i = 0; i < PlayersManager.Instance.NumberOfPlayers; i++)
         {
             playersAlive.Add(i);
         }

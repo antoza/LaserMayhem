@@ -7,11 +7,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 #nullable enable
 
-public abstract class UIManager : MonoBehaviour
+public abstract class UIManager : Manager<UIManager>
 {
 #if !DEDICATED_SERVER
-    public static UIManager Instance { get; private set; }
-
     private bool isUIManagerReady = false;
     // Orders to execute in order the UI updates called before manager is ready
     private int nextUpdateOrder = 0;
@@ -25,11 +23,6 @@ public abstract class UIManager : MonoBehaviour
     private float errorDisplayTime = 3f;
     [SerializeField]
     private GameObject wideMessagePrefab;
-
-    void Awake()
-    {
-        Instance = this;
-    }
 
     protected virtual void Start()
     {

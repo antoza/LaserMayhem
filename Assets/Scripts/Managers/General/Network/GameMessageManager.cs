@@ -19,7 +19,7 @@ public class GameMessageManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            playerIDsToClientIDs = new ulong[DataManager.Instance.Rules.NumberOfPlayers];
+            playerIDsToClientIDs = new ulong[PlayersManager.Instance.NumberOfPlayers];
             playerSecrets = GameInitialParameters.playerSecrets;
         }
         if (IsClient)

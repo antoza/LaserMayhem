@@ -18,7 +18,7 @@ public class DebugSwitchPlayer : MonoBehaviour
 #if DEBUG
     public void OnClick()
     {
-        int currentPlayer = (GameInitialParameters.localPlayerID + 1) % DataManager.Instance.Rules.NumberOfPlayers;
+        int currentPlayer = (GameInitialParameters.localPlayerID + 1) % PlayersManager.Instance.NumberOfPlayers;
         GameInitialParameters.localPlayerID = currentPlayer;
         m_PlayerText.text = "P" + currentPlayer;
     }

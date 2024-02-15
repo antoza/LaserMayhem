@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #nullable enable
-public class LocalPlayerManager : MonoBehaviour
+public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
 {
 #if !DEDICATED_SERVER
-    public static LocalPlayerManager Instance { get; private set; }
-
     public PlayerData LocalPlayer { get; private set; }
+
+    [field: SerializeField]
+    private MouseFollower MouseFollower;
+
     [HideInInspector]
     public Tile? SourceTile;
 
     private void Awake()
     {
-        Instance = this;
+        base.Awake();
     }
 
     private void Start()
@@ -41,40 +43,42 @@ public class LocalPlayerManager : MonoBehaviour
     {
         if (!TryToPlay()) return;
         SourceTile = sourceTile;
-        DataManager.Instance.MouseFollower.ChangeFollowingTile(sourceTile);
+        MouseFollower.ChangeFollowingTile(sourceTile);
     }
 
     public void ResetSourceTile()
     {
         SourceTile = null;
-        DataManager.Instance.MouseFollower.ChangeFollowingTile(null);
+        MouseFollower.ChangeFollowingTile(null);
     }
+
+    protected virtual void VerifyAction(PlayerAction action) { }
 
     // Actions
 
-    public void CreateAndVerifyEndTurnAction()
+    public virtual void CreateAndVerifyEndTurnAction()
     {
         EndTurnAction action = new EndTurnAction(LocalPlayer);
-        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
+        VerifyAction(action);
     }
 
     public void CreateAndVerifyMovePieceAction(Tile destinationTile)
     {
         if (SourceTile == null) return;
         MovePieceAction action = new MovePieceAction(LocalPlayer, SourceTile, destinationTile);
-        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
+        VerifyAction(action);
     }
 
     public void CreateAndVerifyRevertLastActionAction()
     {
         RevertLastActionAction action = new RevertLastActionAction(LocalPlayer);
-        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
+        VerifyAction(action);
     }
 
     public void CreateAndVerifyRevertAllActionsAction()
     {
         RevertAllActionsAction action = new RevertAllActionsAction(LocalPlayer);
-        ((ClientSendActionsManager)SendActionsManager.Instance).VerifyAndSendAction(action);
+        VerifyAction(action);
     }
 #endif
 }
