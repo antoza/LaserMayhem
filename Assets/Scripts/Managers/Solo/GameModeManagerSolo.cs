@@ -51,7 +51,7 @@ public class GameModeManagerSolo : GameModeManager
                 RewindManager.Instance.RevertAllActions();
                 break;
             case EndTurnAction:
-                TurnManager.Instance.StartLaserPhase();
+                TurnManager.Instance.EndTurn();
                 break;
             case ServerSendPiecesListAction:
                 if (GameInitialParameters.localPlayerID == -1) return;

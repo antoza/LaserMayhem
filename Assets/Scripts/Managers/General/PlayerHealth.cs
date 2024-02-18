@@ -14,16 +14,15 @@ public class PlayerHealth : ScriptableObject
         {
             _health = value;
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateHealth(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateHealth(PlayerData.PlayerID, value);
 #endif
         }
     }
 
-    public PlayerHealth(PlayerData playerData)
+    public PlayerHealth(PlayerData playerData, int initialHealth)
     {
         PlayerData = playerData;
-
-        Health = DataManager.Instance.Rules.InitialHealth;
+        Health = initialHealth;
     }
 
     public bool IsDead()
@@ -36,7 +35,7 @@ public class PlayerHealth : ScriptableObject
         Health -= damage;
         if (Health <= 0) {
             Health = 0;
-            GameModeManagerRPG.Instance.PlayerDied(PlayerData.m_playerID);
+            GameModeManagerRPG.Instance.PlayerDied(PlayerData.PlayerID);
         }
     }
 }

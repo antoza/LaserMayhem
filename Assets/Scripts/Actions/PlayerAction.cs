@@ -18,7 +18,7 @@ public abstract class PlayerAction : Action
 
     public override string SerializeAction()
     {
-        return base.SerializeAction() + "+" + PlayerData.m_playerID;
+        return base.SerializeAction() + "+" + PlayerData.PlayerID;
     }
     public override bool DeserializeSubAction(Queue<string> parsedString)
     {

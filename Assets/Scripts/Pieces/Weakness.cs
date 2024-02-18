@@ -16,7 +16,7 @@ public abstract class Weakness : Piece
         get => _weakPlayer;
         set {
             _weakPlayer = value;
-            GetComponent<SpriteRenderer>().color = value.m_playerID == 0 ? new Color(.2f, .4f, 1f, 1f) : new Color(1f, .2f, .2f, 1f);
+            GetComponent<SpriteRenderer>().color = value.PlayerID == 0 ? new Color(.2f, .4f, 1f, 1f) : new Color(1f, .2f, .2f, 1f);
         }
     }
 

@@ -39,7 +39,7 @@ public class MenusManager : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerProfile.isConnected)
+        if (AccountInfo.isConnected)
         {
             ChangeMenu(Menus.Main);
         }

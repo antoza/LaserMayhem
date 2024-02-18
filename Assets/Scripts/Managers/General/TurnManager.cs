@@ -8,100 +8,50 @@ using System.Net;
 using System.Security.Cryptography;
 #nullable enable
 
-public sealed class TurnManager : MonoBehaviour
+public abstract class TurnManager : Manager<TurnManager>
 {
-    public static TurnManager Instance { get; private set; }
+    public int TurnNumber { get; protected set; } = 0;
 
-    private int m_TurnNumber = 0;
+    [field: SerializeField]
+    public int LaserPhaseDuration { get; private set; }
 
-    [Header("Time Management")]
-    private float m_AnnouncementPhaseDuration;
-    private float m_LaserPhaseDuration;
+    protected HashSet<Piece> _piecesPlayedThisTurn = new HashSet<Piece>();
 
-    [Header("Test Data")]
-    private RandomPieceGenerator m_PiecesData;
-
-    private SelectionTilesUpdate m_SelectionTilesUpdate;
-
-    private HashSet<Piece> _piecesPlayedThisTurn = new HashSet<Piece>();
-
-    void Awake()
+    protected virtual void Start()
     {
-        Instance = this;
-        m_AnnouncementPhaseDuration = DataManager.Instance.Rules.AnnouncementPhaseDuration;
-        m_LaserPhaseDuration = DataManager.Instance.Rules.LaserPhaseDuration;
-        m_PiecesData = FindObjectOfType<RandomPieceGenerator>();
-        m_SelectionTilesUpdate = FindObjectOfType<SelectionTilesUpdate>();
-    }
-    /*
-    public static void SetInstance()
-    {
-        Instance = new TurnManager();
+        StartCoroutine(StartTurnCoroutine());
     }
 
-    public static TurnManager GetInstance()
+    public void EndTurn()
     {
-        if (Instance == null)
-        {
-            Debug.LogError("TurnManager has not been instantiated");
-        }
-
-        return Instance!;
-    }*/
-
-    public void Start()
-    {
-        StartAnnouncementPhase();
+        StartCoroutine(EndTurnCoroutine());
     }
 
-    public void StartLaserPhase()
+    protected abstract IEnumerator StartTurnCoroutine();
+
+    protected abstract IEnumerator EndTurnCoroutine();
+
+
+    // Phases
+
+    protected virtual void StartLaserPhase()
     {
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
-        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile(); // TODO : Ligne à modifier pour ne pas avoir à appeler LocalPlayerManager ici
+        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
 #endif
         RewindManager.Instance.ClearAllActions();
         BoardManager.Instance.DisplayEndTurnLaser();
         ResetPiecesPlayedThisTurn();
-        StartCoroutine(LaserPhaseCoroutine());
     }
 
-    public IEnumerator LaserPhaseCoroutine()
-    {
-        yield return new WaitForSeconds(m_LaserPhaseDuration);
-        StartAnnouncementPhase();
-    }
-
-    public void StartAnnouncementPhase()
-    { 
-        if (GameModeManager.Instance.CheckGameOver())
-        {
-            return;
-        }
-        PlayersManager.Instance.StartNextPlayerTurn(++m_TurnNumber);
-#if !DEDICATED_SERVER
-        ((UIManagerGame)UIManager.Instance).TriggerPlayerTurnAnnouncement();
-#endif
-        BoardManagerRPG.Instance.SwitchWeakSides(m_TurnNumber);
-        BoardManager.Instance.DisplayPredictionLaser();
-#if DEDICATED_SERVER
-        if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier
-#endif
-        StartCoroutine(AnnouncementPhaseCoroutine());
-    }
-
-    public IEnumerator AnnouncementPhaseCoroutine()
-    {
-        yield return new WaitForSeconds(m_AnnouncementPhaseDuration);
-        StartTurnPhase();
-    }
-
-    public void StartTurnPhase()
+    protected virtual void StartTurnPhase()
     {
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
 #endif
     }
+
 
     // Pieces played this turn
 

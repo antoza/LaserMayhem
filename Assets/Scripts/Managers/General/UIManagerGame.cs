@@ -148,10 +148,10 @@ public class UIManagerGame : UIManager
         }
     }
 
-    public async void TriggerPlayerTurnAnnouncement()
+    public async void TriggerPlayerTurnAnnouncement(float duration)
     {
         await WaitForReadiness();
-        playerTurnAnnouncement.StartAnimation(PlayersManager.Instance.GetCurrentPlayer().Username);
+        playerTurnAnnouncement.StartAnimation(PlayersManager.Instance.GetCurrentPlayer().PlayerProfile.Username, duration);
     }
 
 

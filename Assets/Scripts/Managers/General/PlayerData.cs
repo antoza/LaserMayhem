@@ -2,30 +2,15 @@ using UnityEngine;
 
 public class PlayerData : ScriptableObject
 {
-    public PlayerHealth PlayerHealth { get; private set; }
-    public PlayerEconomy PlayerEconomy { get; private set; }
-    //public PlayerActions PlayerActions { get; private set; }
+    // TODO : rendre nullable (PlayerHealth?)
+    public PlayerProfile PlayerProfile; 
+    public PlayerHealth PlayerHealth;
+    public PlayerEconomy PlayerEconomy;
 
-    public int m_playerID;
-
-    private string _username;
-    public string Username
-    {
-        get => _username;
-        set
-        {
-            _username = value;
-#if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateUsername(m_playerID, value);
-#endif
-        }
-    }
+    public int PlayerID;
 
     public PlayerData(int playerID)
     {
-        m_playerID = playerID;
-        PlayerHealth = new PlayerHealth(this);
-        PlayerEconomy = new PlayerEconomy(this);
-        //PlayerActions = new PlayerActions(this);
+        PlayerID = playerID;
     }
 }

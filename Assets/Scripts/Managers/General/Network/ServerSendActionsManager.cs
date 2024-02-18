@@ -67,7 +67,7 @@ public class ServerSendActionsManager : SendActionsManager
             return;
         }
 
-        if (action is not PlayerAction || playerID != ((PlayerAction)action).PlayerData.m_playerID)
+        if (action is not PlayerAction || playerID != ((PlayerAction)action).PlayerData.PlayerID)
         {
             return;
         }

@@ -9,7 +9,7 @@ public class RevertLastActionButton : MonoBehaviour
 #if !DEDICATED_SERVER
     public void OnClick()
     {
-        LocalPlayerManagerRPG.Instance.CreateAndVerifyRevertLastActionAction();
+        LocalPlayerManager.Instance.CreateAndVerifyRevertLastActionAction();
     }
 #endif
 }

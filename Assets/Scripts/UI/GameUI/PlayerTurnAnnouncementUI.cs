@@ -16,17 +16,10 @@ public class PlayerTurnAnnouncementUI : MonoBehaviour
     [field: SerializeField]
     private TextMeshProUGUI announcementTMP;
 
-    private float m_AnnouncementPhaseDuration;
-
-    private void Start()
-    {
-        m_AnnouncementPhaseDuration = DataManager.Instance.Rules.AnnouncementPhaseDuration;
-    }
-
-    public void StartAnimation(string playerName)
+    public void StartAnimation(string playerName, float duration)
     {
         announcementAnimator.SetTrigger("NewTurn");
-        announcementAnimator.speed = 2 / m_AnnouncementPhaseDuration;
+        announcementAnimator.speed = 2 / duration;
         announcementTMP.text = m_BaseStringStart + playerName + m_BaseStringEnd;
     }
 }

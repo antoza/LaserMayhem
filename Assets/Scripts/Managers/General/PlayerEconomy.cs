@@ -13,7 +13,7 @@ public class PlayerEconomy : ScriptableObject
         {
             _mana = value;
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateMana(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateMana(PlayerData.PlayerID, value);
 #endif
         }
     }
@@ -26,7 +26,7 @@ public class PlayerEconomy : ScriptableObject
         {
             _deletionCost = value;
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateDeletionCost(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateDeletionCost(PlayerData.PlayerID, value);
 #endif
         }
     }
@@ -39,7 +39,7 @@ public class PlayerEconomy : ScriptableObject
         {
             _movementCost = value;
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateMovementCost(PlayerData.m_playerID, value);
+            ((UIManagerGame)UIManager.Instance).UpdateMovementCost(PlayerData.PlayerID, value);
 #endif
         }
     }
@@ -53,25 +53,9 @@ public class PlayerEconomy : ScriptableObject
         MovementCost = 1;
     }
 
-    public void AddNewTurnMana(int turnNumber)
+    public void AddMana(int amount)
     {
-        /*int manaToGive = 1;
-        int manaSum = 1;
-        while (manaSum < turnNumber)
-        {
-            manaToGive++;
-            manaSum += manaToGive;
-        }
-        m_mana += manaToGive;*/
-
-        // TODO : Faire proprement avec le turn manager
-        Mana += turnNumber == 1 ? 1 : 2;
-        PlayerData opponent = PlayersManager.Instance.GetPlayer((PlayerData.m_playerID + 1) % 2);
-        if (opponent.PlayerEconomy.Mana < 0)
-        {
-            Mana += -2 * opponent.PlayerEconomy.Mana;
-            opponent.PlayerEconomy.Mana = 0;
-        }
+        Mana += amount;
     }
 
     public bool HasEnoughMana(int cost)
