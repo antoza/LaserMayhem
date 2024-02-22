@@ -47,12 +47,28 @@ public sealed class TurnManagerRPG : TurnManager
 
     // Phases
 
+    protected override void StartLaserPhase()
+    {
+        base.StartLaserPhase();
+
+        // TODO : A mettre dans une fonction spéciale qu'on pourrait mettre en abstract dans TurnManager (du style ProcessReceivers), ou alors dans GameModeManager
+        foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
+        {
+            int receivedDamage = receiver.GetReceivedIntensity();
+#if !DEDICATED_SERVER
+            ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(receivedDamage, transform.position);
+#endif
+            ((Weakness)receiver).WeakPlayer.PlayerHealth.TakeDamage(receivedDamage);
+        }
+    }
+
     private void StartAnnouncementPhase()
     {
         PlayersManager.Instance.StartNextPlayerTurn(++TurnNumber);
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).TriggerPlayerTurnAnnouncement(AnnouncementPhaseDuration);
 #endif
+        BoardManager.Instance.ClearLaser();
         BoardManagerRPG.Instance.SwitchWeakSides(TurnNumber);
         BoardManager.Instance.DisplayPredictionLaser();
 #if DEDICATED_SERVER

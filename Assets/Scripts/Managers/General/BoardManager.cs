@@ -75,6 +75,19 @@ public abstract class BoardManager : Manager<BoardManager>
         DisplayLaser(null);
     }
 
+    // TODO : pareil, avoir une liste des weakness, peut-être même avoir une liste de listes de weakness
+    public IEnumerable<Receiver> GetReceivers()
+    {
+        // TODO : faire en sorte de connaître directement tous les LaserEmitters
+        foreach (BoardTile tile in _board.Values)
+        {
+            if (tile.Piece is Receiver)
+            {
+                yield return (Receiver)tile.Piece;
+            }
+        }
+    }
+
 
     /*
     //End turn events

@@ -11,7 +11,7 @@ using UnityEngine.Assertions;
 public class SelectionTilesUpdate : MonoBehaviour
 {
     [SerializeField]
-    private SelectionTile[] m_SelectionTiles;
+    private PricedSelectionTile[] m_SelectionTiles;
 
     [SerializeField]
     private RandomPieceGenerator m_PiecesData;
@@ -24,7 +24,7 @@ public class SelectionTilesUpdate : MonoBehaviour
         List<PieceName> piecesList = new List<PieceName>(missingPiecesCount);
 
         List<PieceName> excludedPieces = new List<PieceName>();
-        foreach (SelectionTile tile in m_SelectionTiles)
+        foreach (PricedSelectionTile tile in m_SelectionTiles)
         {
             if (tile.Piece != null)
             {

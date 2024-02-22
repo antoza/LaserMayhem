@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 #nullable enable
-public class LaserEmitter : Piece
+public class LaserEmitter : Piece // TODO : renommer en Emitter
 {
     // TODO : permettre qqc comme ça dans l'editor : private List<Direction> _startingDirections;
     // TODO : tourner la pièce de la bonne rotation en fonction du laser de départ

@@ -8,6 +8,6 @@ public class WeaknessUp : Weakness
 {
     private void Awake()
     {
-        weaknessDirections = new List<Vector2Int>() { Vector2Int.up };
+        directions = new Dictionary<Vector2Int, int>() { { Vector2Int.up, 0 } };
     }
 }

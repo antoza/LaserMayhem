@@ -6,12 +6,13 @@ using UnityEngine.Assertions;
 
 public enum TileName
 {
-    None,
-    NormalBoardTile,
-    InvisibleBoardTile,
-    SelectionTile,
-    InfiniteTile,
-    TrashTile,
+    None = 0,
+    NormalBoardTile = 1,
+    InvisibleBoardTile = 101,
+    SelectionTile = 201,
+    PricedSelectionTile = 202,
+    InfiniteTile = 203,
+    TrashTile = 301,
 }
 
 #nullable enable
@@ -21,12 +22,6 @@ public class TilePrefabs : MonoBehaviour
     [SerializeField]
     private List<Tile> tileList;
     private Dictionary<TileName, Tile> tileDictionary;
-    /*
-    public static PiecePrefabs GetInstance()
-    {
-        Assert.IsNotNull(Instance, "PiecePrefabs has not been instantiated");
-        return Instance!;
-    }*/
 
     private void Awake()
     {

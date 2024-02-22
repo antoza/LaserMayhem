@@ -22,6 +22,8 @@ public sealed class TurnManagerSolo : TurnManager
     {
         StartLaserPhase();
         yield return new WaitForSeconds(LaserPhaseDuration);
+
+        if (GameModeManager.Instance.CheckGameOver()) yield break;
         yield return StartCoroutine(StartTurnCoroutine());
     }
 

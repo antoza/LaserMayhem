@@ -115,8 +115,8 @@ public class GameModeManagerRPG : GameModeManager
 
         switch ((sourceTile!, targetTile))
         {
-            case (SelectionTile, NormalBoardTile):
-                if (!VerifyPlacement(playerData, (SelectionTile)sourceTile, (NormalBoardTile)targetTile)) return false;
+            case (PricedSelectionTile, NormalBoardTile):
+                if (!VerifyPlacement(playerData, (PricedSelectionTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
 #if DEBUG
             case (InfiniteTile, NormalBoardTile):
@@ -146,8 +146,8 @@ public class GameModeManagerRPG : GameModeManager
 
         switch ((sourceTile!, targetTile))
         {
-            case (SelectionTile, NormalBoardTile):
-                ExecutePlacement(playerData, (SelectionTile)sourceTile, (NormalBoardTile)targetTile);
+            case (PricedSelectionTile, NormalBoardTile):
+                ExecutePlacement(playerData, (PricedSelectionTile)sourceTile, (NormalBoardTile)targetTile);
                 break;
 #if DEBUG
             case (InfiniteTile, NormalBoardTile):
@@ -180,8 +180,8 @@ public class GameModeManagerRPG : GameModeManager
 
         switch ((sourceTile!, targetTile))
         {
-            case (SelectionTile, NormalBoardTile):
-                playerData.PlayerEconomy.RefundPlacement(((SelectionTile)sourceTile).cost);
+            case (PricedSelectionTile, NormalBoardTile):
+                playerData.PlayerEconomy.RefundPlacement(((PricedSelectionTile)sourceTile).cost);
                 targetTile.Piece!.IsPlayedThisTurn = false;
                 sourceTile.Piece = targetTile.Piece;
                 break;
@@ -207,7 +207,7 @@ public class GameModeManagerRPG : GameModeManager
         BoardManager.Instance.DisplayPredictionLaser();
     }
 
-    public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, NormalBoardTile targetTile)
+    public bool VerifyPlacement(PlayerData playerData, PricedSelectionTile sourceTile, NormalBoardTile targetTile)
     {
         if (sourceTile.Piece == null) return false;
         if (targetTile.Piece != null) return false;
@@ -221,7 +221,7 @@ public class GameModeManagerRPG : GameModeManager
         return true;
     }
 
-    public void ExecutePlacement(PlayerData playerData, SelectionTile sourceTile, NormalBoardTile targetTile)
+    public void ExecutePlacement(PlayerData playerData, PricedSelectionTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece;
         targetTile.Piece!.IsPlayedThisTurn = true;

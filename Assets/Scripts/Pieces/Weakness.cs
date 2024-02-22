@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,9 +9,8 @@ using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 #nullable enable
-public abstract class Weakness : Piece
+public abstract class Weakness : Receiver // TODO : renommer en Receiver
 {
-    protected List<Vector2Int> weaknessDirections;
     private PlayerData _weakPlayer;
     public PlayerData WeakPlayer {
         get => _weakPlayer;
@@ -20,22 +20,8 @@ public abstract class Weakness : Piece
         }
     }
 
-    public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
+    public override int GetReceivedIntensity()
     {
-        base.ReceiveLaser(laser, inDirection);
-        if (weaknessDirections.Contains(inDirection))
-        {
-            if (laser != null && laser!.DealsDamage)
-            {
-                WeakPlayer.PlayerHealth.TakeDamage(1); // Mettre le nb de dégâts renseigné par le laser
-#if !DEDICATED_SERVER
-                ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(1, transform.position);
-#endif
-            }
-        }
-        else
-        {
-            ((BoardTile)ParentTile!).TransferLaser(laser, inDirection);
-        }
+        return directions.Values.Sum();
     }
 }

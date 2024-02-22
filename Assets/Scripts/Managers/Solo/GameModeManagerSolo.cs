@@ -14,6 +14,18 @@ public class GameModeManagerSolo : GameModeManager
 
     public override bool CheckGameOver()
     {
+        int totalReceivers = 0;
+        int activatedReceivers = 0;
+        foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
+        {
+            totalReceivers++;
+            if (receiver.GetReceivedIntensity() >= 1) activatedReceivers++;
+        }
+        if (totalReceivers == activatedReceivers)
+        {
+            TriggerGameOver(0);
+            return true;
+        }
         return false;
     }
 

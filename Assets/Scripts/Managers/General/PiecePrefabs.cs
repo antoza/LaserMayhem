@@ -19,7 +19,8 @@ public enum PieceName
     WeaknessRight = 301,
     WeaknessLeft = 302,
     WeaknessUp = 303,
-    WeaknessDown = 304
+    WeaknessDown = 304,
+    Eye = 310,
 }
 
 #nullable enable

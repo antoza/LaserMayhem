@@ -43,7 +43,7 @@ public class PlayersManagerRPG : PlayersManager
         if (opponentMana < 0)
         {
             playerList[currentPlayerID].PlayerEconomy.AddMana(-2 * opponentMana);
-            opponent.PlayerEconomy.AddMana(opponentMana);
+            opponent.PlayerEconomy.AddMana(-opponentMana);
         }
     }
 }
