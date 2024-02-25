@@ -21,7 +21,7 @@ public abstract class GameModeManager : Manager<GameModeManager>
     public abstract bool RevertMove(Tile sourceTile, Tile destinationTile, Piece piece, PlayerData playerData);*/
 
     // TODO : A METTRE DANS UNE NOUVELLE CLASSE QUI GERE LE DEBUT / LA FIN DE PARTIE
-    public void TriggerGameOver(int? winner)
+    public virtual void TriggerGameOver(int? winner)
     {
 #if DEDICATED_SERVER
         SenderManager.Instance.SaveResults();

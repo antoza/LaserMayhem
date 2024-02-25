@@ -22,6 +22,12 @@ public class SplashScreenManager : MonoBehaviour
 
     private IEnumerator WaitSplashScreenDelay()
     {
+        // TODO : mettre ailleurs
+        if (!PlayerPrefs.HasKey("unlockedChallenges"))
+        {
+            PlayerPrefs.SetFloat("unlockedChallenges", 1);
+        }
+
 #if !DEDICATED_SERVER
 #if DEBUG
         _splashScreenDelay = .2f;

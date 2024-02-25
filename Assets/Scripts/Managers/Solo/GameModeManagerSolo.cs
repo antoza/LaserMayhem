@@ -5,28 +5,50 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 #nullable enable
 
 public class GameModeManagerSolo : GameModeManager
 {
     public static new GameModeManagerSolo Instance => (GameModeManagerSolo)GameModeManager.Instance;
+    [SerializeField]
+    public int ChallengeNumber { get; private set; }
+
+    private void Start()
+    {
+        int.TryParse(SceneManager.GetActiveScene().name.Split("Challenge")[1], out int number);
+        ChallengeNumber = number;
+        CheckChallengeProgress();
+    }
 
     public override bool CheckGameOver()
     {
-        int totalReceivers = 0;
-        int activatedReceivers = 0;
-        foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
-        {
-            totalReceivers++;
-            if (receiver.GetReceivedIntensity() >= 1) activatedReceivers++;
-        }
-        if (totalReceivers == activatedReceivers)
+        if (CheckChallengeProgress())
         {
             TriggerGameOver(0);
             return true;
         }
         return false;
+    }
+
+    public bool CheckChallengeProgress()
+    {
+        int activatedReceivers = 0;
+        int totalReceivers = 0;
+        foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
+        {
+            if (receiver.GetReceivedIntensity() >= 1) activatedReceivers++;
+            totalReceivers++;
+        }
+        UIManagerGame.Instance.UpdateScoreFraction(activatedReceivers, totalReceivers);
+        return totalReceivers == activatedReceivers;
+    }
+
+    public override void TriggerGameOver(int? winner)
+    {
+        PlayerPrefs.SetFloat("unlockedChallenges", ChallengeNumber + 1);
+        base.TriggerGameOver(winner);
     }
 
     public override bool VerifyAction(PlayerAction action)
@@ -53,9 +75,6 @@ public class GameModeManagerSolo : GameModeManager
             case MovePieceAction:
                 ExecuteMovePieceAction((MovePieceAction)action);
                 break;
-            case ServerSpawnPieceAction:
-                ((ServerSpawnPieceAction)action).Tile.InstantiatePiece(((ServerSpawnPieceAction)action).PieceName);
-                break;
             case RevertLastActionAction:
                 RewindManager.Instance.RevertLastAction();
                 break;
@@ -65,14 +84,11 @@ public class GameModeManagerSolo : GameModeManager
             case EndTurnAction:
                 TurnManager.Instance.EndTurn();
                 break;
-            case ServerSendPiecesListAction:
-                if (GameInitialParameters.localPlayerID == -1) return;
-                FindObjectOfType<SelectionTilesUpdate>().ClientUpdateSelectionPieces((ServerSendPiecesListAction)action);
-                break;
             default:
                 // TODO : On peut rajouter un Throw Exception
                 break;
         }
+        CheckChallengeProgress();
     }
 
     public override void RevertAction(Action action)

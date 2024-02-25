@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class StartGameOfflineButton : MenuButton
 {
     [field: SerializeField]
-    private string SceneName;
+    protected string SceneName;
 
     public override void DoOnClick()
     {

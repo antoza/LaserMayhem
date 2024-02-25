@@ -24,6 +24,9 @@ public class UIManagerGame : UIManager
     private GameObject drawPopUp;
 
     [SerializeField]
+    private TextMeshProUGUI score;
+
+    [SerializeField]
     private TextMeshProUGUI[] usernameTexts;
     [SerializeField]
     private TextMeshProUGUI[] healthTexts;
@@ -55,7 +58,6 @@ public class UIManagerGame : UIManager
         base.Start();
         AssociatePlayersInAscendingOrder(GameInitialParameters.localPlayerID, PlayersManager.Instance.NumberOfPlayers);
         SetBackground();
-
     }
 
     private void AssociatePlayersInAscendingOrder(int localPlayerID, int numberOfPlayers)
@@ -90,6 +92,12 @@ public class UIManagerGame : UIManager
 
 
     // Players information
+
+    public async void UpdateScoreFraction(int numerator, int denominator)
+    {
+        await WaitForReadiness();
+        score.text = $"{numerator} / {denominator}";
+    }
 
     public async void UpdateUsername(int playerID, string value)
     {
