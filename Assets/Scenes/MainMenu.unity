@@ -542,6 +542,109 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48417177}
   m_CullTransparentMesh: 1
+--- !u!1001 &100101096
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 862864281}
+    m_Modifications:
+    - target: {fileID: 8350026495796389194, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: MenuToGo
+      value: 301
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496018939235, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: MenuToGo
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496133731953, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: MenuToGo
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818835, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_Name
+      value: TutorialsMenus
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496198818835, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026496515392006, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: MenuToGo
+      value: 302
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350026497124034304, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+      propertyPath: MenuToGo
+      value: 100
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+--- !u!4 &100101097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8350026496198818834, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+  m_PrefabInstance: {fileID: 100101096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &100101098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8350026496198066095, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+  m_PrefabInstance: {fileID: 100101096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &100101099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8350026497494288772, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+  m_PrefabInstance: {fileID: 100101096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &100101100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8350026496213907742, guid: 38155c091ae4426438961a60f8a65051, type: 3}
+  m_PrefabInstance: {fileID: 100101096}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &125380127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4791,6 +4894,7 @@ RectTransform:
   - {fileID: 1757524070}
   - {fileID: 711859390533865166}
   - {fileID: 3292854197614244888}
+  - {fileID: 100101097}
   - {fileID: 3292854197534098677}
   m_Father: {fileID: 7866484425158149213}
   m_RootOrder: -1
@@ -9553,7 +9657,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[10].Key
-      value: 10
+      value: 302
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
+      propertyPath: MenusDictionnary._serializedList.Array.data[11].Key
+      value: 302
       objectReference: {fileID: 0}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[0].Value
@@ -9590,13 +9698,17 @@ PrefabInstance:
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[8].Value
       value: 
-      objectReference: {fileID: 3292854197534098676}
+      objectReference: {fileID: 100101100}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[9].Value
       value: 
-      objectReference: {fileID: 3292854196743975267}
+      objectReference: {fileID: 100101099}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[10].Value
+      value: 
+      objectReference: {fileID: 100101098}
+    - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
+      propertyPath: MenusDictionnary._serializedList.Array.data[11].Value
       value: 
       objectReference: {fileID: 3292854197528495944}
     - target: {fileID: 4117676232229254713, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
@@ -12102,7 +12214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3292854197534098677}
   m_Layer: 0
-  m_Name: TutorialsMenus
+  m_Name: OLDtuto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
