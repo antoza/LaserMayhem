@@ -22,35 +22,15 @@ public abstract class TurnManager : Manager<TurnManager>
         StartCoroutine(StartTurnCoroutine());
     }
 
-    public void EndTurn()
+    public void EndTurn(EndTurnAction action)
     {
-        StartCoroutine(EndTurnCoroutine());
+        StartCoroutine(EndTurnCoroutine(action));
     }
 
     protected abstract IEnumerator StartTurnCoroutine();
 
-    protected abstract IEnumerator EndTurnCoroutine();
+    protected abstract IEnumerator EndTurnCoroutine(EndTurnAction action);
 
-
-    // Phases
-
-    protected virtual void StartLaserPhase()
-    {
-#if !DEDICATED_SERVER
-        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
-        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
-#endif
-        RewindManager.Instance.ClearAllActions();
-        BoardManager.Instance.DisplayEndTurnLaser();
-        ResetPiecesPlayedThisTurn();
-    }
-
-    protected virtual void StartTurnPhase()
-    {
-#if !DEDICATED_SERVER
-        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
-#endif
-    }
 
 
     // Pieces played this turn

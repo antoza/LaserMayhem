@@ -18,10 +18,10 @@ public class BoardManagerSolo : BoardManager
         boardTilesParent.transform.parent = _boardParent.transform;
         GenerateBoardTilesInArea(-4, 4, -2, 2, TileName.NormalBoardTile, boardTilesParent);
 
-        BoardTile laserGeneratorTile = GenerateBoardTile(-4, 0, TileName.InvisibleBoardTile, _boardParent);
+        BoardTile laserGeneratorTile = GenerateBoardTile(-4, 0, TileName.LockedBoardTile, _boardParent);
         laserGeneratorTile.InstantiatePiece(PieceName.LaserEmitter);
 
-        BoardTile eyeTile = GenerateBoardTile(2, 2, TileName.InvisibleBoardTile, _boardParent);
+        BoardTile eyeTile = GenerateBoardTile(2, 2, TileName.LockedBoardTile, _boardParent);
         eyeTile.InstantiatePiece(PieceName.Eye);
     }
 }

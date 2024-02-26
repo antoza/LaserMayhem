@@ -18,9 +18,9 @@ public sealed class TurnManagerSolo : TurnManager
         StartTurnPhase();
     }
 
-    protected override IEnumerator EndTurnCoroutine()
+    protected override IEnumerator EndTurnCoroutine(EndTurnAction action)
     {
-        StartLaserPhase();
+        StartLaserPhase((EyeClosingEndTurnAction)action);
         yield return new WaitForSeconds(LaserPhaseDuration);
 
         if (GameModeManager.Instance.CheckGameOver()) yield break;
@@ -30,9 +30,18 @@ public sealed class TurnManagerSolo : TurnManager
 
     // Phases
 
-    protected override void StartTurnPhase()
+    private void StartLaserPhase(EyeClosingEndTurnAction action)
     {
-        base.StartTurnPhase();
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
+        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
+        BoardManager.Instance.DisplayEndTurnLaser();
+        GameModeManagerSolo.Instance.CloseActivatedEyes(action);
+        // TODO : ResetPiecesPlayedThisTurn(); mais faire en sorte qu'on puisse les déreset avec un UNDO
+    }
+
+    private void StartTurnPhase()
+    {
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
         BoardManager.Instance.DisplayPredictionLaser();
     }
 }

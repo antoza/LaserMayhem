@@ -35,7 +35,7 @@ public abstract class GameModeManager : Manager<GameModeManager>
         }
         else
         {
-            if (winner! == GameInitialParameters.localPlayerID)
+            if (winner! == LocalPlayerManager.Instance.LocalPlayer.PlayerID)
             {
                 ((UIManagerGame)UIManager.Instance).TriggerVictory();
             }

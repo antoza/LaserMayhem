@@ -7,17 +7,17 @@ using AYellowpaper.SerializedCollections;
 
 public enum Menus
 {
-    None,
-    Connection,
-    Main,
-    GameMode, 
-    Matchmaking,
-    Options,
-    GameOver,
-    BackgroundChoice,
-    TutorialList,
-    TutorialGeneral,
-    TutorialPieceList
+    None = 0,
+    Connection = 10,
+    Main = 100,
+    GameMode = 101,
+    ChallengeSelection = 102,
+    Matchmaking = 150,
+    Options = 200,
+    BackgroundChoice = 210,
+    TutorialList = 300,
+    TutorialGeneral = 301,
+    TutorialPieceList = 302,
 }
 
 public class MenusManager : MonoBehaviour

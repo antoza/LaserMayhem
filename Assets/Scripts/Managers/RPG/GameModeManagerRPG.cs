@@ -77,7 +77,7 @@ public class GameModeManagerRPG : GameModeManager
                 RewindManager.Instance.RevertAllActions();
                 break;
             case EndTurnAction:
-                TurnManager.Instance.EndTurn();
+                TurnManager.Instance.EndTurn((EndTurnAction)action);
                 break;
             case ServerSendPiecesListAction:
                 if (GameInitialParameters.localPlayerID == -1) return;

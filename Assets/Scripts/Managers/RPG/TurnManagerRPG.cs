@@ -35,7 +35,7 @@ public sealed class TurnManagerRPG : TurnManager
         StartTurnPhase();
     }
 
-    protected override IEnumerator EndTurnCoroutine()
+    protected override IEnumerator EndTurnCoroutine(EndTurnAction action)
     {
         StartLaserPhase();
         yield return new WaitForSeconds(LaserPhaseDuration);
@@ -47,16 +47,22 @@ public sealed class TurnManagerRPG : TurnManager
 
     // Phases
 
-    protected override void StartLaserPhase()
+    private void StartLaserPhase()
     {
-        base.StartLaserPhase();
+#if !DEDICATED_SERVER
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
+        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
+#endif
+        RewindManager.Instance.ClearAllActions();
+        BoardManager.Instance.DisplayEndTurnLaser();
+        ResetPiecesPlayedThisTurn();
 
         // TODO : A mettre dans une fonction spéciale qu'on pourrait mettre en abstract dans TurnManager (du style ProcessReceivers), ou alors dans GameModeManager
         foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
         {
             int receivedDamage = receiver.GetReceivedIntensity();
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(receivedDamage, transform.position);
+            ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(receivedDamage, receiver.transform.position);
 #endif
             ((Weakness)receiver).WeakPlayer.PlayerHealth.TakeDamage(receivedDamage);
         }
@@ -73,6 +79,12 @@ public sealed class TurnManagerRPG : TurnManager
         BoardManager.Instance.DisplayPredictionLaser();
 #if DEDICATED_SERVER
         if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier
+#endif
+    }
+    private void StartTurnPhase()
+    {
+#if !DEDICATED_SERVER
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
 #endif
     }
 }

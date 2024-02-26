@@ -8,6 +8,13 @@ public class LocalPlayerManagerSolo : LocalPlayerManager
 #if !DEDICATED_SERVER
     public static new LocalPlayerManagerSolo Instance => (LocalPlayerManagerSolo)LocalPlayerManager.Instance;
 
+    public override void CreateAndVerifyEndTurnAction()
+    {
+        EyeClosingEndTurnAction action = new EyeClosingEndTurnAction(LocalPlayer);
+        action.Eyes = new List<Eye>();
+        VerifyAction(action);
+    }
+
     protected override void VerifyAction(PlayerAction action)
     {
         if (GameModeManager.Instance.VerifyAction(action))

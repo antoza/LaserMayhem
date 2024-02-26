@@ -15,34 +15,35 @@ public class GameModeManagerSolo : GameModeManager
     [SerializeField]
     public int ChallengeNumber { get; private set; }
 
+    private int totalEyes;
+    private int closedEyes = 0;
+
     private void Start()
     {
         int.TryParse(SceneManager.GetActiveScene().name.Split("Challenge")[1], out int number);
         ChallengeNumber = number;
-        CheckChallengeProgress();
+
+        totalEyes = BoardManager.Instance.GetReceivers().Count();
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+        UIManagerGame.Instance.UpdateScoreFraction(closedEyes, totalEyes);
     }
 
     public override bool CheckGameOver()
     {
-        if (CheckChallengeProgress())
+        if (closedEyes == totalEyes)
         {
             TriggerGameOver(0);
             return true;
         }
+        /* if (TurnManager.RemainingTurns == 0) {
+            TriggerGameOver(1);
+            return true;
+        }*/
         return false;
-    }
-
-    public bool CheckChallengeProgress()
-    {
-        int activatedReceivers = 0;
-        int totalReceivers = 0;
-        foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
-        {
-            if (receiver.GetReceivedIntensity() >= 1) activatedReceivers++;
-            totalReceivers++;
-        }
-        UIManagerGame.Instance.UpdateScoreFraction(activatedReceivers, totalReceivers);
-        return totalReceivers == activatedReceivers;
     }
 
     public override void TriggerGameOver(int? winner)
@@ -81,14 +82,14 @@ public class GameModeManagerSolo : GameModeManager
             case RevertAllActionsAction:
                 RewindManager.Instance.RevertAllActions();
                 break;
-            case EndTurnAction:
-                TurnManager.Instance.EndTurn();
+            case EyeClosingEndTurnAction:
+                TurnManager.Instance.EndTurn((EyeClosingEndTurnAction)action);
+                RewindManager.Instance.AddAction(action);
                 break;
             default:
                 // TODO : On peut rajouter un Throw Exception
                 break;
         }
-        CheckChallengeProgress();
     }
 
     public override void RevertAction(Action action)
@@ -97,6 +98,11 @@ public class GameModeManagerSolo : GameModeManager
         {
             case MovePieceAction:
                 RevertMovePieceAction((MovePieceAction)action);
+                break;
+            case EyeClosingEndTurnAction:
+                ReopenActivatedEyes((EyeClosingEndTurnAction)action);
+                // TODO : déreset les pièces jouées ce tour
+                // TODO : redonner un "remaining laser"
                 break;
             default:
                 // TODO : On peut rajouter un Throw Exception
@@ -265,5 +271,29 @@ public class GameModeManagerSolo : GameModeManager
     public void ExecuteDeletion(PlayerData playerData, NormalBoardTile sourceTile)
     {
         sourceTile.Piece = null;
+    }
+
+    public void CloseActivatedEyes(EyeClosingEndTurnAction action)
+    {
+        foreach (Eye eye in BoardManager.Instance.GetReceivers())
+        {
+            if (!eye.IsClosed && eye.GetReceivedIntensity() >= 1)
+            {
+                action.Eyes.Add(eye);
+                eye.Close();
+                closedEyes++;
+            }
+        }
+        UpdateScore();
+    }
+
+    public void ReopenActivatedEyes(EyeClosingEndTurnAction action)
+    {
+        foreach (Eye eye in action.Eyes)
+        {
+            eye.Open();
+            closedEyes--;
+        }
+        UpdateScore();
     }
 }
