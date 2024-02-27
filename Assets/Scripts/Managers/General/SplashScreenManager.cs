@@ -22,7 +22,7 @@ public class SplashScreenManager : MonoBehaviour
 
     private IEnumerator WaitSplashScreenDelay()
     {
-        // TODO : mettre ailleurs
+        // TODO : Mettre ailleurs
         if (!PlayerPrefs.HasKey("unlockedChallenges"))
         {
             PlayerPrefs.SetFloat("unlockedChallenges", 1);
@@ -52,10 +52,14 @@ public class SplashScreenManager : MonoBehaviour
         else
         {
             UIManager.Instance.DisplayWideMessage("The server is not available at the moment.\n" +
-                "It usually becomes available between 3 p.m. and 12 p.m. CET, so please try again during these times.\n" +
+                "You can't play online but you have access to challenges.\n" +
                 "\n" +
                 "You'll find more information on Discord.\n" +
                 "(on the bottom left corner)");
+
+            // TODO : A supprimer plus tard
+            GameObject.Find("Menus").transform.Find("ChallengeSelectionMenu").Find("BackButton").gameObject.SetActive(false);
+            GameObject.Find("Menus").transform.Find("ChallengeSelectionMenu").Find("BackButtonOffline").gameObject.SetActive(true);
         }
         Destroy(gameObject);
     }

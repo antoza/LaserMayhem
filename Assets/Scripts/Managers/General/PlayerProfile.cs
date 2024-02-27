@@ -12,7 +12,7 @@ public class PlayerProfile : ScriptableObject
         {
             _username = value;
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateUsername(PlayerData.PlayerID, value);
+            UIManagerGame.Instance.UpdateUsername(PlayerData.PlayerID, value);
 #endif
         }
     }

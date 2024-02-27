@@ -14,7 +14,7 @@ public class PlayerHealth : ScriptableObject
         {
             _health = value;
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).UpdateHealth(PlayerData.PlayerID, value);
+            UIManagerGame.Instance.UpdateHealth(PlayerData.PlayerID, value);
 #endif
         }
     }

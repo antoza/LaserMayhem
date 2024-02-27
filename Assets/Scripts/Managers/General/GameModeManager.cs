@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 
 public abstract class GameModeManager : Manager<GameModeManager>
 {
+    [HideInInspector]
+    public bool IsGameOver = false;
+
     public abstract bool CheckGameOver();
 
     public virtual bool VerifyAction(PlayerAction action)
     {
         if (!PlayersManager.Instance.GetCurrentPlayer() == action.PlayerData) return false;
+        if (IsGameOver) return false;
         // TODO : On pourrait ajouter qu'on n'autorise pas le joueur à jouer si le laser n'a pas fini son animation
         return true;
     }
@@ -23,12 +27,15 @@ public abstract class GameModeManager : Manager<GameModeManager>
     // TODO : A METTRE DANS UNE NOUVELLE CLASSE QUI GERE LE DEBUT / LA FIN DE PARTIE
     public virtual void TriggerGameOver(int? winner)
     {
+        IsGameOver = true;
+
 #if DEDICATED_SERVER
         SenderManager.Instance.SaveResults();
         MenuMessageManager.Instance.StopServer();
         SceneManager.LoadScene("ServerMenu");
         return;
 #else
+
         if (winner == null)
         {
             ((UIManagerGame)UIManager.Instance).TriggerDraw();

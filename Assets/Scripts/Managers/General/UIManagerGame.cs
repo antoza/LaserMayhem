@@ -25,6 +25,8 @@ public class UIManagerGame : UIManager
 
     [SerializeField]
     private TextMeshProUGUI score;
+    [SerializeField]
+    private TextMeshProUGUI turnCount;
 
     [SerializeField]
     private TextMeshProUGUI[] usernameTexts;
@@ -90,14 +92,31 @@ public class UIManagerGame : UIManager
         defeatPopUp.SetActive(true);
     }
 
+    public async void HideGameOverPopUps()
+    {
+        await WaitForReadiness();
+        if (drawPopUp != null) drawPopUp.SetActive(false);
+        if (victoryPopUp != null) victoryPopUp.SetActive(false);
+        if (defeatPopUp != null) defeatPopUp.SetActive(false);
+    }
 
-    // Players information
+
+    // Values
 
     public async void UpdateScoreFraction(int numerator, int denominator)
     {
         await WaitForReadiness();
         score.text = $"{numerator} / {denominator}";
     }
+
+    public async void UpdateTurnCount(int value)
+    {
+        await WaitForReadiness();
+        turnCount.text = $"{value}";
+    }
+
+
+    // Players information
 
     public async void UpdateUsername(int playerID, string value)
     {
@@ -137,6 +156,7 @@ public class UIManagerGame : UIManager
         TextMeshProUGUI tmp = deletionCostTexts[playerIndexes[playerID]];
         if (tmp != null) tmp.text = "Deletion: " + value.ToString();
     }
+
 
     // Turn
 

@@ -27,12 +27,21 @@ public sealed class TurnManagerSolo : TurnManager
         yield return StartCoroutine(StartTurnCoroutine());
     }
 
+    protected override IEnumerator RevertEndTurnCoroutine(EndTurnAction action)
+    {
+        RevertStartTurnPhase();
+        yield return new WaitForSeconds(RevertLaserPhaseDuration);
+        RevertStartLaserPhase((EyeClosingEndTurnAction)action);
+
+    }
+
 
     // Phases
 
     private void StartLaserPhase(EyeClosingEndTurnAction action)
     {
-        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
+        UIManagerGame.Instance.UpdateEndTurnButtonState("Pressed");
+        GameModeManagerSolo.Instance.RemainingLasers--;
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
         BoardManager.Instance.DisplayEndTurnLaser();
         GameModeManagerSolo.Instance.CloseActivatedEyes(action);
@@ -41,7 +50,24 @@ public sealed class TurnManagerSolo : TurnManager
 
     private void StartTurnPhase()
     {
+        TurnNumber++;
         ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
         BoardManager.Instance.DisplayPredictionLaser();
+    }
+
+    private void RevertStartTurnPhase()
+    {
+        //BoardManager.Instance.DisplayEndTurnLaser();
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
+        TurnNumber--;
+    }
+
+    private void RevertStartLaserPhase(EyeClosingEndTurnAction action)
+    {
+        GameModeManagerSolo.Instance.ReopenActivatedEyes(action);
+        BoardManager.Instance.DisplayPredictionLaser();
+        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
+        GameModeManagerSolo.Instance.RemainingLasers++;
+        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
     }
 }

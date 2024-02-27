@@ -13,7 +13,7 @@ public abstract class Receiver : Piece
     protected Dictionary<Vector2Int, int> directions;
 
     private void Awake()
-    {
+    {// TODO : new effectué deux fois pour le weak wall
         directions = new Dictionary<Vector2Int, int>() { { Vector2Int.down, 0 },
             { Vector2Int.up, 0 },
             { Vector2Int.left, 0 },

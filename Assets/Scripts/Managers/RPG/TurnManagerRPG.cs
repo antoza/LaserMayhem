@@ -12,7 +12,7 @@ public sealed class TurnManagerRPG : TurnManager
 {
     public static new TurnManagerRPG Instance => (TurnManagerRPG)TurnManager.Instance;
 
-    [field: SerializeField]
+    [SerializeField]
     public int AnnouncementPhaseDuration { get; private set; } = 3;
 
 #if DEDICATED_SERVER
@@ -44,6 +44,11 @@ public sealed class TurnManagerRPG : TurnManager
         yield return StartCoroutine(StartTurnCoroutine());
     }
 
+    protected override IEnumerator RevertEndTurnCoroutine(EndTurnAction action)
+    {
+        yield return null;
+    }
+
 
     // Phases
 
@@ -63,14 +68,15 @@ public sealed class TurnManagerRPG : TurnManager
             int receivedDamage = receiver.GetReceivedIntensity();
 #if !DEDICATED_SERVER
             ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(receivedDamage, receiver.transform.position);
-#endif
+#endif  
             ((Weakness)receiver).WeakPlayer.PlayerHealth.TakeDamage(receivedDamage);
         }
     }
 
     private void StartAnnouncementPhase()
     {
-        PlayersManager.Instance.StartNextPlayerTurn(++TurnNumber);
+        TurnNumber++;
+        PlayersManager.Instance.StartNextPlayerTurn(TurnNumber);
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).TriggerPlayerTurnAnnouncement(AnnouncementPhaseDuration);
 #endif

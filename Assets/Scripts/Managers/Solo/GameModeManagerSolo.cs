@@ -12,37 +12,52 @@ using UnityEngine.SceneManagement;
 public class GameModeManagerSolo : GameModeManager
 {
     public static new GameModeManagerSolo Instance => (GameModeManagerSolo)GameModeManager.Instance;
-    [SerializeField]
+
     public int ChallengeNumber { get; private set; }
 
-    private int totalEyes;
-    private int closedEyes = 0;
+    [SerializeField]
+    private int _startingLasersCount;
+
+    private int _remainingLasers;
+    public int RemainingLasers
+    {
+        get => _remainingLasers;
+        set
+        {
+            _remainingLasers = value;
+            UIManagerGame.Instance.UpdateTurnCount(value);
+        }
+    }
+
+    private int _totalEyes;
+    private int _closedEyes = 0; // TODO : En faire une propriété qui, dans le set, modifie le score automatiquement, au lieu d'appeler UpdateScore
 
     private void Start()
     {
         int.TryParse(SceneManager.GetActiveScene().name.Split("Challenge")[1], out int number);
         ChallengeNumber = number;
 
-        totalEyes = BoardManager.Instance.GetReceivers().Count();
+        RemainingLasers = _startingLasersCount;
+        _totalEyes = BoardManager.Instance.GetReceivers().Count();
         UpdateScore();
     }
 
     public void UpdateScore()
     {
-        UIManagerGame.Instance.UpdateScoreFraction(closedEyes, totalEyes);
+        UIManagerGame.Instance.UpdateScoreFraction(_closedEyes, _totalEyes);
     }
 
     public override bool CheckGameOver()
     {
-        if (closedEyes == totalEyes)
+        if (_closedEyes == _totalEyes)
         {
             TriggerGameOver(0);
             return true;
         }
-        /* if (TurnManager.RemainingTurns == 0) {
+        if (RemainingLasers == 0) {
             TriggerGameOver(1);
             return true;
-        }*/
+        }
         return false;
     }
 
@@ -83,8 +98,8 @@ public class GameModeManagerSolo : GameModeManager
                 RewindManager.Instance.RevertAllActions();
                 break;
             case EyeClosingEndTurnAction:
-                TurnManager.Instance.EndTurn((EyeClosingEndTurnAction)action);
                 RewindManager.Instance.AddAction(action);
+                TurnManager.Instance.EndTurn((EyeClosingEndTurnAction)action);
                 break;
             default:
                 // TODO : On peut rajouter un Throw Exception
@@ -100,7 +115,7 @@ public class GameModeManagerSolo : GameModeManager
                 RevertMovePieceAction((MovePieceAction)action);
                 break;
             case EyeClosingEndTurnAction:
-                ReopenActivatedEyes((EyeClosingEndTurnAction)action);
+                TurnManager.Instance.RevertEndTurn((EyeClosingEndTurnAction)action);
                 // TODO : déreset les pièces jouées ce tour
                 // TODO : redonner un "remaining laser"
                 break;
@@ -281,7 +296,7 @@ public class GameModeManagerSolo : GameModeManager
             {
                 action.Eyes.Add(eye);
                 eye.Close();
-                closedEyes++;
+                _closedEyes++;
             }
         }
         UpdateScore();
@@ -292,7 +307,7 @@ public class GameModeManagerSolo : GameModeManager
         foreach (Eye eye in action.Eyes)
         {
             eye.Open();
-            closedEyes--;
+            _closedEyes--;
         }
         UpdateScore();
     }

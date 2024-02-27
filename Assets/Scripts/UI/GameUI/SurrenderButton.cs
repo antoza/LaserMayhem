@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OptionsButton : GameButton
+public class SurrenderButton : MonoBehaviour
 {
-    public override void OnClick()
+    [SerializeField]
+    private GameObject Options;
+
+    public void OnClick()
     {
-        base.OnClick();
         //LocalPlayerManager.Instance.CreateSurrenderAction();
     }
 }

@@ -14,6 +14,8 @@ public abstract class TurnManager : Manager<TurnManager>
 
     [field: SerializeField]
     public int LaserPhaseDuration { get; private set; }
+    [field: SerializeField]
+    public int RevertLaserPhaseDuration { get; private set; }
 
     protected HashSet<Piece> _piecesPlayedThisTurn = new HashSet<Piece>();
 
@@ -27,9 +29,16 @@ public abstract class TurnManager : Manager<TurnManager>
         StartCoroutine(EndTurnCoroutine(action));
     }
 
+    public void RevertEndTurn(EndTurnAction action)
+    {
+        StartCoroutine(RevertEndTurnCoroutine(action));
+    }
+
     protected abstract IEnumerator StartTurnCoroutine();
 
     protected abstract IEnumerator EndTurnCoroutine(EndTurnAction action);
+
+    protected abstract IEnumerator RevertEndTurnCoroutine(EndTurnAction action);
 
 
 
