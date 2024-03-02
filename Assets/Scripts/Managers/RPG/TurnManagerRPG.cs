@@ -37,7 +37,7 @@ public sealed class TurnManagerRPG : TurnManager
 
     protected override IEnumerator EndTurnCoroutine(EndTurnAction action)
     {
-        StartLaserPhase();
+        StartLaserPhase(action);
         yield return new WaitForSeconds(LaserPhaseDuration);
 
         if (GameModeManager.Instance.CheckGameOver()) yield break;
@@ -52,7 +52,7 @@ public sealed class TurnManagerRPG : TurnManager
 
     // Phases
 
-    private void StartLaserPhase()
+    private void StartLaserPhase(EndTurnAction action)
     {
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
@@ -60,16 +60,19 @@ public sealed class TurnManagerRPG : TurnManager
 #endif
         RewindManager.Instance.ClearAllActions();
         BoardManager.Instance.DisplayEndTurnLaser();
-        ResetPiecesPlayedThisTurn();
+        ClearPiecesPlayedThisTurn(action);
 
         // TODO : A mettre dans une fonction spéciale qu'on pourrait mettre en abstract dans TurnManager (du style ProcessReceivers), ou alors dans GameModeManager
         foreach (Receiver receiver in BoardManager.Instance.GetReceivers())
         {
             int receivedDamage = receiver.GetReceivedIntensity();
+            if (receivedDamage > 0)
+            {
 #if !DEDICATED_SERVER
-            ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(receivedDamage, receiver.transform.position);
+                ((UIManagerGame)UIManager.Instance).DisplayHealthLoss(receivedDamage, receiver.transform.position);
 #endif  
-            ((Weakness)receiver).WeakPlayer.PlayerHealth.TakeDamage(receivedDamage);
+                ((Weakness)receiver).WeakPlayer.PlayerHealth.TakeDamage(receivedDamage);
+            }
         }
     }
 

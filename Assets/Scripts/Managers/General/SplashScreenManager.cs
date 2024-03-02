@@ -25,7 +25,7 @@ public class SplashScreenManager : MonoBehaviour
         // TODO : Mettre ailleurs
         if (!PlayerPrefs.HasKey("unlockedChallenges"))
         {
-            PlayerPrefs.SetFloat("unlockedChallenges", 1);
+            PlayerPrefs.SetInt("unlockedChallenges", 1);
         }
 
 #if !DEDICATED_SERVER

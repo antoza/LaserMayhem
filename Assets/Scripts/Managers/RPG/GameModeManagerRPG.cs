@@ -50,8 +50,8 @@ public class GameModeManagerRPG : GameModeManager
         {
             case MovePieceAction:
                 return VerifyMovePieceAction((MovePieceAction)action);
-            case RevertLastActionAction:
-            case RevertAllActionsAction:
+            case UndoAction:
+            case UndoEverythingAction:
                 return !RewindManager.Instance.IsEmpty();
             case EndTurnAction:
                 return true;
@@ -70,10 +70,10 @@ public class GameModeManagerRPG : GameModeManager
             case ServerSpawnPieceAction:
                 ((ServerSpawnPieceAction)action).Tile.InstantiatePiece(((ServerSpawnPieceAction)action).PieceName);
                 break;
-            case RevertLastActionAction:
+            case UndoAction:
                 RewindManager.Instance.RevertLastAction();
                 break;
-            case RevertAllActionsAction:
+            case UndoEverythingAction:
                 RewindManager.Instance.RevertAllActions();
                 break;
             case EndTurnAction:

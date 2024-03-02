@@ -69,15 +69,15 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
         VerifyAction(action);
     }
 
-    public void CreateAndVerifyRevertLastActionAction()
+    public void CreateAndVerifyUndoAction()
     {
-        RevertLastActionAction action = new RevertLastActionAction(LocalPlayer);
+        UndoAction action = new UndoAction(LocalPlayer);
         VerifyAction(action);
     }
 
-    public void CreateAndVerifyRevertAllActionsAction()
+    public void CreateAndVerifyUndoEverythingAction()
     {
-        RevertAllActionsAction action = new RevertAllActionsAction(LocalPlayer);
+        UndoEverythingAction action = new UndoEverythingAction(LocalPlayer);
         VerifyAction(action);
     }
 #endif

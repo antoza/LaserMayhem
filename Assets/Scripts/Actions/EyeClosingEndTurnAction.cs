@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EyeClosingEndTurnAction : EndTurnAction
 {
-    public List<Eye> Eyes;
+    public List<Eye> Eyes = new List<Eye>();
 
     public EyeClosingEndTurnAction() : base()
     {

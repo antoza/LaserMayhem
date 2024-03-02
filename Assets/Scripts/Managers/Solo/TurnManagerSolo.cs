@@ -40,34 +40,43 @@ public sealed class TurnManagerSolo : TurnManager
 
     private void StartLaserPhase(EyeClosingEndTurnAction action)
     {
+#if !DEDICATED_SERVER
         UIManagerGame.Instance.UpdateEndTurnButtonState("Pressed");
-        GameModeManagerSolo.Instance.RemainingLasers--;
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
+#endif
+        GameModeManagerSolo.Instance.RemainingLasers--;
         BoardManager.Instance.DisplayEndTurnLaser();
         GameModeManagerSolo.Instance.CloseActivatedEyes(action);
-        // TODO : ResetPiecesPlayedThisTurn(); mais faire en sorte qu'on puisse les déreset avec un UNDO
+        ClearPiecesPlayedThisTurn(action);
     }
 
     private void StartTurnPhase()
     {
         TurnNumber++;
-        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
+#if !DEDICATED_SERVER
+        UIManagerGame.Instance.UpdateEndTurnButtonState("Unpressed");
+#endif
         BoardManager.Instance.DisplayPredictionLaser();
     }
 
     private void RevertStartTurnPhase()
     {
         //BoardManager.Instance.DisplayEndTurnLaser();
-        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
+#if !DEDICATED_SERVER
+        UIManagerGame.Instance.UpdateEndTurnButtonState("Pressed");
+#endif
         TurnNumber--;
     }
 
     private void RevertStartLaserPhase(EyeClosingEndTurnAction action)
     {
+        RevertClearPiecesPlayedThisTurn(action);
         GameModeManagerSolo.Instance.ReopenActivatedEyes(action);
         BoardManager.Instance.DisplayPredictionLaser();
-        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
         GameModeManagerSolo.Instance.RemainingLasers++;
-        ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Unpressed");
+#if !DEDICATED_SERVER
+        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
+        UIManagerGame.Instance.UpdateEndTurnButtonState("Unpressed");
+#endif
     }
 }

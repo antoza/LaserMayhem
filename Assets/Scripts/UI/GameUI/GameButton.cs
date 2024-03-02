@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public abstract class GameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
-    protected Animator m_Animator;
+    protected Animator _animator;
 
     protected virtual void Awake()
     {
-        m_Animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     public virtual void OnClick()
@@ -19,11 +19,11 @@ public abstract class GameButton : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        m_Animator.SetBool("Selected", true);
+        _animator.SetBool("Selected", true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-       m_Animator.SetBool("Selected", false);
+       _animator.SetBool("Selected", false);
     }
 }

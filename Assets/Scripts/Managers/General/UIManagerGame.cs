@@ -24,6 +24,8 @@ public class UIManagerGame : UIManager
     private GameObject drawPopUp;
 
     [SerializeField]
+    private TextMeshProUGUI title;
+    [SerializeField]
     private TextMeshProUGUI score;
     [SerializeField]
     private TextMeshProUGUI turnCount;
@@ -41,6 +43,8 @@ public class UIManagerGame : UIManager
 
     [SerializeField]
     private PlayerTurnAnnouncementUI playerTurnAnnouncement;
+    [SerializeField]
+    private UndoButton undoButton;
     [SerializeField]
     private EndTurnButton endTurnButton;
 
@@ -103,10 +107,18 @@ public class UIManagerGame : UIManager
 
     // Values
 
+    public async void UpdateChallengeTitle(int value)
+    {
+        await WaitForReadiness();
+        title.text = $"Challenge {value}";
+    }
+
     public async void UpdateScoreFraction(int numerator, int denominator)
     {
         await WaitForReadiness();
         score.text = $"{numerator} / {denominator}";
+        if (numerator == denominator) { score.color = Color.green; }
+        else { score.color = Color.yellow; }
     }
 
     public async void UpdateTurnCount(int value)
@@ -159,6 +171,25 @@ public class UIManagerGame : UIManager
 
 
     // Turn
+
+    public async void UpdateUndoButtonState(string state)
+    {
+        await WaitForReadiness();
+        switch (state)
+        {
+            case "Pressed":
+                if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) undoButton.SetAsPressed();
+                break;
+            case "QuicklyPressed":
+                if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) undoButton.SetAsQuicklyPressed();
+                break;
+            case "Unpressed":
+                if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) undoButton.SetAsUnpressed();
+                break;
+            default:
+                break;
+        }
+    }
 
     public async void UpdateEndTurnButtonState(string state)
     {

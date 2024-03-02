@@ -14,9 +14,11 @@ public class LogInButton : MenuButton
     {
         string username = UsernameInputField.text;
         string password = PasswordInputField.text;
-        if(password.Length < 8)
+        password = "aaaaaaaa";                                                                    // TODO : A ENLEVER
+
+        if (username.Length == 0 || password.Length < 8)
         {
-            UIManager.Instance.DisplayErrorMessage("Incorrect username or password");
+            UIManager.Instance.DisplayErrorMessage("Incorrect username");// or password");
             return;
         }
         foreach (char c in username + password)

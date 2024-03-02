@@ -128,7 +128,7 @@ public abstract class BoardManager : Manager<BoardManager>
         return tiles;
     }
     
-    protected BoardTile GenerateBoardTile(int x, int y, TileName tileName, GameObject? parent)
+    protected BoardTile GenerateBoardTile(int x, int y, TileName tileName, GameObject? parent, PieceName initialPiece = PieceName.None)
     {
         BoardTile tile = (BoardTile)TilePrefabs.Instance.GetTile(tileName).InstantiateTile();
         if (parent) tile.transform.SetParent(parent!.transform);
@@ -139,6 +139,8 @@ public abstract class BoardManager : Manager<BoardManager>
         tile.SetColor(); // TODO : cette ligne n'est pas à sa place, trouver un meilleur endroit où l'appeler
         int sign = GameInitialParameters.localPlayerID == 1 ? -1 : 1;
         tile.transform.position = sign * (Vector2)spot;
+
+        tile.InstantiatePiece(initialPiece);
 
         RegisterBoardTile(spot, tile);
         return tile;

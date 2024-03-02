@@ -17,7 +17,11 @@ public class StartChallengeButton : StartGameOfflineButton
     private void Start()
     {
         SceneName += challengeNumber.ToString();
-        unlocked = challengeNumber <= PlayerPrefs.GetFloat("unlockedChallenges");
+
+        GetComponentInChildren<TextMeshProUGUI>().text = challengeNumber.ToString();
+        lockedButton.GetComponentInChildren<TextMeshProUGUI>().text = challengeNumber.ToString();
+
+        unlocked = challengeNumber <= PlayerPrefs.GetInt("unlockedChallenges");
         if (!unlocked)
         {
             lockedButton.SetActive(true);

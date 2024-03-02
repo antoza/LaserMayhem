@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EndTurnButton : GameButton
 {
 #if !DEDICATED_SERVER
-    Button m_TurnButton;
+    private Button m_TurnButton;
 
     protected override void Awake()
     {
@@ -25,13 +25,13 @@ public class EndTurnButton : GameButton
 
     public void SetAsPressed()
     {
-        m_Animator.SetBool("Pressed", true);
+        _animator.SetBool("Pressed", true);
         m_TurnButton.interactable = false;
     }
 
     public void SetAsUnpressed()
     {
-        m_Animator.SetBool("Pressed", false);
+        _animator.SetBool("Pressed", false);
         m_TurnButton.interactable = true;
     }
     /*

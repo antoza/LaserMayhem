@@ -11,7 +11,6 @@ public class LocalPlayerManagerSolo : LocalPlayerManager
     public override void CreateAndVerifyEndTurnAction()
     {
         EyeClosingEndTurnAction action = new EyeClosingEndTurnAction(LocalPlayer);
-        action.Eyes = new List<Eye>();
         VerifyAction(action);
     }
 

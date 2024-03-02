@@ -25,7 +25,9 @@ public class GameModeManagerSolo : GameModeManager
         set
         {
             _remainingLasers = value;
+#if !DEDICATED_SERVER
             UIManagerGame.Instance.UpdateTurnCount(value);
+#endif
         }
     }
 
@@ -36,6 +38,9 @@ public class GameModeManagerSolo : GameModeManager
     {
         int.TryParse(SceneManager.GetActiveScene().name.Split("Challenge")[1], out int number);
         ChallengeNumber = number;
+#if !DEDICATED_SERVER
+        UIManagerGame.Instance.UpdateChallengeTitle(number);
+#endif
 
         RemainingLasers = _startingLasersCount;
         _totalEyes = BoardManager.Instance.GetReceivers().Count();
@@ -44,7 +49,9 @@ public class GameModeManagerSolo : GameModeManager
 
     public void UpdateScore()
     {
+#if !DEDICATED_SERVER
         UIManagerGame.Instance.UpdateScoreFraction(_closedEyes, _totalEyes);
+#endif
     }
 
     public override bool CheckGameOver()
@@ -63,7 +70,8 @@ public class GameModeManagerSolo : GameModeManager
 
     public override void TriggerGameOver(int? winner)
     {
-        PlayerPrefs.SetFloat("unlockedChallenges", ChallengeNumber + 1);
+        int oldNumber = PlayerPrefs.GetInt("unlockedChallenges");
+        if (oldNumber <= ChallengeNumber) PlayerPrefs.SetInt("unlockedChallenges", ChallengeNumber + 1);
         base.TriggerGameOver(winner);
     }
 
@@ -74,8 +82,8 @@ public class GameModeManagerSolo : GameModeManager
         {
             case MovePieceAction:
                 return VerifyMovePieceAction((MovePieceAction)action);
-            case RevertLastActionAction:
-            case RevertAllActionsAction:
+            case UndoAction:
+            case UndoEverythingAction:
                 return !RewindManager.Instance.IsEmpty();
             case EndTurnAction:
                 return true;
@@ -91,10 +99,10 @@ public class GameModeManagerSolo : GameModeManager
             case MovePieceAction:
                 ExecuteMovePieceAction((MovePieceAction)action);
                 break;
-            case RevertLastActionAction:
+            case UndoAction:
                 RewindManager.Instance.RevertLastAction();
                 break;
-            case RevertAllActionsAction:
+            case UndoEverythingAction:
                 RewindManager.Instance.RevertAllActions();
                 break;
             case EyeClosingEndTurnAction:
@@ -141,11 +149,6 @@ public class GameModeManagerSolo : GameModeManager
             case (SelectionTile, NormalBoardTile):
                 if (!VerifyPlacement(playerData, (SelectionTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
-#if DEBUG
-            case (InfiniteTile, NormalBoardTile):
-                if (!VerifyCheatPlacement((InfiniteTile)sourceTile, (NormalBoardTile)targetTile)) return false;
-                break;
-#endif
             case (NormalBoardTile, NormalBoardTile):
                 if (!VerifyMovement(playerData, (NormalBoardTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
@@ -172,11 +175,6 @@ public class GameModeManagerSolo : GameModeManager
             case (SelectionTile, NormalBoardTile):
                 ExecutePlacement(playerData, (SelectionTile)sourceTile, (NormalBoardTile)targetTile);
                 break;
-#if DEBUG
-            case (InfiniteTile, NormalBoardTile):
-                ExecuteCheatPlacement((InfiniteTile)sourceTile, (NormalBoardTile)targetTile);
-                break;
-#endif
             case (NormalBoardTile, NormalBoardTile):
                 ExecuteMovement(playerData, (NormalBoardTile)sourceTile, (NormalBoardTile)targetTile);
                 break;
@@ -207,11 +205,6 @@ public class GameModeManagerSolo : GameModeManager
                 targetTile.Piece!.IsPlayedThisTurn = false;
                 sourceTile.Piece = targetTile.Piece;
                 break;
-#if DEBUG
-            case (InfiniteTile, NormalBoardTile):
-                targetTile.DestroyPiece();
-                break;
-#endif
             case (NormalBoardTile, NormalBoardTile):
                 sourceTile.Piece = targetTile.Piece;
                 break;
@@ -240,35 +233,12 @@ public class GameModeManagerSolo : GameModeManager
         targetTile.Piece!.IsPlayedThisTurn = true;
     }
 
-#if DEBUG
-    public bool VerifyCheatPlacement(InfiniteTile sourceTile, NormalBoardTile targetTile)
-    {
-        if (sourceTile.Piece == null) return false;
-        if (targetTile.Piece != null) return false;
-        return true;
-    }
-
-    public void ExecuteCheatPlacement(InfiniteTile sourceTile, NormalBoardTile targetTile)
-    {
-        targetTile.InstantiatePiece(sourceTile.Piece!);
-    }
-#endif
-
     public bool VerifyMovement(PlayerData playerData, NormalBoardTile sourceTile, NormalBoardTile targetTile)
     {
         if (sourceTile.Piece == null) return false;
         if (targetTile.Piece != null) return false;
         if (sourceTile == targetTile) return false;
-        if (!sourceTile.Piece!.IsPlayedThisTurn)
-        {
-            if (!targetTile.IsCloseEnoughFrom(sourceTile, 1))
-            {
-#if !DEDICATED_SERVER
-                UIManager.Instance.DisplayErrorMessage("You can't move a piece too far away");
-#endif
-                return false;
-            }
-        }
+        if (!sourceTile.Piece!.IsPlayedThisTurn) return false;
         return true;
     }
 

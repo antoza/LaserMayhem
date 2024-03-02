@@ -39,6 +39,9 @@ public sealed class RewindManager : MonoBehaviour
     public void AddAction(Action action)
     {
         m_actionsList.Push(action);
+#if !DEDICATED_SERVER
+        UIManagerGame.Instance.UpdateUndoButtonState("Unpressed");
+#endif
     }
 
     public void RevertLastAction()
@@ -46,6 +49,10 @@ public sealed class RewindManager : MonoBehaviour
         Assert.IsFalse(IsEmpty());
         Action lastAction = m_actionsList.Pop();
         GameModeManager.Instance.RevertAction(lastAction);
+#if !DEDICATED_SERVER
+        if (IsEmpty()) UIManagerGame.Instance.UpdateUndoButtonState("Pressed");
+        else UIManagerGame.Instance.UpdateUndoButtonState("QuicklyPressed");
+#endif
     }
 
     public void RevertAllActions()
@@ -60,5 +67,8 @@ public sealed class RewindManager : MonoBehaviour
     public void ClearAllActions()
     {
         m_actionsList.Clear();
+#if !DEDICATED_SERVER
+        UIManagerGame.Instance.UpdateUndoButtonState("Pressed");
+#endif
     }
 }

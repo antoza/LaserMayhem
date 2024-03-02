@@ -27,7 +27,6 @@ public abstract class UIManager : Manager<UIManager>
     protected virtual void Start()
     {
         isUIManagerReady = true;
-
     }
 
     // Wait for UIManager to be ready, modifies UI only for clients

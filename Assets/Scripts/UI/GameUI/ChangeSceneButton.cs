@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ChangeSceneButton : MonoBehaviour
 {
     [SerializeField]
-    private string scene;
+    protected string scene;
 
     public void OnClick()
     {

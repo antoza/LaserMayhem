@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
+using UnityEngine.Assertions;
 #nullable enable
 
 public abstract class TurnManager : Manager<TurnManager>
@@ -44,11 +45,21 @@ public abstract class TurnManager : Manager<TurnManager>
 
     // Pieces played this turn
 
-    public void ResetPiecesPlayedThisTurn()
+    public void ClearPiecesPlayedThisTurn(EndTurnAction action)
     {
         while (_piecesPlayedThisTurn.Count > 0)
         {
+            Piece piece = _piecesPlayedThisTurn.First();
+            action.PiecesPlayedThisTurn.Add(piece);
             _piecesPlayedThisTurn.First().IsPlayedThisTurn = false;
+        }
+    }
+
+    public void RevertClearPiecesPlayedThisTurn(EndTurnAction action)
+    {
+        foreach (Piece piece in action.PiecesPlayedThisTurn)
+        {
+            piece.IsPlayedThisTurn = true;
         }
     }
 
