@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Assertions;
+using System.Linq;
 #nullable enable
 
 public sealed class RewindManager : MonoBehaviour
@@ -53,6 +54,14 @@ public sealed class RewindManager : MonoBehaviour
         if (IsEmpty()) UIManagerGame.Instance.UpdateUndoButtonState("Pressed");
         else UIManagerGame.Instance.UpdateUndoButtonState("QuicklyPressed");
 #endif
+    }
+
+    public void RevertUntilLastEndTurnAction() // TODO : voir ce qui est le mieux
+        // Pour le visuel, mettre une pile de "charges" verticale, qui se vide de 1 à chaque laser consommé, et tout en haut avoir un petit bouton undo de tour
+    {
+        Assert.IsFalse(IsEmpty());
+        do RevertLastAction();
+        while (m_actionsList.Last() is not EndTurnAction);
     }
 
     public void RevertAllActions()

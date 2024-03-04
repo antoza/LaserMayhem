@@ -32,6 +32,8 @@ public abstract class Piece : MonoBehaviour
         }
     }
 
+    public Tile? InitialTile;
+
     private bool _isPlayedThisTurn = false;
     public bool IsPlayedThisTurn
     {
