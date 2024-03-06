@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Translation_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 7038dfaf0fcaf5342997dea5adf9a5c5, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 86170857472
+    m_Localized: Laser Mayhem est en developpement. Rejoins le Discord pour savoir
+      quand les serveurs sont disponibles et comment jouer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2532446120636416
+    m_Localized: C H A L L E N G E S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2533403478913024
+    m_Localized: Jouer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2533736401793024
+    m_Localized: Connection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534028329545728
+    m_Localized: Mot de Passe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534217505239040
+    m_Localized: Inscription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534590903152640
+    m_Localized: O P T I O N S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534666232852480
+    m_Localized: T U T O R I E L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534748638343168
+    m_Localized: Deconnection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534836722921472
+    m_Localized: Q U I T
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535580721147904
+    m_Localized: D U E L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535707426877440
+    m_Localized: M E N U
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535631761633280
+    m_Localized: S O L O
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535668939943936
+    m_Localized: M U L T I J O U E U R
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2536522967347200
+    m_Localized: Allez jeter un coup d'oeil au tutoriel avant de jouer en Duel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2536917135454208
+    m_Localized: A R R I E R E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537258350473216
+    m_Localized: Recherche d'un adversaire...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537354748162048
+    m_Localized: "Pensez a inviter un ami \xE0 vous rejoindre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537509970964480
+    m_Localized: A N N U L E R
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537858026893312
+    m_Localized: Pseudo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2538119583690752
+    m_Localized: Fond d'ecran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2538308063129600
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895040698314752
+    m_Localized: G E N E R A L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895138530455552
+    m_Localized: P I E C E S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895816900407296
+    m_Localized: 'Dans le mode de jeu Duel votre objectif est de bruler votre adverser
+      en lui reflechissant le laser dessus.
+
+
+      Lors de votre tour vous pouvez
+      placer des miroirs pour reflechir le laser venant de la gauche.
+
+
+      Ensuite
+      appuyez sur le bouton de fin de tour afin d''activer le laser et d''exterminer
+      votre adversaire !'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2896529428770816
+    m_Localized: 'Lorsqu''un joueur termine son tour, le laser est active et inflige
+      des degats aux bordures.
+
+
+      Les joueurs subissent des degats lorsqu''une
+      de leur bordure est brulee.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2896878730407936
+    m_Localized: "Vous pouvez acheter des pieces dans l'angle en haut \xE0 droite.
+      Elles coutent de 1 a 4 pieces. Placez les n'importe ou sur le plateau.\n\nChaque
+      tour les pe\xE8ces non achetes deviennent moins cheres et de nouvelles pieces
+      remplissent la boutique."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2897486271148032
+    m_Localized: "Chaque tour les joueurs gagnent de l'argent qu'ils peuvent utiliser
+      pour : \n-Placer une nouvelle piece.\n-Deplacer une piece sur une case adjacente
+      (*)\n-Detruire une piece (*)\n\n(*) Leur c\xF4ut augment d\xE9finitivement
+      par 1 \xE0 chaque utilisation\nL'argent peut \xEAtre conserve entre les tours.\nVous
+      pouvez vous endetter et avoir jusqu'\xE0 -3 d'argent. Dans ce cas votre adversaire
+      recevra le double en compensation."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2897976497205248
+    m_Localized: 'Prenez votre temps pour essayer et placer les pieces sur le plateau
+      afin de previsualiser les consequences de vos actions. Il n''y a pas de limite
+      de temps pour le moment.
+
+      Le bouton "Undo" vous permet d''annuler le
+      dernier coup.
+
+      Les pieces avec une aura bleue representent les pieces
+      posees a ce tour. Vous pouvez donc les deplacer gratuitement.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2898938402107392
+    m_Localized: "La piece la plus simple de Laser Mayhem. \n\nLe laser est rehlechi
+      avec un angle de 90\xB0 selon le sens du miroir."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899156069707776
+    m_Localized: "Cette piece reflechi le laser avec un angle de 90\xB0 selon le
+      sens horaire ou anti-horaire."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899486379536384
+    m_Localized: "Le Divider separe le laser en 2. Chacun partant \xE0 90\xB0 dans
+      un sens et dans l'autre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899920846516224
+    m_Localized: "Ces miroirs reflechissent les lasers arrivant face \xE0 eux dans
+      la direction d'origine. Les lasers arrivant en parallele ne sont pas affectes.\nCes
+      miroirs peuvent avoir des interactions surprenantes combinees avec les divider
+      et les rotators"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900524725628928
+    m_Localized: Miroirs Slash et Backslash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900748399472640
+    m_Localized: Rotators
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900913051070464
+    m_Localized: Divider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2901003912278016
+    m_Localized: Miroirs Verticaux et Horizontaux
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
