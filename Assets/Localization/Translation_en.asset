@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Translation_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 7038dfaf0fcaf5342997dea5adf9a5c5, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 8987182775168139304
+  m_TableData:
+  - m_Id: 86170857472
+    m_Localized: This game is under development, please join our Discord to know
+      when servers are up, and how to play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2532446120636416
+    m_Localized: C H A L L E N G E S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2533403478913024
+    m_Localized: N e w   G a m e
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2533736401793024
+    m_Localized: L o g   I n
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534028329545728
+    m_Localized: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534217505239040
+    m_Localized: S i g n   U p
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534590903152640
+    m_Localized: O P T I O N S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534666232852480
+    m_Localized: T U T O R I A L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534748638343168
+    m_Localized: L O G   O U T
+    m_Metadata:
+      m_Items:
+      - rid: 8987182775168139304
+  - m_Id: 2534836722921472
+    m_Localized: Q U I T
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535580721147904
+    m_Localized: D U E L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535707426877440
+    m_Localized: M a i n   m e n u
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535631761633280
+    m_Localized: S O L O
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535668939943936
+    m_Localized: M U L T I P L A Y E R
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2536522967347200
+    m_Localized: Please read the tutorial in the menu before playing Duel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2536917135454208
+    m_Localized: B A C K
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537258350473216
+    m_Localized: Looking for an opponent...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537354748162048
+    m_Localized: If you are alone, invite a friend to challenge you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537509970964480
+    m_Localized: C A N C E L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537858026893312
+    m_Localized: Your name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2538119583690752
+    m_Localized: Background
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2538308063129600
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895040698314752
+    m_Localized: G E N E R A L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895138530455552
+    m_Localized: P I E C E S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895816900407296
+    m_Localized: 'In the gamemode Duel, your goal is to burn your opponent by reflecting
+      the laser towards him.
+
+
+      During your turn, you can place pieces (such
+      as mirrors) on the board to reflect the laser.
+
+
+      Then, you can press
+      the end turn button to activate the laser!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2896529428770816
+    m_Localized: 'When a player ends his turn, the laser is triggered, dealing damage
+      to the blue and red borders.
+
+
+      The red player loses 1 HP if a red border
+      is hit. The same applies for the blue player.
+
+
+      Each player starts with
+      15 HP.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2896878730407936
+    m_Localized: 'You can find the shop on the top right corner. You can buy pieces
+      here, that you can place anywhere on the board. Their costs go from 1 to 4
+      coins.
+
+
+      Each turn, the pieces you didn''t buy won''t disappear from
+      the shop. Empty spots are filled with new pieces, randomly generated from the
+      right.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2897486271148032
+    m_Localized: 'Each turn the active player earns some coins he can spend on:
+
+      -Placing
+      a new piece
+
+      -Moving a piece to a neighbor tile (*)
+
+      -Destroying
+      a piece (*)
+
+
+      (*) their cost increases by 1 definitely for each use.
+
+
+      You
+      can save your coins for the next turn.
+
+      You can decide to get in debt
+      down to -3 coins, but your opponent will get the double of your excess as a
+      bonus, so be mindful before doing that.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2897976497205248
+    m_Localized: 'Take your time to place pieces on the board during your turn to
+      previsualize how they work. There is no time limit yet.
+
+
+      Pressing the
+      undo button will revert your last move.
+
+
+      A piece you bought this turn
+      will have a blue aura. This means that you can freely move it anywhere on the
+      board without additionnal cost.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2898938402107392
+    m_Localized: "They are the most basic piece of Laser mayhem.\n\n\r\nThey reflect
+      lasers at an angle of 90\xB0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899156069707776
+    m_Localized: "These pieces rotate the laser by 90\xB0 clockwise or anticlockwise."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899486379536384
+    m_Localized: "This piece separates the laser in 2 different lasers, each one
+      in a direction of 90\xB0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899920846516224
+    m_Localized: 'These mirrors redirect lasers perpendicularly.
+
+      Lasers arriving
+      in parallel aren''t affected by the mirror.
+
+
+      They can have surprising
+      interactions when combined with the rotational pieces and the dividers'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900524725628928
+    m_Localized: Slash and Backslash mirrors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900748399472640
+    m_Localized: Rotators
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900913051070464
+    m_Localized: Divider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2901003912278016
+    m_Localized: Horizontal & vertical mirrors
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 8987182775168139304
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00f02e2857010900

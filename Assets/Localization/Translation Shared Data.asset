@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Translation Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Translation
+  m_TableCollectionNameGuidString: 7038dfaf0fcaf5342997dea5adf9a5c5
+  m_Entries:
+  - m_Id: 2532446120636416
+    m_Key: ButtonChallenges
+    m_Metadata:
+      m_Items: []
+  - m_Id: 86170857472
+    m_Key: GameUnderDev
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2533736401793024
+    m_Key: LoginButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534028329545728
+    m_Key: PasswordLogin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534217505239040
+    m_Key: SignupButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2533403478913024
+    m_Key: "NewgameButton\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534590903152640
+    m_Key: "OptionButton\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534666232852480
+    m_Key: "TutorialButton\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534748638343168
+    m_Key: "LogoutButton\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534836722921472
+    m_Key: QuitButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535580721147904
+    m_Key: DuelButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535631761633280
+    m_Key: SoloTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535668939943936
+    m_Key: MultiTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2535707426877440
+    m_Key: MainMenuButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2536522967347200
+    m_Key: TutoInfoText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2536917135454208
+    m_Key: BackButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537258350473216
+    m_Key: "LookingForOpponentText\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537354748162048
+    m_Key: InviteFriendText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537509970964480
+    m_Key: CancelButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2537858026893312
+    m_Key: YourNameText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2538119583690752
+    m_Key: BackgroundButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2538308063129600
+    m_Key: VolumeText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895040698314752
+    m_Key: GeneralButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895138530455552
+    m_Key: PiecesButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2895816900407296
+    m_Key: 'TutoGeneralDescription
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2896529428770816
+    m_Key: TutoDamageDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2896878730407936
+    m_Key: "TutoPieceSelectionDescription \n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2897486271148032
+    m_Key: TutoScoreDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2897976497205248
+    m_Key: TutoMoveUndoDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2898938402107392
+    m_Key: PieceDescriptionSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899156069707776
+    m_Key: PieceDescriptionRotation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899486379536384
+    m_Key: PieceDescriptionDIvider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2899920846516224
+    m_Key: PieceDescriptionVertical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900524725628928
+    m_Key: PieceTitleSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900748399472640
+    m_Key: PieceTitleRotators
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2900913051070464
+    m_Key: PieceTitleDivider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2901003912278016
+    m_Key: PieceTitleVertical
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2687531402436804636
+  references:
+    version: 2
+    RefIds:
+    - rid: 2687531402436804636
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1709055866074
