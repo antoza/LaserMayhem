@@ -232,6 +232,98 @@ MonoBehaviour:
     m_Localized: Horizontal & vertical mirrors
     m_Metadata:
       m_Items: []
+  - m_Id: 4703689569660928
+    m_Localized: Place this piece on the board to reflect the laser towards the eye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704052385345536
+    m_Localized: Challenge 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704094747815936
+    m_Localized: 'Closed Eyes:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704173399404544
+    m_Localized: Then press this button to trigger the laser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704450693230592
+    m_Localized: 'Stay updated
+
+      Meet players
+
+
+
+
+      Join Discord!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4705551836442624
+    m_Localized: remaining lasers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4706086782169088
+    m_Localized: Challenge 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4706991694868480
+    m_Localized: Placing a piece on the board gives it a blue aura. This indicates
+      that you can still move it elsewhere.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707025698091008
+    m_Localized: You can also undo your last move with this button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707564502577152
+    m_Localized: Challenge 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707914638880768
+    m_Localized: A piece can reflect different lasers coming from different directions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708440734625792
+    m_Localized: Challenge 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708689729482752
+    m_Localized: Sometimes you can trigger multiple lasers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067070189268992
+    m_Localized: Challenge 5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067372976074752
+    m_Localized: Challenge 6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067423894925312
+    m_Localized: Challenge 7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067446913265664
+    m_Localized: Challenge 8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067449299824640
+    m_Localized: Challenge 9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067451946430464
+    m_Localized: Challenge 10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067454127468544
+    m_Localized: Challenge 11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067455197016064
+    m_Localized: Challenge 12
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

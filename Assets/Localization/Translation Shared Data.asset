@@ -165,6 +165,112 @@ MonoBehaviour:
     m_Key: PieceTitleVertical
     m_Metadata:
       m_Items: []
+  - m_Id: 4703689569660928
+    m_Key: Challenge1Placement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704052385345536
+    m_Key: 'Challenge1Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704094747815936
+    m_Key: 'Challenge1Score
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704173399404544
+    m_Key: Challenge1NextTurn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704450693230592
+    m_Key: InfoMessage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4705551836442624
+    m_Key: Challenge1RemainingLaser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4706086782169088
+    m_Key: 'Challenge2Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4706991694868480
+    m_Key: 'Challenge2BlueAura
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707025698091008
+    m_Key: 'Challenge2Undo
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707564502577152
+    m_Key: Challenge3Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707914638880768
+    m_Key: Challenge3Reflect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708440734625792
+    m_Key: Challenge4Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708689729482752
+    m_Key: Challenge5Multiple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067070189268992
+    m_Key: Challenge5Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067372976074752
+    m_Key: Challenge6Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067423894925312
+    m_Key: 'Challenge7Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067446913265664
+    m_Key: 'Challenge8Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067449299824640
+    m_Key: 'Challenge9Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067451946430464
+    m_Key: 'Challenge10Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067454127468544
+    m_Key: 'Challenge11Title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067455197016064
+    m_Key: 'Challenge12Title
+
+'
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

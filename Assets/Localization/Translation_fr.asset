@@ -204,6 +204,92 @@ MonoBehaviour:
     m_Localized: Miroirs Verticaux et Horizontaux
     m_Metadata:
       m_Items: []
+  - m_Id: 4703689569660928
+    m_Localized: "Place cette p\xEEece sur le plateau pour r\xE9flechir le laser
+      sur l'oeil"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704052385345536
+    m_Localized: Challenge 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704094747815936
+    m_Localized: "Yeux Ferm\xE9s:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704173399404544
+    m_Localized: Puis appuie sur ce bouton pour activer le laser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4704450693230592
+    m_Localized: "Pour les Mises \xE0 jour:\n\n\n\nRejoins le Discord!\n\n\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4705551836442624
+    m_Localized: Lasers Restants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4706086782169088
+    m_Localized: Challenge 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4706991694868480
+    m_Localized: "Les pi\xE8ces nouvellement pos\xE9es ont une aura bleue. Vous pouvez
+      les d\xE9placer librement."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707025698091008
+    m_Localized: Il est aussi possible d'annuler vos derniers coups.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707564502577152
+    m_Localized: Challenge 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4707914638880768
+    m_Localized: "Une pi\xE8ce peut r\xE9flechir un laser venant de plusieurs directions."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708440734625792
+    m_Localized: Challenge 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708689729482752
+    m_Localized: "Vous pouvez cr\xE9er plusieurs lasers"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067070189268992
+    m_Localized: Challenge 5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067372976074752
+    m_Localized: Challenge 6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067423894925312
+    m_Localized: Challenge 7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067446913265664
+    m_Localized: Challenge 8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067449299824640
+    m_Localized: Challenge 9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067451946430464
+    m_Localized: Challenge 10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067454127468544
+    m_Localized: Challenge 11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067455197016064
+    m_Localized: Challenge 12
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
