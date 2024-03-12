@@ -152,6 +152,9 @@ public class GameModeManagerSolo : GameModeManager
             case (NormalBoardTile, NormalBoardTile):
                 if (!VerifyMovement(playerData, (NormalBoardTile)sourceTile, (NormalBoardTile)targetTile)) return false;
                 break;
+            case (NormalBoardTile, SelectionTile):
+                if (!VerifyMoveBackToSelection(playerData, (NormalBoardTile)sourceTile, (SelectionTile)targetTile)) return false;
+                break;
             case (NormalBoardTile, TrashTile):
                 if (!VerifyDeletion(playerData, (NormalBoardTile)sourceTile)) return false;
                 break;
@@ -177,6 +180,9 @@ public class GameModeManagerSolo : GameModeManager
                 break;
             case (NormalBoardTile, NormalBoardTile):
                 ExecuteMovement(playerData, (NormalBoardTile)sourceTile, (NormalBoardTile)targetTile);
+                break;
+            case (NormalBoardTile, SelectionTile):
+                ExecuteMoveBackToSelection(playerData, (NormalBoardTile)sourceTile, (SelectionTile)targetTile);
                 break;
             case (NormalBoardTile, TrashTile):
                 action.SourcePiece = sourceTile.Piece;
@@ -206,6 +212,10 @@ public class GameModeManagerSolo : GameModeManager
                 sourceTile.Piece = targetTile.Piece;
                 break;
             case (NormalBoardTile, NormalBoardTile):
+                sourceTile.Piece = targetTile.Piece;
+                break;
+            case (NormalBoardTile, SelectionTile):
+                targetTile.Piece!.IsPlayedThisTurn = true;
                 sourceTile.Piece = targetTile.Piece;
                 break;
 
@@ -245,6 +255,21 @@ public class GameModeManagerSolo : GameModeManager
     public void ExecuteMovement(PlayerData playerData, NormalBoardTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece;
+    }
+
+    public bool VerifyMoveBackToSelection(PlayerData playerData, NormalBoardTile sourceTile, SelectionTile targetTile)
+    {
+        if (sourceTile.Piece == null) return false;
+        if (targetTile.Piece != null) return false;
+        if (sourceTile == targetTile) return false;
+        if (!sourceTile.Piece!.IsPlayedThisTurn) return false;
+        return true;
+    }
+
+    public void ExecuteMoveBackToSelection(PlayerData playerData, NormalBoardTile sourceTile, SelectionTile targetTile)
+    {
+        targetTile.Piece = sourceTile.Piece;
+        targetTile.Piece!.IsPlayedThisTurn = false;
     }
 
     public bool VerifyDeletion(PlayerData playerData, NormalBoardTile sourceTile)
