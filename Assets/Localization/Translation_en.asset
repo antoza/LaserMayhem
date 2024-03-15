@@ -324,6 +324,36 @@ MonoBehaviour:
     m_Localized: Challenge 12
     m_Metadata:
       m_Items: []
+  - m_Id: 6142475902054400
+    m_Localized: CHALLENGE COMPLETE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6142717200363520
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6142892249640960
+    m_Localized: 'UNDO
+
+      LAST'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6143114015076352
+    m_Localized: 'MAIN
+
+      MENU'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6143179412664320
+    m_Localized: 'NEXT
+
+      CHALLENGE'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6143653067026432
+    m_Localized: CHALLENGE FAILED
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

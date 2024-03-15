@@ -2645,6 +2645,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 6931362378378542134}
     m_Modifications:
+    - target: {fileID: 1023803470, guid: 2b8b39499a3aaf640bb40e59f10d50a3, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 6143653067026432
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023803470, guid: 2b8b39499a3aaf640bb40e59f10d50a3, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:7038dfaf0fcaf5342997dea5adf9a5c5
+      objectReference: {fileID: 0}
     - target: {fileID: 8367012439371209132, guid: 2b8b39499a3aaf640bb40e59f10d50a3, type: 3}
       propertyPath: m_Name
       value: GameOverPopUps

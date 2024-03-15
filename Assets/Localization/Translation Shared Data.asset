@@ -271,6 +271,32 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
+  - m_Id: 6142475902054400
+    m_Key: ChallengeEndVictoryTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6142717200363520
+    m_Key: "ChallengeEndictoryRetry\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6142892249640960
+    m_Key: ChallengeEndictoryUndoLast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6143114015076352
+    m_Key: ChallengeEndictoryMenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6143179412664320
+    m_Key: ChallengeEndictoryNext
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6143653067026432
+    m_Key: 'ChallengeEndLossTitle
+
+'
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
