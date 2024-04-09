@@ -10,6 +10,16 @@ public class LaserEmitter : Piece // TODO : renommer en Emitter
     // TODO : tourner la pièce de la bonne rotation en fonction du laser de départ
     protected List<Vector2Int> _startingDirections = new List<Vector2Int>() { Vector2Int.right };
 
+    public override void RotateClockwise()
+    {
+        base.RotateClockwise();
+        for (int i = 0; i < _startingDirections.Count; i++)
+        {
+            Vector2Int oldDirection = _startingDirections[i];
+            _startingDirections[i] = new Vector2Int(oldDirection.y, -oldDirection.x);
+        }
+    }
+
     public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {
         return;

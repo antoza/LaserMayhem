@@ -29,6 +29,9 @@ public sealed class TurnManagerRPG : TurnManager
 
     protected override IEnumerator StartTurnCoroutine()
     {
+        yield return null;
+        if (GameModeManager.Instance.CheckGameOver()) yield break;
+
         StartAnnouncementPhase();
         yield return new WaitForSeconds(AnnouncementPhaseDuration);
 
@@ -40,7 +43,6 @@ public sealed class TurnManagerRPG : TurnManager
         StartLaserPhase(action);
         yield return new WaitForSeconds(LaserPhaseDuration);
 
-        if (GameModeManager.Instance.CheckGameOver()) yield break;
         yield return StartCoroutine(StartTurnCoroutine());
     }
 

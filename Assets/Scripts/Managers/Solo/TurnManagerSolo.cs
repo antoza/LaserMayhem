@@ -15,6 +15,8 @@ public sealed class TurnManagerSolo : TurnManager
     protected override IEnumerator StartTurnCoroutine()
     {
         yield return null;
+
+        if (GameModeManager.Instance.CheckGameOver()) yield break;
         StartTurnPhase();
     }
 
@@ -23,7 +25,6 @@ public sealed class TurnManagerSolo : TurnManager
         StartLaserPhase((EyeClosingEndTurnAction)action);
         yield return new WaitForSeconds(LaserPhaseDuration);
 
-        if (GameModeManager.Instance.CheckGameOver()) yield break;
         yield return StartCoroutine(StartTurnCoroutine());
     }
 
@@ -32,7 +33,6 @@ public sealed class TurnManagerSolo : TurnManager
         RevertStartTurnPhase();
         yield return new WaitForSeconds(RevertLaserPhaseDuration);
         RevertStartLaserPhase((EyeClosingEndTurnAction)action);
-
     }
 
 

@@ -62,20 +62,20 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
         VerifyAction(action);
     }
 
-    public void CreateAndVerifyMovePieceAction(Tile destinationTile)
+    public virtual void CreateAndVerifyMovePieceAction(Tile destinationTile)
     {
         if (SourceTile == null) return;
         MovePieceAction action = new MovePieceAction(LocalPlayer, SourceTile, destinationTile);
         VerifyAction(action);
     }
 
-    public void CreateAndVerifyUndoAction()
+    public virtual void CreateAndVerifyUndoAction()
     {
         UndoAction action = new UndoAction(LocalPlayer);
         VerifyAction(action);
     }
 
-    public void CreateAndVerifyUndoEverythingAction()
+    public virtual void CreateAndVerifyUndoEverythingAction()
     {
         UndoEverythingAction action = new UndoEverythingAction(LocalPlayer);
         VerifyAction(action);

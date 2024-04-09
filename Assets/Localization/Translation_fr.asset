@@ -19,8 +19,8 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 86170857472
-    m_Localized: Laser Mayhem est en developpement. Rejoins le Discord pour savoir
-      quand les serveurs sont disponibles et comment jouer
+    m_Localized: Laser Mayhem est en developpement, rejoignez le Discord pour savoir
+      quand les serveurs sont disponibles, et comment jouer
     m_Metadata:
       m_Items: []
   - m_Id: 2532446120636416
@@ -28,15 +28,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2533403478913024
-    m_Localized: Jouer
+    m_Localized: J o u e r
     m_Metadata:
       m_Items: []
   - m_Id: 2533736401793024
-    m_Localized: Connection
+    m_Localized: Connexion
     m_Metadata:
       m_Items: []
   - m_Id: 2534028329545728
-    m_Localized: Mot de Passe
+    m_Localized: Mot de passe
     m_Metadata:
       m_Items: []
   - m_Id: 2534217505239040
@@ -52,11 +52,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2534748638343168
-    m_Localized: Deconnection
+    m_Localized: DECONNEXION
     m_Metadata:
       m_Items: []
   - m_Id: 2534836722921472
-    m_Localized: Q U I T
+    m_Localized: Q U I T T E R
     m_Metadata:
       m_Items: []
   - m_Id: 2535580721147904
@@ -64,7 +64,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2535707426877440
-    m_Localized: M E N U
+    m_Localized: Menu principal
     m_Metadata:
       m_Items: []
   - m_Id: 2535631761633280
@@ -76,11 +76,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2536522967347200
-    m_Localized: Allez jeter un coup d'oeil au tutoriel avant de jouer en Duel
+    m_Localized: Jetez un coup d'oeil au tutoriel avant de jouer en Duel
     m_Metadata:
       m_Items: []
   - m_Id: 2536917135454208
-    m_Localized: A R R I E R E
+    m_Localized: R E T O U R
     m_Metadata:
       m_Items: []
   - m_Id: 2537258350473216
@@ -88,7 +88,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2537354748162048
-    m_Localized: "Pensez a inviter un ami \xE0 vous rejoindre."
+    m_Localized: "Si vous \xEAtes seul, invitez un ami \xE0 d\xE9fier"
     m_Metadata:
       m_Items: []
   - m_Id: 2537509970964480
@@ -116,76 +116,83 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2895816900407296
-    m_Localized: 'Dans le mode de jeu Duel votre objectif est de bruler votre adverser
-      en lui reflechissant le laser dessus.
+    m_Localized: 'Dans le mode de jeu Duel, votre objectif est de bruler votre adversaire
+      en reflechissant le laser vers lui.
 
 
-      Lors de votre tour vous pouvez
-      placer des miroirs pour reflechir le laser venant de la gauche.
+      Lors de votre tour, vous pouvez
+      placer des pieces (telles que des miroirs) sur le plateau pour reflechir le
+      laser.
 
 
-      Ensuite
-      appuyez sur le bouton de fin de tour afin d''activer le laser et d''exterminer
-      votre adversaire !'
+      Ensuite, appuyez sur le bouton de fin de tour afin de declencher
+      le laser !'
     m_Metadata:
       m_Items: []
   - m_Id: 2896529428770816
-    m_Localized: 'Lorsqu''un joueur termine son tour, le laser est active et inflige
-      des degats aux bordures.
-
-
-      Les joueurs subissent des degats lorsqu''une
-      de leur bordure est brulee.'
+    m_Localized: "Lorsqu'un joueur termine son tour, le laser est actif et inflige
+      des degats aux bordures bleues et rouges.\n\nLe joueur rouge perd 1 PV quand
+      la bordure rouge est touchee. Il en va de m\xEAme pour le joueur bleu.\n\nChaque
+      joueur commence avec 15 PV."
     m_Metadata:
       m_Items: []
   - m_Id: 2896878730407936
-    m_Localized: "Vous pouvez acheter des pieces dans l'angle en haut \xE0 droite.
-      Elles coutent de 1 a 4 pieces. Placez les n'importe ou sur le plateau.\n\nChaque
-      tour les pe\xE8ces non achetes deviennent moins cheres et de nouvelles pieces
-      remplissent la boutique."
+    m_Localized: "La boutique se situe en haut \xE0 droite de l'ecran. Vous pouvez
+      y acheter des pi\xE8ces \xE0 placer sur le plateau. Elles coutent de 1 a 4
+      jetons.\n\nChaque tour, les pieces non achetees restent dans la boutique. Les
+      emplacements vide sont remplis par de nouvelles pieces, aleatoirement generees
+      par la droite."
     m_Metadata:
       m_Items: []
   - m_Id: 2897486271148032
-    m_Localized: "Chaque tour les joueurs gagnent de l'argent qu'ils peuvent utiliser
-      pour : \n-Placer une nouvelle piece.\n-Deplacer une piece sur une case adjacente
-      (*)\n-Detruire une piece (*)\n\n(*) Leur c\xF4ut augment d\xE9finitivement
-      par 1 \xE0 chaque utilisation\nL'argent peut \xEAtre conserve entre les tours.\nVous
-      pouvez vous endetter et avoir jusqu'\xE0 -3 d'argent. Dans ce cas votre adversaire
-      recevra le double en compensation."
+    m_Localized: "Quand votre tour commence, vous gagnez des jetons que vous pouvez
+      utiliser pour : \n-Placer une nouvelle piece.\n-Deplacer une piece sur une
+      case adjacente (*)\n-Detruire une piece (*)\n\n(*) Leur cout augmente de 1
+      definitivement a chaque utilisation.\n\nVous pouvez conserver vos jetons pour
+      le prochain tour.\nVous pouvez decider de vous endetter jusqu'a -3 jetons.
+      Dans ce cas votre adversaire recevra le double de votre exces en compensation,
+      alors soyez vigilents !"
     m_Metadata:
       m_Items: []
   - m_Id: 2897976497205248
-    m_Localized: 'Prenez votre temps pour essayer et placer les pieces sur le plateau
-      afin de previsualiser les consequences de vos actions. Il n''y a pas de limite
-      de temps pour le moment.
+    m_Localized: 'Prenez le temps d''essayer de placer les pieces sur le plateau
+      afin de previsualiser leurs interactions. Il n''y a pas de limite de temps
+      pour le moment.
 
-      Le bouton "Undo" vous permet d''annuler le
-      dernier coup.
 
-      Les pieces avec une aura bleue representent les pieces
-      posees a ce tour. Vous pouvez donc les deplacer gratuitement.'
+      Le bouton "Undo" vous permet d''annuler votre dernier
+      coup.
+
+
+      Les pieces achetees durant ce tour ont une aura bleue. Cela signifie
+      que vous pouvez les deplacer librement et gratuitement.'
     m_Metadata:
       m_Items: []
   - m_Id: 2898938402107392
-    m_Localized: "La piece la plus simple de Laser Mayhem. \n\nLe laser est rehlechi
-      avec un angle de 90\xB0 selon le sens du miroir."
+    m_Localized: "Ce sont les pieces les plus basiques de Laser Mayhem. \n\nLe laser
+      subit une reflection d'un angle de 90\xB0."
     m_Metadata:
       m_Items: []
   - m_Id: 2899156069707776
-    m_Localized: "Cette piece reflechi le laser avec un angle de 90\xB0 selon le
-      sens horaire ou anti-horaire."
+    m_Localized: "Le laser subit une rotation d'un angle de 90\xB0 dans le sens horaire
+      ou anti-horaire."
     m_Metadata:
       m_Items: []
   - m_Id: 2899486379536384
-    m_Localized: "Le Divider separe le laser en 2. Chacun partant \xE0 90\xB0 dans
-      un sens et dans l'autre."
+    m_Localized: "Cette piece separe le laser en deux, chacun partant \xE0 90\xB0
+      dans un sens et dans l'autre."
     m_Metadata:
       m_Items: []
   - m_Id: 2899920846516224
-    m_Localized: "Ces miroirs reflechissent les lasers arrivant face \xE0 eux dans
-      la direction d'origine. Les lasers arrivant en parallele ne sont pas affectes.\nCes
-      miroirs peuvent avoir des interactions surprenantes combinees avec les divider
-      et les rotators"
+    m_Localized: 'Ces miroirs reflechissent les lasers perpendiculairement.
+
+      Les
+      lasers arrivant en parallele ne sont pas affectes par le miroir.
+
+
+      Ces
+      miroirs peuvent avoir des interactions surprenantes quand ils sont combines
+      avec les diviseurs et les rotateurs'
     m_Metadata:
       m_Items: []
   - m_Id: 2900524725628928
@@ -193,11 +200,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2900748399472640
-    m_Localized: Rotators
+    m_Localized: Rotateurs
     m_Metadata:
       m_Items: []
   - m_Id: 2900913051070464
-    m_Localized: Divider
+    m_Localized: Diviseurs
     m_Metadata:
       m_Items: []
   - m_Id: 2901003912278016
@@ -205,28 +212,28 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4703689569660928
-    m_Localized: "Place cette p\xEEece sur le plateau pour r\xE9flechir le laser
-      sur l'oeil"
+    m_Localized: "Place cette pi\xE8ce sur le plateau pour r\xE9flechir le laser
+      vers l'oeil"
     m_Metadata:
       m_Items: []
   - m_Id: 4704052385345536
-    m_Localized: Challenge 1
+    m_Localized: Challenge 0
     m_Metadata:
       m_Items: []
   - m_Id: 4704094747815936
-    m_Localized: "Yeux Ferm\xE9s:"
+    m_Localized: "Yeux ferm\xE9s :"
     m_Metadata:
       m_Items: []
   - m_Id: 4704173399404544
-    m_Localized: Puis appuie sur ce bouton pour activer le laser
+    m_Localized: "<size=30>Puis appuie sur ce bouton pour d\xE9clencher le laser</size>"
     m_Metadata:
       m_Items: []
-  - m_Id: 4704450693230592
-    m_Localized: "Pour les Mises \xE0 jour:\n\n\n\nRejoins le Discord!\n\n\n"
+  - m_Id: 7017450934661120
+    m_Localized: Suivez l'actu
     m_Metadata:
       m_Items: []
   - m_Id: 4705551836442624
-    m_Localized: Lasers Restants
+    m_Localized: lasers restants
     m_Metadata:
       m_Items: []
   - m_Id: 4706086782169088
@@ -234,12 +241,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4706991694868480
-    m_Localized: "Les pi\xE8ces nouvellement pos\xE9es ont une aura bleue. Vous pouvez
-      les d\xE9placer librement."
+    m_Localized: "Placer une pi\xE8ce sur le plateau lui octroie une aura bleue.
+      Cela indique que vous pouvez les d\xE9placer librement."
     m_Metadata:
       m_Items: []
   - m_Id: 4707025698091008
-    m_Localized: Il est aussi possible d'annuler vos derniers coups.
+    m_Localized: "Vous pouvez \xE9galement annuler votre dernier coup avec ce bouton."
     m_Metadata:
       m_Items: []
   - m_Id: 4707564502577152
@@ -255,7 +262,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4708689729482752
-    m_Localized: "Vous pouvez cr\xE9er plusieurs lasers"
+    m_Localized: "Parfois, vous pouvez d\xE9clencher plusieurs fois le lasers"
     m_Metadata:
       m_Items: []
   - m_Id: 5067070189268992
@@ -291,11 +298,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6142475902054400
-    m_Localized: CHALLENGE REUSSIS
+    m_Localized: CHALLENGE REUSSI
     m_Metadata:
       m_Items: []
   - m_Id: 6142717200363520
-    m_Localized: REFAIRE
+    m_Localized: RECOMMENCER
     m_Metadata:
       m_Items: []
   - m_Id: 6142892249640960
@@ -309,13 +316,21 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6143179412664320
-    m_Localized: 'PROCHAIN
+    m_Localized: 'CHALLENGE
 
-      NIVEAU'
+      SUIVANT'
     m_Metadata:
       m_Items: []
   - m_Id: 6143653067026432
-    m_Localized: CHALLENGE PERDU
+    m_Localized: CHALLENGE ECHOUE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017811753857024
+    m_Localized: <size=28>Rencontrez des joueurs</size>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017923162959872
+    m_Localized: <size=32>Rejoignez Discord !</size>
     m_Metadata:
       m_Items: []
   references:

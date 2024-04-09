@@ -32,6 +32,7 @@ public abstract class Piece : MonoBehaviour
         }
     }
 
+    [HideInInspector]
     public Tile? InitialTile;
 
     private bool _isPlayedThisTurn = false;
@@ -55,7 +56,9 @@ public abstract class Piece : MonoBehaviour
 
     public Piece InstantiatePiece(GameObject? parent = null)
     {
-        return Instantiate(this, parent?.transform).GetComponent<Piece>();
+        Piece piece = Instantiate(this, parent?.transform).GetComponent<Piece>();
+        if (GameInitialParameters.localPlayerID == 1) piece.RotateSprite180();
+        return piece;
     }
 
     public PieceName GetPieceName()
@@ -67,6 +70,38 @@ public abstract class Piece : MonoBehaviour
     {
         return GetComponent<SpriteRenderer>().sprite;
     }
+
+
+    public virtual void RotateSpriteClockwise()
+    {
+        transform.Rotate(0, 0, -90);
+    }
+
+    public virtual void RotateSpriteAnticlockwise()
+    {
+        for (int i = 0; i < 3; i++) RotateSpriteClockwise();
+    }
+
+    public virtual void RotateSprite180()
+    {
+        for (int i = 0; i < 2; i++) RotateSpriteClockwise();
+    }
+
+    public virtual void RotateClockwise()
+    {
+        RotateSpriteClockwise();
+    }
+
+    public void RotateAnticlockwise()
+    {
+        for (int i = 0; i < 3; i++) RotateClockwise();
+    }
+
+    public void Rotate180()
+    {
+        for (int i = 0; i < 2; i++) RotateClockwise();
+    }
+
 
     public virtual void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {

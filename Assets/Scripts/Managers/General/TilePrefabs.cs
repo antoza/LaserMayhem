@@ -10,6 +10,7 @@ public enum TileName
     NormalBoardTile = 1,
     InvisibleBoardTile = 101,
     LockedBoardTile = 102,
+    ConveyorBoardTile = 103,
     SelectionTile = 201,
     PricedSelectionTile = 202,
     InfiniteTile = 203,

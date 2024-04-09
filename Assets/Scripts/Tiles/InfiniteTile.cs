@@ -1,6 +1,9 @@
 using UnityEngine;
 
 #nullable enable
-public class InfiniteTile : Tile
+public class InfiniteTile : SelectionTile
 {
+    public override void SetColor()
+    {
+    }
 }

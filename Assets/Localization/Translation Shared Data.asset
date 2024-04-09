@@ -170,7 +170,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4704052385345536
-    m_Key: 'Challenge1Title
+    m_Key: 'ChallengeTitle
 
 '
     m_Metadata:
@@ -185,12 +185,8 @@ MonoBehaviour:
     m_Key: Challenge1NextTurn
     m_Metadata:
       m_Items: []
-  - m_Id: 4704450693230592
-    m_Key: InfoMessage
-    m_Metadata:
-      m_Items: []
   - m_Id: 4705551836442624
-    m_Key: Challenge1RemainingLaser
+    m_Key: RemainingLasers
     m_Metadata:
       m_Items: []
   - m_Id: 4706086782169088
@@ -295,6 +291,18 @@ MonoBehaviour:
     m_Key: 'ChallengeEndLossTitle
 
 '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017450934661120
+    m_Key: StayUpdated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017811753857024
+    m_Key: MeetPlayers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017923162959872
+    m_Key: JoinDiscord
     m_Metadata:
       m_Items: []
   m_Metadata:

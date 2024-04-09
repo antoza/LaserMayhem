@@ -29,7 +29,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2533403478913024
-    m_Localized: N e w   G a m e
+    m_Localized: P l a y
     m_Metadata:
       m_Items: []
   - m_Id: 2533736401793024
@@ -127,7 +127,7 @@ MonoBehaviour:
 
 
       Then, you can press
-      the end turn button to activate the laser!'
+      the end turn button to trigger the laser!'
     m_Metadata:
       m_Items: []
   - m_Id: 2896529428770816
@@ -149,13 +149,12 @@ MonoBehaviour:
       coins.
 
 
-      Each turn, the pieces you didn''t buy won''t disappear from
-      the shop. Empty spots are filled with new pieces, randomly generated from the
-      right.'
+      Each turn, the pieces you didn''t buy stay in the shop. Empty
+      spots are filled with new pieces, randomly generated from the right.'
     m_Metadata:
       m_Items: []
   - m_Id: 2897486271148032
-    m_Localized: 'Each turn the active player earns some coins he can spend on:
+    m_Localized: 'When it is your turn, you earn some coins that you can spend on:
 
       -Placing
       a new piece
@@ -174,21 +173,21 @@ MonoBehaviour:
 
       You can decide to get in debt
       down to -3 coins, but your opponent will get the double of your excess as a
-      bonus, so be mindful before doing that.'
+      bonus, so be mindful before doing that!'
     m_Metadata:
       m_Items: []
   - m_Id: 2897976497205248
-    m_Localized: 'Take your time to place pieces on the board during your turn to
-      previsualize how they work. There is no time limit yet.
+    m_Localized: 'Take your time to try placing pieces on the board during your turn
+      to previsualize how they work. There is no time limit yet.
 
 
-      Pressing the
-      undo button will revert your last move.
+      Pressing
+      the undo button will revert your last move.
 
 
-      A piece you bought this turn
-      will have a blue aura. This means that you can freely move it anywhere on the
-      board without additionnal cost.'
+      A piece you bought this
+      turn will have a blue aura. This means that you can freely move it anywhere
+      on the board without additionnal cost.'
     m_Metadata:
       m_Items: []
   - m_Id: 2898938402107392
@@ -201,7 +200,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2899486379536384
-    m_Localized: "This piece separates the laser in 2 different lasers, each one
+    m_Localized: "This piece separates the laser in two different lasers, each one
       in a direction of 90\xB0."
     m_Metadata:
       m_Items: []
@@ -229,7 +228,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2901003912278016
-    m_Localized: Horizontal & vertical mirrors
+    m_Localized: Horizontal & Vertical mirrors
     m_Metadata:
       m_Items: []
   - m_Id: 4703689569660928
@@ -237,26 +236,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4704052385345536
-    m_Localized: Challenge 1
+    m_Localized: Challenge 0
     m_Metadata:
       m_Items: []
   - m_Id: 4704094747815936
-    m_Localized: 'Closed Eyes:'
+    m_Localized: 'Closed eyes:'
     m_Metadata:
       m_Items: []
   - m_Id: 4704173399404544
     m_Localized: Then press this button to trigger the laser
     m_Metadata:
       m_Items: []
-  - m_Id: 4704450693230592
-    m_Localized: 'Stay updated
-
-      Meet players
-
-
-
-
-      Join Discord!'
+  - m_Id: 7017450934661120
+    m_Localized: Stay Updated
     m_Metadata:
       m_Items: []
   - m_Id: 4705551836442624
@@ -289,7 +281,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4708689729482752
-    m_Localized: Sometimes you can trigger multiple lasers
+    m_Localized: Sometimes you can trigger the laser multiple times
     m_Metadata:
       m_Items: []
   - m_Id: 5067070189268992
@@ -329,7 +321,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6142717200363520
-    m_Localized: Retry
+    m_Localized: RETRY
     m_Metadata:
       m_Items: []
   - m_Id: 6142892249640960
@@ -352,6 +344,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 6143653067026432
     m_Localized: CHALLENGE FAILED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017811753857024
+    m_Localized: Meet Players
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7017923162959872
+    m_Localized: Join Discord!
     m_Metadata:
       m_Items: []
   references:

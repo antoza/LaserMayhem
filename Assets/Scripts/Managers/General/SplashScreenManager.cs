@@ -51,12 +51,17 @@ public class SplashScreenManager : MonoBehaviour
         }
         else
         {
+#if !WEBGL_CLIENT
             UIManager.Instance.DisplayWideMessage("The server is not available at the moment.\n" +
                 "You can't play online but you have access to challenges.\n" +
                 "\n" +
                 "You'll find more information on Discord.\n" +
                 "(on the bottom left corner)");
-
+#else
+            UIManager.Instance.DisplayWideMessage("You are playing on the browser.\n" +
+                "You have access to challenges (solo),\n" +
+                "but you need to download the game to play online.");
+#endif
             // TODO : A supprimer plus tard
             GameObject.Find("Menus").transform.Find("ChallengeSelectionMenu").Find("BackButton").gameObject.SetActive(false);
             GameObject.Find("Menus").transform.Find("ChallengeSelectionMenu").Find("BackButtonOffline").gameObject.SetActive(true);
@@ -69,4 +74,4 @@ public class SplashScreenManager : MonoBehaviour
         Destroy(gameObject);
     }
 #endif
-}
+        }

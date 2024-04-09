@@ -30,7 +30,7 @@ public class MenuMessageManager : MonoBehaviour
 
     private void Start()
     {
-        ConnectToServer();
+        ConnectToAPI();
     }
     /*
     public void SendRequest(string request)
@@ -48,20 +48,24 @@ public class MenuMessageManager : MonoBehaviour
         }
     }*/
 
-    private void ConnectToServer()
+    private void ConnectToAPI()
     {
         try
         {
 #if DEBUG || DEDICATED_SERVER
             tcpClient = new TcpClient("127.0.0.1", 11586);
 #else
-            tcpClient = new TcpClient("90.51.225.76", 11586);
+            tcpClient = new TcpClient("127.0.0.1", 11586);
+            //tcpClient = new TcpClient("90.51.225.76", 11586);
 #endif
             stream = tcpClient.GetStream();
             Debug.Log("Connected to the API");
             IsTcpReady = true;
             ReceiveMessages();
-            PingServerRegularly();
+            PingAPIRegularly();
+#if DEDICATED_SERVER
+            RequestDisconnectionIfInactive();
+#endif
         }
         catch (Exception e)
         {
@@ -102,7 +106,7 @@ public class MenuMessageManager : MonoBehaviour
         }
     }
 
-    private async void PingServerRegularly()
+    private async void PingAPIRegularly()
     {
         while (tcpClient.Connected)
         {
@@ -115,26 +119,28 @@ public class MenuMessageManager : MonoBehaviour
             }
             catch
             {
-                DisconnectFromServer();
+                DisconnectFromAPI();
             }
         }
     }
 
-    private void DisconnectFromServer()
+    private void DisconnectFromAPI()
     {
         if (tcpClient != null)
         {
             tcpClient.Close();
             Debug.Log("Disconnected from the API");
-#if DEDICATED_SERVER
-            Application.Quit();
-#endif
         }
+#if DEDICATED_SERVER
+        Application.Quit();
+#endif
     }
 
 #if DEDICATED_SERVER
-    private void RequestDisconnectionIfInactive() {
+    private async void RequestDisconnectionIfInactive() {
         // TODO : Si le serveur n'a pas lancé de game pendant plus de 5 minutes, alors demander à l'API de le déconnecter
+        await Task.Delay(3600000); // en attendant, le serveur s'arrête après 1h d'activité
+        DisconnectFromAPI();
     }
 #endif
 
