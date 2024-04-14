@@ -8,7 +8,7 @@ public class ChangeMenuButton : MenuButton
 
     public override void DoOnClick()
     {
-        MenusManager.Instance.ChangeMenu(MenuToGo);
+        OnButtonPressed(MenuToGo);
     }
 }
 #endif

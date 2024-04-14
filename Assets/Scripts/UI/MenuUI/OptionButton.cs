@@ -7,7 +7,7 @@ public class OptionButton : MenuButton
 {
     public override void DoOnClick()
     {
-        MenusManager.Instance.ChangeMenu(Menus.Options);
+        OnButtonPressed(Menus.Options);
     }
 }
 #endif

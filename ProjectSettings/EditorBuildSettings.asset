@@ -5,66 +5,72 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SplashScreen.unity
     guid: f65f4d1248b25d1428ccfd5ff4afb925
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 00eb3a3152122784f8d20f162014bc3a
   - enabled: 0
     path: Assets/Scenes/ServerMenu.unity
     guid: 53f36801dbaea8f42a90c19e7b7dfc6f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/RPG.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge1.unity
     guid: 64310c1ac2cc8964cb6c21ea14715331
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge2.unity
     guid: e4de7f4c16895b540a7b6eee3934ee5f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge3.unity
     guid: c9cef96448835a54ab54a674c0879a3e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge4.unity
     guid: 642cb8651c518364d996c3818a1e0d9c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge5.unity
     guid: 8ab436e7cf0ee1c43b0a16791ec248a4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge6.unity
     guid: 9f7ce2babd6f9b2409d22a35f37ccac0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge7.unity
     guid: 028be72c74620d241981f3c37c6fc6c0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge8.unity
     guid: fb9c02e4853a86c41b9076a24bff0a12
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge9.unity
     guid: 097f54d3a7e945446bf0148a3467ecad
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge10.unity
     guid: 99a168f2ad56cb042a81842f9a9b3dbf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge11.unity
     guid: 8be98ad413318354ca64ab2572765549
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge12.unity
     guid: c6f8da61382590344b0d901d1cde2c9b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge13.unity
     guid: cbd6652aa7685c14d873f6b743ac0de3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge14.unity
     guid: 11c3d3c2d1e083241909284d02d58e76
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge15.unity
     guid: bcad458c0f87996459cf1968bff7d441
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge16.unity
     guid: e6e05cc84ef65b94aad8355eadf9e3cc
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/GameModes/Shredder.unity
+    guid: 59b01ae5353117941a4fd8b1afc4c810
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 5224cf45c9502394bab0ac23679618d6, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: a2233e3bb16935b44b29cbe76d2fb647, type: 2}

@@ -32,6 +32,9 @@ public class MenusManager : MonoBehaviour
     private Menus m_CurrentMenus = Menus.None;
     private bool m_CanInteractWithUI = true;
 
+    [SerializeField]
+    private bool IsShredderVersion = false;
+
     private void Awake()
     {
         Instance = this;
@@ -43,11 +46,19 @@ public class MenusManager : MonoBehaviour
         {
             ChangeMenu(Menus.Main);
         }
+        
+        if(IsShredderVersion)
+        {
+            ChangeMenu(Menus.Main);
+        }
     }
 
     public void ChangeMenu(Menus newMenu)
     {
-        MenusDictionnary[m_CurrentMenus].SetActive(false);
+        if(m_CurrentMenus != Menus.None)
+        {
+            MenusDictionnary[m_CurrentMenus].SetActive(false);
+        }
         MenusDictionnary[newMenu].SetActive(true);
         m_CurrentMenus = newMenu;
 
