@@ -18,6 +18,9 @@ public abstract class TurnManager : Manager<TurnManager>
     [field: SerializeField]
     public int RevertLaserPhaseDuration { get; private set; }
 
+    [HideInInspector]
+    public bool IsWaitingForPlayerAction { get; protected set; } = false;
+
     protected HashSet<Piece> _piecesPlayedThisTurn = new HashSet<Piece>();
 
     protected virtual void Start()

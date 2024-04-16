@@ -33,21 +33,4 @@ public class LaserEmitter : Piece // TODO : renommer en Emitter
             ((BoardTile?)ParentTile)!.TransferLaser(laser, startingDirection);
         }
     }
-
-    //TODO : Events may be renamed
-    /*private void Start()
-    {
-        TurnManager.OnEndTurn += OnEndTurn;
-        TurnManager.OnEndLaserPhase += OnEndLaserPhase;
-    }
-    
-    private void OnEndTurn()
-    {
-        StartLaser(false);
-    }
-
-    private void OnEndLaserPhase()
-    {
-        StartLaser(true);
-    }*/
 }

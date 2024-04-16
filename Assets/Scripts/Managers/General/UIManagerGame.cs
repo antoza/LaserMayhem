@@ -113,6 +113,12 @@ public class UIManagerGame : UIManager
         title.text = $"Challenge {value}";
     }
 
+    public async void UpdateScoreInt(int value)
+    {
+        await WaitForReadiness();
+        score.text = $"{value}";
+    }
+
     public async void UpdateScoreFraction(int numerator, int denominator)
     {
         await WaitForReadiness();

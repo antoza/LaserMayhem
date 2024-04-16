@@ -9,7 +9,7 @@ using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 #nullable enable
-public class Orb : Receiver
+public class BadOrb : Receiver
 {
     public int HP = 1;
 

@@ -56,6 +56,7 @@ public sealed class TurnManagerRPG : TurnManager
 
     private void StartLaserPhase(EndTurnAction action)
     {
+        IsWaitingForPlayerAction = false;
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
@@ -91,6 +92,7 @@ public sealed class TurnManagerRPG : TurnManager
 #if DEDICATED_SERVER
         if (GameInitialParameters.localPlayerID == -1) m_SelectionTilesUpdate.ServerUpdateSelectionPieces(); // TODO : Ligne à modifier
 #endif
+        IsWaitingForPlayerAction = true;
     }
     private void StartTurnPhase()
     {

@@ -333,6 +333,10 @@ MonoBehaviour:
     m_Localized: <size=32>Rejoignez Discord !</size>
     m_Metadata:
       m_Items: []
+  - m_Id: 16095806984581120
+    m_Localized: 'Score:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -305,6 +305,10 @@ MonoBehaviour:
     m_Key: JoinDiscord
     m_Metadata:
       m_Items: []
+  - m_Id: 16095806984581120
+    m_Key: Score
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

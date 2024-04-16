@@ -11,14 +11,79 @@ public class GameModeManagerShredder : GameModeManager
 {
     public static new GameModeManagerShredder Instance => (GameModeManagerShredder)GameModeManager.Instance;
 
+    public int _score = 0;
+
     private void Start()
     {
     }
 
-    public override bool CheckGameOver()
+    public void UpdateCrystalsAndBombsState()
     {
-        //TriggerGameOver(playersAlive!.Single());
+        foreach (Orb crystal in BoardManagerShredder.Instance.GetAllCrystals())
+        {
+            crystal.UpdateState();
+        }
+        foreach (BadOrb bomb in BoardManagerShredder.Instance.GetAllBombs())
+        {
+            bomb.UpdateState();
+        }
+    }
+
+    public void UpdateScore()
+    {
+        foreach (Orb crystal in BoardManagerShredder.Instance.GetAllCrystals())
+        {
+            if (crystal.HP == 0)
+            {
+                _score++;
+                crystal.Destroy();
+            }
+        }
+
+#if !DEDICATED_SERVER
+        UIManagerGame.Instance.UpdateScoreInt(_score);
+#endif
+    }
+
+    public override bool CheckGameOver() // Unused
+    {
+        return CheckGameOverConveyorPhase() || CheckGameOverLaserPhase();
+    }
+
+    public bool CheckGameOverLaserPhase()
+    {
+        bool isGameOver = false;
+        foreach (BadOrb bomb in BoardManagerShredder.Instance.GetAllBombs())
+        {
+            if (bomb.HP == 0)
+            {
+                isGameOver = true;
+                bomb.Destroy();
+            }
+        }
+        if (isGameOver) TriggerGameOver(1);
+        return isGameOver;
+    }
+
+    public bool CheckGameOverConveyorPhase()
+    {
+        if (BoardManagerShredder.Instance.GetOrbsOnShreddingTiles().Count() > 0)
+        {
+            TriggerGameOver(1);
+            return true;
+        }
         return false;
+    }
+
+    public static void Shuffle<T>(IList<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
     }
 
     public void GeneratePiecesOnTopConveyors(int TurnNumber)
@@ -26,8 +91,33 @@ public class GameModeManagerShredder : GameModeManager
         int conveyorWidth = BoardManagerShredder.Instance.ConveyorWidth;
         List<PieceName> pieces = Enumerable.Repeat(PieceName.None, conveyorWidth).ToList();
 
-        int rd = Random.Range(0, conveyorWidth);
-        pieces[rd] = PieceName.Orb;
+        switch(TurnNumber)
+        {
+            case < 10:
+                pieces[0] = PieceName.Orb;
+                break;
+            case < 20:
+                pieces[0] = PieceName.Orb;
+                pieces[1] = PieceName.Orb;
+                break;
+            case < 30:
+                pieces[0] = PieceName.Orb;
+                pieces[1] = PieceName.Orb;
+                pieces[2] = PieceName.BadOrb;
+                break;
+            default:
+                break;
+        }
+
+        Shuffle(pieces);
+        /*
+        List<int> ints = new List<int>();
+        for (int i = 0; i < BoardManagerShredder.Instance.ConveyorWidth; i++) { ints.Add(i); }
+        Shuffle(ints);
+        Queue<int> queue = new Queue<int>(ints);
+
+        queue.Dequeue();
+        pieces[rd] = PieceName.Orb;*/
         BoardManagerShredder.Instance.SpawnOnTopConveyors(pieces);
     }
 

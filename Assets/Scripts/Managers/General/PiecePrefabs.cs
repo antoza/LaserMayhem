@@ -22,6 +22,7 @@ public enum PieceName
     WeaknessDown = 304,
     Eye = 310,
     Orb = 320,
+    BadOrb = 321,
 }
 
 #nullable enable

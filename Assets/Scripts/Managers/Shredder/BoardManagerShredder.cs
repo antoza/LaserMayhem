@@ -18,6 +18,7 @@ public class BoardManagerShredder : BoardManager
     [field: SerializeField]
     public int ConveyorWidth { get; private set; }
 
+    private List<ConveyorBoardTile> _conveyors = new List<ConveyorBoardTile>();
     private List<ConveyorBoardTile> _topConveyors = new List<ConveyorBoardTile>();
     private List<InvisibleBoardTile> _shreddingTiles = new List<InvisibleBoardTile>();
 
@@ -33,6 +34,29 @@ public class BoardManagerShredder : BoardManager
     {
         Assert.AreEqual(pieces.Count, ConveyorWidth);
         for (int i = 0; i < ConveyorWidth; i++) _topConveyors[i].InstantiatePiece(pieces[i]);
+    }
+
+    public IEnumerable<Orb> GetAllCrystals()
+    {
+        foreach(ConveyorBoardTile tile in _conveyors)
+        {
+            if (tile.Piece is Orb) yield return (Orb)tile.Piece;
+        }
+    }
+
+    public IEnumerable<BadOrb> GetAllBombs()
+    {
+        foreach(ConveyorBoardTile tile in _conveyors)
+        {
+            if (tile.Piece is BadOrb) yield return (BadOrb)tile.Piece;
+        }
+    }
+
+    public IEnumerable<Piece> GetOrbsOnShreddingTiles() {
+        foreach (InvisibleBoardTile tile in _shreddingTiles)
+        {
+            if (tile.Piece is Orb) yield return (Orb)tile.Piece;
+        }
     }
 
     public void ShredPiecesOnShreddingTiles()
@@ -55,7 +79,8 @@ public class BoardManagerShredder : BoardManager
 
         GameObject boardTilesParent = new GameObject("BoardTiles");
         boardTilesParent.transform.parent = _boardParent.transform;
-        GenerateBoardTilesInArea(-centerX, -centerX + ConveyorWidth - 1, -centerY, -centerY + ConveyorHeight, TileName.ConveyorBoardTile, boardTilesParent);
+        List<BoardTile> conveyors = GenerateBoardTilesInArea(-centerX, -centerX + ConveyorWidth - 1, -centerY, -centerY + ConveyorHeight, TileName.ConveyorBoardTile, boardTilesParent);
+        foreach (BoardTile conveyor in conveyors) _conveyors.Add((ConveyorBoardTile)conveyor);
         for (int i = -centerX; i < -centerX + ConveyorWidth; i++) _topConveyors.Add((ConveyorBoardTile)GetBoardTile(new Vector2Int(i, -centerY + ConveyorHeight))!);
 
         GameObject shreddingTilesParent = new GameObject("ShreddingTiles");

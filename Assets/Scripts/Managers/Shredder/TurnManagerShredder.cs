@@ -18,10 +18,11 @@ public sealed class TurnManagerShredder : TurnManager
     protected override IEnumerator StartTurnCoroutine()
     {
         yield return null;
+        if (GameModeManagerShredder.Instance.CheckGameOverLaserPhase()) yield break;
         StartConveyorPhase();
         yield return new WaitForSeconds(ConveyorPhaseDuration);
 
-        if (GameModeManager.Instance.CheckGameOver()) yield break;
+        if (GameModeManagerShredder.Instance.CheckGameOverConveyorPhase()) yield break;
         StartTurnPhase();
     }
 
@@ -43,23 +44,27 @@ public sealed class TurnManagerShredder : TurnManager
 
     private void StartLaserPhase(EndTurnAction action)
     {
+        IsWaitingForPlayerAction = false;
 #if !DEDICATED_SERVER
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
 #endif
         BoardManager.Instance.DisplayEndTurnLaser();
+        GameModeManagerShredder.Instance.UpdateCrystalsAndBombsState();
     }
 
     private void StartConveyorPhase()
     {
+        GameModeManagerShredder.Instance.UpdateScore();
         BoardManager.Instance.ClearLaser();
         BoardManagerShredder.Instance.OperateConveyors();
-        BoardManagerShredder.Instance.ShredPiecesOnShreddingTiles();
         GameModeManagerShredder.Instance.GeneratePiecesOnTopConveyors(TurnNumber);
     }
 
     private void StartTurnPhase()
     {
         TurnNumber++;
+        BoardManagerShredder.Instance.ShredPiecesOnShreddingTiles();
         BoardManager.Instance.DisplayPredictionLaser();
+        IsWaitingForPlayerAction = true;
     }
 }

@@ -40,6 +40,7 @@ public sealed class TurnManagerSolo : TurnManager
 
     private void StartLaserPhase(EyeClosingEndTurnAction action)
     {
+        IsWaitingForPlayerAction = false;
 #if !DEDICATED_SERVER
         UIManagerGame.Instance.UpdateEndTurnButtonState("Pressed");
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
@@ -57,10 +58,12 @@ public sealed class TurnManagerSolo : TurnManager
         UIManagerGame.Instance.UpdateEndTurnButtonState("Unpressed");
 #endif
         BoardManager.Instance.DisplayPredictionLaser();
+        IsWaitingForPlayerAction = true;
     }
 
     private void RevertStartTurnPhase()
     {
+        IsWaitingForPlayerAction = false;
         //BoardManager.Instance.DisplayEndTurnLaser();
 #if !DEDICATED_SERVER
         UIManagerGame.Instance.UpdateEndTurnButtonState("Pressed");
@@ -78,5 +81,6 @@ public sealed class TurnManagerSolo : TurnManager
         if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
         UIManagerGame.Instance.UpdateEndTurnButtonState("Unpressed");
 #endif
+        IsWaitingForPlayerAction = true;
     }
 }

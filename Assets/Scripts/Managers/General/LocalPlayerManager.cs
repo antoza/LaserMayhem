@@ -31,6 +31,7 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
             UIManager.Instance.DisplayErrorMessage("It is not your turn to play");
             return false;
         }
+        if (!TurnManager.Instance.IsWaitingForPlayerAction) return false;
         return true;
     }
 
