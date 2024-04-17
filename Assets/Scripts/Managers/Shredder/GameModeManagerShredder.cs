@@ -13,8 +13,15 @@ public class GameModeManagerShredder : GameModeManager
 
     public int _score = 0;
 
+    [SerializeField]
+    private SelectionTile _dividerTile;
+    [SerializeField]
+    private int _dividerCooldown;
+    private int _dividerRemainingCooldown;
+
     private void Start()
     {
+        ResetDividerCooldown();
     }
 
     public void UpdateCrystalsAndBombsState()
@@ -37,12 +44,28 @@ public class GameModeManagerShredder : GameModeManager
             {
                 _score++;
                 crystal.Destroy();
+                DecrementDividerCooldown(1);
             }
         }
 
 #if !DEDICATED_SERVER
         UIManagerGame.Instance.UpdateScoreInt(_score);
 #endif
+    }
+
+    public void DecrementDividerCooldown(int amount)
+    {
+        if (_dividerRemainingCooldown == 0) return;
+        _dividerRemainingCooldown -= amount;
+        if (_dividerRemainingCooldown < 0) _dividerRemainingCooldown = 0;
+        UIManagerGame.Instance.UpdateDividerCooldownIndicator(_dividerRemainingCooldown);
+        if (_dividerRemainingCooldown == 0) _dividerTile.InstantiatePiece(PieceName.MirrorDivider);
+    }
+
+    public void ResetDividerCooldown()
+    {
+        _dividerRemainingCooldown = _dividerCooldown;
+        UIManagerGame.Instance.UpdateDividerCooldownIndicator(_dividerRemainingCooldown);
     }
 
     public override bool CheckGameOver() // Unused
@@ -86,30 +109,38 @@ public class GameModeManagerShredder : GameModeManager
         }
     }
 
-    public void GeneratePiecesOnTopConveyors(int TurnNumber)
+    public bool IsTurnSkipped(int turnNumber)
+    {
+        if (turnNumber < 3) return true;
+        return false;
+    }
+
+    public void GeneratePiecesOnTopConveyors(int turnNumber)
     {
         int conveyorWidth = BoardManagerShredder.Instance.ConveyorWidth;
         List<PieceName> pieces = Enumerable.Repeat(PieceName.None, conveyorWidth).ToList();
 
-        switch(TurnNumber)
+        switch(turnNumber)
         {
             case < 10:
                 pieces[0] = PieceName.Orb;
+                if (turnNumber == 5) pieces[1] = PieceName.Orb;
                 break;
             case < 20:
                 pieces[0] = PieceName.Orb;
-                pieces[1] = PieceName.Orb;
+                if (turnNumber % 2 == 0) pieces[1] = PieceName.Orb;
+                if (turnNumber == 15) pieces[2] = PieceName.BadOrb;
                 break;
-            case < 30:
+            case < 40:
                 pieces[0] = PieceName.Orb;
                 pieces[1] = PieceName.Orb;
-                pieces[2] = PieceName.BadOrb;
+                if (turnNumber % 4 == 0) pieces[2] = PieceName.BadOrb;
                 break;
             default:
                 break;
         }
 
-        Shuffle(pieces);
+        do { Shuffle(pieces); } while (pieces[BoardManagerShredder.Instance.ConveyorWidth / 2] == PieceName.BadOrb);
         /*
         List<int> ints = new List<int>();
         for (int i = 0; i < BoardManagerShredder.Instance.ConveyorWidth; i++) { ints.Add(i); }
@@ -194,8 +225,11 @@ public class GameModeManagerShredder : GameModeManager
 
         switch ((sourceTile!, targetTile))
         {
+            case (InfiniteTile, ConveyorBoardTile):
+                ExecutePlacement(playerData, (InfiniteTile)sourceTile, (ConveyorBoardTile)targetTile);
+                break;
             case (SelectionTile, ConveyorBoardTile):
-                ExecutePlacement(playerData, (SelectionTile)sourceTile, (ConveyorBoardTile)targetTile);
+                ExecuteDividerPlacement(playerData, (SelectionTile)sourceTile, (ConveyorBoardTile)targetTile);
                 break;
             default:
                 // TODO : On peut rajouter un Throw Exception
@@ -212,9 +246,17 @@ public class GameModeManagerShredder : GameModeManager
         return true;
     }
 
-    public void ExecutePlacement(PlayerData playerData, SelectionTile sourceTile, ConveyorBoardTile targetTile)
+    public void ExecutePlacement(PlayerData playerData, InfiniteTile sourceTile, ConveyorBoardTile targetTile)
     {
-        targetTile.InstantiatePiece(sourceTile.Piece!);
+        targetTile.Piece = sourceTile.Piece!;
+        sourceTile.InstantiatePiece(targetTile.Piece!);
+        LocalPlayerManager.Instance.CreateAndVerifyEndTurnAction();
+    }
+
+    public void ExecuteDividerPlacement(PlayerData playerData, SelectionTile sourceTile, ConveyorBoardTile targetTile)
+    {
+        targetTile.Piece = sourceTile.Piece!;
+        ResetDividerCooldown();
         LocalPlayerManager.Instance.CreateAndVerifyEndTurnAction();
     }
 }

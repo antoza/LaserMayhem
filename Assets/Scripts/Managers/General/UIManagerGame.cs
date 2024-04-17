@@ -55,6 +55,11 @@ public class UIManagerGame : UIManager
     private GameObject actionCost;
 
     [SerializeField]
+    private SpriteRenderer _dividerCooldownSpriteRenderer;
+    [SerializeField]
+    private Sprite[] _dividerCooldownSprites;
+
+    [SerializeField]
     private Image BackgroundImage;
     [SerializeField]
     public SkinData SkinData;
@@ -229,6 +234,12 @@ public class UIManagerGame : UIManager
         healthLossGameObject.transform.position = position;
         healthLossGameObject.GetComponentInChildren<TextMeshProUGUI>().text = $"-{amount}";
         StartCoroutine(DestroyCoroutine(healthLossGameObject, healthLossDisplayTime));
+    }
+
+    public async void UpdateDividerCooldownIndicator(int value)
+    {
+        await WaitForReadiness();
+        _dividerCooldownSpriteRenderer.sprite = _dividerCooldownSprites[value];
     }
 
 

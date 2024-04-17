@@ -64,6 +64,10 @@ public sealed class TurnManagerShredder : TurnManager
     {
         TurnNumber++;
         BoardManagerShredder.Instance.ShredPiecesOnShreddingTiles();
+        if (GameModeManagerShredder.Instance.IsTurnSkipped(TurnNumber)) {
+            Start();
+            return;
+        }
         BoardManager.Instance.DisplayPredictionLaser();
         IsWaitingForPlayerAction = true;
     }
