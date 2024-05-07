@@ -56,7 +56,7 @@ public sealed class TurnManagerShredder : TurnManager
     {
         GameModeManagerShredder.Instance.UpdateScore();
         BoardManager.Instance.ClearLaser();
-        BoardManagerShredder.Instance.OperateConveyors();
+        BoardManagerShredder.Instance.OperateConveyor();
         GameModeManagerShredder.Instance.GeneratePiecesOnTopConveyors(TurnNumber);
     }
 

@@ -22,12 +22,13 @@ public class BoardManagerShredder : BoardManager
     private List<ConveyorBoardTile> _topConveyors = new List<ConveyorBoardTile>();
     private List<InvisibleBoardTile> _shreddingTiles = new List<InvisibleBoardTile>();
 
-    public void OperateConveyors()
+    public void OperateConveyor()
     {
         foreach (ConveyorBoardTile tile in _topConveyors)
         {
             tile.ConveyPiece();
         }
+        UIManagerGame.Instance.OperateConveyor();
     }
 
     public void SpawnOnTopConveyors(List<PieceName> pieces)

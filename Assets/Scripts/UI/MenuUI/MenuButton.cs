@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -15,13 +16,14 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void Awake()
     {
         m_Animator = GetComponent<Animator>();
+        GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
-    public void OnButtonPressed(Menus menuToChange)
+    public void OnClick()
     {
         if (MenusManager.Instance.TryInteractWithUI())
         {
-            StartCoroutine(OnClickCoroutine(0.2f, menuToChange));
+            StartCoroutine(OnClickCoroutine(0.2f));
         }
     }
     
@@ -35,17 +37,13 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
        m_Animator.SetTrigger("Normal");
     }
     
-    IEnumerator OnClickCoroutine(float duration, Menus menuToChange)
+    IEnumerator OnClickCoroutine(float duration)
     {
         m_Animator.SetTrigger("Pressed");
         yield return new WaitForSeconds(duration);
         m_Animator.SetTrigger("Normal");
+        DoOnClick();
         MenusManager.Instance.StopChange();
-
-        if(menuToChange != Menus.None)
-        {
-            MenusManager.Instance.ChangeMenu(menuToChange);
-        }
     }
 
     public virtual void DoOnClick() { }

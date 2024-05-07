@@ -4,11 +4,11 @@ using UnityEngine;
 public class ChangeMenuButton : MenuButton
 {
     [SerializeField]
-    private Menus MenuToGo;
+    private Menus TargetMenu;
 
     public override void DoOnClick()
     {
-        OnButtonPressed(MenuToGo);
+        MenusManager.Instance.ChangeMenu(TargetMenu);
     }
 }
 #endif

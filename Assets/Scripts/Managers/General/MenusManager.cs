@@ -10,8 +10,8 @@ public enum Menus
     None = 0,
     Connection = 10,
     Main = 100,
-    GameMode = 101,
-    ChallengeSelection = 102,
+    GameModes = 101,
+    Challenges = 102,
     Matchmaking = 150,
     Options = 200,
     BackgroundChoice = 210,
@@ -32,9 +32,6 @@ public class MenusManager : MonoBehaviour
     private Menus m_CurrentMenus = Menus.None;
     private bool m_CanInteractWithUI = true;
 
-    [SerializeField]
-    private bool IsShredderVersion = false;
-
     private void Awake()
     {
         Instance = this;
@@ -46,16 +43,11 @@ public class MenusManager : MonoBehaviour
         {
             ChangeMenu(Menus.Main);
         }
-        
-        if(IsShredderVersion)
-        {
-            ChangeMenu(Menus.Main);
-        }
     }
 
     public void ChangeMenu(Menus newMenu)
     {
-        if(m_CurrentMenus != Menus.None)
+        if (MenusDictionnary.ContainsKey(m_CurrentMenus))
         {
             MenusDictionnary[m_CurrentMenus].SetActive(false);
         }

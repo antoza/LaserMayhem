@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fb7710e70f85a4ea4f1173a585ed6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuToGo: 200
+  TargetMenu: 200
 --- !u!114 &456451709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,9 +597,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 456451708}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ChangeMenuButton, Assembly-CSharp
-        m_MethodName: DoOnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -729,7 +729,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1255602332}
-  - {fileID: 1381008357}
   - {fileID: 2055173849}
   m_Father: {fileID: 795300518}
   m_RootOrder: -1
@@ -1153,6 +1152,7 @@ RectTransform:
   - {fileID: 1950746381}
   - {fileID: 2113403987}
   - {fileID: 526774487}
+  - {fileID: 1381008357}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1339,6 +1339,7 @@ GameObject:
   - component: {fileID: 875196090}
   - component: {fileID: 875196092}
   - component: {fileID: 875196091}
+  - component: {fileID: 875196093}
   m_Layer: 0
   m_Name: InfoMessage
   m_TagString: Untagged
@@ -1464,6 +1465,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875196089}
   m_CullTransparentMesh: 1
+--- !u!114 &875196093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875196089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:7038dfaf0fcaf5342997dea5adf9a5c5
+    m_TableEntryReference:
+      m_KeyId: 86170857472
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 875196091}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &983524593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +2020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1255602332
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2137,19 +2178,19 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: d3bc5ad81c7c06945879f8080766bbb8, type: 2}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[0].Key
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[1].Key
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[2].Key
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[3].Key
@@ -2194,11 +2235,11 @@ PrefabInstance:
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[1].Value
       value: 
-      objectReference: {fileID: 2055173848}
+      objectReference: {fileID: 1255602331}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[2].Value
       value: 
-      objectReference: {fileID: 1255602331}
+      objectReference: {fileID: 2055173848}
     - target: {fileID: 1163338011878818272, guid: 73ca4620a98b16f41a7150c713e3444b, type: 3}
       propertyPath: MenusDictionnary._serializedList.Array.data[3].Value
       value: 
@@ -2314,12 +2355,12 @@ RectTransform:
   - {fileID: 31893726}
   - {fileID: 1784782784}
   - {fileID: 2092540483}
-  m_Father: {fileID: 526774487}
+  m_Father: {fileID: 795300518}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -369, y: -752}
+  m_AnchoredPosition: {x: 121, y: 156.49994}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1421213447
@@ -2334,7 +2375,7 @@ GameObject:
   - component: {fileID: 1421213452}
   - component: {fileID: 1421213451}
   - component: {fileID: 1421213450}
-  - component: {fileID: 1421213449}
+  - component: {fileID: 1421213453}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -2364,18 +2405,6 @@ RectTransform:
   m_AnchoredPosition: {x: 351, y: -536}
   m_SizeDelta: {x: 582.6, y: 282.2}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1421213449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421213447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c5c41721f6cc449bb7b494c3c0c044, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1421213450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2420,7 +2449,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1421213449}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenuButton, Assembly-CSharp
         m_MethodName: DoOnClick
         m_Mode: 1
@@ -2460,6 +2489,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421213447}
   m_CullTransparentMesh: 1
+--- !u!114 &1421213453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421213447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fb7710e70f85a4ea4f1173a585ed6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetMenu: 100
 --- !u!1 &1463334019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,9 +2978,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1765843584}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StartShreedMode, Assembly-CSharp
-        m_MethodName: DoOnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2985,10 +3027,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1765843578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ff49c02eabe6247b5e2bdd447df445, type: 3}
+  m_Script: {fileID: 11500000, guid: 8412365e6a0d9ab4a88976e966c2126d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShreedSceneId: 0
+  SceneName: Shredder
 --- !u!1 &1784782783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3913,9 +3955,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2095519055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuitButton, Assembly-CSharp
-        m_MethodName: DoOnClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -32,7 +32,7 @@ public class ReceiverManager : MonoBehaviour
                 MenusManager.Instance.ChangeMenu(Menus.Matchmaking);
                 break;
             case "CancelMatchmaking":
-                MenusManager.Instance.ChangeMenu(Menus.GameMode);
+                MenusManager.Instance.ChangeMenu(Menus.GameModes);
                 break;
             case "JoinGame":
                 TemporaryFunctionToJoinGame(parsedMessage.Dequeue(), int.Parse(parsedMessage.Dequeue()), int.Parse(parsedMessage.Dequeue()), parsedMessage.Dequeue(), parsedMessage.Dequeue());

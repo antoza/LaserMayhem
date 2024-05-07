@@ -21,6 +21,10 @@ public class GameModeManagerShredder : GameModeManager
 
     private void Start()
     {
+        if (!PlayerPrefs.HasKey("bestScore"))
+        {
+            PlayerPrefs.SetInt("bestScore", 0);
+        }
         ResetDividerCooldown();
     }
 
@@ -96,6 +100,17 @@ public class GameModeManagerShredder : GameModeManager
             return true;
         }
         return false;
+    }
+
+    public override void TriggerGameOver(int? winner)
+    {
+        int bestScore = PlayerPrefs.GetInt("bestScore");
+        if (bestScore < _score)
+        {
+            PlayerPrefs.SetInt("bestScore", _score);
+            bestScore = _score;
+        }
+        UIManagerGame.Instance.TriggerGameOverShredder(_score, bestScore);
     }
 
     public static void Shuffle<T>(IList<T> list)

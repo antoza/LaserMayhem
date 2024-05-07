@@ -28,6 +28,10 @@ public class UIManagerGame : UIManager
     [SerializeField]
     private TextMeshProUGUI score;
     [SerializeField]
+    private TextMeshProUGUI gameOverScore;
+    [SerializeField]
+    private TextMeshProUGUI gameOverBestScore;
+    [SerializeField]
     private TextMeshProUGUI turnCount;
 
     [SerializeField]
@@ -54,6 +58,8 @@ public class UIManagerGame : UIManager
     [SerializeField]
     private GameObject actionCost;
 
+    [SerializeField]
+    private Animator conveyorAnimator;
     [SerializeField]
     private SpriteRenderer _dividerCooldownSpriteRenderer;
     [SerializeField]
@@ -99,6 +105,14 @@ public class UIManagerGame : UIManager
     {
         await WaitForReadiness();
         defeatPopUp.SetActive(true);
+    }
+
+    public async void TriggerGameOverShredder(int score, int bestScore)
+    {
+        await WaitForReadiness();
+        defeatPopUp.SetActive(true);
+        gameOverScore.text = "Score: " + score;
+        gameOverBestScore.text = "Best score: " + bestScore;
     }
 
     public async void HideGameOverPopUps()
@@ -234,6 +248,12 @@ public class UIManagerGame : UIManager
         healthLossGameObject.transform.position = position;
         healthLossGameObject.GetComponentInChildren<TextMeshProUGUI>().text = $"-{amount}";
         StartCoroutine(DestroyCoroutine(healthLossGameObject, healthLossDisplayTime));
+    }
+
+    public async void OperateConveyor()
+    {
+        await WaitForReadiness();
+        conveyorAnimator.SetTrigger("Operate");
     }
 
     public async void UpdateDividerCooldownIndicator(int value)
