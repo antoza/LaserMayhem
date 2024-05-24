@@ -34,7 +34,6 @@ public abstract class Tile : MonoBehaviour
                 _piece.transform.position = transform.position;
                 //_piece.transform.localScale = transform.localScale;
                 _piece.GetComponent<SpriteRenderer>().sortingLayerName = GetComponent<SpriteRenderer>().sortingLayerName;
-                _piece.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 SoundManager.Instance.PlayPlacePieceSound();
             }
         }

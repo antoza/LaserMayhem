@@ -30,11 +30,11 @@ public class GameModeManagerShredder : GameModeManager
 
     public void UpdateCrystalsAndBombsState()
     {
-        foreach (Orb crystal in BoardManagerShredder.Instance.GetAllCrystals())
+        foreach (Gem crystal in BoardManagerShredder.Instance.GetAllCrystals())
         {
             crystal.UpdateState();
         }
-        foreach (BadOrb bomb in BoardManagerShredder.Instance.GetAllBombs())
+        foreach (TNT bomb in BoardManagerShredder.Instance.GetAllBombs())
         {
             bomb.UpdateState();
         }
@@ -42,7 +42,7 @@ public class GameModeManagerShredder : GameModeManager
 
     public void UpdateScore()
     {
-        foreach (Orb crystal in BoardManagerShredder.Instance.GetAllCrystals())
+        foreach (Gem crystal in BoardManagerShredder.Instance.GetAllCrystals())
         {
             if (crystal.HP == 0)
             {
@@ -80,7 +80,7 @@ public class GameModeManagerShredder : GameModeManager
     public bool CheckGameOverLaserPhase()
     {
         bool isGameOver = false;
-        foreach (BadOrb bomb in BoardManagerShredder.Instance.GetAllBombs())
+        foreach (TNT bomb in BoardManagerShredder.Instance.GetAllBombs())
         {
             if (bomb.HP == 0)
             {
@@ -138,24 +138,29 @@ public class GameModeManagerShredder : GameModeManager
         switch(turnNumber)
         {
             case < 10:
-                pieces[0] = PieceName.Orb;
-                if (turnNumber == 5) pieces[1] = PieceName.Orb;
+                pieces[0] = PieceName.GreenGem;
+                if (turnNumber == 5) pieces[1] = PieceName.GreenGem;
                 break;
             case < 20:
-                pieces[0] = PieceName.Orb;
-                if (turnNumber % 2 == 0) pieces[1] = PieceName.Orb;
-                if (turnNumber == 15) pieces[2] = PieceName.BadOrb;
+                pieces[0] = PieceName.GreenGem;
+                if (turnNumber % 2 == 0) pieces[1] = PieceName.GreenGem;
+                if (turnNumber == 15) pieces[2] = PieceName.TNT;
                 break;
             case < 40:
-                pieces[0] = PieceName.Orb;
-                pieces[1] = PieceName.Orb;
-                if (turnNumber % 4 == 0) pieces[2] = PieceName.BadOrb;
+                pieces[0] = PieceName.GreenGem;
+                pieces[1] = PieceName.GreenGem;
+                if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
+                break;
+            case < 100:
+                pieces[0] = PieceName.GreenGem;
+                pieces[1] = PieceName.PurpleGem;
+                if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
                 break;
             default:
                 break;
         }
 
-        do { Shuffle(pieces); } while (pieces[BoardManagerShredder.Instance.ConveyorWidth / 2] == PieceName.BadOrb);
+        do { Shuffle(pieces); } while (pieces[BoardManagerShredder.Instance.ConveyorWidth / 2] == PieceName.TNT);
         /*
         List<int> ints = new List<int>();
         for (int i = 0; i < BoardManagerShredder.Instance.ConveyorWidth; i++) { ints.Add(i); }
@@ -250,8 +255,6 @@ public class GameModeManagerShredder : GameModeManager
                 // TODO : On peut rajouter un Throw Exception
                 break;
         }
-
-        BoardManager.Instance.DisplayPredictionLaser();
     }
 
     public bool VerifyPlacement(PlayerData playerData, SelectionTile sourceTile, ConveyorBoardTile targetTile)
@@ -264,6 +267,7 @@ public class GameModeManagerShredder : GameModeManager
     public void ExecutePlacement(PlayerData playerData, InfiniteTile sourceTile, ConveyorBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece!;
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
         sourceTile.InstantiatePiece(targetTile.Piece!);
         LocalPlayerManager.Instance.CreateAndVerifyEndTurnAction();
     }
@@ -271,6 +275,7 @@ public class GameModeManagerShredder : GameModeManager
     public void ExecuteDividerPlacement(PlayerData playerData, SelectionTile sourceTile, ConveyorBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece!;
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
         ResetDividerCooldown();
         LocalPlayerManager.Instance.CreateAndVerifyEndTurnAction();
     }

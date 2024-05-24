@@ -34,29 +34,39 @@ public class BoardManagerShredder : BoardManager
     public void SpawnOnTopConveyors(List<PieceName> pieces)
     {
         Assert.AreEqual(pieces.Count, ConveyorWidth);
-        for (int i = 0; i < ConveyorWidth; i++) _topConveyors[i].InstantiatePiece(pieces[i]);
-    }
-
-    public IEnumerable<Orb> GetAllCrystals()
-    {
-        foreach(ConveyorBoardTile tile in _conveyors)
+        for (int i = 0; i < ConveyorWidth; i++)
         {
-            if (tile.Piece is Orb) yield return (Orb)tile.Piece;
+            _topConveyors[i].InstantiatePiece(pieces[i]);
+            StartCoroutine(AnimateSpawnCoroutine(_topConveyors[i]));
         }
     }
 
-    public IEnumerable<BadOrb> GetAllBombs()
+    private IEnumerator AnimateSpawnCoroutine(Tile tile)
+    {
+        yield return null;
+        tile.Piece!.GetComponent<Animator>().SetTrigger("PieceLanding");
+    }
+
+    public IEnumerable<Gem> GetAllCrystals()
     {
         foreach(ConveyorBoardTile tile in _conveyors)
         {
-            if (tile.Piece is BadOrb) yield return (BadOrb)tile.Piece;
+            if (tile.Piece is Gem) yield return (Gem)tile.Piece;
+        }
+    }
+
+    public IEnumerable<TNT> GetAllBombs()
+    {
+        foreach(ConveyorBoardTile tile in _conveyors)
+        {
+            if (tile.Piece is TNT) yield return (TNT)tile.Piece;
         }
     }
 
     public IEnumerable<Piece> GetOrbsOnShreddingTiles() {
         foreach (InvisibleBoardTile tile in _shreddingTiles)
         {
-            if (tile.Piece is Orb) yield return (Orb)tile.Piece;
+            if (tile.Piece is Gem) yield return (Gem)tile.Piece;
         }
     }
 

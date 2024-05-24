@@ -11,5 +11,6 @@ public class ConveyorBoardTile : BoardTile
         if (targetTile == null) return;
         if (targetTile is ConveyorBoardTile) ((ConveyorBoardTile)targetTile).ConveyPiece();
         if (targetTile.Piece == null) targetTile.Piece = Piece;
+        if (targetTile.Piece != null) targetTile.Piece!.GetComponent<Animator>().SetTrigger("PieceConveyed");
     }
 }

@@ -210,17 +210,21 @@ public class GameModeManagerSolo : GameModeManager
             case (SelectionTile, NormalBoardTile):
                 targetTile.Piece!.IsPlayedThisTurn = false;
                 sourceTile.Piece = targetTile.Piece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
             case (NormalBoardTile, NormalBoardTile):
                 sourceTile.Piece = targetTile.Piece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
             case (NormalBoardTile, SelectionTile):
                 targetTile.Piece!.IsPlayedThisTurn = true;
                 sourceTile.Piece = targetTile.Piece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
 
             case (NormalBoardTile, TrashTile):
                 sourceTile.Piece = action.SourcePiece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
 
             default:
@@ -241,6 +245,7 @@ public class GameModeManagerSolo : GameModeManager
     {
         targetTile.Piece = sourceTile.Piece;
         targetTile.Piece!.IsPlayedThisTurn = true;
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
     }
 
     public bool VerifyMovement(PlayerData playerData, NormalBoardTile sourceTile, NormalBoardTile targetTile)
@@ -255,6 +260,7 @@ public class GameModeManagerSolo : GameModeManager
     public void ExecuteMovement(PlayerData playerData, NormalBoardTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.Piece = sourceTile.Piece;
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
     }
 
     public bool VerifyMoveBackToSelection(PlayerData playerData, NormalBoardTile sourceTile, SelectionTile targetTile)
@@ -270,6 +276,7 @@ public class GameModeManagerSolo : GameModeManager
     {
         targetTile.Piece = sourceTile.Piece;
         targetTile.Piece!.IsPlayedThisTurn = false;
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
     }
 
     public bool VerifyDeletion(PlayerData playerData, NormalBoardTile sourceTile)

@@ -184,6 +184,7 @@ public class GameModeManagerRPG : GameModeManager
                 playerData.PlayerEconomy.RefundPlacement(((PricedSelectionTile)sourceTile).cost);
                 targetTile.Piece!.IsPlayedThisTurn = false;
                 sourceTile.Piece = targetTile.Piece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
 #if DEBUG
             case (InfiniteTile, NormalBoardTile):
@@ -193,11 +194,13 @@ public class GameModeManagerRPG : GameModeManager
             case (NormalBoardTile, NormalBoardTile):
                 if (!targetTile.Piece!.IsPlayedThisTurn) playerData.PlayerEconomy.RefundMovement();
                 sourceTile.Piece = targetTile.Piece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
 
             case (NormalBoardTile, TrashTile):
                 playerData.PlayerEconomy.RefundDeletion();
                 sourceTile.Piece = action.SourcePiece;
+                sourceTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
                 break;
 
             default:
@@ -226,6 +229,7 @@ public class GameModeManagerRPG : GameModeManager
         targetTile.Piece = sourceTile.Piece;
         targetTile.Piece!.IsPlayedThisTurn = true;
         playerData.PlayerEconomy.PayForPlacement(sourceTile.cost);
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
     }
 
 #if DEBUG
@@ -239,6 +243,7 @@ public class GameModeManagerRPG : GameModeManager
     public void ExecuteCheatPlacement(InfiniteTile sourceTile, NormalBoardTile targetTile)
     {
         targetTile.InstantiatePiece(sourceTile.Piece!);
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
     }
 #endif
 
@@ -271,6 +276,7 @@ public class GameModeManagerRPG : GameModeManager
     {
         targetTile.Piece = sourceTile.Piece;
         if (!targetTile.Piece!.IsPlayedThisTurn) playerData.PlayerEconomy.PayForMovement();
+        targetTile.Piece!.GetComponent<Animator>().SetTrigger("PiecePlaced");
     }
 
     public bool VerifyDeletion(PlayerData playerData, NormalBoardTile sourceTile)

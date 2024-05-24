@@ -21,8 +21,10 @@ public enum PieceName
     WeaknessUp = 303,
     WeaknessDown = 304,
     Eye = 310,
-    Orb = 320,
-    BadOrb = 321,
+    GreenGem = 320,
+    PurpleGem = 321,
+    YellowGem = 322,
+    TNT = 323,
 }
 
 #nullable enable
