@@ -86,7 +86,7 @@ public class BoardManagerShredder : BoardManager
     protected override void GenerateAllTiles()
     {
         int centerX = ConveyorWidth / 2;
-        int centerY = ConveyorHeight / 2 - 1;
+        int centerY = ConveyorHeight / 2 - 3;
 
         GameObject boardTilesParent = new GameObject("BoardTiles");
         boardTilesParent.transform.parent = _boardParent.transform;
@@ -99,7 +99,9 @@ public class BoardManagerShredder : BoardManager
         GenerateBoardTilesInArea(-centerX, -centerX + ConveyorWidth - 1, -centerY - 1, -centerY - 1, TileName.InvisibleBoardTile, shreddingTilesParent);
         for (int i = -centerX; i < -centerX + ConveyorWidth; i++) _shreddingTiles.Add((InvisibleBoardTile)GetBoardTile(new Vector2Int(i, -centerY - 1))!);
 
-        BoardTile laserGeneratorTile = GenerateBoardTile(0, -centerY - 2, TileName.InvisibleBoardTile, _boardParent);
+        GenerateBoardTile(0, -centerY - 2, TileName.InvisibleBoardTile, _boardParent);
+        GenerateBoardTile(0, -centerY - 3, TileName.InvisibleBoardTile, _boardParent);
+        BoardTile laserGeneratorTile = GenerateBoardTile(0, -centerY - 4, TileName.InvisibleBoardTile, _boardParent);
         laserGeneratorTile.InstantiatePiece(PieceName.LaserEmitter);
         laserGeneratorTile.Piece!.RotateAnticlockwise();
     }
