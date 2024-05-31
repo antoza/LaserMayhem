@@ -20,6 +20,7 @@ public class BoardManagerShredder : BoardManager
 
     private List<ConveyorBoardTile> _conveyors = new List<ConveyorBoardTile>();
     private List<ConveyorBoardTile> _topConveyors = new List<ConveyorBoardTile>();
+    private List<BoardTile> _hiddenSpawnTiles = new List<BoardTile>();
     private List<InvisibleBoardTile> _shreddingTiles = new List<InvisibleBoardTile>();
 
     public void OperateConveyor()
@@ -36,15 +37,16 @@ public class BoardManagerShredder : BoardManager
         Assert.AreEqual(pieces.Count, ConveyorWidth);
         for (int i = 0; i < ConveyorWidth; i++)
         {
-            _topConveyors[i].InstantiatePiece(pieces[i]);
-            StartCoroutine(AnimateSpawnCoroutine(_topConveyors[i]));
+            _hiddenSpawnTiles[i].InstantiatePiece(pieces[i]);
+            StartCoroutine(AnimateSpawnCoroutine(i));
         }
     }
 
-    private IEnumerator AnimateSpawnCoroutine(Tile tile)
+    private IEnumerator AnimateSpawnCoroutine(int i)
     {
         yield return null;
-        tile.Piece!.GetComponent<Animator>().SetTrigger("PieceLanding");
+        _topConveyors[i].Piece = _hiddenSpawnTiles[i].Piece;
+        _topConveyors[i].Piece?.GetComponent<Animator>().SetTrigger("PieceLanding");
     }
 
     public IEnumerable<Gem> GetAllCrystals()
@@ -93,6 +95,8 @@ public class BoardManagerShredder : BoardManager
         List<BoardTile> conveyors = GenerateBoardTilesInArea(-centerX, -centerX + ConveyorWidth - 1, -centerY, -centerY + ConveyorHeight, TileName.ConveyorBoardTile, boardTilesParent);
         foreach (BoardTile conveyor in conveyors) _conveyors.Add((ConveyorBoardTile)conveyor);
         for (int i = -centerX; i < -centerX + ConveyorWidth; i++) _topConveyors.Add((ConveyorBoardTile)GetBoardTile(new Vector2Int(i, -centerY + ConveyorHeight))!);
+
+        _hiddenSpawnTiles = GenerateBoardTilesInArea(-centerX, -centerX + ConveyorWidth - 1, -centerY + ConveyorHeight + 100, -centerY + ConveyorHeight + 100, TileName.NormalBoardTile, boardTilesParent);
 
         GameObject shreddingTilesParent = new GameObject("ShreddingTiles");
         shreddingTilesParent.transform.parent = _boardParent.transform;

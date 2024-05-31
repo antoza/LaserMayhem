@@ -151,9 +151,14 @@ public class GameModeManagerShredder : GameModeManager
                 pieces[1] = PieceName.GreenGem;
                 if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
                 break;
-            case < 100:
+            case < 60:
                 pieces[0] = PieceName.GreenGem;
                 pieces[1] = PieceName.PurpleGem;
+                if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
+                break;
+            case < 100:
+                pieces[0] = PieceName.GreenGem;
+                pieces[1] = PieceName.YellowGem;
                 if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
                 break;
             default:
