@@ -11,7 +11,7 @@ using UnityEngine.Assertions;
 
 public abstract class TurnManager : Manager<TurnManager>
 {
-    public int TurnNumber { get; protected set; } = 50;
+    public int TurnNumber { get; protected set; } = 0;
 
     [field: SerializeField]
     public int LaserPhaseDuration { get; private set; }
