@@ -615,7 +615,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.87, y: 3.17}
+  m_Size: {x: 2.62, y: 2.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -791,7 +791,7 @@ RectTransform:
   m_GameObject: {fileID: 705935179}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1160501412809972099}
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -682851753, guid: f52ca19384dd5ea4d8be88a33a0149f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 277402708eb62244db6edab1d87769d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1233,7 +1233,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 21.599998, y: 38.399998}
+  m_Size: {x: 38.399998, y: 38.399998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1497,15 +1497,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1798789479
-  m_SortingLayer: -1
-  m_SortingOrder: 23
+  m_SortingLayerID: 679133495
+  m_SortingLayer: 1
+  m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: ae7e5302a44af744e96510231bcdb728, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 21.599998, y: 38.399998}
+  m_Size: {x: 38.42349, y: 12.27}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2185,7 +2185,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.976744, y: 7.337209}
+  m_Size: {x: 13.02, y: 25.077803}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3179,6 +3179,7 @@ MonoBehaviour:
   endTurnButton: {fileID: 0}
   healthLoss: {fileID: 5319358608795148436, guid: be8dfbe489efb4b4cbeb5d698ed1f4b3, type: 3}
   actionCost: {fileID: 0}
+  coinToss: {fileID: 7417553734541826920, guid: add106b7a7a72404ebe3c182d46dc57f, type: 3}
   conveyorAnimator: {fileID: 2137726814}
   _dividerCooldownSpriteRenderer: {fileID: 1326763184}
   _dividerCooldownSprites:
@@ -3438,7 +3439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MouseFollower: {fileID: 1456480159}
-  SourceTile: {fileID: 0}
+  HeldSourceTile: {fileID: 0}
+  PreselectedSourceTile: {fileID: 0}
 --- !u!1 &8461873911938431930
 GameObject:
   m_ObjectHideFlags: 0
@@ -3497,6 +3499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingPiece: 0
+  CanSendPiece: 1
+  CanReceivePiece: 1
   _pieceStorage: 0
   PieceStorage: []
   _mouseOverIndicatorPrefab: {fileID: 3322914734441509336, guid: 952d7d6cbd96e6745b2939e1430e1107, type: 3}
