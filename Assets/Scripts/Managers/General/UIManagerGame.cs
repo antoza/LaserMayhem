@@ -57,6 +57,9 @@ public class UIManagerGame : UIManager
     private float healthLossDisplayTime = 3f;
     [SerializeField]
     private GameObject actionCost;
+    [SerializeField]
+    private GameObject coinToss;
+    private float coinTossDisplayTime = 3f;
 
     [SerializeField]
     private Animator conveyorAnimator;
@@ -248,6 +251,39 @@ public class UIManagerGame : UIManager
         healthLossGameObject.transform.position = position;
         healthLossGameObject.GetComponentInChildren<TextMeshProUGUI>().text = $"-{amount}";
         StartCoroutine(DestroyCoroutine(healthLossGameObject, healthLossDisplayTime));
+    }
+
+    public async void DisplayCoinToss(int amount, Vector2 position)
+    {
+        await WaitForReadiness();
+        Vector2[] coinPositions = new Vector2[amount];
+
+        switch (amount)
+        {
+            default:
+            case 1:
+                coinPositions[0] = position;
+                break;
+            case 3:
+                coinPositions[0] = position + new Vector2(0, -.24f);
+                coinPositions[1] = position + new Vector2(-.32f, .24f);
+                coinPositions[2] = position + new Vector2(.32f, .24f);
+                break;
+            case 5:
+                coinPositions[0] = position;
+                coinPositions[1] = position + new Vector2(-.32f, -.32f);
+                coinPositions[2] = position + new Vector2(-.32f, .32f);
+                coinPositions[3] = position + new Vector2(.32f, -.32f);
+                coinPositions[4] = position + new Vector2(.32f, .32f);
+                break;
+        }
+
+        foreach (Vector2 coinPosition in coinPositions)
+        {
+            GameObject coinTossGameObject = Instantiate(coinToss, canvas.transform);
+            coinTossGameObject.transform.position = coinPosition;
+            StartCoroutine(DestroyCoroutine(coinTossGameObject, coinTossDisplayTime));
+        }
     }
 
     public async void OperateConveyor()

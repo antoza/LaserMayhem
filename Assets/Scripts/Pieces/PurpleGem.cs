@@ -7,5 +7,6 @@ public class PurpleGem : Gem
     private void Start()
     {
         HP = 2;
+        Value = 3;
     }
 }

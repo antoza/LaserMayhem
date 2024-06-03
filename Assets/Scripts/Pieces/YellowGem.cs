@@ -7,5 +7,6 @@ public class YellowGem : Gem
     private void Start()
     {
         HP = 3;
+        Value = 5;
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +12,9 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
     private MouseFollower MouseFollower;
 
     [HideInInspector]
-    public Tile? SourceTile;
+    public Tile? HeldSourceTile;
+    [HideInInspector]
+    public Tile? PreselectedSourceTile;
 
     private void Awake()
     {
@@ -22,6 +24,14 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
     private void Start()
     {
         LocalPlayer = PlayersManager.Instance.GetPlayer(GameInitialParameters.localPlayerID);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            ResetSourceTile();
+        }
     }
 
     public bool TryToPlay()
@@ -43,14 +53,28 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
     public void SetSourceTile(Tile sourceTile)
     {
         if (!TryToPlay()) return;
-        SourceTile = sourceTile;
+        HeldSourceTile = sourceTile;
+        PreselectedSourceTile = null;
         MouseFollower.ChangeFollowingTile(sourceTile);
     }
 
     public void ResetSourceTile()
     {
-        SourceTile = null;
+        HeldSourceTile = null;
         MouseFollower.ChangeFollowingTile(null);
+    }
+
+    public void SetPreselectedTile(Tile sourceTile)
+    {
+        if (!TryToPlay()) return;
+        PreselectedSourceTile = sourceTile;
+        // Afficher carr� rouge
+    }
+
+    public void ResetPreselectedTile()
+    {
+        PreselectedSourceTile = null;
+        // D�safficher carr� rouge
     }
 
     protected virtual void VerifyAction(PlayerAction action) { }
@@ -65,8 +89,9 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
 
     public virtual void CreateAndVerifyMovePieceAction(Tile destinationTile)
     {
-        if (SourceTile == null) return;
-        MovePieceAction action = new MovePieceAction(LocalPlayer, SourceTile, destinationTile);
+        Tile? sourceTile = HeldSourceTile ? HeldSourceTile : PreselectedSourceTile;
+        if (sourceTile == null) return;
+        MovePieceAction action = new MovePieceAction(LocalPlayer, sourceTile, destinationTile);
         VerifyAction(action);
     }
 

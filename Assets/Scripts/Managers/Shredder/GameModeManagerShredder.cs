@@ -1,4 +1,4 @@
-using Mono.CompilerServices.SymbolWriter;
+ï»¿using Mono.CompilerServices.SymbolWriter;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -46,7 +46,7 @@ public class GameModeManagerShredder : GameModeManager
         {
             if (crystal.HP == 0)
             {
-                _score++;
+                _score += crystal.Value;
                 crystal.Destroy();
                 DecrementDividerCooldown(1);
             }
@@ -135,25 +135,30 @@ public class GameModeManagerShredder : GameModeManager
         int conveyorWidth = BoardManagerShredder.Instance.ConveyorWidth;
         List<PieceName> pieces = Enumerable.Repeat(PieceName.None, conveyorWidth).ToList();
 
-        switch(turnNumber)
+        /*switch(turnNumber)
         {
             case < 10:
                 pieces[0] = PieceName.GreenGem;
-                if (turnNumber == 5) pieces[1] = PieceName.GreenGem;
+                if (turnNumber % 5 == 4) pieces[1] = PieceName.GreenGem;
                 break;
             case < 20:
                 pieces[0] = PieceName.GreenGem;
                 if (turnNumber % 2 == 0) pieces[1] = PieceName.GreenGem;
-                if (turnNumber == 15) pieces[2] = PieceName.TNT;
+                if (turnNumber % 5 == 0) pieces[2] = PieceName.TNT;
+                break;
+            case < 30:
+                pieces[0] = PieceName.GreenGem;
+                if (turnNumber % 5 == 0) pieces[1] = PieceName.PurpleGem;
+                if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
                 break;
             case < 40:
                 pieces[0] = PieceName.GreenGem;
-                pieces[1] = PieceName.GreenGem;
+                if (turnNumber % 5 == 0) pieces[1] = PieceName.PurpleGem;
                 if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
                 break;
             case < 60:
                 pieces[0] = PieceName.GreenGem;
-                pieces[1] = PieceName.PurpleGem;
+                if (turnNumber % 2 == 0) pieces[1] = PieceName.PurpleGem;
                 if (turnNumber % 4 == 0) pieces[2] = PieceName.TNT;
                 break;
             case < 100:
@@ -163,8 +168,96 @@ public class GameModeManagerShredder : GameModeManager
                 break;
             default:
                 break;
+        }*/
+
+        int[] piecesInt;
+        switch (turnNumber)
+        {
+            case 00: piecesInt = new int[] { 1 }; break;
+            case 01: piecesInt = new int[] { 1 }; break;
+            case 02: piecesInt = new int[] { 1 }; break;
+            case 03: piecesInt = new int[] { 1 }; break;
+            case 04: piecesInt = new int[] { 1, 1 }; break;
+            case 05: piecesInt = new int[] { 1 }; break;
+            case 06: piecesInt = new int[] { 1 }; break;
+            case 07: piecesInt = new int[] { 1, 1 }; break;
+            case 08: piecesInt = new int[] { 1 }; break;
+            case 09: piecesInt = new int[] { 1, 1 }; break;
+
+            case 10: piecesInt = new int[] { 1, 0 }; break;
+            case 11: piecesInt = new int[] { 1 }; break;
+            case 12: piecesInt = new int[] { 1, 1 }; break;
+            case 13: piecesInt = new int[] { 1, 0 }; break;
+            case 14: piecesInt = new int[] { 1, 1 }; break;
+            case 15: piecesInt = new int[] { 1 }; break;
+            case 16: piecesInt = new int[] { 1, 1 }; break;
+            case 17: piecesInt = new int[] { 1, 0 }; break;
+            case 18: piecesInt = new int[] { 1, 1 }; break;
+            case 19: piecesInt = new int[] { 1, 0 }; break;
+
+            case 20: piecesInt = new int[] { 2 }; break;
+            case 21: piecesInt = new int[] { 1, 0 }; break;
+            case 22: piecesInt = new int[] { 1, 1 }; break;
+            case 23: piecesInt = new int[] { 2, 0 }; break;
+            case 24: piecesInt = new int[] { 1, 1 }; break;
+            case 25: piecesInt = new int[] { 1, 1, 0 }; break;
+            case 26: piecesInt = new int[] { 1, 2 }; break;
+            case 27: piecesInt = new int[] { 1, 0 }; break;
+            case 28: piecesInt = new int[] { 1, 2 }; break;
+            case 29: piecesInt = new int[] { 1, 1, 0 }; break;
+
+            case 30: piecesInt = new int[] { 2, 2 }; break;
+            case 31: piecesInt = new int[] { 1, 0 }; break;
+            case 32: piecesInt = new int[] { 1, 2 }; break;
+            case 33: piecesInt = new int[] { 1, 0, 0 }; break;
+            case 34: piecesInt = new int[] { 1, 1, 1 }; break;
+            case 35: piecesInt = new int[] { 2, 2 }; break;
+            case 36: piecesInt = new int[] { 1, 1, 0 }; break;
+            case 37: piecesInt = new int[] { 1, 2 }; break;
+            case 38: piecesInt = new int[] { 2, 0, 0 }; break;
+            case 39: piecesInt = new int[] { 1, 2 }; break;
+
+            case 40: piecesInt = new int[] { 1, 3 }; break;
+            case 41: piecesInt = new int[] { 2, 0 }; break;
+            case 42: piecesInt = new int[] { 1, 2 }; break;
+            case 43: piecesInt = new int[] { 3, 0 }; break;
+            case 44: piecesInt = new int[] { 2, 2 }; break;
+            case 45: piecesInt = new int[] { 3, 0, 0 }; break;
+            case 46: piecesInt = new int[] { 2, 3 }; break;
+            case 47: piecesInt = new int[] { 1, 1, 1, 1 }; break;
+            case 48: piecesInt = new int[] { 3, 0, 0 }; break;
+            case 49: piecesInt = new int[] { 2, 3 }; break;
+
+            case 50: piecesInt = new int[] { 1, 1, 0, 0, 0 }; break;
+            case 51: piecesInt = new int[] { 3, 3 }; break;
+            case 52: piecesInt = new int[] { 2, 2, 0, 0 }; break;
+            case 53: piecesInt = new int[] { 1, 2, 3 }; break;
+            case 54: piecesInt = new int[] { 2, 2, 0 }; break;
+            case 55: piecesInt = new int[] { 1, 3, 3 }; break;
+            case 56: piecesInt = new int[] { 2, 3, 0 }; break;
+            case 57: piecesInt = new int[] { 2, 3, 3 }; break;
+            case 58: piecesInt = new int[] { 1, 2, 2, 3, 3 }; break;
+            case 59: piecesInt = new int[] { 2, 3, 0, 0, 0 }; break;
+
+            case < 1000: piecesInt = new int[] { 3, 3, 3, 3, 3 }; break;
+
+            default: piecesInt = new int[] { }; break;
         }
 
+        for (int i = 0; i < piecesInt.Length; i++)
+        {
+            switch (piecesInt[i])
+            {
+                case 0:
+                    pieces[i] = PieceName.TNT; break;
+                case 1:
+                    pieces[i] = PieceName.GreenGem; break;
+                case 2:
+                    pieces[i] = PieceName.PurpleGem; break;
+                case 3:
+                    pieces[i] = PieceName.YellowGem; break;
+            }
+        }
         do { Shuffle(pieces); } while (pieces[BoardManagerShredder.Instance.ConveyorWidth / 2] == PieceName.TNT);
         /*
         List<int> ints = new List<int>();
@@ -241,7 +334,7 @@ public class GameModeManagerShredder : GameModeManager
 
     public void ExecuteMovePieceAction(MovePieceAction action)
     {
-        // TODO : je n'aime pas cette approche, il faudrait que Clear / DisplayLaser soient appelés lors d'une modification du board
+        // TODO : je n'aime pas cette approche, il faudrait que Clear / DisplayLaser soient appelï¿½s lors d'une modification du board
         BoardManager.Instance.ClearLaser();
 
         Tile sourceTile = action.SourceTile;

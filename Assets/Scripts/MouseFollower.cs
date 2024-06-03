@@ -15,10 +15,6 @@ public class MouseFollower : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
         worldPosition = new Vector3(worldPosition.x, worldPosition.y, -5);
         this.transform.position = worldPosition;
-        if (Input.GetMouseButtonUp(0))
-        {
-            LocalPlayerManager.Instance.ResetSourceTile();
-        }
     }
 
     public void ChangeFollowingTile(Tile? tile)

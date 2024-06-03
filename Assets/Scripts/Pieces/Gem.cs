@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 public abstract class Gem : Receiver
 {
     public int HP;
+    public int Value;
 
     public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {
@@ -39,6 +40,9 @@ public abstract class Gem : Receiver
     public void Destroy()
     {
         ParentTile!.Piece = null;
+#if !DEDICATED_SERVER
+        ((UIManagerGame)UIManager.Instance).DisplayCoinToss(Value, transform.position);
+#endif  
         Destroy(this);
     }
 }

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -8,6 +8,9 @@ public abstract class Tile : MonoBehaviour
 {
     [SerializeField]
     private PieceName _startingPiece;
+
+    public bool CanSendPiece = true;
+    public bool CanReceivePiece = true;
 
     private Piece? _piece;
     public Piece? Piece
@@ -26,7 +29,7 @@ public abstract class Tile : MonoBehaviour
             _piece = value;
             if (_piece != null)
             {
-                if(_piece.ParentTile != null) _piece.ParentTile.Piece = null;
+                if (_piece.ParentTile != null) _piece.ParentTile.Piece = null;
                 _piece!.ParentTile = this;
                 _piece.gameObject.SetActive(true);
                 _piece.transform.SetParent(transform);
@@ -38,7 +41,7 @@ public abstract class Tile : MonoBehaviour
             }
         }
     }
-    // TODO : Créer les pièces indiquées dans _pieceStorage et les enregistrer dans PieceStorage
+    // TODO : Crï¿½er les piï¿½ces indiquï¿½es dans _pieceStorage et les enregistrer dans PieceStorage
     [SerializeField]
     private PieceName _pieceStorage;
     [HideInInspector]
@@ -83,19 +86,27 @@ public abstract class Tile : MonoBehaviour
 
     protected virtual bool VerifyOnMouseButtonDown()
     {
+        if (!CanSendPiece) return false;
         if (!LocalPlayerManager.Instance.TryToPlay()) return false;
         return true;
     }
 
     protected virtual void DoOnMouseButtonDown()
     {
-         LocalPlayerManager.Instance.SetSourceTile(this);
-         if (Piece) Piece!.GetComponent<Animator>().SetTrigger("PieceClicked");
+        if (!CanSendPiece) return;
+        if (Piece) LocalPlayerManager.Instance.SetSourceTile(this);
+        if (Piece) Piece!.GetComponent<Animator>().SetTrigger("PieceClicked");
     }
 
     protected virtual void DoOnMouseButtonUp()
     {
-         LocalPlayerManager.Instance.CreateAndVerifyMovePieceAction(this);
+        if (!CanReceivePiece) return;
+        if (this == LocalPlayerManager.Instance.HeldSourceTile)
+        {
+            LocalPlayerManager.Instance.SetPreselectedTile(this);
+            return;
+        }
+        LocalPlayerManager.Instance.CreateAndVerifyMovePieceAction(this);
     }
 
     private void InitMouseOverIndicator()
