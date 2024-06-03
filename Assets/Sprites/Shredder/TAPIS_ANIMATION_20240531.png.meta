@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -129,7 +129,217 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eff0cad19b9c114b891d105cb62d567
+      internalID: 798815370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_1
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be8af087d89ec4146a2c7d91a361e744
+      internalID: -270045162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_2
+      rect:
+        serializedVersion: 2
+        x: 1636
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfea33c3e8e881444ac65ecb745aa2d3
+      internalID: 100997956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_3
+      rect:
+        serializedVersion: 2
+        x: 2454
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22331c0e0f5ee434184e28ce5392fb57
+      internalID: -2126378286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_4
+      rect:
+        serializedVersion: 2
+        x: 3272
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e898c23b94bc94a448fdb6ea556be1ff
+      internalID: 1997757406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_5
+      rect:
+        serializedVersion: 2
+        x: 4090
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdce40e68eec06a4cbf9b13c8f50a9b7
+      internalID: 9210527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_6
+      rect:
+        serializedVersion: 2
+        x: 4908
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd013405f09903149b26b3f96c32d1a7
+      internalID: 2024579987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_7
+      rect:
+        serializedVersion: 2
+        x: 5726
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047b3a4b58986b140821f4064a63f495
+      internalID: 2055016745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_8
+      rect:
+        serializedVersion: 2
+        x: 6544
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831dd6fd0ea5a0e4f8bc1000b897a97e
+      internalID: 701194080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_20240531_9
+      rect:
+        serializedVersion: 2
+        x: 7362
+        y: 0
+        width: 818
+        height: 1597
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6efe6cd23ca03d44b848fda5a5d1beb
+      internalID: 1768918156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,7 +350,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TAPIS_ANIMATION_20240531_9: 1768918156
+      TAPIS_ANIMATION_20240531_4: 1997757406
+      TAPIS_ANIMATION_20240531_2: 100997956
+      TAPIS_ANIMATION_20240531_1: -270045162
+      TAPIS_ANIMATION_20240531_0: 798815370
+      TAPIS_ANIMATION_20240531_8: 701194080
+      TAPIS_ANIMATION_20240531_7: 2055016745
+      TAPIS_ANIMATION_20240531_5: 9210527
+      TAPIS_ANIMATION_20240531_3: -2126378286
+      TAPIS_ANIMATION_20240531_6: 2024579987
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
