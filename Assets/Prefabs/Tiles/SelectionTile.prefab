@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingPiece: 0
+  CanSendPiece: 1
+  CanReceivePiece: 1
   _pieceStorage: 0
   PieceStorage: []
   _mouseOverIndicatorPrefab: {fileID: 3322914734441509336, guid: 952d7d6cbd96e6745b2939e1430e1107, type: 3}

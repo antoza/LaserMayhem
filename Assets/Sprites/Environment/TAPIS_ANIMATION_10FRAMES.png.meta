@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -127,9 +127,231 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7131608f1a09ab49b8f02ec754f5d61
+      internalID: -1370941381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_1
+      rect:
+        serializedVersion: 2
+        x: 1302
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10fe188bbb642414c83f5456367de3f0
+      internalID: -1454070551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_2
+      rect:
+        serializedVersion: 2
+        x: 2604
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d83025fb26b7754894ac84d599a6ee8
+      internalID: 1020628982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_3
+      rect:
+        serializedVersion: 2
+        x: 3906
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f749731253c6e418e0958a72b14ec6
+      internalID: 1543917983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_4
+      rect:
+        serializedVersion: 2
+        x: 5208
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abb7bcd967c0e574ca93c4d187cf8df2
+      internalID: -457251904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_5
+      rect:
+        serializedVersion: 2
+        x: 6510
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a544c12d8a376841bce191eb0d0d7e4
+      internalID: -1677798603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_6
+      rect:
+        serializedVersion: 2
+        x: 7812
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb24ff0c82f8b9458bf81bfd40304ab
+      internalID: 987755504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_7
+      rect:
+        serializedVersion: 2
+        x: 9114
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d98ddaeb216ec41bd051c3f91e13f1
+      internalID: 690100485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_8
+      rect:
+        serializedVersion: 2
+        x: 10416
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266e3970074f11d4493047a5994a6980
+      internalID: -1015915513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TAPIS_ANIMATION_10FRAMES_9
+      rect:
+        serializedVersion: 2
+        x: 11718
+        y: 0
+        width: 1302
+        height: 2539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0b28a3dc9609a94e9aa29bfadae3c45
+      internalID: -1681765802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,7 +362,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TAPIS_ANIMATION_10FRAMES_2: 1020628982
+      TAPIS_ANIMATION_10FRAMES_4: -457251904
+      TAPIS_ANIMATION_10FRAMES_8: -1015915513
+      TAPIS_ANIMATION_10FRAMES_7: 690100485
+      TAPIS_ANIMATION_10FRAMES_6: 987755504
+      TAPIS_ANIMATION_10FRAMES_5: -1677798603
+      TAPIS_ANIMATION_10FRAMES_3: 1543917983
+      TAPIS_ANIMATION_10FRAMES_0: -1370941381
+      TAPIS_ANIMATION_10FRAMES_1: -1454070551
+      TAPIS_ANIMATION_10FRAMES_9: -1681765802
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

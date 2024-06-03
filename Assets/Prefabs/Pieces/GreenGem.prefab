@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialTile: {fileID: 0}
   HP: 0
+  Value: 0
