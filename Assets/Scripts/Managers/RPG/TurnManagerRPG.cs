@@ -59,7 +59,7 @@ public sealed class TurnManagerRPG : TurnManager
         IsWaitingForPlayerAction = false;
 #if !DEDICATED_SERVER
         ((UIManagerGame)UIManager.Instance).UpdateEndTurnButtonState("Pressed");
-        if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
+        //if (LocalPlayerManager.Instance.IsLocalPlayersTurn()) LocalPlayerManager.Instance.ResetSourceTile();
 #endif
         RewindManager.Instance.ClearAllActions();
         BoardManager.Instance.DisplayEndTurnLaser();

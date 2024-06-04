@@ -298,6 +298,7 @@ public class GameModeManagerShredder : GameModeManager
                 // TODO : On peut rajouter un Throw Exception
                 break;
         }
+        LocalPlayerManager.Instance.ResetSourceTile();
     }
 
     public override void RevertAction(Action action)

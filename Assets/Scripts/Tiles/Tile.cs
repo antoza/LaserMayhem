@@ -51,6 +51,9 @@ public abstract class Tile : MonoBehaviour
     private GameObject? _mouseOverIndicatorPrefab;
     private GameObject? _mouseOverIndicator;
     [field: SerializeField]
+    private GameObject? _sourceTileIndicatorPrefab;
+    private GameObject? _sourceTileIndicator;
+    [field: SerializeField]
     private GameObject? _pulsatingIndicatorPrefab;
     private GameObject? _pulsatingIndicator;
     public int m_id { get; private set; }
@@ -61,6 +64,7 @@ public abstract class Tile : MonoBehaviour
         InstantiatePiece(_startingPiece);
 #if !DEDICATED_SERVER
         InitMouseOverIndicator();
+        InitSourceTileIndicator();
         InitPulsatingIndicator();
 #endif
         SetColor();
@@ -101,11 +105,6 @@ public abstract class Tile : MonoBehaviour
     protected virtual void DoOnMouseButtonUp()
     {
         if (!CanReceivePiece) return;
-        if (this == LocalPlayerManager.Instance.HeldSourceTile)
-        {
-            LocalPlayerManager.Instance.SetPreselectedTile(this);
-            return;
-        }
         LocalPlayerManager.Instance.CreateAndVerifyMovePieceAction(this);
     }
 
@@ -134,6 +133,27 @@ public abstract class Tile : MonoBehaviour
         {
             _mouseOverIndicator!.SetActive(false);
         }
+    }
+
+    private void InitSourceTileIndicator()
+    {
+        if (_sourceTileIndicatorPrefab != null)
+        {
+            _sourceTileIndicator = Instantiate(_sourceTileIndicatorPrefab, transform);
+            _sourceTileIndicator.transform.position = transform.position;
+            _sourceTileIndicator.GetComponent<SpriteRenderer>().sortingLayerName = GetComponent<SpriteRenderer>().sortingLayerName;
+            _sourceTileIndicator!.SetActive(false);
+        }
+    }
+
+    public void SetSourceTile()
+    {
+        _sourceTileIndicator!.SetActive(true);
+    }
+
+    public void ResetSourceTile()
+    {
+        _sourceTileIndicator!.SetActive(false);
     }
 
     private void InitPulsatingIndicator()

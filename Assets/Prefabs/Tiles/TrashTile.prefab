@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingPiece: 0
-  CanSendPiece: 1
+  CanSendPiece: 0
   CanReceivePiece: 1
   _pieceStorage: 0
   PieceStorage: []

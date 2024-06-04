@@ -130,6 +130,7 @@ MonoBehaviour:
   _pieceStorage: 0
   PieceStorage: []
   _mouseOverIndicatorPrefab: {fileID: 3322914734441509336, guid: 952d7d6cbd96e6745b2939e1430e1107, type: 3}
+  _sourceTileIndicatorPrefab: {fileID: 3322914734441509336, guid: dd51d50861de3024d82b0c25d8a4a298, type: 3}
   _pulsatingIndicatorPrefab: {fileID: 3322914734441509336, guid: c1143160ef9fdce4bbde3a5b3938a219, type: 3}
   BlackSprite: {fileID: 21300000, guid: bd14b93bd8ea3f64da3ee42ad786e682, type: 3}
   WhiteSprite: {fileID: 21300000, guid: 714f73e451342a9478ed83bd32c5d7ce, type: 3}
