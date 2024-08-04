@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 #nullable enable
 public class TNT : Receiver
 {
-    public int HP = 1;
+    public int HP;
 
     public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {

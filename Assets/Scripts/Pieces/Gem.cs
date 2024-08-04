@@ -14,6 +14,11 @@ public abstract class Gem : Receiver
     public int HP;
     public int Value;
 
+    [SerializeField]
+    private SpriteRenderer auraSpriteRenderer;
+    [SerializeField]
+    private List<Sprite> auraSprites;
+
     public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {
         base.ReceiveLaser(laser, inDirection);
@@ -34,6 +39,7 @@ public abstract class Gem : Receiver
             HP -= receivedIntensity;
             if (HP < 0) HP = 0;
             // Animate
+            auraSpriteRenderer.sprite = auraSprites[HP];
         }
     }
 
