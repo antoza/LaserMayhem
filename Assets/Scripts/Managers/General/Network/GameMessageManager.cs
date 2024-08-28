@@ -109,7 +109,7 @@ public class GameMessageManager : NetworkBehaviour
 
     // Functions to be called by SendActionsManager
 
-    public void SendActionToPlayer(Action action, int actionOrder, int playerID)
+    public void SendActionToPlayer(GameAction action, int actionOrder, int playerID)
     {
         if (!IsServer) return;
 
@@ -141,7 +141,7 @@ public class GameMessageManager : NetworkBehaviour
     [ClientRpc]
     public void ReceiveServerActionClientRPC(string serializedAction, int actionOrder, ClientRpcParams clientRpcParams = default)
     {
-        Action action = Action.DeserializeAction(serializedAction);
+        GameAction action = GameAction.DeserializeAction(serializedAction);
         ((ClientSendActionsManager)SendActionsManager.Instance).ReceiveAndExecuteAction(action, actionOrder);
     }
 
@@ -149,7 +149,7 @@ public class GameMessageManager : NetworkBehaviour
     public void ReceivePlayerActionServerRPC(string serializedAction, ServerRpcParams serverRpcParams = default)
     {
         Debug.Log(serializedAction);
-        Action action = Action.DeserializeAction(serializedAction);
+        GameAction action = GameAction.DeserializeAction(serializedAction);
         int playerID = FindClientsPlayerID(serverRpcParams.Receive.SenderClientId);
         if (playerID == -1) return;
         ((ServerSendActionsManager)SendActionsManager.Instance).ReceivePlayerAction(playerID, action);

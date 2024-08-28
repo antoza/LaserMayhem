@@ -7,24 +7,24 @@ using System;
 #nullable enable
 public class ServerSendActionsManager : SendActionsManager
 {
-    private List<List<Action>> actionsToSend;
+    private List<List<GameAction>> actionsToSend;
     //private List<int> currentActionOrder = new List<int>();
     private List<bool> isWaitingForNewAction;
 
     private void Awake()
     {
         Instance = this;
-        actionsToSend = new List<List<Action>>();
+        actionsToSend = new List<List<GameAction>>();
         isWaitingForNewAction = new List<bool>();
 
         for (int i = 0; i < PlayersManager.Instance.NumberOfPlayers; i++)
         {
-            actionsToSend.Add(new List<Action>());
+            actionsToSend.Add(new List<GameAction>());
             isWaitingForNewAction.Add(false);
         }
     }
 
-    public void ExecuteActionAndSendItToAllPlayers(Action action)
+    public void ExecuteActionAndSendItToAllPlayers(GameAction action)
     {
         GameModeManager.Instance.ExecuteAction(action);
         for (int i = 0; i < PlayersManager.Instance.NumberOfPlayers; i++)
@@ -40,7 +40,7 @@ public class ServerSendActionsManager : SendActionsManager
 
     private void SendActionToPlayer(int playerID, int actionOrder)
     {
-        Action actionToSend = actionsToSend[playerID][actionOrder];
+        GameAction actionToSend = actionsToSend[playerID][actionOrder];
         GameMessageManager.Instance.SendActionToPlayer(actionToSend, actionOrder, playerID);
     }
 
@@ -57,7 +57,7 @@ public class ServerSendActionsManager : SendActionsManager
         }
     }
 
-    public void ReceivePlayerAction(int playerID, Action action)
+    public void ReceivePlayerAction(int playerID, GameAction action)
     {
         // If the player sends an action to the server, but isn't waiting for the latest action, there's a problem
         if (!isWaitingForNewAction[playerID])

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerAction : Action
+public abstract class PlayerAction : GameAction
 {
     public PlayerData PlayerData;
 

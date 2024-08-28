@@ -20,7 +20,7 @@ public class ClientSendActionsManager : SendActionsManager
         GameMessageManager.Instance.RequestActionToServer(currentActionOrder);
     }
 
-    public void ReceiveAndExecuteAction(Action action, int actionOrder)
+    public void ReceiveAndExecuteAction(GameAction action, int actionOrder)
     {
         if (actionOrder == currentActionOrder)
         {

@@ -1,13 +1,11 @@
-using Mono.CompilerServices.SymbolWriter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 #nullable enable
-public class ServerSpawnPieceAction : Action
+public class ServerSpawnPieceAction : GameAction
 {
     public Tile Tile;
     public PieceName PieceName;

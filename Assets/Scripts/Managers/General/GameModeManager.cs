@@ -17,8 +17,8 @@ public abstract class GameModeManager : Manager<GameModeManager>
         // TODO : On pourrait ajouter qu'on n'autorise pas le joueur à jouer si le laser n'a pas fini son animation
         return true;
     }
-    public abstract void ExecuteAction(Action action);
-    public abstract void RevertAction(Action action);
+    public abstract void ExecuteAction(GameAction action);
+    public abstract void RevertAction(GameAction action);
 
     // TODO : A supprimer
     /*public abstract bool MoveToDestinationTile(Tile? sourceTile, Tile destinationTile, PlayerData playerData);

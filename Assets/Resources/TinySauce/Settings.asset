@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa11ec82e9746928e211e7f096812ca, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  gameAnalyticsIosGameKey: 
+  gameAnalyticsIosSecretKey: 
+  gameAnalyticsAndroidGameKey: e779ae78b30cd249a2024d9dced535df
+  gameAnalyticsAndroidSecretKey: bad780e226ab472712c274c1369eba16ed160f79
+  facebookAppId: 513150567772790
+  facebookClientToken: b4bae1cffc39d84f9b740098e441ed49
+  adjustIOSToken: 
+  adjustAndroidToken: a2hoohz8vp4w
+  EditorIdfa: a9e854f3-8128-410a-9c92-dd51e171ad25
+  UseRemoteConfig: 0
+  UseVoodooAnalytics: 1
+  companyName: Arkemys Studio
+  privacyPolicyURL: https://arkemysstudio-lasermayhemgemmine.blogspot.com/2024/08/privacy-policy.html
+  developerContactEmail: anto-za@laposte.net

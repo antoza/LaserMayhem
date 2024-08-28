@@ -1,5 +1,4 @@
-﻿using Mono.CompilerServices.SymbolWriter;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ public abstract class LocalPlayerManager : Manager<LocalPlayerManager>
     [HideInInspector]
     public Tile? SourceTile;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }

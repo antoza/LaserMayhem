@@ -9,12 +9,12 @@ public sealed class RewindManager : MonoBehaviour
 {
     public static RewindManager Instance { get; private set; }
 
-    private Stack<Action> m_actionsList;
+    private Stack<GameAction> m_actionsList;
 
     private void Awake()
     {
         Instance = this;
-        m_actionsList = new Stack<Action>();
+        m_actionsList = new Stack<GameAction>();
     }
     /*
     public static void SetInstance()
@@ -37,7 +37,7 @@ public sealed class RewindManager : MonoBehaviour
         return m_actionsList.Count == 0;
     }
 
-    public void AddAction(Action action)
+    public void AddAction(GameAction action)
     {
         m_actionsList.Push(action);
 #if !DEDICATED_SERVER
@@ -48,7 +48,7 @@ public sealed class RewindManager : MonoBehaviour
     public void RevertLastAction()
     {
         Assert.IsFalse(IsEmpty());
-        Action lastAction = m_actionsList.Pop();
+        GameAction lastAction = m_actionsList.Pop();
         GameModeManager.Instance.RevertAction(lastAction);
 #if !DEDICATED_SERVER
         if (IsEmpty()) UIManagerGame.Instance.UpdateUndoButtonState("Pressed");

@@ -1,4 +1,3 @@
-using Mono.CompilerServices.SymbolWriter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +59,7 @@ public class GameModeManagerRPG : GameModeManager
         }
     }
 
-    public override void ExecuteAction(Action action)
+    public override void ExecuteAction(GameAction action)
     {
         switch (action)
         {
@@ -89,7 +88,7 @@ public class GameModeManagerRPG : GameModeManager
         }
     }
 
-    public override void RevertAction(Action action)
+    public override void RevertAction(GameAction action)
     {
         switch (action)
         {

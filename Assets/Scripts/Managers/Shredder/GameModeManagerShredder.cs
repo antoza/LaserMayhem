@@ -1,9 +1,9 @@
-﻿using Mono.CompilerServices.SymbolWriter;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SocialPlatforms.Impl;
 
 #nullable enable
 
@@ -21,6 +21,7 @@ public class GameModeManagerShredder : GameModeManager
 
     private void Start()
     {
+        TinySauce.OnGameStarted(0);
         if (!PlayerPrefs.HasKey("bestScore"))
         {
             PlayerPrefs.SetInt("bestScore", 0);
@@ -85,7 +86,6 @@ public class GameModeManagerShredder : GameModeManager
             if (bomb.HP == 0)
             {
                 isGameOver = true;
-                bomb.Destroy();
             }
         }
         if (isGameOver) TriggerGameOver(1);
@@ -111,6 +111,7 @@ public class GameModeManagerShredder : GameModeManager
             bestScore = _score;
         }
         UIManagerGame.Instance.TriggerGameOverShredder(_score, bestScore);
+        TinySauce.OnGameFinished(_score);
     }
 
     public static void Shuffle<T>(IList<T> list)
@@ -284,7 +285,7 @@ public class GameModeManagerShredder : GameModeManager
         }
     }
 
-    public override void ExecuteAction(Action action)
+    public override void ExecuteAction(GameAction action)
     {
         switch (action)
         {
@@ -301,7 +302,7 @@ public class GameModeManagerShredder : GameModeManager
         LocalPlayerManager.Instance.ResetSourceTile();
     }
 
-    public override void RevertAction(Action action)
+    public override void RevertAction(GameAction action)
     {
         switch (action)
         {

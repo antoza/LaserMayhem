@@ -7,11 +7,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UIElements;
+using UnityEngine.Video;
 
 #nullable enable
 public class TNT : Receiver
 {
     public int HP;
+    [SerializeField]
+    private GameObject _explosionPrefab;
 
     public override void ReceiveLaser(Laser? laser, Vector2Int inDirection)
     {
@@ -32,8 +35,23 @@ public class TNT : Receiver
         {
             HP -= receivedIntensity;
             if (HP < 0) HP = 0;
-            // Animate
+            Explode();
         }
+    }
+    public void Explode()
+    {
+        // This.Color = black
+        StartCoroutine(ExplosionCoroutine());
+    }
+
+    protected IEnumerator ExplosionCoroutine()
+    {
+        GameObject explosion = Instantiate(_explosionPrefab, transform);
+
+        while (!explosion.GetComponent<VideoPlayer>().isPrepared)
+            yield return new WaitForEndOfFrame();
+        //yield return new WaitForSeconds(.05f);
+        explosion.transform.position = transform.position;
     }
 
     public void Destroy()

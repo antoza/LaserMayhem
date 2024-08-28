@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 #nullable enable
-public class ServerSendPiecesListAction : Action
+public class ServerSendPiecesListAction : GameAction
 {
     // TODO : Faire une version avec l'id dans la liste des pièces qui peuvent apparaître
     public List<PieceName> PiecesList;

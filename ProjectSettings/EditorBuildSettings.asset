@@ -65,9 +65,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GameModes/Challenges/Challenge16.unity
     guid: e6e05cc84ef65b94aad8355eadf9e3cc
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/VoodooPackages/TinySauce/Preload/Scene/TSPreloadScene.unity
+    guid: bd3e77c0fce3d499b809746835c3d75d
   - enabled: 1
     path: Assets/Scenes/MenuShredder.unity
     guid: 5faffbb05a56d8a4c843a54351a48c6d

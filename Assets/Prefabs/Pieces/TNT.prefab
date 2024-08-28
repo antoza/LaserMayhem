@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialTile: {fileID: 0}
   HP: 1
+  _explosionPrefab: {fileID: 2183122852220423498, guid: 9a3ff9a33cf67184ebb08663fc935f5e, type: 3}
